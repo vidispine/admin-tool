@@ -1,5 +1,6 @@
 {
   "name": "vidijs",
+  "homepage": "https://vidispine.github.io/admin-tool",
   "version": "4.2.0",
   "private": true,
   "dependencies": {
@@ -38,7 +39,9 @@
     "build-container": "export REACT_APP_GIT_COMMIT=$npm_package_version && react-scripts build && docker build -t \"${npm_package_name}:latest\" -t \"${npm_package_name}:${REACT_APP_GIT_COMMIT}\" .",
     "build-container-dev": "export REACT_APP_GIT_COMMIT=`git rev-parse --short HEAD` && react-scripts build && docker build -t \"${npm_package_name}:latest\" -t \"${npm_package_name}:${REACT_APP_GIT_COMMIT}\" .",
     "save-container": "export REACT_APP_GIT_COMMIT=$npm_package_version && docker image save -o vidijs_${REACT_APP_GIT_COMMIT}.tar.gz vidijs:$REACT_APP_GIT_COMMIT && echo \"Exported vidijs_${REACT_APP_GIT_COMMIT}.tar.gz\"",
-    "save-container-dev": "export REACT_APP_GIT_COMMIT=`git rev-parse --short HEAD` && docker image save -o vidijs_${REACT_APP_GIT_COMMIT}.tar.gz vidijs:$REACT_APP_GIT_COMMIT && echo \"Exported vidijs_${REACT_APP_GIT_COMMIT}.tar.gz\""
+    "save-container-dev": "export REACT_APP_GIT_COMMIT=`git rev-parse --short HEAD` && docker image save -o vidijs_${REACT_APP_GIT_COMMIT}.tar.gz vidijs:$REACT_APP_GIT_COMMIT && echo \"Exported vidijs_${REACT_APP_GIT_COMMIT}.tar.gz\"",
+    "predeploy": "GENERATE_SOURCEMAP=false PUBLIC_URL=${npm_package_homepage} yarn build && cp build/index.html build/404.html",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "eslint": "7.11.0",
@@ -47,6 +50,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.2.3",
     "http-proxy-middleware": "^1.1.0"
   },
   "browserslist": [
