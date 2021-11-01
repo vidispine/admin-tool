@@ -45,8 +45,6 @@ yarn run build-container
 ```
 ## Docker
 
-Build a docker imgae with Nginx webserver which serves the static content and proxies API request.
-
 ### Run
 
 * Start the container with the latest image.
