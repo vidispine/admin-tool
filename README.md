@@ -2,11 +2,7 @@
 
 The VidiCore Admin Tool showcases Vidispine API features within a simple user interface.  The application runs in a web browser and communicates directly with the API without the need for any middleware.  It works out of the box with any VidiCore API server without the need for any configuration except CORS if you run the application remotely.
 
-![Login](https://user-images.githubusercontent.com/2421149/48677167-8c6ed500-eb68-11e8-84d5-06539c54d6c9.gif)
-
 The application runs in a single webpage which means that a bundle of static files need to be downloaded once, then the browser will dynamically rendered pages based on the JSON data returned from the Vidispine API.  The bundle can be hosted by any webserver, including an S3 bucket.  This means updates to the application can be simply rolled out by updating the bundle and reloading the browser.
-
-![Shape](https://user-images.githubusercontent.com/2421149/48677181-a14b6880-eb68-11e8-89b4-0f086fa7632a.gif)
 
 The intention of the application is to demonstrate all API endpoints with a consistent user experience. This includes viewing lists or entities, forms that allow entry of any possible value within the schema, and actions to create/update/remove entities.
 
