@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env: 
+        DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+        run: |
+          docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag vidispine/admin-tool:$(date +%s)
+        
+- name: DockerHub Build And Push
+      run: docker push ${{secrets.DOCKERHUB_USER}}/admin-tool
