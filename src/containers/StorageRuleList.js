@@ -20,7 +20,7 @@ class StorageRuleList extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Storage Rule';
+    document.title = 'VidiCore Admin | Storage Rule';
   }
 
   onRefresh() {

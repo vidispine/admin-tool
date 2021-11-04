@@ -24,7 +24,7 @@ class Resource extends React.PureComponent {
 
   componentDidMount() {
     const { resourceType, resourceId } = this.props;
-    document.title = `xray | Resource | ${startCase(resourceType)} | ${resourceId}`;
+    document.title = `VidiCore Admin | Resource | ${startCase(resourceType)} | ${resourceId}`;
     this.onRefresh();
   }
 

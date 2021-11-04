@@ -21,7 +21,7 @@ class ProjectionList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Projection';
+    document.title = 'VidiCore Admin | Projection';
     this.onRefresh();
   }
 

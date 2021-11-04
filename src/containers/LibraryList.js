@@ -25,7 +25,7 @@ class LibraryList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Library';
+    document.title = 'VidiCore Admin | Library';
     this.onRefresh();
   }
 

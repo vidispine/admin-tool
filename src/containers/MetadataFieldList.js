@@ -20,7 +20,7 @@ class MetadataFieldList extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Metadata Field';
+    document.title = 'VidiCore Admin | Metadata Field';
   }
 
   onRefresh() {

@@ -22,7 +22,7 @@ class ImportSettingsList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Import Settings';
+    document.title = 'VidiCore Admin | Import Settings';
     this.onRefresh();
   }
 

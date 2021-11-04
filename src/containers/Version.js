@@ -18,7 +18,7 @@ class Version extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Version';
+    document.title = 'VidiCore Admin | Version';
     this.onRefresh();
   }
 

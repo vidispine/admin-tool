@@ -33,7 +33,7 @@ class ItemRelation extends React.PureComponent {
     const { itemId: prevItemId } = this.props;
     if (prevItemId !== itemId) {
       this.onRefresh(itemId);
-      document.title = `xray | Item | ${itemId}`;
+      document.title = `VidiCore Admin | Item | ${itemId}`;
     }
   }
 

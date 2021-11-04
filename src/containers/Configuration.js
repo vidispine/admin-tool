@@ -16,7 +16,7 @@ class Configuration extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Configuration';
+    document.title = 'VidiCore Admin | Configuration';
     this.onRefresh();
   }
 

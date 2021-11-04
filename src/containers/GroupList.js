@@ -25,7 +25,7 @@ class GroupList extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Group';
+    document.title = 'VidiCore Admin | Group';
   }
 
   onRefresh() {

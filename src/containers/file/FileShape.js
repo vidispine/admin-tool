@@ -18,14 +18,14 @@ class FileOverview extends React.PureComponent {
   componentDidMount() {
     this.onRefresh();
     const { fileId } = this.props;
-    document.title = `xray | File | ${fileId}`;
+    document.title = `VidiCore Admin | File | ${fileId}`;
   }
 
   UNSAFE_componentWillReceiveProps({ fileId }) {
     const { fileId: prevFileId } = this.props;
     if (prevFileId !== fileId) {
       this.onFetch(fileId);
-      document.title = `xray | File | ${fileId}`;
+      document.title = `VidiCore Admin | File | ${fileId}`;
     }
   }
 

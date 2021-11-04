@@ -61,7 +61,7 @@ class File extends React.PureComponent {
 
   componentDidMount() {
     const { fileId } = this.props;
-    document.title = `xray | File | ${fileId}`;
+    document.title = `VidiCore Admin | File | ${fileId}`;
     this.onRefresh();
   }
 

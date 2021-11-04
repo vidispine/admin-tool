@@ -18,7 +18,7 @@ class Indexing extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Configuration | Indexing';
+    document.title = 'VidiCore Admin | Configuration | Indexing';
   }
 
   onRefresh() {

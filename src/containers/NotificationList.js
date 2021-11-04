@@ -23,14 +23,14 @@ class NotificationList extends React.PureComponent {
 
   componentDidMount() {
     const { entityType } = this.props;
-    document.title = `xray | ${capitalizeString(entityType)} Notification`;
+    document.title = `VidiCore Admin | ${capitalizeString(entityType)} Notification`;
     this.onRefresh();
   }
 
   UNSAFE_componentWillReceiveProps({ entityType }) {
     const { entityType: prevEntityType } = this.props;
     if (prevEntityType !== entityType) {
-      document.title = `xray | ${capitalizeString(entityType)} Notification`;
+      document.title = `VidiCore Admin | ${capitalizeString(entityType)} Notification`;
       this.onFetch(entityType);
     }
   }

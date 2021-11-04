@@ -11,7 +11,7 @@ export default class Javascript extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Javascript Test';
+    document.title = 'VidiCore Admin | Javascript Test';
   }
 
   render() {

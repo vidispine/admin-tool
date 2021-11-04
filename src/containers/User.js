@@ -32,14 +32,14 @@ class User extends React.PureComponent {
   componentDidMount() {
     this.onRefresh();
     const { userName } = this.props;
-    document.title = `xray | User | ${userName}`;
+    document.title = `VidiCore Admin | User | ${userName}`;
   }
 
   UNSAFE_componentWillReceiveProps({ userName }) {
     const { userName: prevUserName } = this.props;
     if (prevUserName !== userName) {
       this.onFetch(userName);
-      document.title = `xray | User | ${userName}`;
+      document.title = `VidiCore Admin | User | ${userName}`;
     }
   }
 

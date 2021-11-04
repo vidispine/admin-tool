@@ -24,14 +24,14 @@ class UserKey extends React.PureComponent {
   componentDidMount() {
     this.onRefresh();
     const { userName } = this.props;
-    document.title = `xray | User | ${userName} | Keys`;
+    document.title = `VidiCore Admin | User | ${userName} | Keys`;
   }
 
   UNSAFE_componentWillReceiveProps({ userName }) {
     const { userName: prevUserName } = this.props;
     if (prevUserName !== userName) {
       this.onFetch(userName);
-      document.title = `xray | User | ${userName} | Keys`;
+      document.title = `VidiCore Admin | User | ${userName} | Keys`;
     }
   }
 

@@ -21,7 +21,7 @@ class ExternalIdNamespace extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | External ID Namespace';
+    document.title = 'VidiCore Admin | External ID Namespace';
   }
 
   onRefresh() {

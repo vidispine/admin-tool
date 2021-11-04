@@ -23,7 +23,7 @@ class ExternalId extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | External ID';
+    document.title = 'VidiCore Admin | External ID';
   }
 
   onRefresh() {

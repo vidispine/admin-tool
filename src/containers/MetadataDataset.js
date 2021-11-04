@@ -20,7 +20,7 @@ class MetadataDataset extends React.PureComponent {
 
   componentDidMount() {
     const { datasetId } = this.props;
-    document.title = `xray | Metadata Dataset | ${datasetId}`;
+    document.title = `VidiCore Admin | Metadata Dataset | ${datasetId}`;
     this.onRefresh();
   }
 

@@ -20,7 +20,7 @@ class FieldGroupList extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Field Group';
+    document.title = 'VidiCore Admin | Field Group';
   }
 
   onRefresh() {

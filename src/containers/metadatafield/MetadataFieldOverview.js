@@ -18,7 +18,7 @@ class MetadataFieldOverview extends React.PureComponent {
 
   componentDidMount() {
     const { fieldName } = this.props;
-    document.title = `xray | Metadata Field | ${fieldName}`;
+    document.title = `VidiCore Admin | Metadata Field | ${fieldName}`;
     this.onRefresh();
   }
 

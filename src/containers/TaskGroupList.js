@@ -22,7 +22,7 @@ class TaskGroupList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Task Group';
+    document.title = 'VidiCore Admin | Task Group';
     this.onRefresh();
   }
 

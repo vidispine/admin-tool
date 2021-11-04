@@ -33,7 +33,7 @@ class JobList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Job';
+    document.title = 'VidiCore Admin | Job';
     this.onRefresh();
   }
 

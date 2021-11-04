@@ -28,7 +28,7 @@ class ImportSettings extends React.PureComponent {
 
   componentDidMount() {
     const { userName } = this.props;
-    document.title = `xray | User | ${userName} | Import Access`;
+    document.title = `VidiCore Admin | User | ${userName} | Import Access`;
     this.onRefresh();
   }
 

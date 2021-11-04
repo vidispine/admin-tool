@@ -4,7 +4,7 @@ import ImportShapeWizard, { EDIT_IMPORTSHAPE_FORM } from '../../components/impor
 
 class ImportShape extends React.PureComponent {
   componentDidMount() {
-    document.title = 'xray | Import | Shape';
+    document.title = 'VidiCore Admin | Import | Shape';
   }
 
   componentWillUnmount() {

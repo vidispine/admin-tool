@@ -56,7 +56,7 @@ const listComponent = ({ onChangeTab, tabValue }) => (
 class Library extends React.PureComponent {
   componentDidMount() {
     const { libraryId } = this.props;
-    document.title = `xray | Library | ${libraryId}`;
+    document.title = `VidiCore Admin | Library | ${libraryId}`;
   }
 
   render() {

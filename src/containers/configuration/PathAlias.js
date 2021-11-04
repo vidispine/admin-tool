@@ -15,7 +15,7 @@ class PathAlias extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Path Alias';
+    document.title = 'VidiCore Admin | Path Alias';
     this.onRefresh();
   }
 

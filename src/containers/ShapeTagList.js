@@ -22,7 +22,7 @@ class ShapeTagList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Shape Tag';
+    document.title = 'VidiCore Admin | Shape Tag';
     this.onRefresh();
   }
 

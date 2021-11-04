@@ -18,7 +18,7 @@ class Transfer extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Transfers';
+    document.title = 'VidiCore Admin | Transfers';
     this.onRefresh();
   }
 

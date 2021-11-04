@@ -16,7 +16,7 @@ class ErrorLog extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Error Log';
+    document.title = 'VidiCore Admin | Error Log';
     this.onRefresh();
   }
 

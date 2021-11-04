@@ -5,7 +5,7 @@ import withFormActions from '../../hoc/withFormActions';
 
 class ImportShapeEssence extends React.PureComponent {
   componentDidMount() {
-    document.title = 'xray | Import | Essence';
+    document.title = 'VidiCore Admin | Import | Essence';
   }
 
   componentWillUnmount() {

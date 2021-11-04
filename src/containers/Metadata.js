@@ -22,7 +22,7 @@ class Metadata extends React.PureComponent {
 
   componentDidMount() {
     const { metadataUuid } = this.props;
-    document.title = `xray | Metadata | ${metadataUuid}`;
+    document.title = `VidiCore Admin | Metadata | ${metadataUuid}`;
     this.onRefresh();
   }
 
@@ -30,7 +30,7 @@ class Metadata extends React.PureComponent {
     const { metadataUuid: prevMetadataUuid } = this.props;
     if (prevMetadataUuid !== metadataUuid) {
       this.onFetch(metadataUuid);
-      document.title = `xray | Metadata | ${metadataUuid}`;
+      document.title = `VidiCore Admin | Metadata | ${metadataUuid}`;
     }
   }
 

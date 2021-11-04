@@ -41,7 +41,7 @@ class Login extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray';
+    document.title = 'VidiCore Admin';
     const { baseUrl } = this.props;
     if (baseUrl) {
       this.onRefresh();
@@ -161,7 +161,7 @@ class Login extends React.PureComponent {
                       rel="noopener noreferrer"
                       style={{ marginRight: 5 }}
                     >
-                      xray
+                      VidiCore Admin
                     </Link>
                     <Typography
                       variant="body2"

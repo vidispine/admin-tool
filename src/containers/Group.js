@@ -27,14 +27,14 @@ class Group extends React.PureComponent {
   componentDidMount() {
     this.onRefresh();
     const { groupName } = this.props;
-    document.title = `xray | Group | ${groupName}`;
+    document.title = `VidiCore Admin | Group | ${groupName}`;
   }
 
   UNSAFE_componentWillReceiveProps({ groupName }) {
     const { groupName: prevGroupName } = this.props;
     if (prevGroupName !== groupName) {
       this.onFetch(groupName);
-      document.title = `xray | Group | ${groupName}`;
+      document.title = `VidiCore Admin | Group | ${groupName}`;
     }
   }
 
