@@ -7,11 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: '14'
-    - name: Cache node_modules
+      - name: Cache node_modules
         id: cache-modules
         uses: actions/cache@v2
         with:
@@ -19,18 +19,18 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-    - name: Docker login
-      env: 
-        DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+      - name: Docker login
+        env: 
+          DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
         run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
-    - name: Install app dependencies
+      - name: Install app dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install
-    - name: Build app
-       run: yarn build
-    - name: Build the Docker image
-       run: yarn docker:build
-    - name: Push the Docker image
-       run: yarn docker:push
+      - name: Build app
+        run: yarn build
+      - name: Build the Docker image
+        run: yarn docker:build
+      - name: Push the Docker image
+        run: yarn docker:push
 
