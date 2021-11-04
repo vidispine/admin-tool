@@ -154,7 +154,7 @@ class Login extends React.PureComponent {
                 <Toolbar variant="dense">
                   <Grid container justify="flex-end" alignItems="center">
                     <Link
-                      href="https://github.com/vidijs/vidijs-ui"
+                      href="https://github.com/vidispine/admin-tool"
                       variant="body2"
                       color="inherit"
                       target="_blank"
@@ -171,7 +171,7 @@ class Login extends React.PureComponent {
                     </Typography>
                     <IconButton
                       color="inherit"
-                      href="https://github.com/vidijs"
+                      href="https://github.com/vidispine/admin-tool"
                       target="_blank"
                       rel="noopener noreferrer"
                       disableRipple

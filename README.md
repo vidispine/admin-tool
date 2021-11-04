@@ -50,14 +50,14 @@ yarn run build-container
 * Start the container with the latest image.
 ```
 docker run \
-  --name vidijs \
+  --name vidispine-admin-tool \
   --detach \
   --tty \
   --interactive \
   --rm \
   -e VIDISPINE_URL='http://my-vidispine-server:8080' \
   -p 80:80 \
-  'vidijs/vidijs:latest'
+  'vidispine/admin-tool:latest'
 ```
 
 #### Run Environment Variables
