@@ -1,7 +1,7 @@
 {
   "name": "@vidispine/admin-tool",
   "homepage": "https://vidispine.github.io/admin-tool",
-  "version": "4.2.0",
+  "version": "5.0.0-pre.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
