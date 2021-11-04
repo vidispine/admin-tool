@@ -8,6 +8,7 @@ import {
   AUTH_RUNAS,
   AUTH_VIDISPINE_SERVER_URL,
 } from '../const/Auth';
+import { getBasename, getBaseUrlFromPath } from '../const';
 
 class Auth extends React.Component {
   constructor(props) {
@@ -20,12 +21,18 @@ class Auth extends React.Component {
     this.unsetRunAs = this.unsetRunAs.bind(this);
     this.setBaseUrl = this.setBaseUrl.bind(this);
     this.unsetBaseUrl = this.unsetBaseUrl.bind(this);
-    if (process.env.NODE_ENV === 'development' || window.VIDISPINE_URL !== '$VIDISPINE_URL') this.windowBaseUrl = window.location.origin;
+    if (window.VIDISPINE_URL !== '$VIDISPINE_URL') this.windowBaseUrl = window.location.origin;
     const { cookies } = this.props;
-    const token = cookies.get(AUTH_TOKEN, { path: '/' });
-    const userName = cookies.get(AUTH_USERNAME, { path: '/' }); // This will return the string as "undefined"
-    const runAs = cookies.get(AUTH_RUNAS, { path: '/' });
-    const baseUrl = cookies.get(AUTH_VIDISPINE_SERVER_URL, { path: '/' });
+    this.basename = getBasename();
+    let baseUrl = cookies.get(AUTH_VIDISPINE_SERVER_URL, { path: this.basename });
+    const baseUrlFromPath = getBaseUrlFromPath();
+    if (baseUrlFromPath && !this.windowBaseUrl) {
+      baseUrl = decodeURIComponent(baseUrlFromPath);
+      this.windowBaseUrl = decodeURIComponent(baseUrlFromPath);
+    }
+    const token = cookies.get(AUTH_TOKEN, { path: this.basename });
+    const userName = cookies.get(AUTH_USERNAME, { path: this.basename });
+    const runAs = cookies.get(AUTH_RUNAS, { path: this.basename });
     if (baseUrl && baseUrl !== 'undefined') {
       api.defaultClient.defaults.baseURL = baseUrl;
     }
@@ -45,20 +52,20 @@ class Auth extends React.Component {
 
   setUserName(userName) {
     const { cookies } = this.props;
-    cookies.set(AUTH_USERNAME, userName, { path: '/' });
+    cookies.set(AUTH_USERNAME, userName, { path: this.basename });
     this.setState({ userName });
   }
 
   setToken(token) {
     const { cookies } = this.props;
-    cookies.set(AUTH_TOKEN, token, { path: '/' });
+    cookies.set(AUTH_TOKEN, token, { path: this.basename });
     api.defaultClient.defaults.headers.Authorization = `token ${token}`;
     this.setState({ token });
   }
 
   setRunAs(runAs) {
     const { cookies } = this.props;
-    cookies.set(AUTH_RUNAS, runAs, { path: '/' });
+    cookies.set(AUTH_RUNAS, runAs, { path: this.basename });
     api.defaultClient.defaults.headers.RunAs = runAs;
     this.setState({ runAs });
   }
@@ -66,35 +73,35 @@ class Auth extends React.Component {
   setBaseUrl(baseUrl) {
     const { cookies } = this.props;
     localStorage.setItem('vsBaseUrl', baseUrl);
-    cookies.set(AUTH_VIDISPINE_SERVER_URL, baseUrl, { path: '/' });
+    cookies.set(AUTH_VIDISPINE_SERVER_URL, baseUrl, { path: this.basename });
     api.defaultClient.defaults.baseURL = baseUrl;
     this.setState({ baseUrl });
   }
 
   unsetUserName() {
     const { cookies } = this.props;
-    cookies.remove(AUTH_USERNAME, { path: '/' });
+    cookies.remove(AUTH_USERNAME, { path: this.basename });
     this.setState({ userName: undefined });
     this.unsetToken();
   }
 
   unsetToken() {
     const { cookies } = this.props;
-    cookies.remove(AUTH_TOKEN, { path: '/' });
+    cookies.remove(AUTH_TOKEN, { path: this.basename });
     delete api.defaultClient.defaults.headers.Authorization;
     this.setState({ token: undefined });
   }
 
   unsetRunAs() {
     const { cookies } = this.props;
-    cookies.remove(AUTH_RUNAS, { path: '/' });
+    cookies.remove(AUTH_RUNAS, { path: this.basename });
     delete api.defaultClient.defaults.headers.RunAs;
     this.setState({ runAs: undefined });
   }
 
   unsetBaseUrl() {
     const { cookies } = this.props;
-    cookies.remove(AUTH_VIDISPINE_SERVER_URL, { path: '/' });
+    cookies.remove(AUTH_VIDISPINE_SERVER_URL, { path: this.basename });
     delete api.defaultClient.defaults.baseURL;
     this.setState({ baseUrl: undefined });
   }
