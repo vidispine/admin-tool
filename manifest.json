@@ -1,6 +1,6 @@
 {
-  "short_name": "VidiJS",
-  "name": "VidiJS",
+  "short_name": "VidiCore Admin Tool",
+  "name": "VidiCore Admin Tool",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
