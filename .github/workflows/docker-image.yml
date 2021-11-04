@@ -1,26 +1,36 @@
-name: Docker Image CI
+name: Build And Publish Docker Image
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: docker login
+    - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+    - name: Cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+    - name: Docker login
       env: 
         DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-        run: |
-          docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+        run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+    - name: Install app dependencies
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn install
+    - name: Build app
+       run: yarn build
     - name: Build the Docker image
-       run: docker build . --file Dockerfile --tag nilstest1:$(date +%s)
-- name: DockerHub Build And Push
-       run: docker push ${{secrets.DOCKERHUB_USER}}/admin-tool
+       run: yarn docker:build
+    - name: Push the Docker image
+       run: yarn docker:push
+
