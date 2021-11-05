@@ -21,13 +21,18 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Docker login
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+        shell: bash
       - name: Install app dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install
+        shell: bash
       - name: Build app
         run: yarn build
+        shell: bash
       - name: Build the Docker image
         run: yarn docker:build
+        shell: bash
       - name: Push the Docker image
         run: yarn docker:push
+        shell: bash
 
