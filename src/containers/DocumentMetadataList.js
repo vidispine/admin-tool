@@ -26,7 +26,7 @@ class DocumentMetadataList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Document';
+    document.title = 'VidiCore Admin | Document';
     this.onRefresh();
   }
 

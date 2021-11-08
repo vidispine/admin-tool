@@ -12,7 +12,7 @@ export default class Stitch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Stitch';
+    document.title = 'VidiCore Admin | Stitch';
   }
 
   render() {

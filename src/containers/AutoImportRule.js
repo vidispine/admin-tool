@@ -19,7 +19,7 @@ class AutoImportRule extends React.PureComponent {
 
   componentDidMount() {
     const { storageId } = this.props;
-    document.title = `xray | Auto Import Rule | ${storageId}`;
+    document.title = `VidiCore Admin | Auto Import Rule | ${storageId}`;
     this.onRefresh();
   }
 

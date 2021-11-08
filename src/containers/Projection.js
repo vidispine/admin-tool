@@ -25,7 +25,7 @@ class Projection extends React.PureComponent {
 
   componentDidMount() {
     const { projectionId } = this.props;
-    document.title = `xray | Projection | ${projectionId}`;
+    document.title = `VidiCore Admin | Projection | ${projectionId}`;
     this.onRefresh();
   }
 

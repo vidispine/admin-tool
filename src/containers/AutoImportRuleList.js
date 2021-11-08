@@ -18,7 +18,7 @@ class AutoImportRuleList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Auto Import';
+    document.title = 'VidiCore Admin | Auto Import';
     this.onRefresh();
   }
 

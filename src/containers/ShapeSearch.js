@@ -48,7 +48,7 @@ class ShapeSearch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Shape';
+    document.title = 'VidiCore Admin | Shape';
     this.onRefresh();
   }
 

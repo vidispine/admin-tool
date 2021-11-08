@@ -20,7 +20,7 @@ class MetadataDatasetList extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Metadata Dataset';
+    document.title = 'VidiCore Admin | Metadata Dataset';
   }
 
   onRefresh() {

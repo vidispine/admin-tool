@@ -54,7 +54,7 @@ class ItemSearch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Item';
+    document.title = 'VidiCore Admin | Item';
     setTimeout(this.onRefresh, 10); // wait for form to initialize
   }
 

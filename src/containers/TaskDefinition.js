@@ -23,7 +23,7 @@ class TaskDefinition extends React.PureComponent {
   componentDidMount() {
     const { taskDefinitionType } = this.props;
     this.onRefresh();
-    document.title = `xray | Task Definition | ${taskDefinitionType}`;
+    document.title = `VidiCore Admin | Task Definition | ${taskDefinitionType}`;
   }
 
   onRefresh() {

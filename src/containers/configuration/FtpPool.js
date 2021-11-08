@@ -21,7 +21,7 @@ class FtpPool extends React.PureComponent {
 
   componentDidMount() {
     this.onRefresh();
-    document.title = 'xray | Configuration | FTP Pool';
+    document.title = 'VidiCore Admin | Configuration | FTP Pool';
   }
 
   onRefresh() {

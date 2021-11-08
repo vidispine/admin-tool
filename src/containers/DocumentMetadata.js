@@ -21,7 +21,7 @@ class DocumentMetadata extends React.PureComponent {
 
   componentDidMount() {
     const { documentMetadataName } = this.props;
-    document.title = `xray | Document | ${documentMetadataName}`;
+    document.title = `VidiCore Admin | Document | ${documentMetadataName}`;
     this.onRefresh();
   }
 

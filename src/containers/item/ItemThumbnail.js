@@ -1,5 +1,6 @@
 import React from 'react';
-import { item as api } from '@vidispine/vdt-api';
+import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
+
 import ItemThumbnailGrid from '../../components/item/ItemThumbnailGrid';
 
 import withSnackbar from '../../hoc/withSnackbar';
@@ -23,7 +24,7 @@ class ItemThumbnail extends React.PureComponent {
     const { itemId: prevItemId } = this.props;
     if (prevItemId !== itemId) {
       this.onFetch(itemId);
-      document.title = `xray | Item | ${itemId}`;
+      document.title = `VidiCore Admin | Item | ${itemId}`;
     }
   }
 
@@ -33,14 +34,14 @@ class ItemThumbnail extends React.PureComponent {
   }
 
   onFetch(itemId) {
-    const baseUrl = localStorage.getItem('vsBaseUrl') || '';
+    const baseUrl = api.defaultClient.defaults.baseURL || '';
     const queryParams = {
       content: 'thumbnail',
       'noauth-url': true,
       baseURI: `${baseUrl}/APInoauth/`,
     };
     try {
-      api.getItem({ itemId, queryParams })
+      ItemApi.getItem({ itemId, queryParams })
         .then((response) => this.setState({ itemDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {

@@ -41,7 +41,7 @@ class Login extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray';
+    document.title = 'VidiCore Admin';
     const { baseUrl } = this.props;
     if (baseUrl) {
       this.onRefresh();
@@ -87,7 +87,17 @@ class Login extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess({ data: token, userName: newUserName, runAs }) {
+  onSuccess({
+    data: token, userName: newUserName, runAs, baseUrl,
+  }) {
+    if (baseUrl) {
+      const encodedBaseUrl = encodeURIComponent(baseUrl);
+      const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
+      if (!pathname.includes(encodedBaseUrl)) {
+        const newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+        window.history.pushState({}, '', newPath);
+      }
+    }
     const {
       setUserName,
       setToken,
@@ -154,14 +164,14 @@ class Login extends React.PureComponent {
                 <Toolbar variant="dense">
                   <Grid container justify="flex-end" alignItems="center">
                     <Link
-                      href="https://github.com/vidijs/vidijs-ui"
+                      href="https://github.com/vidispine/admin-tool"
                       variant="body2"
                       color="inherit"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ marginRight: 5 }}
                     >
-                      xray
+                      VidiCore Admin
                     </Link>
                     <Typography
                       variant="body2"
@@ -171,7 +181,7 @@ class Login extends React.PureComponent {
                     </Typography>
                     <IconButton
                       color="inherit"
-                      href="https://github.com/vidijs"
+                      href="https://github.com/vidispine/admin-tool"
                       target="_blank"
                       rel="noopener noreferrer"
                       disableRipple

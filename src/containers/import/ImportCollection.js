@@ -5,7 +5,7 @@ import withFormActions from '../../hoc/withFormActions';
 
 class ImportCollection extends React.PureComponent {
   componentDidMount() {
-    document.title = 'xray | Import | Collection';
+    document.title = 'VidiCore Admin | Import | Collection';
   }
 
   componentWillUnmount() {

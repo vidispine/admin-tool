@@ -48,7 +48,7 @@ class Search extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Search';
+    document.title = 'VidiCore Admin | Search';
     this.onRefresh();
   }
 

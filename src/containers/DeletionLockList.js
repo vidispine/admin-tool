@@ -27,7 +27,7 @@ class DeletionLockList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Deletion Lock';
+    document.title = 'VidiCore Admin | Deletion Lock';
     this.onRefresh();
   }
 

@@ -20,7 +20,7 @@ class ResourceTypeList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Resource';
+    document.title = 'VidiCore Admin | Resource';
     this.onRefresh();
   }
 

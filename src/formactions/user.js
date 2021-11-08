@@ -79,7 +79,7 @@ function onWhoAmI(form, dispatch, props) {
 }
 
 export function onGetUserToken(form, dispatch, props) {
-  const { headers = {}, queryParams } = form;
+  const { headers = {}, queryParams, baseUrl } = form;
   const { status } = props;
   const { runAs, token, ...headerProps } = headers;
   if (token) {
@@ -91,7 +91,9 @@ export function onGetUserToken(form, dispatch, props) {
     queryParams,
     headers: headerProps,
   })
-    .then((response) => ({ ...response, userName, runAs }))
+    .then((response) => ({
+      ...response, userName, runAs, baseUrl,
+    }))
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

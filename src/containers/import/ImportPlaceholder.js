@@ -4,7 +4,7 @@ import ImportPlaceholderWizard, { EDIT_IMPORTPLACEHOLDER_FORM } from '../../comp
 
 class ImportPlaceholder extends React.PureComponent {
   componentDidMount() {
-    document.title = 'xray | Import | Placeholder';
+    document.title = 'VidiCore Admin | Import | Placeholder';
   }
 
   componentWillUnmount() {

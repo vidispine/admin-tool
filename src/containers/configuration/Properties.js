@@ -19,7 +19,7 @@ class Properties extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Configuration Properties';
+    document.title = 'VidiCore Admin | Configuration Properties';
     this.onRefresh();
   }
 

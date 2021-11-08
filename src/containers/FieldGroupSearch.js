@@ -48,7 +48,7 @@ class FieldGroupSearch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Field Group';
+    document.title = 'VidiCore Admin | Field Group';
     this.onRefresh();
   }
 

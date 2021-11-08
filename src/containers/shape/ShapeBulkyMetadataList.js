@@ -23,7 +23,7 @@ class ShapeBulkyMetadataList extends React.PureComponent {
     const { shapeId: prevItemId } = this.props;
     if (prevItemId !== shapeId) {
       this.onFetch(itemId, shapeId);
-      document.title = `xray | Shape | ${shapeId}`;
+      document.title = `VidiCore Admin | Shape | ${shapeId}`;
     }
   }
 

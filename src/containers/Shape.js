@@ -90,7 +90,7 @@ class Shape extends React.PureComponent {
 
   componentDidMount() {
     const { shapeId } = this.props;
-    document.title = `xray | Shape | ${shapeId}`;
+    document.title = `VidiCore Admin | Shape | ${shapeId}`;
   }
 
   onRefresh() {

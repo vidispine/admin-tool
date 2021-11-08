@@ -22,7 +22,7 @@ class StorageGroupList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Storage Group';
+    document.title = 'VidiCore Admin | Storage Group';
     this.onRefresh();
   }
 

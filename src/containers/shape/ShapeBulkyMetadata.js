@@ -25,7 +25,7 @@ class ShapeBulkyMetadata extends React.PureComponent {
     const { shapeId: prevItemId, bulkyMetadataKey: prevKey } = this.props;
     if (prevItemId !== shapeId || prevKey !== bulkyMetadataKey) {
       this.onFetch(itemId, shapeId, bulkyMetadataKey);
-      document.title = `xray | Shape | ${shapeId}`;
+      document.title = `VidiCore Admin | Shape | ${shapeId}`;
     }
   }
 

@@ -50,7 +50,7 @@ class CollectionSearch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Collection';
+    document.title = 'VidiCore Admin | Collection';
     this.onRefresh();
   }
 

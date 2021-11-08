@@ -13,7 +13,7 @@ class Echo extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | XML Echo';
+    document.title = 'VidiCore Admin | XML Echo';
   }
 
   onSubmit(form) {

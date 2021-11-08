@@ -24,7 +24,7 @@ class ItemMetadata extends React.PureComponent {
     const { itemId: prevItemId } = this.props;
     if (prevItemId !== itemId) {
       this.onFetch(itemId);
-      document.title = `xray | Item | ${itemId}`;
+      document.title = `VidiCore Admin | Item | ${itemId}`;
     }
   }
 

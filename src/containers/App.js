@@ -1,20 +1,15 @@
 import React from 'react';
-
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import Main from './Main';
+import { getBasename } from '../const';
 
 export default function App(props) {
+  const { baseUrl } = props;
+  const basename = getBasename(baseUrl);
   return (
-    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-      <Route
-        path="/"
-        render={() => (
-          <Main
-            {...props}
-          />
-        )}
-      />
-    </BrowserRouter>
+    <Router basename={basename}>
+      <Main {...props} />
+    </Router>
   );
 }

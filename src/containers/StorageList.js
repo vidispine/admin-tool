@@ -22,7 +22,7 @@ class StorageList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'xray | Storage';
+    document.title = 'VidiCore Admin | Storage';
     this.onRefresh();
   }
 
