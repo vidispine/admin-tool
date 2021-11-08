@@ -45,7 +45,7 @@ yarn run build-container
 ```
 ## Docker
 
-Docker Containers can be downloaded from Dockerhub [https://hub.docker.com/repository/docker/vidispine/admin-tool]
+Docker Containers can be downloaded from Dockerhub https://hub.docker.com/repository/docker/vidispine/admin-tool
 
 ### Run
 
