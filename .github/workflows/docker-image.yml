@@ -28,9 +28,6 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install
         shell: bash
-      - name: Build app
-        run: yarn build
-        shell: bash
       - name: Build the Docker image
         run: yarn docker:build
         shell: bash
