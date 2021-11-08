@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { utils as api } from '@vidispine/vdt-api';
 
 import TitleHeader from '../ui/TitleHeader';
 import Menu, { MenuItem } from '../ui/Menu';
@@ -55,7 +56,7 @@ function ShapeTitle({
   addComponentModal,
   ...props
 }) {
-  const baseUrl = localStorage.getItem('vsBaseUrl') || '';
+  const baseUrl = api.defaultClient.defaults.baseURL || '';
   const itemParams = new URLSearchParams({
     content: 'metadata,thumbnail',
     baseURI: `${baseUrl}/APInoauth/`,

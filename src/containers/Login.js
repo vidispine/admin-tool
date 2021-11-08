@@ -87,7 +87,17 @@ class Login extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess({ data: token, userName: newUserName, runAs }) {
+  onSuccess({
+    data: token, userName: newUserName, runAs, baseUrl,
+  }) {
+    if (baseUrl) {
+      const encodedBaseUrl = encodeURIComponent(baseUrl);
+      const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
+      if (!pathname.includes(encodedBaseUrl)) {
+        const newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+        window.history.pushState({}, '', newPath);
+      }
+    }
     const {
       setUserName,
       setToken,

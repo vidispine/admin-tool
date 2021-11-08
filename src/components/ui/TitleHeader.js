@@ -14,6 +14,7 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { utils as api } from '@vidispine/vdt-api';
 
 import ExternalIdLink from '../externalid/ExternalIdLink';
 import withUI from '../../hoc/withUI';
@@ -45,7 +46,7 @@ function TitleHeader({
   addAccessControl,
   style = {},
 }) {
-  const baseUrl = localStorage.getItem('vsBaseUrl') || '';
+  const baseUrl = api.defaultClient.defaults.baseURL || '';
   const breadcrumb = (
     <Grid
       container

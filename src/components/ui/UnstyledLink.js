@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function UnstyledLink(props) {
-  const style = {
-    textDecoration: 'none',
-    color: 'inherit',
-  };
-  return (
-    <Link style={style} {...props} onClick={(e) => e.stopPropagation()} />
-  );
-}
+const style = {
+  textDecoration: 'none',
+  color: 'inherit',
+};
+
+const UnstyledLink = React.forwardRef((props, ref) => (
+  <Link ref={ref} style={style} {...props} onClick={(e) => e.stopPropagation()} />
+));
+
+export default UnstyledLink;
