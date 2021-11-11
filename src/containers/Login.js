@@ -20,6 +20,8 @@ import InitDialog from '../components/login/InitDialog';
 import LoginHelpDialog from '../components/login/LoginHelpDialog';
 import GitHubIcon from '../components/ui/GitHubIcon';
 
+import { APP_LOGO } from '../const/logos';
+
 const INIT_DIALOG = 'INIT_DIALOG';
 const HELP_DIALOG = 'HELP_DIALOG';
 
@@ -210,7 +212,18 @@ class Login extends React.PureComponent {
             direction="column"
             alignItems="center"
             justify="center"
-          />
+          >
+            <div
+              style={{
+                width: '25vw',
+                minWidth: '100px',
+                backgroundColor: '#fff',
+              }}
+            >
+              <img src={APP_LOGO} alt="VidiCore Admin Tool" />
+            </div>
+
+          </Grid>
         </Grid>
         <InitDialog
           dialogName={INIT_DIALOG}

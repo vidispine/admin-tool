@@ -4,15 +4,24 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import getCookie from '../../utils/getCookie';
 
+import '@fontsource/open-sans';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/open-sans/800.css';
+
 export const DispatchContext = React.createContext(() => {
   throw new Error('Forgot to wrap component in `ThemeProvider`');
 });
 
+const vsPurple = '#7c74bd';
+const vsBlue = '#0068a9';
+const vsTeal = '#44a8aa';
+const vsTealLight = '#6DC3C5';
+const red = '#df5f5f';
+
 export const fontFamily = [
-  '-apple-system',
-  'BlinkMacSystemFont',
-  '"Segoe UI"',
-  '"Helvetica Neue"',
+  '"Open Sans"',
   'Helvetica',
   'Arial',
   'sans-serif',
@@ -85,6 +94,19 @@ export default function ThemeProvider({ children }) {
       },
       palette: {
         type: paletteType,
+        primary: {
+          main: vsBlue,
+        },
+        secondary: {
+          main: vsPurple,
+        },
+        success: {
+          light: vsTealLight,
+          main: vsTeal,
+        },
+        error: {
+          main: red,
+        },
         background: {
           default: { light: 'rgb(246, 248, 250)', dark: 'rgb(9, 12, 16)' }[paletteType],
           paper: { light: 'rgb(255, 255, 255)', dark: 'rgb(13, 17, 23)' }[paletteType],
