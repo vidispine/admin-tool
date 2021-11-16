@@ -35,8 +35,16 @@
     "classnames": "2.3.1",
     "lodash.debounce": "4.0.8",
     "lodash.isequal": "4.5.0",
+    "lodash.template": "4.5.0",
     "create-react-class": "15.7.0",
-    "eslint": "7.11.0"
+    "eslint": "7.11.0",
+    "lodash": "4.17.21",
+    "set-value": "3.0.1",
+    "mixin-deep": "2.0.1",
+    "immer": "9.0.6",
+    "axios": "0.21.4",
+    "tar": "6.1.9",
+    "url-parse": "1.5.2"
   },
   "scripts": {
     "start": "REACT_APP_VIDISPINE_URL=${VIDISPINE_URL} REACT_APP_GIT_COMMIT=${npm_package_version} react-scripts start",
