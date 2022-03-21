@@ -1,7 +1,6 @@
 {
   "name": "@vidispine/admin-tool",
-  "homepage": "https://vidispine.github.io/admin-tool",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "private": true,
   "dependencies": {
     "@fontsource/open-sans": "4.5.2",
@@ -71,9 +70,7 @@
     "docker:build": "docker build -t \"${npm_package_name:1}:latest\" -t \"${npm_package_name:1}:${npm_package_version}\" .",
     "docker:push": "docker push \"${npm_package_name:1}:${npm_package_version}\" && docker push \"${npm_package_name:1}:latest\"",
     "docker:run": "docker run --name \"${npm_package_name/@vidispine\\//vidispine_}\" --rm -dti -e VIDISPINE_URL=$VIDISPINE_URL -p 80:80 \"${npm_package_name:1}:${npm_package_version}\"",
-    "docker:stop": "docker stop \"${npm_package_name/@vidispine\\//vidispine_}\"",
-    "predeploy": "PUBLIC_URL=${npm_package_homepage} yarn build",
-    "deploy": "gh-pages -d build"
+    "docker:stop": "docker stop \"${npm_package_name/@vidispine\\//vidispine_}\""
   },
   "devDependencies": {
     "eslint": "7.11.0",

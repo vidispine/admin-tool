@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { withModalNoRouter } from '../hoc/withModal';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
@@ -21,12 +21,13 @@ import LoginHelpDialog from '../components/login/LoginHelpDialog';
 import GitHubIcon from '../components/ui/GitHubIcon';
 
 import { APP_LOGO } from '../const/logos';
+import { getVidispineUrlFromPath } from '../const';
 
 const INIT_DIALOG = 'INIT_DIALOG';
 const HELP_DIALOG = 'HELP_DIALOG';
 
 const { REACT_APP_VERSION } = process.env;
-const theme = (outerTheme) => createMuiTheme({ ...outerTheme, palette: { type: 'light' } });
+const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'light' } });
 
 class Login extends React.PureComponent {
   constructor(props) {
@@ -51,11 +52,14 @@ class Login extends React.PureComponent {
   }
 
   async onRefresh() {
-    const { onOpen } = this.props;
+    const { onOpen, useProxy } = this.props;
     this.setState({ selfTestDocument: undefined });
     await this.setState({ loading: true });
     try {
-      api.listSelfTest({ noAuth: true })
+      api.listSelfTest({
+        noAuth: true,
+        baseURL: useProxy ? window.location.origin : this.props.baseUrl,
+      })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
           const { status, test: testList = [] } = selfTestDocument;
@@ -94,9 +98,16 @@ class Login extends React.PureComponent {
   }) {
     if (baseUrl) {
       const encodedBaseUrl = encodeURIComponent(baseUrl);
+      const encodedPathBaseUrl = getVidispineUrlFromPath()
+        ? encodeURIComponent(getVidispineUrlFromPath()) : undefined;
       const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
       if (!pathname.includes(encodedBaseUrl)) {
-        const newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+        let newPath;
+        if (encodedPathBaseUrl && pathname.includes(encodedPathBaseUrl)) {
+          newPath = pathname.replace(encodedPathBaseUrl, encodedBaseUrl);
+        } else {
+          newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+        }
         window.history.pushState({}, '', newPath);
       }
     }
@@ -119,8 +130,12 @@ class Login extends React.PureComponent {
   }
 
   render() {
-    const { selfTestDocument, loading, loadingInit } = this.state;
-    const { userName, baseUrl, onOpen } = this.props;
+    const {
+      selfTestDocument, loading, loadingInit,
+    } = this.state;
+    const {
+      userName, baseUrl, onOpen, useProxy,
+    } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
       queryParams: { autoRefresh: true, seconds: 604800 },
@@ -132,9 +147,9 @@ class Login extends React.PureComponent {
         <Grid container>
           <Grid item sm={4}>
             <Card elevation={0} square style={{ height: '100vh' }}>
-              <Grid container direction="column" justify="center" alignItems="center" style={{ height: '100%' }}>
+              <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '100%' }}>
                 <Grid item>
-                  <Grid container alignItems="center" justify="center" direction="row" style={{ height: 35, marginBottom: 20 }}>
+                  <Grid container alignItems="center" justifyContent="center" direction="row" style={{ height: 35, marginBottom: 20 }}>
                     {selfTestDocument && (
                       <SelfTestStatus
                         selfTestDocument={selfTestDocument}
@@ -149,6 +164,7 @@ class Login extends React.PureComponent {
                     onSuccess={this.onSuccess}
                     onTestUrl={this.onTestUrl}
                     status={status}
+                    useProxy={useProxy}
                   />
                 </Grid>
               </Grid>
@@ -164,7 +180,7 @@ class Login extends React.PureComponent {
                 elevation={0}
               >
                 <Toolbar variant="dense">
-                  <Grid container justify="flex-end" alignItems="center">
+                  <Grid container justifyContent="flex-end" alignItems="center">
                     <Link
                       href="https://github.com/vidispine/admin-tool"
                       variant="body2"
@@ -211,7 +227,7 @@ class Login extends React.PureComponent {
             container
             direction="column"
             alignItems="center"
-            justify="center"
+            justifyContent="center"
           >
             <div
               style={{

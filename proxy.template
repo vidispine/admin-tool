@@ -3,6 +3,8 @@ server {
     server_name  localhost;
     client_max_body_size 2000M;
     server_tokens off;
+    root   /usr/share/nginx/html/;
+    ${NGINX_RESOLVER}
 
     # Enable gzip
     gzip on;
@@ -11,34 +13,33 @@ server {
     gzip_vary on;
     gzip_types text/plain text/css application/json application/javascript application/x-javascript text/javascript application/xml;
 
-    location /API/ {
-        proxy_pass   ${VIDISPINE_URL}/API/;
+    set $vsurl "${VIDISPINE_URL}";
+
+    location ~ ^/(API|APInoauth|APIinit|APIdoc)/.* {
+        proxy_pass   $vsurl;
         proxy_hide_header WWW-Authenticate;
+        proxy_request_buffering off;
+        proxy_http_version 1.1;
+        client_max_body_size 0;
     }
-    location /APInoauth/ {
-        proxy_pass   ${VIDISPINE_URL}/APInoauth/;
-        proxy_hide_header WWW-Authenticate;
+
+    location ~* ^/.*\.*$ {
+        add_header "Cache-Control" "public";
+        expires 30d;
+        add_header "Pragma" "cache";
     }
-    location /APIinit/ {
-        proxy_pass   ${VIDISPINE_URL}/APIinit/;
-        proxy_hide_header WWW-Authenticate;
-    }
-    location /APIdoc/ {
-        proxy_pass   ${VIDISPINE_URL}/APIdoc/;
-        proxy_hide_header WWW-Authenticate;
-    }
+
     location /static/ {
-      root   /usr/share/nginx/html/;
-      add_header "Cache-Control" "public";
-  		expires 30d;
+        add_header "Cache-Control" "public";
+        expires 30d;
   		add_header "Pragma" "cache";
     }
+
     location / {
-        root   /usr/share/nginx/html;
-        try_files $uri /index.html =404;
-    }
-    location = /index.html {
-        root /usr/share/nginx/html;
-        expires 30s;
+        # Never cache index.html
+        try_files  /index.html =404;
+        expires -1;
+        add_header "Cache-Control" "no-cache, no-store, must-revalidate";
+        add_header "Pragma" "no-cache";
     }
 }

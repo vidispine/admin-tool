@@ -26,3 +26,10 @@ export const phoneNumber = (value) => (
     ? 'Invalid phone number, must be 10 digits'
     : undefined
 );
+
+export const isUrl = (value = '') => {
+  const expression = /https?:\/\/[-a-zA-Z0-9@:%._+~#=]{2,256}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
+  const regex = new RegExp(expression);
+  const matches = value.match(regex);
+  return matches ? undefined : 'Not a URL';
+};

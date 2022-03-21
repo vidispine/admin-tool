@@ -32,9 +32,9 @@ export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') =>
 export const getVidispineUrlFromEnv = (envKey = 'REACT_APP_VIDISPINE_URL') => (process.env[envKey] !== '' ? process.env[envKey] : undefined);
 export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
 export const getVidispineUrlFromPath = () => {
-  const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '');
+  const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '').replace(/^\/+/, '');
   if (pathnameWithoutBasename === undefined) return undefined;
-  const encodedPath = pathnameWithoutBasename.split('/')[1];
+  const [encodedPath] = pathnameWithoutBasename.split('/');
   try {
     const decodedPath = decodeURIComponent(encodedPath);
     return decodedPath.startsWith('http') ? decodedPath : undefined;

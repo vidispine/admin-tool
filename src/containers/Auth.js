@@ -7,6 +7,7 @@ import {
   AUTH_USERNAME,
   AUTH_RUNAS,
   AUTH_VIDISPINE_SERVER_URL,
+  AUTH_IS_AUTHENTICATED,
 } from '../const/Auth';
 import {
   getBasename,
@@ -14,6 +15,7 @@ import {
   getVidispineUrlFromWindow,
   getVidispineUrlFromEnv,
   getVidispineUrlFromPath,
+  APP_BASENAME,
 } from '../const';
 
 class Auth extends React.Component {
@@ -36,12 +38,24 @@ class Auth extends React.Component {
       || this.windowVidispineUrl
       || this.envVidispineUrl
       || this.cookieVidispineUrl;
-    this.useProxy = baseUrl === this.windowVidispineUrl; // assume it is running in a container
+    this.useProxy = baseUrl !== undefined && (baseUrl === this.windowVidispineUrl
+    || baseUrl === this.envVidispineUrl); // assume it is running in a container
+
     this.basename = getBasename(baseUrl);
     const { cookies } = this.props;
     const token = cookies.get(AUTH_TOKEN, { path: this.basename });
     const userName = cookies.get(AUTH_USERNAME, { path: this.basename });
     const runAs = cookies.get(AUTH_RUNAS, { path: this.basename });
+    // see if the app is logged in even if it cannot read the token cookie
+    const isAuthenticated = cookies.get(AUTH_IS_AUTHENTICATED, { path: APP_BASENAME });
+    if (isAuthenticated === 'true' && this.cookieVidispineUrl && this.pathVidispineUrl === undefined) {
+      // Set baseUrl in path then reload page to read token cookie
+      const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
+      const encodedBaseUrl = encodeURIComponent(this.cookieVidispineUrl);
+      const newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+      window.history.pushState({}, '', newPath);
+      window.location.reload();
+    }
     if (baseUrl && baseUrl !== 'undefined') {
       api.defaultClient.defaults.baseURL = this.useProxy ? window.location.origin : baseUrl;
     }
@@ -68,6 +82,7 @@ class Auth extends React.Component {
   setToken(token) {
     const { cookies } = this.props;
     cookies.set(AUTH_TOKEN, token, { path: this.basename });
+    cookies.set(AUTH_IS_AUTHENTICATED, true, { path: APP_BASENAME });
     api.defaultClient.defaults.headers.Authorization = `token ${token}`;
     this.setState({ token });
   }
@@ -81,7 +96,7 @@ class Auth extends React.Component {
 
   setBaseUrl(baseUrl) {
     const { cookies } = this.props;
-    cookies.set(AUTH_VIDISPINE_SERVER_URL, baseUrl, { path: this.basename });
+    cookies.set(AUTH_VIDISPINE_SERVER_URL, baseUrl, { path: APP_BASENAME });
     if (this.windowVidispineUrl !== baseUrl) {
       this.useProxy = false;
     }
@@ -99,6 +114,7 @@ class Auth extends React.Component {
   unsetToken() {
     const { cookies } = this.props;
     cookies.remove(AUTH_TOKEN, { path: this.basename });
+    cookies.remove(AUTH_IS_AUTHENTICATED, { path: APP_BASENAME });
     delete api.defaultClient.defaults.headers.Authorization;
     this.setState({ token: undefined });
   }
@@ -112,7 +128,7 @@ class Auth extends React.Component {
 
   unsetBaseUrl() {
     const { cookies } = this.props;
-    cookies.remove(AUTH_VIDISPINE_SERVER_URL, { path: this.basename });
+    cookies.remove(AUTH_VIDISPINE_SERVER_URL, { path: APP_BASENAME });
     delete api.defaultClient.defaults.baseURL;
     this.setState({ baseUrl: undefined });
   }
@@ -133,6 +149,7 @@ class Auth extends React.Component {
           unsetUserName={this.unsetUserName}
           unsetToken={this.unsetToken}
           unsetRunAs={this.unsetRunAs}
+          useProxy={this.useProxy}
           {...props}
         />
       ) : (
@@ -144,6 +161,7 @@ class Auth extends React.Component {
           setToken={this.setToken}
           setBaseUrl={this.setBaseUrl}
           setRunAs={this.setRunAs}
+          useProxy={this.useProxy}
           {...props}
         />
       )
