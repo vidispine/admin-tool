@@ -51,6 +51,12 @@ export const getVidispineUrlFromSessionStorage = (storageKey = 'VIDISPINE_URL') 
   return value || undefined;
 };
 
+export const setCookiePath = (vidispineUrl) => {
+  const baseName = APP_BASENAME.replace(/^\/+/, '');
+  const encodedVidispineUrl = encodeURIComponent(vidispineUrl);
+  return [baseName, encodedVidispineUrl, ''].join('/');
+};
+
 // const cookieVidispineUrl = getVidispineUrlFromCookie();
 // const windowVidispineUrl = getVidispineUrlFromWindow();
 // const envVidispineUrl = getVidispineUrlFromEnv();

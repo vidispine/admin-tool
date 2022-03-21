@@ -15,6 +15,7 @@ import {
   getVidispineUrlFromWindow,
   getVidispineUrlFromEnv,
   getVidispineUrlFromPath,
+  setCookiePath,
   APP_BASENAME,
 } from '../const';
 
@@ -73,23 +74,23 @@ class Auth extends React.Component {
     };
   }
 
-  setUserName(userName) {
+  setUserName(userName, baseUrl) {
     const { cookies } = this.props;
-    cookies.set(AUTH_USERNAME, userName, { path: this.basename });
+    cookies.set(AUTH_USERNAME, userName, { path: setCookiePath(baseUrl) });
     this.setState({ userName });
   }
 
-  setToken(token) {
+  setToken(token, baseUrl) {
     const { cookies } = this.props;
-    cookies.set(AUTH_TOKEN, token, { path: this.basename });
+    cookies.set(AUTH_TOKEN, token, { path: setCookiePath(baseUrl) });
     cookies.set(AUTH_IS_AUTHENTICATED, true, { path: APP_BASENAME });
     api.defaultClient.defaults.headers.Authorization = `token ${token}`;
     this.setState({ token });
   }
 
-  setRunAs(runAs) {
+  setRunAs(runAs, baseUrl) {
     const { cookies } = this.props;
-    cookies.set(AUTH_RUNAS, runAs, { path: this.basename });
+    cookies.set(AUTH_RUNAS, runAs, { path: setCookiePath(baseUrl) });
     api.defaultClient.defaults.headers.RunAs = runAs;
     this.setState({ runAs });
   }
@@ -105,23 +106,23 @@ class Auth extends React.Component {
   }
 
   unsetUserName() {
-    const { cookies } = this.props;
-    cookies.remove(AUTH_USERNAME, { path: this.basename });
+    const { cookies, baseUrl } = this.props;
+    cookies.remove(AUTH_USERNAME, { path: setCookiePath(baseUrl) });
     this.setState({ userName: undefined });
     this.unsetToken();
   }
 
   unsetToken() {
-    const { cookies } = this.props;
-    cookies.remove(AUTH_TOKEN, { path: this.basename });
+    const { cookies, baseUrl } = this.props;
+    cookies.remove(AUTH_TOKEN, { path: setCookiePath(baseUrl) });
     cookies.remove(AUTH_IS_AUTHENTICATED, { path: APP_BASENAME });
     delete api.defaultClient.defaults.headers.Authorization;
     this.setState({ token: undefined });
   }
 
   unsetRunAs() {
-    const { cookies } = this.props;
-    cookies.remove(AUTH_RUNAS, { path: this.basename });
+    const { cookies, baseUrl } = this.props;
+    cookies.remove(AUTH_RUNAS, { path: setCookiePath(baseUrl) });
     delete api.defaultClient.defaults.headers.RunAs;
     this.setState({ runAs: undefined });
   }
