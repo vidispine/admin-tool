@@ -20,7 +20,7 @@ export default function StackTraceCard({
             />
           )
           : (
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               <CircularProgress size={100} color="secondary" />
             </Grid>
           )}

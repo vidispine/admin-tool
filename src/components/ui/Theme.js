@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import getCookie from '../../utils/getCookie';
 
@@ -55,7 +55,7 @@ export default function ThemeProvider({ children }) {
     }
   }, [preferredMode]);
   const theme = React.useMemo(
-    () => createMuiTheme({
+    () => createTheme({
       overrides: {},
       props: {
         MuiTextField: {

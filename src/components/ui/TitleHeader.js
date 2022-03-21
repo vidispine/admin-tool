@@ -199,7 +199,7 @@ function TitleHeader({
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="baseline"
       >
         <Grid item>
@@ -209,7 +209,7 @@ function TitleHeader({
           <Grid
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
           >
             {autoRefreshSwitch}
