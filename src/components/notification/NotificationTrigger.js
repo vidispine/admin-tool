@@ -137,7 +137,7 @@ const CollectionTriggerType = ({ trigger: { collection } }) => {
     <>
       <TextGrid title="Trigger Action" value={triggerAction} />
       {triggerAction === 'metadata'
-        && <MetadataTriggerType trigger={{ trigger: { metadata: collection.metadata } }} />}
+        && <MetadataTriggerType trigger={{ metadata: collection.metadata }} />}
       {triggerAction === 'item'
         && <ItemTriggerType trigger={{ trigger: { item: collection.item } }} />}
     </>
