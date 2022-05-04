@@ -101,7 +101,7 @@ export function onGetUserToken(form, dispatch, props) {
         if (data) {
           errorMessage = JSON.stringify(data, (k, v) => (v === null ? undefined : v));
         } else {
-          errorMessage = statusText;
+          errorMessage = errorMessage || statusText;
         }
       }
       if (status === 'ok' && errorMessage === 'Network Error') throw new SubmissionError({ _error: 'Incorrect Credentials' });
