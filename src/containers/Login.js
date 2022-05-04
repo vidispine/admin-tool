@@ -115,10 +115,12 @@ class Login extends React.PureComponent {
       setUserName,
       setToken,
       setRunAs,
+      setResponseInterceptor,
     } = this.props;
     if (runAs) {
       setRunAs(runAs, baseUrl);
     }
+    setResponseInterceptor();
     setUserName(newUserName, baseUrl);
     setToken(token, baseUrl);
   }

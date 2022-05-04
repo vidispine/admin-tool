@@ -107,6 +107,7 @@ function Main({
   onOpen,
   unsetToken,
   unsetRunAs,
+  unsetResponseInterceptor,
   userName,
   baseUrl,
 }) {
@@ -115,6 +116,7 @@ function Main({
   const onLogout = () => {
     unsetToken();
     unsetRunAs();
+    unsetResponseInterceptor();
   };
   return (
     <div style={{ zIndex: 1, minWidth: '100%' }}>
