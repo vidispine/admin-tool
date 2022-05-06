@@ -54,6 +54,7 @@ class ItemUri extends React.PureComponent {
       itemId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { uriListDocument } = this.state;
     return (
@@ -63,6 +64,7 @@ class ItemUri extends React.PureComponent {
             code={uriListDocument}
             codeModal="URIListDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

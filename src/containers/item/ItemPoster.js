@@ -58,6 +58,7 @@ class ItemPoster extends React.PureComponent {
     const {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { itemDocument } = this.state;
     return (
@@ -67,6 +68,7 @@ class ItemPoster extends React.PureComponent {
             code={itemDocument}
             codeModal="ItemDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

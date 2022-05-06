@@ -68,7 +68,7 @@ function ShapeTitle({
       grandParentTitle="Item"
       grandParentTo={`/item/?${itemParams.toString()}`}
       parentTitle={itemId}
-      parentTo={`/item/${itemId}?tab=ITEM_SHAPE_TAB`}
+      parentTo={`/item/${itemId}/shape/`}
       title={(<ShapeHeading shapeId={shapeId} title={title} />)}
       actionComponent={(
         <Menu>

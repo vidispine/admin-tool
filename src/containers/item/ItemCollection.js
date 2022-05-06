@@ -56,6 +56,7 @@ class ItemCollection extends React.PureComponent {
     const {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { metadataListDocument } = this.state;
     return (
@@ -65,6 +66,7 @@ class ItemCollection extends React.PureComponent {
             code={metadataListDocument}
             codeModal="MetadataListDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

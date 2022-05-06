@@ -53,6 +53,7 @@ function ItemTitle({
   title,
   createModal,
   createTooltip = 'New',
+  breadcrumbList,
   ...props
 }) {
   return (
@@ -65,6 +66,7 @@ function ItemTitle({
       entityId={itemId}
       entityType="item"
       removeModal={removeModal}
+      breadcrumbList={Array.isArray(breadcrumbList) ? [{ title: 'Item', to: routes.itemList() }, { title: itemId, to: routes.item({ itemId }) }, ...breadcrumbList] : undefined}
       actionComponent={(
         <>
           {createModal && (

@@ -1,18 +1,19 @@
 import React from 'react';
+import { compose } from 'redux';
 import { shape as api } from '@vidispine/vdt-api';
-import UriListCard from '../../components/ui/UriListCard';
-import ShapeListParams from '../../components/shape/ShapeListParams';
 
+import EssenceVersionListCard from '../../components/item/EssenceVersionListCard';
 import withSnackbar from '../../hoc/withSnackbar';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ItemShape extends React.PureComponent {
+class EssenceVersionList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.state = {
-      uriListDocument: undefined,
+      essenceVersionListDocument: undefined,
     };
   }
 
@@ -24,7 +25,7 @@ class ItemShape extends React.PureComponent {
     const { itemId: prevItemId } = this.props;
     if (prevItemId !== itemId) {
       this.onFetch(itemId);
-      document.title = `VidiCore Admin | Item | ${itemId}`;
+      document.title = `VidiCore Admin | Item | ${itemId} | Version`;
     }
   }
 
@@ -34,13 +35,9 @@ class ItemShape extends React.PureComponent {
   }
 
   onFetch(itemId) {
-    const queryParams = { placeholder: 'all' };
     try {
-      api.listShape({
-        itemId,
-        queryParams,
-      })
-        .then((response) => this.setState({ uriListDocument: response.data }))
+      api.listShapeEssence({ itemId })
+        .then((response) => this.setState({ essenceVersionListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -58,30 +55,25 @@ class ItemShape extends React.PureComponent {
       itemId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
-      title,
     } = this.props;
-    const { uriListDocument } = this.state;
+    const { essenceVersionListDocument } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
-            code={uriListDocument}
-            codeModal="URIListDocument"
+            code={essenceVersionListDocument}
+            codeModal="EssenceVersionListDocument"
             onRefresh={this.onRefresh}
-            title={title}
+            title="Version"
           />
         )}
         {TabComponent && (
           <TabComponent />
         )}
-        <ShapeListParams
-          itemId={itemId}
-          onSuccess={(response) => this.setState({ uriListDocument: response.data })}
-        />
-        {uriListDocument && (
-          <UriListCard
-            uriListDocument={uriListDocument}
-            linkTo={(uri) => `/item/${itemId}/shape/${uri}/`}
+        {essenceVersionListDocument && (
+          <EssenceVersionListCard
+            essenceVersionListDocument={essenceVersionListDocument}
+            linkTo={(versionId) => `/item/${itemId}/version/${versionId}/`}
           />
         )}
       </>
@@ -89,4 +81,4 @@ class ItemShape extends React.PureComponent {
   }
 }
 
-export default withSnackbar(ItemShape);
+export default compose(withSnackbar, withRouterProps)(EssenceVersionList);

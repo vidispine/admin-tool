@@ -8,5 +8,6 @@ const itemParams = new URLSearchParams({
 
 export default {
   itemList: (params) => generatePath(`/item/?${itemParams.toString()}`, params),
-  item: (params) => generatePath('/item/:itemId}', params),
+  item: (params) => generatePath('/item/:itemId', params),
+  itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
 };

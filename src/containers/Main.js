@@ -183,8 +183,8 @@ function Main({
           <Route exact path="/search/field-group/" component={FieldGroupSearch} />
           <Route exact path="/item/" component={ItemSearch} />
           <Route exact path="/shape" component={ShapeSearch} />
-          <Route exact path="/item/:itemId/" component={Item} />
           <Route path="/item/:itemId/shape/:shapeId/" component={Shape} />
+          <Route path="/item/:itemId/" component={Item} />
           <Route exact path="/reindex/" component={ReindexList} />
           <Route exact path="/wizard/" component={Wizard} />
           <Route exact path="/metadata-field/" component={MetadataFieldList} />

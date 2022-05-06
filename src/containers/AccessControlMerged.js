@@ -31,6 +31,7 @@ class AccessControlMerged extends React.PureComponent {
       tabComponent: TabComponent,
       entityId,
       entityType,
+      title,
     } = this.props;
     return (
       <>
@@ -39,6 +40,7 @@ class AccessControlMerged extends React.PureComponent {
             onRefresh={this.onRefresh}
             codeModal="AccessControlMergedDocument"
             code={accessControlMergedDocument}
+            title={title}
           />
         )}
         {TabComponent && (
