@@ -3,6 +3,7 @@ import { withCookies } from 'react-cookie';
 import { noauth as NoAuthApi, utils as api } from '@vidispine/vdt-api';
 import { compose } from 'redux';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
+import setWelcomeConsoleMessage from '../utils/setWelcomeConsoleMessage';
 
 import {
   AUTH_TOKEN,
@@ -67,6 +68,7 @@ class Auth extends React.Component {
     if (token && token !== 'undefined') {
       api.defaultClient.defaults.headers.Authorization = `token ${token}`;
       this.setResponseInterceptor();
+      setWelcomeConsoleMessage();
     }
     if (runAs && runAs !== 'undefined') {
       api.defaultClient.defaults.headers.RunAs = runAs;
