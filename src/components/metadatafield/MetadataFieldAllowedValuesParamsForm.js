@@ -19,6 +19,7 @@ const MetadataFieldValueConstraintType = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field
       name="value"

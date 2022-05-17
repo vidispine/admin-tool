@@ -20,6 +20,7 @@ const matrixParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="group"

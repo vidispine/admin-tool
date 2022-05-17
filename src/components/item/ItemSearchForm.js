@@ -130,6 +130,7 @@ const SearchFieldType = () => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <FieldTypeArray
       name="value"
@@ -335,6 +336,34 @@ export const ItemCriterionType = () => (
   </>
 );
 
+export const CollectionCriterionType = () => (
+  <>
+    <CriterionType />
+    <FieldTypeArray
+      name="collection"
+      component={CollectionCriterionType}
+      label="Collection Collection"
+      withHeader={false}
+      arrayHeader
+    />
+    <FormSection
+      name="item"
+      component={ItemCriterionType}
+      label="Collection Item"
+    />
+    <FormControl fullWidth>
+      <InputLabel htmlFor="relation">Relation</InputLabel>
+      <Field name="relation" component={Select}>
+        <MenuItem value="" />
+        <MenuItem value="child">Child</MenuItem>
+        <MenuItem value="parent">Parent</MenuItem>
+        <MenuItem value="descendant">Descendant</MenuItem>
+        <MenuItem value="ancestor">Ancestor</MenuItem>
+      </Field>
+    </FormControl>
+  </>
+);
+
 export const FacetRangeType = () => (
   <>
     <Field
@@ -362,6 +391,7 @@ export const SearchFacetFilterType = () => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <Field
       name="value"
@@ -388,6 +418,7 @@ export const SearchFacetType = () => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <FieldTypeArray
       name="range"
@@ -443,6 +474,7 @@ export const SearchSortType = () => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="order">order</InputLabel>
@@ -467,6 +499,7 @@ export const SearchHighlightType = () => (
       fullWidth
       disableInitial
       isMulti
+      creatable
     />
     <FormControlLabel
       control={(
@@ -524,6 +557,7 @@ export const AutocompleteRequestType = () => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <Field
       name="accuracy"
@@ -547,6 +581,13 @@ export const ItemSearchType = () => (
       name="field"
       component={SearchFieldType}
       label="field"
+      withHeader={false}
+      arrayHeader
+    />
+    <FieldTypeArray
+      name="group"
+      component={SearchGroupType}
+      label="group"
       withHeader={false}
       arrayHeader
     />
@@ -613,6 +654,12 @@ export const ItemSearchType = () => (
       component={TextField}
       fullWidth
       type="number"
+    />
+    <Field
+      name="reference"
+      component={TextField}
+      fullWidth
+      type="string"
     />
   </>
 );

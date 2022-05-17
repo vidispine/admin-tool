@@ -19,6 +19,7 @@ const FieldGroupFieldForm = ({ error, handleSubmit }) => (
       required
       fullWidth
       disableInitial
+      creatable
     />
     <button type="submit" hidden />
   </form>
