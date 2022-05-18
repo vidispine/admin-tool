@@ -11,12 +11,18 @@ const styles = `
 `;
 
 const setWelcomeConsoleMessage = () => {
-  console.info('%c🎉🎉🎉 Welcome to the VidiCore admin-tool!  🎉🎉🎉\n👻👻👻    Try using the "VidiCore" object   👻👻👻', styles);
+  console.info(
+    '%c🎉🎉🎉 Welcome to the VidiCore admin-tool!  🎉🎉🎉\n👻👻👻    Try using the "VidiCore" object   👻👻👻\n🤖🤖🤖 https://vidispine.github.io/vdt-api/ 🤖🤖🤖',
+    styles,
+  );
   window.VidiCore = Object.keys(VidiCore).reduce((acc, cur) => {
     const val = Object.keys(VidiCore[cur]).reduce((thisAcc, thisCur) => {
       const thisVal = VidiCore[cur][thisCur];
+      const thisFunc = (args) => thisVal(args).then((resp) => {
       // eslint-disable-next-line no-console
-      const thisFunc = (args) => thisVal(args).then(({ data }) => console.log(data));
+        console.log(resp.data);
+        return resp;
+      });
       return { ...thisAcc, [thisCur]: thisFunc };
     }, {});
     return { ...acc, [cur]: val };
