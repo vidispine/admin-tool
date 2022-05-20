@@ -17,6 +17,7 @@ import ItemJob from './item/ItemJob';
 import ItemProjection from './item/ItemProjection';
 import ItemRelationList from './item/ItemRelationList';
 import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
+import ItemBulkyMetadata from './item/ItemBulkyMetadata';
 import ItemVersion from './item/ItemVersion';
 
 import AccessControl from './AccessControl';
@@ -109,7 +110,7 @@ const TAB_TITLE = [
     tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule, path: '/item/:itemId/storage-rules/',
   },
   {
-    tab: BULKYMETADATA_TAB, listText: 'Bulky Metadata', component: ItemBulkyMetadataList, path: '/item/:itemId/bulky-metadata/',
+    tab: BULKYMETADATA_TAB, listText: 'Bulky Metadata', component: ItemBulkyMetadataList, path: '/item/:itemId/bulky-metadata/', exact: true,
   },
   {
     tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/item/:itemId/deletion-locks/',
@@ -133,10 +134,19 @@ const listComponentRoute = ({ itemId }) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(({ path, component: RenderComponent, listText }) => (
+    <Route
+      exact
+      path="/item/:itemId/bulky-metadata/:bulkyMetadataKey"
+      render={() => <ItemBulkyMetadata {...props} title="Bulky Metadata" />}
+      {...props}
+    />
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
       <Route
         key={path}
         path={path}
+        exact={exact}
         render={() => <RenderComponent {...props} title={listText} />}
       />
     ))}

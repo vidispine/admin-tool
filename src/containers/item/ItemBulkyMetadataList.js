@@ -53,6 +53,7 @@ class ItemBulkyMetadataList extends React.PureComponent {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
       title,
+      itemId,
     } = this.props;
     const { uriListDocument } = this.state;
     return (
@@ -71,6 +72,7 @@ class ItemBulkyMetadataList extends React.PureComponent {
         {uriListDocument && (
           <UriListCard
             uriListDocument={uriListDocument}
+            linkTo={(uri) => `/item/${itemId}/bulky-metadata/${uri}/`}
           />
         )}
       </>

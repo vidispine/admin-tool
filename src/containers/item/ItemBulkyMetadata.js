@@ -5,8 +5,9 @@ import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 import withSnackbar from '../../hoc/withSnackbar';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import BulkyMetadataDisplay from '../../components/bulkymetadata/BulkyMetadataDisplay';
+import routes from '../../const/routes';
 
-class ShapeBulkyMetadata extends React.PureComponent {
+class ItemBulkyMetadata extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -21,22 +22,22 @@ class ShapeBulkyMetadata extends React.PureComponent {
     this.onRefresh();
   }
 
-  UNSAFE_componentWillReceiveProps({ shapeId, itemId, bulkyMetadataKey }) {
-    const { shapeId: prevShapeId, bulkyMetadataKey: prevKey } = this.props;
-    if (prevShapeId !== shapeId || prevKey !== bulkyMetadataKey) {
-      this.onFetch(itemId, shapeId, bulkyMetadataKey);
-      document.title = `VidiCore Admin | Shape | ${shapeId}`;
+  UNSAFE_componentWillReceiveProps({ itemId, bulkyMetadataKey }) {
+    const { itemId: prevItemId, bulkyMetadataKey: prevKey } = this.props;
+    if (prevItemId !== itemId || prevKey !== bulkyMetadataKey) {
+      this.onFetch(itemId, bulkyMetadataKey);
+      document.title = `VidiCore Admin | Item | ${itemId} | Bulky Metadata`;
     }
   }
 
   onRefresh() {
-    const { itemId, shapeId, bulkyMetadataKey } = this.props;
-    this.onFetch(itemId, shapeId, bulkyMetadataKey);
+    const { itemId, bulkyMetadataKey } = this.props;
+    this.onFetch(itemId, bulkyMetadataKey);
   }
 
-  onFetch(itemId, shapeId, bulkyMetadataKey) {
+  onFetch(itemId, bulkyMetadataKey) {
     try {
-      BulkyMetadataApi.getShapeBulkyMetadata({ itemId, shapeId, key: bulkyMetadataKey })
+      BulkyMetadataApi.getItemBulkyMetadata({ itemId, key: bulkyMetadataKey })
         .then((response) => this.setState({ bulkyMetadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -55,6 +56,7 @@ class ShapeBulkyMetadata extends React.PureComponent {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
       bulkyMetadataKey,
+      itemId,
     } = this.props;
     const { bulkyMetadataDocument } = this.state;
     return (
@@ -64,7 +66,8 @@ class ShapeBulkyMetadata extends React.PureComponent {
             code={bulkyMetadataDocument}
             codeModal="BulkyMetadataDocument"
             onRefresh={this.onRefresh}
-            title={bulkyMetadataKey}
+            breadcrumbList={[{ title: 'Bulky Metadata', to: routes.itemBulkyMetadataList({ itemId }) }, { title: bulkyMetadataKey }]}
+
           />
         )}
         {TabComponent && (
@@ -78,4 +81,4 @@ class ShapeBulkyMetadata extends React.PureComponent {
   }
 }
 
-export default compose(withRouterProps, withSnackbar)(ShapeBulkyMetadata);
+export default compose(withRouterProps, withSnackbar)(ItemBulkyMetadata);

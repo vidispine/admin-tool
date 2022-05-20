@@ -10,4 +10,5 @@ export default {
   itemList: (params) => generatePath(`/item/?${itemParams.toString()}`, params),
   item: (params) => generatePath('/item/:itemId', params),
   itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
+  itemBulkyMetadataList: (params) => generatePath('/item/:itemId/bulky-metadata/', params),
 };
