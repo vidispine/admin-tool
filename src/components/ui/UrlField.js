@@ -127,6 +127,18 @@ const S3Form = ({
       onChange={onChange('password')}
       fullWidth
     />
+    <URIComponentTextField
+      label="Role ARN"
+      value={value.queryParams.roleArn || ''}
+      onChange={onChange('queryParams.roleArn')}
+      fullWidth
+    />
+    <URIComponentTextField
+      label="Role External ID"
+      value={value.queryParams.roleExternalId || ''}
+      onChange={onChange('queryParams.roleExternalId')}
+      fullWidth
+    />
     <TextField
       label="Endpoint"
       value={value.queryParams.endpoint || ''}
@@ -137,6 +149,12 @@ const S3Form = ({
       label="Region"
       value={value.queryParams.region || ''}
       onChange={onChange('queryParams.region')}
+      fullWidth
+    />
+    <TextField
+      label="STS Region"
+      value={value.queryParams.stsRegion || ''}
+      onChange={onChange('queryParams.stsRegion')}
       fullWidth
     />
     <TextField
@@ -180,6 +198,17 @@ const S3Form = ({
       value={value.queryParams.accelerate || ''}
       onChange={onChange('queryParams.accelerate')}
       label="Accelerate Transfer"
+    >
+      <MenuItem value="" />
+      <MenuItem value="true">True</MenuItem>
+      <MenuItem value="false">False</MenuItem>
+    </TextField>
+    <TextField
+      select
+      fullWidth
+      value={value.queryParams.bucketOwnerFullControl || ''}
+      onChange={onChange('queryParams.bucketOwnerFullControl')}
+      label="Bucket Owner Full Control"
     >
       <MenuItem value="" />
       <MenuItem value="true">True</MenuItem>

@@ -51,6 +51,10 @@ const SqsActionType = ({ action: { sqs } }) => (
     <TextGrid title="Content Type" value={sqs.contentType} />
     <TextGrid title="Access Key" value={sqs.accessKey} />
     <TextGrid title="Secret Key" value={sqs.secret} />
+    <TextGrid title="Role ARN" value={sqs.roleArn} />
+    <TextGrid title="RoleSession Name" value={sqs.roleSessionName} />
+    <TextGrid title="Role External ID" value={sqs.roleExternalId} />
+    <TextGrid title="Message Group ID" value={sqs.messageGroupId} />
     <ActionType {...sqs} />
   </>
 );
