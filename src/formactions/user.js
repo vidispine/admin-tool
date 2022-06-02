@@ -79,9 +79,15 @@ function onWhoAmI(form, dispatch, props) {
 }
 
 export function onGetUserToken(form, dispatch, props) {
-  const { headers = {}, queryParams, baseUrl } = form;
+  const {
+    headers = {}, queryParams, baseUrl, accessKey, secretKey,
+  } = form;
   const { status } = props;
   const { runAs, token, ...headerProps } = headers;
+  if (accessKey && secretKey) {
+    headerProps.username = accessKey;
+    headerProps.password = secretKey;
+  }
   if (token) {
     return onWhoAmI(form, dispatch, props);
   }

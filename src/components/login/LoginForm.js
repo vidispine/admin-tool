@@ -8,7 +8,9 @@ import { required, isUrl } from '../../utils/FieldValidation';
 import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 
-const hasTokenOrValue = (value, { headers = {} }) => (headers.token ? undefined : required(value));
+const hasTokenOrValue = (value, { secretKey, headers = {} }) => (
+  (headers.token || secretKey) ? undefined : required(value)
+);
 
 const headers = () => (
   <>
