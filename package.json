@@ -1,6 +1,6 @@
 {
   "name": "@vidispine/admin-tool",
-  "version": "22.2.0",
+  "version": "22.2.1",
   "private": true,
   "dependencies": {
     "@fontsource/open-sans": "4.5.2",
