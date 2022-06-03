@@ -3,9 +3,8 @@ import Check from '@material-ui/icons/Check';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
 
-import UnstyledLink from '../ui/UnstyledLink';
 import TableCell from '../ui/TableCell';
-import TableRow from '../ui/TableRow';
+import TableRow from '../ui/TableRowLink';
 
 function MetadataFieldRow({
   metadataFieldDocument = {},
@@ -14,9 +13,7 @@ function MetadataFieldRow({
   return (
     <>
       <TableRow to={`/metadata-field/${metadataFieldDocument.name}/`} hover>
-        <TableCell>
-          <UnstyledLink to={`/metadata-field/${metadataFieldDocument.name}/`}>{metadataFieldDocument.name}</UnstyledLink>
-        </TableCell>
+        <TableCell>{metadataFieldDocument.name}</TableCell>
         <TableCell>{metadataFieldDocument.type}</TableCell>
         <TableCell>{metadataFieldDocument.system && <Check />}</TableCell>
         <TableCell>{metadataFieldDocument.inheritance === 'true' && <Check />}</TableCell>

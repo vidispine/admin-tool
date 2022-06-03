@@ -35,6 +35,7 @@ class ItemContent extends React.PureComponent {
       itemId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { itemDocument } = this.state;
     return (
@@ -44,6 +45,7 @@ class ItemContent extends React.PureComponent {
             code={itemDocument}
             codeModal="ItemDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

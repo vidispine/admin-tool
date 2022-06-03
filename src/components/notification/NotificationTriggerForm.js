@@ -417,7 +417,7 @@ function NotificationTriggerMetadataModifyType() {
         fullWidth
       />
       <Field
-        name="vinterval"
+        name="interval"
         component={TextField}
         label="Interval"
         fullWidth
@@ -435,8 +435,15 @@ function NotificationTriggerMetadataType(props) {
     initialvalue = metadata && Object.keys(metadata)[0];
   } else {
     try {
-      const metadata = initialValues[props.id];
-      initialvalue = metadata && Object.keys(metadata)[0];
+      const { notificationDocument = {} } = initialValues;
+      const { trigger = {} } = notificationDocument;
+      if (trigger.collection) {
+        const { collection: { metadata } = {} } = trigger;
+        initialvalue = metadata && Object.keys(metadata)[0];
+      } else {
+        const { metadata } = trigger;
+        initialvalue = metadata && Object.keys(metadata)[0];
+      }
       // eslint-disable-next-line no-console
     } catch (error) { console.log(error); }
   }
@@ -460,9 +467,10 @@ function NotificationTriggerMetadataType(props) {
       case 'modify':
         return (
           <FormSection
+            {...props}
             name="modify"
             component={NotificationTriggerMetadataModifyType}
-            {...props}
+            id={`${name}.modify`}
           />
         );
       default:
@@ -472,7 +480,7 @@ function NotificationTriggerMetadataType(props) {
   return (
     <>
       <StatefulSelect
-        label="Trigger Action"
+        label="Metadata Action"
         initialvalue={initialvalue}
         fullWidth
         onChange={onChange}
@@ -496,8 +504,8 @@ function NotificationTriggerCollectionType(props) {
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { collection } = trigger;
+    initialvalue = collection && Object.keys(collection)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);

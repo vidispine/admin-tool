@@ -1,22 +1,21 @@
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function TableRowLink({
-  history,
   to,
-  staticContext,
-  match,
-  location,
+  style = {},
   ...props
 }) {
-  const onClick = to ? () => history.push(to) : props.onClick;
+  const component = to ? Link : undefined;
   return (
     <TableRow
-      onClick={onClick}
+      component={component}
+      to={to}
+      style={{ textDecoration: 'none', ...style }}
       {...props}
     />
   );
 }
 
-export default withRouter(TableRowLink);
+export default TableRowLink;

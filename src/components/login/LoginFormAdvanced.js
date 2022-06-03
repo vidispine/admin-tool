@@ -55,6 +55,22 @@ function LoginFormAdvanced({
         name="queryParams"
         component={queryParams}
       />
+      <Field
+        name="accessKey"
+        label="Access Key"
+        component={TextField}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+      />
+      <Field
+        name="secretKey"
+        label="Access Key"
+        component={TextField}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+      />
       <button type="submit" hidden />
     </form>
   );

@@ -17,7 +17,7 @@ export default function TextArrayField({
 }) {
   return (
     <div style={{ marginTop: '10px' }}>
-      <Grid container direction="row" alignItems="center" justify="space-between">
+      <Grid container direction="row" alignItems="center" justifyContent="space-between">
         <Grid item sm={10}>
           {label
           && (
@@ -48,7 +48,7 @@ export default function TextArrayField({
           container
           direction="row"
           alignItems="center"
-          justify="space-between"
+          justifyContent="space-between"
         >
           <Grid item sm={10}>
             <Field

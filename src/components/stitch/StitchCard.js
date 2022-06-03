@@ -61,7 +61,7 @@ function StitchCard({
       </SquareCard>
       <SquareCard>
         <CardContent>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             {url && (
               <img src={url} alt={url} />
             )}

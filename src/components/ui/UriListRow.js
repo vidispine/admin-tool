@@ -3,7 +3,6 @@ import startCase from 'lodash.startcase';
 import TableCell from '@material-ui/core/TableCell';
 
 import TableRowLink from './TableRowLink';
-import UnstyledLink from './UnstyledLink';
 
 export default function UriListRow({
   uri,
@@ -19,13 +18,7 @@ export default function UriListRow({
   return (
     <TableRowLink hover {...linkProps}>
       <TableCell>
-        {linkTo ? (
-          <UnstyledLink {...linkProps}>
-            {cellText}
-          </UnstyledLink>
-        ) : (
-          cellText
-        )}
+        {cellText}
       </TableCell>
       <TableCell />
     </TableRowLink>

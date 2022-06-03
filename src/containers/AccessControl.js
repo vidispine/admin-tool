@@ -84,6 +84,7 @@ class AccessControl extends React.PureComponent {
       openModal,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     return (
       <>
@@ -93,6 +94,7 @@ class AccessControl extends React.PureComponent {
             codeModal="AccessControlListDocument"
             code={accessControlListDocument}
             createModal={ACCESSCONTROL_CREATE_MODAL}
+            title={title}
           />
         )}
         {TabComponent && (

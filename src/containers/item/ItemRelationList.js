@@ -79,6 +79,7 @@ class ItemRelation extends React.PureComponent {
       tabComponent: TabComponent,
       onClose,
       modalName,
+      title,
     } = this.props;
     const {
       itemRelationListDocument,
@@ -91,6 +92,7 @@ class ItemRelation extends React.PureComponent {
             code={itemRelationListDocument}
             codeModal="ItemRelationListDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

@@ -1,20 +1,21 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware'); // eslint-disable-line import/no-extraneous-dependencies
 
-const VIDISPINE_ENDPOINTS = [
-  '/API/',
-  '/APInoauth/',
-  '/APIinit/',
-  '/APIdoc/',
-  '/UploadLicense/',
-];
+const VIDISPINE_ENDPOINTS = ['/API/', '/APInoauth/', '/APIinit/', '/APIdoc/', '/UploadLicense/'];
 
-const target = process.env.REACT_APP_VIDISPINE_URL || 'http://localhost:8080/';
+const VIDISPINE_URL = process.env.REACT_APP_VIDISPINE_URL === '' ? undefined : process.env.REACT_APP_VIDISPINE_URL;
 
-const options = { target, changeOrigin: true };
+const onProxyRes = (proxyRes) => delete proxyRes.headers['www-authenticate']; // eslint-disable-line no-param-reassign
 
 function useProxy(app) {
-  app.use(createProxyMiddleware(VIDISPINE_ENDPOINTS, options));
+  if (VIDISPINE_URL) {
+    app.use(
+      createProxyMiddleware(VIDISPINE_ENDPOINTS, {
+        target: VIDISPINE_URL,
+        changeOrigin: true,
+        onProxyRes,
+      }),
+    );
+  }
 }
 
 module.exports = useProxy;

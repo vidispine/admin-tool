@@ -77,7 +77,11 @@ class DeletionLockList extends React.PureComponent {
       rowsPerPage,
     } = this.state;
     const {
-      history, entityId, entityType, titleComponent: TitleComponent = DeletionLockListTitle,
+      history,
+      entityId,
+      entityType,
+      titleComponent: TitleComponent = DeletionLockListTitle,
+      title,
     } = this.props;
     return (
       <>
@@ -86,6 +90,7 @@ class DeletionLockList extends React.PureComponent {
           codeModal="DeletionLockListDocument"
           onRefresh={this.onRefresh}
           createModal={DELETIONLOCK_CREATE_MODAL}
+          title={title}
         />
         <DeletionLockListFilterCard
           form={DELETIONLOCKLIST_FILTER_FORM}

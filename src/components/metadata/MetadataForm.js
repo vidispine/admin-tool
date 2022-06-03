@@ -53,6 +53,7 @@ const MetadataFieldValueType = () => (
         required
         fullWidth
         disableInitial
+        creatable
       />
     </Grid>
     <Grid item sm={6}>

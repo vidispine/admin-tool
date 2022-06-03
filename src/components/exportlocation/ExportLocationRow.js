@@ -1,8 +1,7 @@
 import React from 'react';
 
-import UnstyledLink from '../ui/UnstyledLink';
 import TableCell from '../ui/TableCell';
-import TableRow from '../ui/TableRow';
+import TableRow from '../ui/TableRowLink';
 
 export default function ExportLocationRow({
   exportLocationDocument = {},
@@ -10,9 +9,7 @@ export default function ExportLocationRow({
   return (
     <TableRow to={`/export-location/${exportLocationDocument.name}/`} hover>
       <TableCell>
-        <UnstyledLink to={`/export-location/${exportLocationDocument.name}/`}>
-          {exportLocationDocument.name}
-        </UnstyledLink>
+        {exportLocationDocument.name}
       </TableCell>
     </TableRow>
   );

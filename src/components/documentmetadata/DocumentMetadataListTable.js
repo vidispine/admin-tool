@@ -43,8 +43,8 @@ export default function DocumentMetadataListTable({
             page={page}
             rowsPerPage={rowsPerPage}
             colSpan={10}
-            onChangePage={onChangePage}
-            onChangeRowsPerPage={onChangeRowsPerPage}
+            onPageChange={onChangePage}
+            onRowsPerPageChange={onChangeRowsPerPage}
             ActionsComponent={TableActions}
             rowsPerPageOptions={[100, 500, 1000]}
           />

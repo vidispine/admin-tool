@@ -17,6 +17,7 @@ class ImportImpFile extends React.PureComponent {
     const { history } = this.props;
     return (
       <ImportImpFileWizard
+        initialValues={{ metadataDocument: {} }}
         onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
       />
     );

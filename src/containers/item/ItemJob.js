@@ -134,6 +134,7 @@ class ItemJob extends React.PureComponent {
     const {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     return (
       <>
@@ -142,6 +143,7 @@ class ItemJob extends React.PureComponent {
             code={jobListDocument}
             codeModal="JobListDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

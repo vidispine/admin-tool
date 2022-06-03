@@ -74,7 +74,7 @@ function TypeArray({
           <Grid
             container
             direction="row-reverse"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="baseline"
           >
             <Grid item sm="auto">

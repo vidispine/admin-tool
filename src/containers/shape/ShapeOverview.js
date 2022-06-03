@@ -11,6 +11,7 @@ class ShapeOverview extends React.PureComponent {
     this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
     this.state = {
       shapeDocument: undefined,
     };
@@ -52,6 +53,11 @@ class ShapeOverview extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
+  onSuccess(response) {
+    const shapeDocument = response.data;
+    this.setState({ shapeDocument });
+  }
+
   render() {
     const {
       titleComponent: TitleComponent,
@@ -67,6 +73,7 @@ class ShapeOverview extends React.PureComponent {
             code={shapeDocument}
             codeModal="ShapeDocument"
             onRefresh={this.onRefresh}
+            breadcrumbList={['Overview']}
           />
         )}
         {TabComponent && (
@@ -75,7 +82,7 @@ class ShapeOverview extends React.PureComponent {
         <ShapeParams
           shapeId={shapeId}
           itemId={itemId}
-          onSuccess={this.onRefresh}
+          onSuccess={this.onSuccess}
         />
         {shapeDocument && (
           <ShapeOverviewComponent

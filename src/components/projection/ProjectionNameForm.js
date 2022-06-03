@@ -8,7 +8,7 @@ function ProjectionNameForm({
 }) {
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container direction="column" justify="flex-start" alignItems="stretch">
+      <Grid container direction="column" justifyContent="flex-start" alignItems="stretch">
         <Grid item>
           <Field
             name="projectionId"

@@ -3,11 +3,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { utils as api } from '@vidispine/vdt-api';
 
 import TitleHeader from '../ui/TitleHeader';
 import Menu, { MenuItem } from '../ui/Menu';
 import { withModalNoRouter } from '../../hoc/withModal';
+import routes from '../../const/routes';
 
 export const ShapeHeading = ({ shapeId, title }) => (
   <Grid container alignItems="center">
@@ -54,22 +54,18 @@ function ShapeTitle({
   removeTagModal,
   analyzeTagModal,
   addComponentModal,
+  breadcrumbList = [],
   ...props
 }) {
-  const baseUrl = api.defaultClient.defaults.baseURL || '';
-  const itemParams = new URLSearchParams({
-    content: 'metadata,thumbnail',
-    baseURI: `${baseUrl}/APInoauth/`,
-    terse: true,
-    'noauth-url': true,
-  });
   return (
     <TitleHeader
-      grandParentTitle="Item"
-      grandParentTo={`/item/?${itemParams.toString()}`}
-      parentTitle={itemId}
-      parentTo={`/item/${itemId}?tab=ITEM_SHAPE_TAB`}
-      title={(<ShapeHeading shapeId={shapeId} title={title} />)}
+      breadcrumbList={Array.isArray(breadcrumbList) ? [
+        { title: 'Item', to: routes.itemList() },
+        { title: itemId, to: routes.item({ itemId }) },
+        { title: 'Shape', to: routes.shapeList({ itemId }) },
+        { title: shapeId, to: routes.shape({ itemId, shapeId }) },
+        ...breadcrumbList]
+        : undefined}
       actionComponent={(
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: transcodeModal })}>

@@ -4,11 +4,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { reduxForm, FormSection } from 'redux-form';
 
 import { TextField } from '../form';
-import { required } from '../../utils/FieldValidation';
+import { required, isUrl } from '../../utils/FieldValidation';
 import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 
-const hasTokenOrValue = (value, { headers = {} }) => (headers.token ? undefined : required(value));
+const hasTokenOrValue = (value, { secretKey, headers = {} }) => (
+  (headers.token || secretKey) ? undefined : required(value)
+);
 
 const headers = () => (
   <>
@@ -53,6 +55,7 @@ function LoginForm({
   error,
   handleSubmit,
   onTestUrl,
+  useProxy,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -65,10 +68,11 @@ function LoginForm({
         onBlur={(event, baseUrl) => onTestUrl(baseUrl)}
         fullWidth
         autoFocus
-        validate={[required]}
+        validate={[required, isUrl]}
         variant="outlined"
         margin="dense"
         useStartCase={false}
+        disabled={useProxy}
       />
       <FormSection
         name="headers"

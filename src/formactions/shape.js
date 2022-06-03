@@ -87,6 +87,26 @@ export function onGet(form, dispatch, props) {
     });
 }
 
+export function onGetShapeFileList(form, dispatch, props) {
+  const { queryParams = {} } = form;
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  return api.getShape({
+    itemId,
+    shapeId,
+    queryParams,
+    path: `/API/item/${itemId}/shape/${shapeId}/file`,
+  })
+    .then((response) => ({ itemId, shapeId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onRemoveShape(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;

@@ -62,8 +62,8 @@ function GroupTable({
               count={count}
               page={page}
               rowsPerPage={rowsPerPage}
-              onChangePage={onChangePage}
-              onChangeRowsPerPage={onChangeRowsPerPage}
+              onPageChange={onChangePage}
+              onRowsPerPageChange={onChangeRowsPerPage}
               ActionsComponent={TableActions}
               rowsPerPageOptions={rowsPerPageOptions}
             />

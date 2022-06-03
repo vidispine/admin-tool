@@ -63,6 +63,8 @@ class FileOverview extends React.PureComponent {
             code={shapeListDocument}
             codeModal="ShapeListDocument"
             onRefresh={this.onRefresh}
+            breadcrumbList={['Shape']}
+
           />
         )}
         {TabComponent && (

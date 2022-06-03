@@ -59,6 +59,7 @@ class ItemProjection extends React.PureComponent {
       itemId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { outgoingProjectionDocument } = this.state;
     return (
@@ -68,6 +69,7 @@ class ItemProjection extends React.PureComponent {
             code={outgoingProjectionDocument}
             codeModal="OutgoingProjectionDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

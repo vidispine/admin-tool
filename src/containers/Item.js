@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
 
+import { Route, Switch, generatePath } from 'react-router-dom';
 import withTabs from '../hoc/withTabs';
 import { withRouterProps } from '../hoc/withRouterProps';
 
@@ -16,6 +17,8 @@ import ItemJob from './item/ItemJob';
 import ItemProjection from './item/ItemProjection';
 import ItemRelationList from './item/ItemRelationList';
 import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
+import ItemBulkyMetadata from './item/ItemBulkyMetadata';
+import ItemVersion from './item/ItemVersion';
 
 import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
@@ -33,7 +36,7 @@ import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
 import JobCreate from '../components/job/JobCreate';
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import DrawerContainer from '../components/ui/DrawerContainer';
-import DrawerListItem from '../components/ui/DrawerListItem';
+import ListItemLink from '../components/ui/ListItemLink';
 
 const ITEM_METADATA_TAB = 'ITEM_METADATA_TAB';
 const ITEM_COLLECTION_TAB = 'ITEM_COLLECTION_TAB';
@@ -50,6 +53,7 @@ const ACCESSMERGED_TAB = 'ACCESSMERGED_TAB';
 const STORAGERULE_TAB = 'STORAGERULE_TAB';
 const BULKYMETADATA_TAB = 'BULKYMETADATA_TAB';
 const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
+const ITEM_VERSION_TAB = 'ITEM_VERSION_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -63,36 +67,95 @@ const JOB_CREATE_DIALOG = 'JOB_CREATE_DIALOG';
 const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
 
 const TAB_TITLE = [
-  { tab: ITEM_METADATA_TAB, listText: 'Metadata', component: ItemMetadata },
-  { tab: ITEM_CONTENT_TAB, listText: 'Content', component: ItemContent },
-  { tab: ITEM_COLLECTION_TAB, listText: 'Collection', component: ItemCollection },
-  { tab: ITEM_SHAPE_TAB, listText: 'Shape', component: ItemShape },
-  { tab: ITEM_URI_TAB, listText: 'URI', component: ItemUri },
-  { tab: ITEM_THUMBNAIL_TAB, listText: 'Thumbnail', component: ItemThumbnail },
-  { tab: ITEM_POSTER_TAB, listText: 'Poster', component: ItemPoster },
-  { tab: ITEM_JOB_TAB, listText: 'Job', component: ItemJob },
-  { tab: ITEM_PROJECTION_TAB, listText: 'Projection', component: ItemProjection },
-  { tab: ITEM_RELATION_TAB, listText: 'Relation', component: ItemRelationList },
-  { tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl },
-  { tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged },
-  { tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule },
-  { tab: BULKYMETADATA_TAB, listText: 'Bulky Metadata', component: ItemBulkyMetadataList },
-  { tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList },
+  {
+    tab: ITEM_METADATA_TAB, listText: 'Metadata', component: ItemMetadata, path: '/item/:itemId/metadata/',
+  },
+  {
+    tab: ITEM_CONTENT_TAB, listText: 'Content', component: ItemContent, path: '/item/:itemId/content/',
+  },
+  {
+    tab: ITEM_COLLECTION_TAB, listText: 'Collection', component: ItemCollection, path: '/item/:itemId/collection/',
+  },
+  {
+    tab: ITEM_SHAPE_TAB, listText: 'Shape', component: ItemShape, path: '/item/:itemId/shape/',
+  },
+  {
+    tab: ITEM_VERSION_TAB, listText: 'Version', component: ItemVersion, path: '/item/:itemId/version/',
+  },
+  {
+    tab: ITEM_URI_TAB, listText: 'URI', component: ItemUri, path: '/item/:itemId/uri/',
+  },
+  {
+    tab: ITEM_THUMBNAIL_TAB, listText: 'Thumbnail', component: ItemThumbnail, path: '/item/:itemId/thumbnail/',
+  },
+  {
+    tab: ITEM_POSTER_TAB, listText: 'Poster', component: ItemPoster, path: '/item/:itemId/poster/',
+  },
+  {
+    tab: ITEM_JOB_TAB, listText: 'Job', component: ItemJob, path: '/item/:itemId/job/',
+  },
+  {
+    tab: ITEM_PROJECTION_TAB, listText: 'Projection', component: ItemProjection, path: '/item/:itemId/projection/',
+  },
+  {
+    tab: ITEM_RELATION_TAB, listText: 'Relation', component: ItemRelationList, path: '/item/:itemId/relation/',
+  },
+  {
+    tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl, path: '/item/:itemId/direct-access/',
+  },
+  {
+    tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged, path: '/item/:itemId/merged-access/',
+  },
+  {
+    tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule, path: '/item/:itemId/storage-rules/',
+  },
+  {
+    tab: BULKYMETADATA_TAB, listText: 'Bulky Metadata', component: ItemBulkyMetadataList, path: '/item/:itemId/bulky-metadata/', exact: true,
+  },
+  {
+    tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/item/:itemId/deletion-locks/',
+  },
 ];
 
-const listComponent = ({ onChangeTab, tabValue }) => (
+const listComponentRoute = ({ itemId }) => (
   <List>
-    {TAB_TITLE.map(({ tab, listText }) => (
-      <DrawerListItem
-        key={listText}
-        listText={listText}
-        listItemProps={{
-          onClick: () => onChangeTab(null, tab),
-          selected: tabValue === tab || undefined,
-        }}
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, { itemId })}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
+        exact={exact}
       />
     ))}
   </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    <Route
+      exact
+      path="/item/:itemId/bulky-metadata/:bulkyMetadataKey"
+      render={() => <ItemBulkyMetadata {...props} title="Bulky Metadata" />}
+      {...props}
+    />
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+    <Route
+      path="*"
+      render={() => <ItemMetadata {...props} title="Metadata" />}
+    />
+  </Switch>
 );
 
 class Item extends React.PureComponent {
@@ -126,8 +189,6 @@ class Item extends React.PureComponent {
       itemId,
       history,
     } = this.props;
-    const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
-    const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
       <ItemTitle
         itemId={itemId}
@@ -141,15 +202,14 @@ class Item extends React.PureComponent {
         addToCollectionModal={COLLECTION_ENTITY_ADD_DIALOG}
         startJobModal={JOB_CREATE_DIALOG}
         addAccessControl={ITEM_ACCESSCONTROL_ADD_DIALOG}
-        title={listText}
         {...props}
       />
     );
     return (
       <>
         <DrawerContainer
-          mainComponent={mainComponent}
-          listComponent={listComponent}
+          mainComponent={mainComponentRoute}
+          listComponent={listComponentRoute}
           defaultOpen
           onChangeTab={onChangeTab}
           tabValue={tabValue}

@@ -1,7 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRowLink from '../ui/TableRowLink';
-import UnstyledLink from '../ui/UnstyledLink';
 import { OnlineIcon, OfflineIcon } from '../ui/StatusIcon';
 
 const NetworkRow = ({ resource }) => (
@@ -158,11 +157,7 @@ export default function ResourceListRow({
   const { id: resourceId } = resource;
   return (
     <TableRowLink hover to={`/resource/${resourceType}/${resourceId}/`}>
-      <TableCell>
-        <UnstyledLink to={`/resource/${resourceType}/${resourceId}/`}>
-          {resourceId}
-        </UnstyledLink>
-      </TableCell>
+      <TableCell>{resourceId}</TableCell>
       <ResourceRow resource={resource} resourceType={resourceType} />
     </TableRowLink>
   );

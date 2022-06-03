@@ -26,6 +26,7 @@ function TitleHeader({
   openAction,
   actionComponent,
   iconList,
+  breadcrumbList,
   parentTitle,
   grandParentTo,
   grandParentTitle,
@@ -52,7 +53,55 @@ function TitleHeader({
       container
       alignItems="center"
     >
-      {grandParentTitle
+      {Array.isArray(breadcrumbList) ? breadcrumbList.map((thisBreadcrumb, idx) => {
+        const isLastBreadCrumb = idx + 1 === breadcrumbList.length;
+        const breadcrumbColor = isLastBreadCrumb ? 'inherit' : 'textSecondary';
+        let textComponent = null;
+        let spacerComponent = null;
+        if (thisBreadcrumb.to) {
+          const { to: breadCrumbTo, title: breadcrumbTitle = '' } = thisBreadcrumb;
+          textComponent = (
+            <Typography
+              variant="h5"
+              color={breadcrumbColor}
+              component={Link}
+              to={breadCrumbTo}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              {breadcrumbTitle}
+            </Typography>
+          );
+        } else if (thisBreadcrumb.title) {
+          textComponent = (
+            <Typography variant="h5" color={breadcrumbColor}>
+              {thisBreadcrumb.title}
+            </Typography>
+          );
+        } else {
+          textComponent = (
+            <Typography variant="h5" color={breadcrumbColor}>
+              {thisBreadcrumb}
+            </Typography>
+          );
+        }
+        if (isLastBreadCrumb === false) {
+          spacerComponent = (
+            <Grid item>
+              <IconButton disabled>
+                <ArrowForwardIos />
+              </IconButton>
+            </Grid>
+          );
+        }
+        return (
+          <React.Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
+            {textComponent}
+            {spacerComponent}
+          </React.Fragment>
+        );
+      }) : (
+        <>
+          {grandParentTitle
           && (
           <Grid item>
             {grandParentTo
@@ -74,7 +123,7 @@ function TitleHeader({
               )}
           </Grid>
           )}
-      {grandParentTitle
+          {grandParentTitle
           && (
           <Grid item>
             <IconButton disabled>
@@ -82,7 +131,7 @@ function TitleHeader({
             </IconButton>
           </Grid>
           )}
-      {parentTitle
+          {parentTitle
           && (
           <Grid item>
             {parentTo
@@ -104,7 +153,7 @@ function TitleHeader({
               )}
           </Grid>
           )}
-      {parentTitle
+          {parentTitle
           && (
           <Grid item>
             <IconButton disabled>
@@ -112,11 +161,14 @@ function TitleHeader({
             </IconButton>
           </Grid>
           )}
-      <Grid item>
-        <Typography variant="h5">
-          {title}
-        </Typography>
-      </Grid>
+          <Grid item>
+            <Typography variant="h5">
+              {title}
+            </Typography>
+          </Grid>
+
+        </>
+      )}
       {titleChip && (
       <Chip label={titleChip} />
       )}
@@ -199,7 +251,7 @@ function TitleHeader({
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="baseline"
       >
         <Grid item>
@@ -209,7 +261,7 @@ function TitleHeader({
           <Grid
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
           >
             {autoRefreshSwitch}

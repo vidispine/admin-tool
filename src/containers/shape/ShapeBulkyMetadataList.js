@@ -63,6 +63,7 @@ class ShapeBulkyMetadataList extends React.PureComponent {
             code={uriListDocument}
             codeModal="URIListDocument"
             onRefresh={this.onRefresh}
+            breadcrumbList={['Bulky Metadata']}
           />
         )}
         {TabComponent && (

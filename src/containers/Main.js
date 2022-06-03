@@ -107,6 +107,7 @@ function Main({
   onOpen,
   unsetToken,
   unsetRunAs,
+  unsetResponseInterceptor,
   userName,
   baseUrl,
 }) {
@@ -115,6 +116,7 @@ function Main({
   const onLogout = () => {
     unsetToken();
     unsetRunAs();
+    unsetResponseInterceptor();
   };
   return (
     <div style={{ zIndex: 1, minWidth: '100%' }}>
@@ -181,8 +183,8 @@ function Main({
           <Route exact path="/search/field-group/" component={FieldGroupSearch} />
           <Route exact path="/item/" component={ItemSearch} />
           <Route exact path="/shape" component={ShapeSearch} />
-          <Route exact path="/item/:itemId/" component={Item} />
           <Route path="/item/:itemId/shape/:shapeId/" component={Shape} />
+          <Route path="/item/:itemId/" component={Item} />
           <Route exact path="/reindex/" component={ReindexList} />
           <Route exact path="/wizard/" component={Wizard} />
           <Route exact path="/metadata-field/" component={MetadataFieldList} />
@@ -191,7 +193,7 @@ function Main({
           <Route exact path="/import" component={Import} />
           <Route exact path="/import-imp" component={ImportImp} />
           <Route exact path="/file/" component={FileList} />
-          <Route exact path="/file/:fileId/" component={File} />
+          <Route path="/file/:fileId/" component={File} />
           <Route exact path="/storage-rule/" component={StorageRuleList} />
           <Route exact path="/error/" component={ErrorLog} />
           <Route exact path="/vxa/" component={VxaList} />

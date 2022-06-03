@@ -59,6 +59,7 @@ class ItemThumbnail extends React.PureComponent {
     const {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { itemDocument } = this.state;
     return (
@@ -68,6 +69,7 @@ class ItemThumbnail extends React.PureComponent {
             code={itemDocument}
             codeModal="ItemDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

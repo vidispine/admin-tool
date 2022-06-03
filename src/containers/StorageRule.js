@@ -38,6 +38,7 @@ class StorageRule extends React.PureComponent {
       entityType,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { storageRulesDocument } = this.state;
     return (
@@ -48,6 +49,7 @@ class StorageRule extends React.PureComponent {
             codeModal="StorageRulesDocument"
             code={storageRulesDocument}
             createModal={STORAGERULE_DIALOG}
+            title={title}
           />
         )}
         {TabComponent && (

@@ -61,7 +61,7 @@ export function SegmentArray({
       {fields.map((thisField, index) => (
         <SquareCard key={thisField}>
           <CardContent>
-            <Grid container direction="row" justify="space-between">
+            <Grid container direction="row" justifyContent="space-between">
               <Grid item sm={2}>
                 { label
                   && (
@@ -93,14 +93,14 @@ export function SegmentArray({
                   label="Source ID"
                   fullWidth
                 />
-                <Grid container direction="row" justify="space-between">
+                <Grid container direction="row" justifyContent="space-between">
                   <FormSection
                     name={`${thisField}.source.interval.start`}
                     component={ConformTimePointType}
                     label="Start"
                   />
                 </Grid>
-                <Grid container direction="row" justify="space-between">
+                <Grid container direction="row" justifyContent="space-between">
                   <FormSection
                     name={`${thisField}.source.interval.end`}
                     component={ConformTimePointType}
@@ -114,7 +114,7 @@ export function SegmentArray({
       ))}
       { maxFields > fields.length
         && (
-        <Grid container direction="column" justify="flex-start" alignItems="stretch">
+        <Grid container direction="column" justifyContent="flex-start" alignItems="stretch">
           <TextButton onClick={addField} color="primary">
             Add Segment
           </TextButton>
