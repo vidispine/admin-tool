@@ -84,6 +84,22 @@ export function onFileOverwrite(form, dispatch, props) {
     });
 }
 
+export function onGetFile(form, dispatch, props) {
+  const fileId = props.fileId || form.fileId;
+  const { queryParams } = form;
+  return api.getFile({
+    fileId,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onFileList(form, dispatch, props) {
   const { storageId } = props;
   const { queryParams, matrixParams = {} } = form;

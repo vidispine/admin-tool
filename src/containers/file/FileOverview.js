@@ -2,6 +2,7 @@ import React from 'react';
 import { file as api } from '@vidispine/vdt-api';
 
 import FileCard from '../../components/file/FileCard';
+import FileParams from '../../components/file/FileParams';
 import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
 import withUI from '../../hoc/withUI';
 import FileDelete from '../../components/file/FileDelete';
@@ -21,6 +22,7 @@ const FILE_ENTITY_REMOVE_DIALOG = 'FILE_ENTITY_REMOVE_DIALOG';
 const FILE_PATH_DIALOG = 'FILE_PATH_DIALOG';
 const FILE_OVERWRITE_DIALOG = 'FILE_OVERWRITE_DIALOG';
 const FILE_ANALYZE_DIALOG = 'FILE_ANALYZE_DIALOG';
+const FILE_PARAMS_FORM = 'FILE_PARAMS_FORM';
 
 class FileOverview extends React.PureComponent {
   constructor(props) {
@@ -28,6 +30,7 @@ class FileOverview extends React.PureComponent {
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onFetch = this.onFetch.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
     this.state = {
       fileDocument: undefined,
     };
@@ -69,11 +72,17 @@ class FileOverview extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
+  onSuccess(response) {
+    const fileDocument = response.data;
+    this.setState({
+      fileDocument,
+    });
+  }
+
   render() {
     const { fileDocument } = this.state;
     const {
       fileId, titleComponent: TitleComponent,
-      tabComponent: TabComponent,
       history,
     } = this.props;
     return (
@@ -94,12 +103,14 @@ class FileOverview extends React.PureComponent {
             analyzeModal={FILE_ANALYZE_DIALOG}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
         {fileDocument
           && (
             <>
+              <FileParams
+                form={FILE_PARAMS_FORM}
+                onSuccess={this.onSuccess}
+                fileId={fileId}
+              />
               <FileCard
                 fileDocument={fileDocument}
               />

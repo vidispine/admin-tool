@@ -220,7 +220,7 @@ const matrixParams = () => (
   </>
 );
 
-function FileFilterForm({
+function FileListFilterForm({
   error,
   handleSubmit,
 }) {
@@ -240,4 +240,4 @@ function FileFilterForm({
   );
 }
 
-export default reduxForm()(FileFilterForm);
+export default reduxForm()(FileListFilterForm);

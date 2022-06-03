@@ -5,22 +5,32 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import {
   file as api,
-  noauth as apiNoAuth,
 } from '@vidispine/vdt-api';
-import { downloadFile } from '../../utils';
 import { DOWNLOAD_STATES } from '../../const/FileStates';
 import { withSnackbarNoRouter } from '../../hoc/withSnackbar';
 
-export const getNoAuth = ({ fileId, openSnackBar }) => (
-  api.getFile({ fileId, queryParams: { methodType: 'AUTO' } })
+export const onDownload = ({ fileId, fileName, openSnackBar }) => (
+  api.getFile({
+    fileId,
+    queryParams: {
+      methodMetadata: [
+        { key: 'format', value: 'SIGNED-AUTO' },
+        { key: 'contentDisposition', value: `attachment${fileName ? `;+filename=${fileName}` : undefined}` },
+      ],
+    },
+  })
     .then((response) => {
       const { data } = response;
       const { uri: uriList = [] } = data;
-      if (uriList.length > 0) {
-        const uri = uriList[0].split('/APInoauth/')[1];
-        return `/APInoauth/${uri}`;
+      const [url] = uriList;
+      if (url) {
+        const messageContent = 'Download Started';
+        if (openSnackBar) { openSnackBar({ messageContent }); }
+        window.open(url, '_blank');
+      } else {
+        const messageContent = 'Error Loading Download URL';
+        if (openSnackBar) { openSnackBar({ messageContent, messageColor: 'secondary' }); }
       }
-      return undefined;
     })
     .catch(() => {
       const messageContent = 'Error Loading Download URL';
@@ -28,30 +38,15 @@ export const getNoAuth = ({ fileId, openSnackBar }) => (
     })
 );
 
-export const getDownloadNoAuth = ({ fileId, fileName, openSnackBar }) => {
-  getNoAuth({ fileId, openSnackBar })
-    .then((path) => {
-      apiNoAuth.getFileRaw({ path })
-        .then((fileResponse) => {
-          downloadFile({ data: fileResponse.data, fileName });
-          const messageContent = 'Download Started';
-          if (openSnackBar) { openSnackBar({ messageContent }); }
-        })
-        .catch(() => {
-          const messageContent = 'Error Downloading File Content';
-          if (openSnackBar) { openSnackBar({ messageContent, messageColor: 'secondary' }); }
-        });
-    });
-};
-
 const FileDownload = ({ fileDocument, openSnackBar }) => {
   if (fileDocument === undefined) { return null; }
-  const { path: fileName, id: fileId, state } = fileDocument;
+  const { path, id: fileId, state } = fileDocument;
+  const fileName = path.replace(/^.*(\\|\/|:)/, '');
   if (!DOWNLOAD_STATES.includes(state)) { return null; }
-  const onDownload = () => getDownloadNoAuth({ fileId, fileName, openSnackBar });
+  const onClick = () => onDownload({ fileId, fileName, openSnackBar });
   return (
     <Tooltip title="Download">
-      <IconButton onClick={onDownload}>
+      <IconButton onClick={onClick}>
         <CloudDownloadIcon />
       </IconButton>
     </Tooltip>

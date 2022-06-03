@@ -11,11 +11,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Accordion from '../ui/Accordion';
 
 import * as formActions from '../../formactions/file';
-import FileFilterForm from './FileFilterForm';
+import FileFilterForm from './FileListFilterForm';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
 
-function FileFilter({
+function FileListFilter({
   onClose,
   onSuccess,
   openSnackBar,
@@ -81,4 +81,4 @@ function FileFilter({
   );
 }
 
-export default compose(withUI, withFormActions)(FileFilter);
+export default compose(withUI, withFormActions)(FileListFilter);
