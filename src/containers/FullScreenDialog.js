@@ -139,7 +139,7 @@ function FullScreenDialog({
             <ListGroup subheader="IMF">
               <ListLink to="/import-imp/?tab=IMPORTIMP_URL_TAB" primary="Import From URL" />
               <ListLink to="/import-imp/?tab=IMPORTIMP_PATH_TAB" primary="Import From Path" />
-              <ListLink to="/import-imp/?tab=IMPORTIMP_File_TAB" primary="Import From File" />
+              <ListLink to="/import-imp/?tab=IMPORTIMP_FILE_TAB" primary="Import From File" />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>

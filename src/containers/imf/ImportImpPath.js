@@ -17,6 +17,7 @@ class ImportImpPath extends React.PureComponent {
     const { history } = this.props;
     return (
       <ImportImpPathWizard
+        initialValues={{ metadataDocument: {} }}
         onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
       />
     );
