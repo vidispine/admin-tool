@@ -55,7 +55,7 @@ function TitleHeader({
     >
       {Array.isArray(breadcrumbList) ? breadcrumbList.map((thisBreadcrumb, idx) => {
         const isLastBreadCrumb = idx + 1 === breadcrumbList.length;
-        const breadcrumbColor = isLastBreadCrumb ? undefined : 'textSecondary';
+        const breadcrumbColor = isLastBreadCrumb ? 'inherit' : 'textSecondary';
         let textComponent = null;
         let spacerComponent = null;
         if (thisBreadcrumb.to) {
@@ -66,7 +66,7 @@ function TitleHeader({
               color={breadcrumbColor}
               component={Link}
               to={breadCrumbTo}
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               {breadcrumbTitle}
             </Typography>

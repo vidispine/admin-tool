@@ -5,7 +5,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import UnstyledLink from '../ui/UnstyledLink';
 import TableRowLink from '../ui/TableRowLink';
 
 const COLLECTION_TRANSIENT_FIELDS = [
@@ -53,7 +52,7 @@ export default function MetadataCollectionTable({
             hover
           >
             <TableCell>
-              <UnstyledLink to={`/collection/${collection.id}/`}>{collection.id}</UnstyledLink>
+              {collection.id}
             </TableCell>
             <TableCell>
               {collection.relation}

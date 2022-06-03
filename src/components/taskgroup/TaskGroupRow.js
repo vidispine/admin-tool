@@ -1,7 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRowLink from '../ui/TableRowLink';
-import UnstyledLink from '../ui/UnstyledLink';
 
 export default function TaskGroupRow({
   group,
@@ -9,9 +8,7 @@ export default function TaskGroupRow({
   return (
     <TableRowLink hover to={`/task-group/${group.name}/`}>
       <TableCell>
-        <UnstyledLink to={`/task-group/${group.name}/`}>
-          {group.name}
-        </UnstyledLink>
+        {group.name}
       </TableCell>
       <TableCell />
     </TableRowLink>

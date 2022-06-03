@@ -8,13 +8,15 @@ import { NavLink } from 'react-router-dom';
 
 export default function ListItemLink(props) {
   const {
-    icon = true, primary, secondary, to, ...listItemProps
+    icon = true, primary, secondary, to, exact, ...listItemProps
   } = props;
   const avatarText = (primary && primary[0]) || (secondary && secondary[0]);
 
   const renderLink = React.useMemo(
-    () => React.forwardRef((itemProps, ref) => <NavLink to={to} ref={ref} {...itemProps} />),
-    [to],
+    () => React.forwardRef((itemProps, ref) => (
+      <NavLink to={to} exact={exact} ref={ref} {...itemProps} />
+    )),
+    [to, exact],
   );
 
   return (

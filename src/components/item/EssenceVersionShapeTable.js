@@ -6,7 +6,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import TableRowLink from '../ui/TableRowLink';
-import UnstyledLink from '../ui/UnstyledLink';
 
 export default function EssenceVersionCard({ essenceVersionDocument, linkTo, linkProps }) {
   if (essenceVersionDocument === undefined) { return null; }
@@ -24,24 +23,8 @@ export default function EssenceVersionCard({ essenceVersionDocument, linkTo, lin
       <TableBody>
         {shapeList.map(({ id: shapeId, created }) => (
           <TableRowLink key={shapeId} hover {...linkProps} to={linkTo(shapeId)}>
-            <TableCell>
-              {linkTo ? (
-                <UnstyledLink {...linkProps} to={linkTo(shapeId)}>
-                  {shapeId}
-                </UnstyledLink>
-              ) : (
-                shapeId
-              )}
-            </TableCell>
-            <TableCell>
-              {linkTo ? (
-                <UnstyledLink {...linkProps} to={linkTo(shapeId)}>
-                  {created}
-                </UnstyledLink>
-              ) : (
-                created
-              )}
-            </TableCell>
+            <TableCell>{shapeId}</TableCell>
+            <TableCell>{created}</TableCell>
             <TableCell />
           </TableRowLink>
         ))}

@@ -1,7 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRowLink from '../ui/TableRowLink';
-import UnstyledLink from '../ui/UnstyledLink';
 
 export default function NotificationListRow({
   notification,
@@ -11,11 +10,7 @@ export default function NotificationListRow({
   const notificationId = notificationPath.split('/').pop();
   return (
     <TableRowLink hover to={`/notification/${entityType}/${notificationId}/`}>
-      <TableCell>
-        <UnstyledLink to={`/notification/${entityType}/${notificationId}/`}>
-          {notificationId}
-        </UnstyledLink>
-      </TableCell>
+      <TableCell>{notificationId}</TableCell>
       <TableCell />
     </TableRowLink>
   );

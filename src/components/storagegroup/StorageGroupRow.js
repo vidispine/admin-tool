@@ -2,7 +2,6 @@ import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 
 import TableRowLink from '../ui/TableRowLink';
-import UnstyledLink from '../ui/UnstyledLink';
 
 export default function StorageGroupRow({
   storageGroup,
@@ -11,9 +10,7 @@ export default function StorageGroupRow({
   return (
     <TableRowLink hover to={`/storage-group/${groupName}/`}>
       <TableCell>
-        <UnstyledLink to={`/storage-group/${groupName}/`}>
-          {groupName}
-        </UnstyledLink>
+        {groupName}
       </TableCell>
     </TableRowLink>
   );

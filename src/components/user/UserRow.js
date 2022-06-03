@@ -3,9 +3,8 @@ import Check from '@material-ui/icons/Check';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
 
-import UnstyledLink from '../ui/UnstyledLink';
 import TableCell from '../ui/TableCell';
-import TableRow from '../ui/TableRow';
+import TableRow from '../ui/TableRowLink';
 
 export default function UserRow({
   userDocument = {},
@@ -14,9 +13,7 @@ export default function UserRow({
   return (
     <TableRow to={`/user/${userDocument.userName}/`} hover>
       <TableCell>
-        <UnstyledLink to={`/user/${userDocument.userName}/`}>
-          {userDocument.userName}
-        </UnstyledLink>
+        {userDocument.userName}
       </TableCell>
       <TableCell>{userDocument.realName}</TableCell>
       <TableCell>{userDocument.disabled && <Check />}</TableCell>
