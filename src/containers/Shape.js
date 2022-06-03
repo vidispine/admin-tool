@@ -1,13 +1,16 @@
 import React from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch, generatePath } from 'react-router-dom';
 
 import { withRouterProps } from '../hoc/withRouterProps';
 
 import ShapeOverview from './shape/ShapeOverview';
 import ShapeBulkyMetadata from './shape/ShapeBulkyMetadata';
 import ShapeBulkyMetadataList from './shape/ShapeBulkyMetadataList';
+import ShapeGraph from './shape/ShapeGraph';
+import ShapeCpl from './shape/ShapeCpl';
+import ShapeFileList from './shape/ShapeFileList';
 
 import ShapeTitle from '../components/shape/ShapeTitle';
 import ShapeDelete from '../components/shape/ShapeDelete';
@@ -17,7 +20,7 @@ import ShapeAddComponent from '../components/shape/ShapeAddComponent';
 import ShapeAddTag from '../components/shape/ShapeAddTag';
 import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
 import DrawerContainer from '../components/ui/DrawerContainer';
-import DrawerListItem from '../components/ui/DrawerListItem';
+import ListItemLink from '../components/ui/ListItemLink';
 
 const SHAPE_REMOVE_DIALOG = 'SHAPE_REMOVE_DIALOG';
 const SHAPE_TRANSCODE_DIALOG = 'SHAPE_TRANSCODE_DIALOG';
@@ -26,56 +29,70 @@ const SHAPE_ADD_TAG_DIALOG = 'SHAPE_ADD_TAG_DIALOG';
 const SHAPE_REMOVE_TAG_DIALOG = 'SHAPE_REMOVE_TAG_DIALOG';
 const SHAPE_ADD_COMPONENT_DIALOG = 'SHAPE_ADD_COMPONENT_DIALOG';
 
-const shapeOverviewLink = ({ itemId = ':itemId', shapeId = ':shapeId' } = {}) => `/item/${itemId}/shape/${shapeId}/`;
-const shapeBulkyListLink = (props) => `${shapeOverviewLink(props)}bulky-metadata/`;
-const shapeBulkyLink = ({ bulkyMetadataKey = ':bulkyMetadataKey', ...props } = {}) => `${shapeBulkyListLink(props)}${bulkyMetadataKey}`;
-
 const TAB_TITLE = [
   {
     listText: 'Overview',
-    link: shapeOverviewLink,
+    component: ShapeOverview,
+    path: '/item/:itemId/shape/:shapeId/',
+    exact: true,
   },
   {
     listText: 'Bulky Metadata',
-    link: shapeBulkyListLink,
+    component: ShapeBulkyMetadataList,
+    path: '/item/:itemId/shape/:shapeId/bulky-metadata/',
+  },
+  {
+    listText: 'Files',
+    component: ShapeFileList,
+    path: '/item/:itemId/shape/:shapeId/file/',
+  },
+  {
+    listText: 'Graph',
+    component: ShapeGraph,
+    path: '/item/:itemId/shape/:shapeId/graph/',
+  },
+  {
+    listText: 'CPL',
+    component: ShapeCpl,
+    path: '/item/:itemId/shape/:shapeId/cpl/',
   },
 ];
 
-const listComponent = ({ itemId, shapeId }) => (
+const listComponentRoute = ({ itemId, shapeId }) => (
   <List>
-    {TAB_TITLE.map(({ link, listText }) => (
-      <DrawerListItem
-        key={listText}
-        listText={listText}
-        listItemProps={{
-          component: Link,
-          to: link({ itemId, shapeId }),
-        }}
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, { itemId, shapeId })}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
+        exact={exact}
       />
     ))}
   </List>
 );
 
-const mainComponent = (props) => (
-  <>
+const mainComponentRoute = (props) => (
+  <Switch>
     <Route
       exact
-      path={shapeOverviewLink()}
-      render={() => <ShapeOverview {...props} />}
-    />
-    <Route
-      exact
-      path={shapeBulkyListLink()}
-      render={() => <ShapeBulkyMetadataList {...props} />}
+      path="/item/:itemId/shape/:shapeId/bulky-metadata/:bulkyMetadataKey"
+      render={() => <ShapeBulkyMetadata {...props} title="Bulky Metadata" />}
       {...props}
     />
-    <Route
-      exact
-      path={shapeBulkyLink()}
-      render={() => <ShapeBulkyMetadata {...props} />}
-      {...props}
-    />
-  </>
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+  </Switch>
 );
 
 class Shape extends React.PureComponent {
@@ -127,8 +144,8 @@ class Shape extends React.PureComponent {
         <DrawerContainer
           shapeId={shapeId}
           itemId={itemId}
-          mainComponent={mainComponent}
-          listComponent={listComponent}
+          mainComponent={mainComponentRoute}
+          listComponent={listComponentRoute}
           defaultOpen
           titleComponent={titleComponent}
           setOnRefresh={this.setOnRefresh}

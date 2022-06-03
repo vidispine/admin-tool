@@ -94,7 +94,7 @@ function TitleHeader({
           );
         }
         return (
-          <React.Fragment key={thisBreadcrumb.title || thisBreadcrumb}>
+          <React.Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
             {textComponent}
             {spacerComponent}
           </React.Fragment>

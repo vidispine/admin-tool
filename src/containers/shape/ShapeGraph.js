@@ -2,18 +2,15 @@ import React from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
-import ShapeParams from '../../components/shape/ShapeParams';
-import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
 
-class ShapeOverview extends React.PureComponent {
+class ShapeGraph extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
-    this.onSuccess = this.onSuccess.bind(this);
     this.state = {
-      shapeDocument: undefined,
+      graphImage: undefined,
     };
   }
 
@@ -25,7 +22,7 @@ class ShapeOverview extends React.PureComponent {
     const { shapeId: prevItemId } = this.props;
     if (prevItemId !== shapeId) {
       this.onFetch(itemId, shapeId);
-      document.title = `VidiCore Admin | Shape | ${shapeId}`;
+      document.title = `VidiCore Admin | Shape | ${shapeId} | Graph`;
     }
   }
 
@@ -36,11 +33,14 @@ class ShapeOverview extends React.PureComponent {
 
   onFetch(itemId, shapeId) {
     try {
-      api.getShape({
+      api.getShapeGraph({
         itemId,
         shapeId,
+        responseType: 'blob',
       })
-        .then((response) => this.setState({ shapeDocument: response.data }))
+        .then((response) => {
+          this.setState({ graphImage: response.data });
+        })
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -53,48 +53,24 @@ class ShapeOverview extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess(response) {
-    const shapeDocument = response.data;
-    this.setState({ shapeDocument });
-  }
-
   render() {
     const {
       titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      shapeId,
-      itemId,
     } = this.props;
-    const { shapeDocument } = this.state;
+    const { graphImage } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
-            code={shapeDocument}
-            codeModal="ShapeDocument"
             onRefresh={this.onRefresh}
-            breadcrumbList={['Overview']}
+            breadcumbList={['Graph']}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
-        <ShapeParams
-          shapeId={shapeId}
-          itemId={itemId}
-          onSuccess={this.onSuccess}
-        />
-        {shapeDocument && (
-          <ShapeOverviewComponent
-            shapeDocument={shapeDocument}
-            shapeId={shapeId}
-            itemId={itemId}
-            onRefresh={this.onRefresh}
-          />
-        )}
+        {graphImage && <img alt="graph" src={URL.createObjectURL(graphImage)} style={{ width: '100%' }} />}
+
       </>
     );
   }
 }
 
-export default withSnackbar(ShapeOverview);
+export default withSnackbar(ShapeGraph);

@@ -119,7 +119,7 @@ const TAB_TITLE = [
 
 const listComponentRoute = ({ itemId }) => (
   <List>
-    {TAB_TITLE.map(({ path, listText }) => (
+    {TAB_TITLE.map(({ path, listText, exact }) => (
       <ListItemLink
         key={path}
         secondary={listText}
@@ -127,6 +127,7 @@ const listComponentRoute = ({ itemId }) => (
         dense
         style={{ paddingLeft: 8 }}
         disableGutters
+        exact={exact}
       />
     ))}
   </List>

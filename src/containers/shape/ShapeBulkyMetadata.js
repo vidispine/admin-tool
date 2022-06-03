@@ -1,5 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
+import { generatePath } from 'react-router-dom';
+
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
@@ -55,6 +57,8 @@ class ShapeBulkyMetadata extends React.PureComponent {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
       bulkyMetadataKey,
+      itemId,
+      shapeId,
     } = this.props;
     const { bulkyMetadataDocument } = this.state;
     return (
@@ -64,7 +68,7 @@ class ShapeBulkyMetadata extends React.PureComponent {
             code={bulkyMetadataDocument}
             codeModal="BulkyMetadataDocument"
             onRefresh={this.onRefresh}
-            title={bulkyMetadataKey}
+            breadcrumbList={[{ title: 'Bulky Metadata', to: generatePath('/item/:itemId/shape/:shapeId/bulky-metadata/', { itemId, shapeId }) }, bulkyMetadataKey]}
           />
         )}
         {TabComponent && (

@@ -33,7 +33,7 @@ export default function FileListTable({
             <TableSortLabel
               active={orderBy === 'filename'}
               direction={orderDirection}
-              onClick={onChangeOrder('filename')}
+              onClick={onChangeOrder ? onChangeOrder('filename') : undefined}
             >
               Path
             </TableSortLabel>
@@ -42,7 +42,7 @@ export default function FileListTable({
             <TableSortLabel
               active={orderBy === 'fileId'}
               direction={orderDirection}
-              onClick={onChangeOrder('fileId')}
+              onClick={onChangeOrder ? onChangeOrder('fileId') : undefined}
             >
               ID
             </TableSortLabel>
@@ -51,7 +51,7 @@ export default function FileListTable({
             <TableSortLabel
               active={orderBy === 'state'}
               direction={orderDirection}
-              onClick={onChangeOrder('state')}
+              onClick={onChangeOrder ? onChangeOrder('state') : undefined}
             >
               State
             </TableSortLabel>
@@ -61,7 +61,7 @@ export default function FileListTable({
             <TableSortLabel
               active={orderBy === 'size'}
               direction={orderDirection}
-              onClick={onChangeOrder('size')}
+              onClick={onChangeOrder ? onChangeOrder('size') : undefined}
             >
               Size
             </TableSortLabel>
@@ -70,7 +70,7 @@ export default function FileListTable({
             <TableSortLabel
               active={orderBy === 'timestamp'}
               direction={orderDirection}
-              onClick={onChangeOrder('timestamp')}
+              onClick={onChangeOrder ? onChangeOrder('timestamp') : undefined}
             >
               Timestamp
             </TableSortLabel>
@@ -85,6 +85,7 @@ export default function FileListTable({
           />
         ))}
       </TableBody>
+      {onChangePage && (
       <TableFooter>
         <TableRow>
           <TablePagination
@@ -98,6 +99,7 @@ export default function FileListTable({
           />
         </TableRow>
       </TableFooter>
+      )}
     </Table>
   );
 }

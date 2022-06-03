@@ -2,10 +2,10 @@ import React from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
-import ShapeParams from '../../components/shape/ShapeParams';
-import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
+import FileListCard from '../../components/file/FileListCard';
+import ShapeFileParams from '../../components/shape/ShapeFileParams';
 
-class ShapeOverview extends React.PureComponent {
+class ShapeFileList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -13,7 +13,7 @@ class ShapeOverview extends React.PureComponent {
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.state = {
-      shapeDocument: undefined,
+      fileListDocument: undefined,
     };
   }
 
@@ -25,7 +25,7 @@ class ShapeOverview extends React.PureComponent {
     const { shapeId: prevItemId } = this.props;
     if (prevItemId !== shapeId) {
       this.onFetch(itemId, shapeId);
-      document.title = `VidiCore Admin | Shape | ${shapeId}`;
+      document.title = `VidiCore Admin | Shape | ${shapeId} | File`;
     }
   }
 
@@ -39,8 +39,12 @@ class ShapeOverview extends React.PureComponent {
       api.getShape({
         itemId,
         shapeId,
+        path: `/API/item/${itemId}/shape/${shapeId}/file`,
       })
-        .then((response) => this.setState({ shapeDocument: response.data }))
+        .then((response) => {
+          const fileListDocument = response.data;
+          this.setState({ fileListDocument });
+        })
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -54,47 +58,36 @@ class ShapeOverview extends React.PureComponent {
   }
 
   onSuccess(response) {
-    const shapeDocument = response.data;
-    this.setState({ shapeDocument });
+    const fileListDocument = response.data;
+    this.setState({ fileListDocument });
   }
 
   render() {
     const {
       titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      shapeId,
       itemId,
+      shapeId,
     } = this.props;
-    const { shapeDocument } = this.state;
+    const { fileListDocument } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
-            code={shapeDocument}
-            codeModal="ShapeDocument"
             onRefresh={this.onRefresh}
-            breadcrumbList={['Overview']}
+            breadcumbList={['Files']}
+            code={fileListDocument}
+            codeModal="FileListDocument"
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
-        <ShapeParams
+        <ShapeFileParams
           shapeId={shapeId}
           itemId={itemId}
           onSuccess={this.onSuccess}
         />
-        {shapeDocument && (
-          <ShapeOverviewComponent
-            shapeDocument={shapeDocument}
-            shapeId={shapeId}
-            itemId={itemId}
-            onRefresh={this.onRefresh}
-          />
-        )}
+        {fileListDocument && (<FileListCard fileListDocument={fileListDocument} />)}
       </>
     );
   }
 }
 
-export default withSnackbar(ShapeOverview);
+export default withSnackbar(ShapeFileList);
