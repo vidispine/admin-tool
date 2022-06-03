@@ -101,7 +101,7 @@ function ImportImpPathForm({
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <Field
-        name="storage"
+        name="storageId"
         label="Storage ID"
         component={StatefulAsyncSelect}
         loadOptions={loadStorageOptions}
