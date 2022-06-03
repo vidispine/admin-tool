@@ -14,7 +14,7 @@ import * as actions from '../../actions';
 
 const EDIT_TASKGROUP_FORM = 'EDIT_TASKGROUP_FORM';
 
-function ImportSettingsDialog({
+function TaskGroupDialog({
   submitForm,
   closeModal,
   isOpen,
@@ -70,4 +70,4 @@ const mapDispatchToProps = {
   openSnackBar: actions.ui.openSnackBar,
 };
 
-export default connect(null, mapDispatchToProps)(ImportSettingsDialog);
+export default connect(null, mapDispatchToProps)(TaskGroupDialog);

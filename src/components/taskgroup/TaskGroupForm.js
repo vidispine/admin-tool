@@ -13,6 +13,9 @@ import { Select, TextField } from '../form';
 
 import TextButton from '../ui/TextButton';
 import ChipInput from '../ui/ChipInput';
+import { SimpleMetadataType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
+import { loadJobTypeOptions } from '../jobtype/JobTypeSelect';
 
 const InitialDisabledTextField = (props) => (
   <TextField
@@ -105,11 +108,15 @@ const JobArray = ({ fields }) => (
           spacing={16}
         >
           <Grid item sm={10}>
+
             <Field
               name={`${thisField}.type`}
               label="Job Type"
-              component={ChipInput}
-              simple
+              component={StatefulAsyncSelect}
+              loadOptions={loadJobTypeOptions}
+              isMulti
+              cacheOptions
+              isClearable
               fullWidth
             />
             <Field
@@ -171,6 +178,12 @@ const TaskGroupType = () => (
         <MenuItem value="LOWEST">LOWEST</MenuItem>
       </Field>
     </FormControl>
+    <Field
+      name="maxConcurrency"
+      component={TextField}
+      label="Max Concurrency"
+      fullWidth
+    />
     <Grid container direction="column">
       <FieldArray
         name="transcoder"
@@ -183,6 +196,10 @@ const TaskGroupType = () => (
         component={JobArray}
       />
     </Grid>
+    <FormSection
+      name="metadata"
+      component={SimpleMetadataType}
+    />
   </>
 );
 
