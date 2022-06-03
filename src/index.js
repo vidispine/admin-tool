@@ -8,12 +8,8 @@ import Auth from './containers/Auth';
 import configureStore from './configureStore';
 import ThemeProvider from './components/ui/Theme';
 
-import { browserLogoutOn401 } from './utils/browserLogout';
-
 const history = createHistory();
 const store = configureStore({ history });
-
-browserLogoutOn401(() => history.push('/login/'));
 
 ReactDOM.render(
   <Provider store={store}>
