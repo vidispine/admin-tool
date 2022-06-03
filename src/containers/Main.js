@@ -193,7 +193,7 @@ function Main({
           <Route exact path="/import" component={Import} />
           <Route exact path="/import-imp" component={ImportImp} />
           <Route exact path="/file/" component={FileList} />
-          <Route exact path="/file/:fileId/" component={File} />
+          <Route path="/file/:fileId/" component={File} />
           <Route exact path="/storage-rule/" component={StorageRuleList} />
           <Route exact path="/error/" component={ErrorLog} />
           <Route exact path="/vxa/" component={VxaList} />

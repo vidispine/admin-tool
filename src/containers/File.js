@@ -1,37 +1,58 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import { compose } from 'redux';
+import { Route, Switch, generatePath } from 'react-router-dom';
 
+import { withRouterProps } from '../hoc/withRouterProps';
 import FileTitle from '../components/file/FileTitle';
-
 import FileOverview from './file/FileOverview';
 import FileShape from './file/FileShape';
 import DrawerContainer from '../components/ui/DrawerContainer';
-import DrawerListItem from '../components/ui/DrawerListItem';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
+import ListItemLink from '../components/ui/ListItemLink';
 
 const FILE_OVERVIEW_TAB = 'FILE_OVERVIEW_TAB';
 const FILE_SHAPE_TAB = 'FILE_SHAPE_TAB';
 
 const TAB_TITLE = [
-  { tab: FILE_OVERVIEW_TAB, listText: 'Overview', component: FileOverview },
-  { tab: FILE_SHAPE_TAB, listText: 'Shape', component: FileShape },
+  {
+    tab: FILE_OVERVIEW_TAB, listText: 'Overview', component: FileOverview, path: '/file/:fileId/', exact: true,
+  },
+  {
+    tab: FILE_SHAPE_TAB, listText: 'Shape', component: FileShape, path: '/file/:fileId/shape/',
+  },
 ];
 
-const listComponent = ({ onChangeTab, tabValue }) => (
+const listComponentRoute = (props) => (
   <List>
-    {TAB_TITLE.map(({ tab, listText }) => (
-      <DrawerListItem
-        key={listText}
-        listText={listText}
-        listItemProps={{
-          onClick: () => onChangeTab(null, tab),
-          selected: tabValue === tab || undefined,
-        }}
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, props)}
+        exact={exact}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
       />
     ))}
   </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+  </Switch>
 );
 
 class File extends React.PureComponent {
@@ -61,31 +82,31 @@ class File extends React.PureComponent {
 
   render() {
     const {
-      fileId, onChangeTab,
+      fileId,
+      onChangeTab,
       tabValue,
     } = this.props;
-    const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
-    const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
       <FileTitle
-        title={listText}
         fileId={fileId}
         {...props}
       />
     );
     return (
       <DrawerContainer
+        mainComponent={mainComponentRoute}
+        listComponent={listComponentRoute}
+        defaultOpen
         onChangeTab={onChangeTab}
         tabValue={tabValue}
-        fileId={fileId}
-        mainComponent={mainComponent}
-        listComponent={listComponent}
-        defaultOpen
         titleComponent={titleComponent}
+        fileId={fileId}
+        entityId={fileId}
+        entityType="file"
         setOnRefresh={this.setOnRefresh}
       />
     );
   }
 }
 
-export default compose(withTabs(FILE_OVERVIEW_TAB), withUI)(File);
+export default compose(withTabs(FILE_OVERVIEW_TAB), withRouterProps, withUI)(File);

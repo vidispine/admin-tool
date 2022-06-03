@@ -7,6 +7,7 @@ import UnstyledLink from '../ui/UnstyledLink';
 import { withModalNoRouter } from '../../hoc/withModal';
 import FileDownload from './FileDownload';
 import FileStatus from './FileStatus';
+import routes from '../../const/routes';
 
 const AbandonMenuItem = ({ fileDocument, abandonModal, onOpen }) => {
   if (fileDocument === undefined) { return null; }
@@ -30,14 +31,13 @@ function FileTitle({
   overwriteModal,
   analyzeModal,
   fileDocument,
+  breadcrumbList = [],
   ...props
 }) {
   return (
     <TitleHeader
       helpTo="/ref/storage/file.html"
-      parentTitle={fileId}
-      grandParentTitle="File"
-      grandParentTo="/file/"
+      breadcrumbList={[{ title: 'File', to: routes.fileList() }, { title: fileId, to: routes.file({ fileId }) }, ...breadcrumbList]}
       iconList={(
         <>
           {fileDocument && (

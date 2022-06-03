@@ -11,4 +11,6 @@ export default {
   item: (params) => generatePath('/item/:itemId', params),
   itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
   itemBulkyMetadataList: (params) => generatePath('/item/:itemId/bulky-metadata/', params),
+  fileList: (params) => generatePath('/file/', params),
+  file: (params) => generatePath('/file/:fileId', params),
 };
