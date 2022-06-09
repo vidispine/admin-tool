@@ -20,6 +20,7 @@ import UnstyledLink from '../components/ui/UnstyledLink';
 import LoadingProgress from '../components/ui/LoadingProgress';
 import { useChangeTheme } from '../components/ui/Theme';
 import NavSelect from '../components/ui/NavSelect';
+import GitHubButton from '../components/ui/GitHubButton';
 import getCookie from '../utils/getCookie';
 
 const styles = (theme) => ({
@@ -100,6 +101,9 @@ function TopAppBar({
             </Tooltip>
           ),
         }[paletteType]}
+        <Tooltip title="GitHub">
+          <GitHubButton />
+        </Tooltip>
         <Menu icon={<AccountCircle />} iconProps={{ color: 'inherit' }}>
           <MenuItem disabled>
             <Typography>{`User: ${userName}`}</Typography>

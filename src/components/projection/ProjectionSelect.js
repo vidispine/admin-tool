@@ -1,11 +1,15 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import debounce from 'lodash.debounce';
 
 import { projection as api } from '@vidispine/vdt-api';
 import { StatefulAsyncSelect } from '../ui/Select';
 
+// eslint-disable-next-line no-underscore-dangle
+const _listProjection = debounce(api.listProjection, 500, { leading: true, trailing: false });
+
 export const loadProjectionOptions = (inputValue) => new Promise((resolve, reject) => {
-  api.listProjection()
+  _listProjection()
     .then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);

@@ -7,6 +7,8 @@ export const TaskGroupType = ({ group }) => (
   <>
     { group.priority
       && <TextGrid title="Priority" value={group.priority} />}
+    { group.maxConcurrency
+      && <TextGrid title="Max Concurrency" value={group.maxConcurrency} />}
     { group.job
       && (
       <>

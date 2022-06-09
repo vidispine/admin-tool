@@ -18,7 +18,7 @@ import SelfTestStatus from '../components/selftest/SelfTestStatus';
 import LoginCard from '../components/login/Login';
 import InitDialog from '../components/login/InitDialog';
 import LoginHelpDialog from '../components/login/LoginHelpDialog';
-import GitHubIcon from '../components/ui/GitHubIcon';
+import GitHubButton from '../components/ui/GitHubButton';
 
 import { APP_LOGO } from '../const/logos';
 import { getVidispineUrlFromPath } from '../const';
@@ -199,15 +199,7 @@ class Login extends React.PureComponent {
                     >
                       {`v${REACT_APP_VERSION}`}
                     </Typography>
-                    <IconButton
-                      color="inherit"
-                      href="https://github.com/vidispine/admin-tool"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      disableRipple
-                    >
-                      <GitHubIcon />
-                    </IconButton>
+                    <GitHubButton />
                     <IconButton
                       color="inherit"
                       disableRipple

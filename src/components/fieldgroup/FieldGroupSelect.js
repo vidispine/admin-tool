@@ -1,11 +1,15 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import debounce from 'lodash.debounce';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
 import Select from '../ui/Select';
 
+// eslint-disable-next-line no-underscore-dangle
+const _listFieldGroup = debounce(api.listFieldGroup, 500, { leading: true, trailing: false });
+
 export const loadFieldGroupOptions = (inputValue) => new Promise((resolve, reject) => {
-  api.listFieldGroup()
+  _listFieldGroup()
     .then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);

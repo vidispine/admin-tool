@@ -19,29 +19,31 @@ function TableActions({
   page,
   rowsPerPage,
   onChangePage,
+  onPageChange,
 }) {
+  const onClick = onPageChange || onChangePage;
   return (
     <div className={classes.root}>
       <IconButton
-        onClick={() => onChangePage({ page: 0 })}
+        onClick={() => onClick({ page: 0 })}
         disabled={page === 0}
       >
         <FirstPageIcon />
       </IconButton>
       <IconButton
-        onClick={() => onChangePage({ page: page - 1 })}
+        onClick={() => onClick({ page: page - 1 })}
         disabled={page === 0}
       >
         <KeyboardArrowLeft />
       </IconButton>
       <IconButton
-        onClick={() => onChangePage({ page: page + 1 })}
+        onClick={() => onClick({ page: page + 1 })}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
       >
         <KeyboardArrowRight />
       </IconButton>
       <IconButton
-        onClick={() => onChangePage({ page: Math.max(0, Math.ceil(count / rowsPerPage) - 1) })}
+        onClick={() => onClick({ page: Math.max(0, Math.ceil(count / rowsPerPage) - 1) })}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
       >
         <LastPageIcon />

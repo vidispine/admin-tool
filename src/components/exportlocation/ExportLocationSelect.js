@@ -1,11 +1,18 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import debounce from 'lodash.debounce';
 
 import { exportlocation as api } from '@vidispine/vdt-api';
 import Select from '../ui/Select';
 
+// eslint-disable-next-line no-underscore-dangle
+const _listExportLocation = debounce(
+  api.listExportLocation,
+  500, { leading: true, trailing: false },
+);
+
 export const loadExportLocationOptions = (inputValue) => new Promise((resolve, reject) => {
-  api.listExportLocation()
+  _listExportLocation()
     .then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);
