@@ -11,6 +11,7 @@
     "codemirror": "5.63.3",
     "history": "5.1.0",
     "immutability-helper": "3.1.1",
+    "lodash.debounce": "4.0.8",
     "lodash.startcase": "4.4.0",
     "material-ui-chip-input": "1.1.0",
     "moment": "2.29.2",

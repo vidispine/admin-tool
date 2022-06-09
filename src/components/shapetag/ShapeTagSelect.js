@@ -1,11 +1,15 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import debounce from 'lodash.debounce';
 
 import { shapetag as api } from '@vidispine/vdt-api';
 import Select from '../ui/Select';
 
+// eslint-disable-next-line no-underscore-dangle
+const _listShapeTag = debounce(api.listShapeTag, 500, { leading: true, trailing: false });
+
 export const loadShapeTagOptions = (inputValue) => new Promise((resolve, reject) => {
-  api.listShapeTag()
+  _listShapeTag()
     .then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);
