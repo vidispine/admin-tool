@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "https://vidispine.github.io/admin-tool/static/css/main.1007c698.chunk.css",
-    "main.js": "https://vidispine.github.io/admin-tool/static/js/main.cd0bed04.chunk.js",
+    "main.js": "https://vidispine.github.io/admin-tool/static/js/main.a6da5109.chunk.js",
     "runtime-main.js": "https://vidispine.github.io/admin-tool/static/js/runtime-main.9ddfd823.js",
     "static/css/2.01aaf528.chunk.css": "https://vidispine.github.io/admin-tool/static/css/2.01aaf528.chunk.css",
-    "static/js/2.c8475f61.chunk.js": "https://vidispine.github.io/admin-tool/static/js/2.c8475f61.chunk.js",
+    "static/js/2.851a883d.chunk.js": "https://vidispine.github.io/admin-tool/static/js/2.851a883d.chunk.js",
     "index.html": "https://vidispine.github.io/admin-tool/index.html",
-    "static/js/2.c8475f61.chunk.js.LICENSE.txt": "https://vidispine.github.io/admin-tool/static/js/2.c8475f61.chunk.js.LICENSE.txt",
+    "static/js/2.851a883d.chunk.js.LICENSE.txt": "https://vidispine.github.io/admin-tool/static/js/2.851a883d.chunk.js.LICENSE.txt",
     "static/media/header-logo.f0892ea4.svg": "https://vidispine.github.io/admin-tool/static/media/header-logo.f0892ea4.svg",
     "static/media/logo.db253c2c.svg": "https://vidispine.github.io/admin-tool/static/media/logo.db253c2c.svg",
     "static/media/index.css": "https://vidispine.github.io/admin-tool/static/media/open-sans-vietnamese-400-normal.19701383.woff2",
@@ -18,8 +18,8 @@
   "entrypoints": [
     "static/js/runtime-main.9ddfd823.js",
     "static/css/2.01aaf528.chunk.css",
-    "static/js/2.c8475f61.chunk.js",
+    "static/js/2.851a883d.chunk.js",
     "static/css/main.1007c698.chunk.css",
-    "static/js/main.cd0bed04.chunk.js"
+    "static/js/main.a6da5109.chunk.js"
   ]
 }
