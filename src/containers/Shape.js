@@ -19,6 +19,8 @@ import ShapeAnalyze from '../components/shape/ShapeAnalyze';
 import ShapeAddComponent from '../components/shape/ShapeAddComponent';
 import ShapeAddTag from '../components/shape/ShapeAddTag';
 import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
+import ShapeExport from '../components/shape/ShapeExport';
+import ShapeImpExport from '../components/shape/ShapeImpExport';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
 
@@ -28,6 +30,8 @@ const SHAPE_ANALYZE_DIALOG = 'SHAPE_ANALYZE_DIALOG';
 const SHAPE_ADD_TAG_DIALOG = 'SHAPE_ADD_TAG_DIALOG';
 const SHAPE_REMOVE_TAG_DIALOG = 'SHAPE_REMOVE_TAG_DIALOG';
 const SHAPE_ADD_COMPONENT_DIALOG = 'SHAPE_ADD_COMPONENT_DIALOG';
+const SHAPE_EXPORT_DIALOG = 'SHAPE_EXPORT_DIALOG';
+const SHAPE_IMPEXPORT_DIALOG = 'SHAPE_IMPEXPORT_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -136,6 +140,8 @@ class Shape extends React.PureComponent {
         addTagModal={SHAPE_ADD_TAG_DIALOG}
         removeTagModal={SHAPE_REMOVE_TAG_DIALOG}
         addComponentModal={SHAPE_ADD_COMPONENT_DIALOG}
+        exportModal={SHAPE_EXPORT_DIALOG}
+        exportImpModal={SHAPE_IMPEXPORT_DIALOG}
         {...props}
       />
     );
@@ -183,6 +189,18 @@ class Shape extends React.PureComponent {
         <ShapeRemoveTag
           dialogName={SHAPE_REMOVE_TAG_DIALOG}
           onSuccess={this.onRefresh}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeExport
+          dialogName={SHAPE_EXPORT_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeImpExport
+          dialogName={SHAPE_IMPEXPORT_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
           itemId={itemId}
           shapeId={shapeId}
         />

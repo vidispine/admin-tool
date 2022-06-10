@@ -1,9 +1,10 @@
 import React from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
 
 import withTabs from '../hoc/withTabs';
-import { withRouterProps } from '../hoc/withRouterProps';
+import withUI from '../hoc/withUI';
 
 import CollectionMetadata from './collection/CollectionMetadata';
 import CollectionContent from './collection/CollectionContent';
@@ -15,9 +16,14 @@ import DeletionLockList from './DeletionLockList';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import CollectionRemove from '../components/collection/CollectionRemove';
+import CollectionExport from '../components/collection/CollectionExport';
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import DrawerListItem from '../components/ui/DrawerListItem';
+
+import CollectionRename from '../components/collection/CollectionRename';
+import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import Menu, { MenuItem } from '../components/ui/Menu';
 
 const COLLECTION_METADATA_TAB = 'COLLECTION_METADATA_TAB';
 const COLLECTION_COLLECTION_TAB = 'COLLECTION_COLLECTION_TAB';
@@ -28,6 +34,9 @@ const STORAGERULE_TAB = 'STORAGERULE_TAB';
 const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 const COLLECTION_REMOVE_DIALOG = 'COLLECTION_REMOVE_DIALOG';
 const COLLECTION_ACCESSCONTROL_ADD_DIALOG = 'COLLECTION_ACCESSCONTROL_ADD_DIALOG';
+const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
+const COLLECTION_RENAME_DIALOG = 'COLLECTION_RENAME_DIALOG';
+const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 
 const TAB_TITLE = [
   { tab: COLLECTION_METADATA_TAB, listText: 'Metadata', component: CollectionMetadata },
@@ -55,9 +64,33 @@ const listComponent = ({ onChangeTab, tabValue }) => (
 );
 
 class Collection extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.onRefresh = this.onRefresh.bind(this);
+    this.setOnRefresh = this.setOnRefresh.bind(this);
+    this.setName = this.setName.bind(this);
+    this.state = {
+      onRefresh: undefined,
+      collectionName: undefined,
+    };
+  }
+
   componentDidMount() {
     const { collectionId } = this.props;
     document.title = `VidiCore Admin | Collection | ${collectionId}`;
+  }
+
+  onRefresh(...args) {
+    const { onRefresh } = this.state;
+    if (onRefresh) { onRefresh(...args); }
+  }
+
+  setOnRefresh(onRefresh) {
+    this.setState({ onRefresh });
+  }
+
+  setName(collectionName) {
+    this.setState({ collectionName });
   }
 
   render() {
@@ -66,7 +99,9 @@ class Collection extends React.PureComponent {
       tabValue,
       collectionId,
       history,
+      onOpen,
     } = this.props;
+    const { collectionName } = this.state;
     const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
     const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
@@ -80,6 +115,18 @@ class Collection extends React.PureComponent {
         entityId={collectionId}
         entityType="collection"
         addAccessControl={COLLECTION_ACCESSCONTROL_ADD_DIALOG}
+        exportModal={COLLECTION_EXPORT_DIALOG}
+        titleChip={collectionName}
+        actionComponent={(
+          <Menu>
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}>
+              <Typography>Add Entity</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
+              <Typography>Rename</Typography>
+            </MenuItem>
+          </Menu>
+        )}
         {...props}
       />
     );
@@ -88,6 +135,8 @@ class Collection extends React.PureComponent {
         <DrawerContainer
           mainComponent={mainComponent}
           listComponent={listComponent}
+          setOnRefresh={this.setOnRefresh}
+          setName={this.setName}
           defaultOpen
           onChangeTab={onChangeTab}
           tabValue={tabValue}
@@ -106,9 +155,25 @@ class Collection extends React.PureComponent {
           entityType="collection"
           entityId={collectionId}
         />
+        <CollectionEntityAdd
+          dialogName={COLLECTION_ENTITY_ADD_DIALOG}
+          onSuccess={this.onRefresh}
+          collectionId={collectionId}
+        />
+        <CollectionRename
+          dialogName={COLLECTION_RENAME_DIALOG}
+          collectionId={collectionId}
+          onSuccess={() => this.onRefresh()}
+          collectionDocument={{ name: collectionName }}
+        />
+        <CollectionExport
+          dialogName={COLLECTION_EXPORT_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          collectionId={collectionId}
+        />
       </>
     );
   }
 }
 
-export default compose(withTabs(COLLECTION_CONTENT_TAB), withRouterProps)(Collection);
+export default compose(withTabs(COLLECTION_CONTENT_TAB), withUI)(Collection);
