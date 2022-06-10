@@ -91,6 +91,8 @@ const ItemSearchRangeType = () => (
       name="value[0]"
       component={ItemSearchValueType}
       label="Start"
+      button
+      initialDisplay={false}
     />
     <FormSection
       name="value[1]"
@@ -291,6 +293,8 @@ export const CriterionType = () => (
       name="operator"
       label="operator"
       component={SearchOperatorType}
+      button
+      initialDisplay={false}
     />
     <FieldTypeArray
       name="field"
@@ -315,7 +319,9 @@ export const ShapeCriterionType = () => (
     <FormSection
       name="file"
       component={CriterionType}
-      label="Shape File"
+      label="File Join"
+      button
+      initialDisplay={false}
     />
   </>
 );
@@ -325,13 +331,17 @@ export const ItemCriterionType = () => (
     <CriterionType />
     <FormSection
       name="shape"
-      label="Item Shape"
+      label="Shape Join"
       component={ShapeCriterionType}
+      button
+      initialDisplay={false}
     />
     <FormSection
       name="file"
       component={CriterionType}
-      label="Item File"
+      label="File Join"
+      button
+      initialDisplay={false}
     />
   </>
 );
@@ -342,14 +352,16 @@ export const CollectionCriterionType = () => (
     <FieldTypeArray
       name="collection"
       component={CollectionCriterionType}
-      label="Collection Collection"
+      label="Collection Join"
       withHeader={false}
       arrayHeader
     />
     <FormSection
       name="item"
       component={ItemCriterionType}
-      label="Collection Item"
+      label="Item Join"
+      button
+      initialDisplay={false}
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="relation">Relation</InputLabel>
@@ -595,6 +607,8 @@ export const ItemSearchType = () => (
       name="operator"
       label="operator"
       component={SearchOperatorType}
+      button
+      initialDisplay={false}
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="intervals">Intervals</InputLabel>
@@ -636,11 +650,15 @@ export const ItemSearchType = () => (
       name="highlight"
       label="highlight"
       component={SearchHighlightType}
+      button
+      initialDisplay={false}
     />
     <FormSection
       name="suggestion"
       label="suggestion"
       component={SuggestionSearchType}
+      button
+      initialDisplay={false}
     />
     <FieldTypeArray
       name="autocomplete"
@@ -660,6 +678,34 @@ export const ItemSearchType = () => (
       component={TextField}
       fullWidth
       type="string"
+    />
+    <FieldTypeArray
+      name="collection"
+      label="collection join"
+      component={CollectionCriterionType}
+      button
+      initialDisplay={false}
+    />
+    <FormSection
+      name="item"
+      label="item join"
+      component={ItemCriterionType}
+      button
+      initialDisplay={false}
+    />
+    <FormSection
+      name="shape"
+      label="shape join"
+      component={ShapeCriterionType}
+      button
+      initialDisplay={false}
+    />
+    <FormSection
+      name="file"
+      label="file join"
+      component={CriterionType}
+      button
+      initialDisplay={false}
     />
   </>
 );
