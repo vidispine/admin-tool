@@ -82,14 +82,15 @@ class HistoryDialog extends React.PureComponent {
       headers = {},
       data: requestData,
       method,
+      url,
       baseURL,
-      url: fullUrl,
     } = request;
+    let { url: fullUrl } = request;
+    if (baseURL) fullUrl = [baseURL, url].join('');
     const requestHeaders = {};
     Object.entries(headers).forEach(([key, value]) => {
       if (typeof value === 'string') { requestHeaders[key] = value; }
     });
-    const url = fullUrl.replace(baseURL, '');
     let requestDataString;
     let requestContentType;
     const findContentTypeKey = (headerKey) => headerKey.toLowerCase() === 'content-type';
@@ -120,6 +121,7 @@ class HistoryDialog extends React.PureComponent {
     const thisRequest = {
       requestId,
       url,
+      fullUrl,
       method: method.toUpperCase(),
       requestData: requestDataString,
       requestHeaders,
@@ -226,15 +228,20 @@ class HistoryDialog extends React.PureComponent {
         </AppBar>
         {displayResponse ? (
           <DialogContent>
-            <TextGrid title="URL" value={displayResponse.url} hover />
+            <TextGrid title="URL" value={displayResponse.fullUrl} hover />
             <TextGrid title="Method" value={displayResponse.method} hover />
             <TextGrid title="Status" value={displayResponse.status} hover />
             <TypeArray
               arrayTitle="Request Headers"
               value={Object.entries(displayResponse.requestHeaders)}
-              component={({ value: v }) => (
-                <TextGrid title={v[0]} value={v[1]} hover titleStartCase={false} />
-              )}
+              component={({ value: v }) => {
+                const [headerKey] = v;
+                let [, headerValue] = v;
+                if (headerKey && ['authorization'].includes(headerKey.toLowerCase())) headerValue = headerValue.replace(/[^*]/g, '•');
+                return (
+                  <TextGrid title={headerKey} value={headerValue} hover titleStartCase={false} />
+                );
+              }}
             />
             { displayResponse.requestContentType === 'application/json' ? (
               <>
