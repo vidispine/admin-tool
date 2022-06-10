@@ -35,6 +35,17 @@ const TableHeadCell = ({
   )
 );
 
+const terseToValue = (collectionType, fieldName) => {
+  const terseField = collectionType?.terse?.[fieldName];
+  if (Array.isArray(terseField)) {
+    const terseFieldValueList = terseField
+      .map(({ value }) => value)
+      .filter((value) => value !== undefined);
+    return terseFieldValueList.join(', ');
+  }
+  return terseField?.value;
+};
+
 export const CollectionTypeRow = ({
   collectionType,
   terse,
@@ -56,7 +67,7 @@ export const CollectionTypeRow = ({
         <TableCell
           key={fieldName}
         >
-          {collectionType.terse[fieldName] && collectionType.terse[fieldName].value}
+          {terseToValue(collectionType, fieldName)}
         </TableCell>
       ))
     )}
@@ -92,7 +103,7 @@ function CollectionListTable({
               orderDirection={orderDirection}
             />
             <TableHeadCell
-              name="title"
+              name="name"
               onChangeOrder={onChangeOrder}
               orderBy={orderBy}
               orderDirection={orderDirection}

@@ -35,6 +35,17 @@ const TableHeadCell = ({
   )
 );
 
+const terseToValue = (entityType, fieldName) => {
+  const terseField = entityType?.terse?.[fieldName];
+  if (Array.isArray(terseField)) {
+    const terseFieldValueList = terseField
+      .map(({ value }) => value)
+      .filter((value) => value !== undefined);
+    return terseFieldValueList.join(', ');
+  }
+  return terseField?.value;
+};
+
 export const ItemTypeRow = ({
   itemType,
   terse,
@@ -52,7 +63,7 @@ export const ItemTypeRow = ({
         <TableCell
           key={fieldName}
         >
-          {(itemType.terse[fieldName] && itemType.terse[fieldName].length > 0) && itemType.terse[fieldName].map(({ value }) => value).join(', ')}
+          {terseToValue(itemType, fieldName)}
         </TableCell>
       ))
     )}
