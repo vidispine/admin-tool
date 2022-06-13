@@ -4,6 +4,7 @@ import ReactJson from 'react-json-view';
 import { utils as api } from '@vidispine/vdt-api';
 
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
@@ -23,6 +24,22 @@ import formatXML from '../utils/formatXML';
 
 import { withModalNoRouter } from '../hoc/withModal';
 
+const escapeBash = (str) => String(str).replaceAll('\'', '\'\\\'\'');
+
+const requestToCurl = ({
+  method, fullUrl, requestHeaders, requestData, requestContentType,
+}) => {
+  const output = [];
+  output.push(`curl '${escapeBash(fullUrl)}'`);
+  output.push(`--request ${method}`);
+  Object.entries(requestHeaders).forEach(([key, value]) => output.push(`--header '${escapeBash(`${key}: ${value}`)}'`));
+  if (requestData) {
+    if (requestContentType === 'application/json') output.push(`--data-raw '${escapeBash(JSON.stringify(requestData))}'`);
+    else output.push(`--data-raw '${escapeBash(requestData)}'`);
+  }
+  return output.join(' \\\n');
+};
+
 const styles = (theme) => ({
   appBar: {
     position: 'relative',
@@ -34,6 +51,13 @@ const styles = (theme) => ({
   },
   dialogRoot: {
     justifyContent: 'flex-start',
+  },
+  displayToolbar: {
+    display: 'flex',
+    width: '100%',
+    alignContent: 'center',
+    justifyContent: 'space-between',
+    paddingRight: theme.spacing(2),
   },
 });
 
@@ -64,6 +88,7 @@ class HistoryDialog extends React.PureComponent {
     this.state = {
       recentResponses: [],
       displayResponse: undefined,
+      curlResponse: undefined,
     };
   }
 
@@ -122,6 +147,7 @@ class HistoryDialog extends React.PureComponent {
       requestId,
       url,
       fullUrl,
+      baseURL,
       method: method.toUpperCase(),
       requestData: requestDataString,
       requestHeaders,
@@ -189,7 +215,7 @@ class HistoryDialog extends React.PureComponent {
   onClose() {
     const { onClose: onCloseDialog } = this.props;
     onCloseDialog();
-    this.setState({ displayResponse: undefined });
+    this.setState({ displayResponse: undefined, curlResponse: undefined });
   }
 
   render() {
@@ -200,6 +226,7 @@ class HistoryDialog extends React.PureComponent {
     const {
       recentResponses,
       displayResponse,
+      curlResponse,
     } = this.state;
     return (
       <Dialog
@@ -214,11 +241,24 @@ class HistoryDialog extends React.PureComponent {
         <AppBar elevation={0} className={classes.appBar}>
           <Toolbar disableGutters variant="dense">
             { displayResponse ? (
-              <IconButton
-                onClick={() => this.setState({ displayResponse: undefined })}
-              >
-                <ArrowBackIcon />
-              </IconButton>
+              <div className={classes.displayToolbar}>
+                <IconButton
+                  onClick={() => this.setState({
+                    displayResponse: undefined,
+                    curlResponse: undefined,
+                  })}
+                  style={{ padding: 4 }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => this.setState({ curlResponse: !curlResponse })}
+                >
+                  {curlResponse ? 'Hide cURL' : 'cURL'}
+                </Button>
+              </div>
             ) : (
               <IconButton onClick={this.onClose}>
                 <CloseIcon />
@@ -228,74 +268,89 @@ class HistoryDialog extends React.PureComponent {
         </AppBar>
         {displayResponse ? (
           <DialogContent>
-            <TextGrid title="URL" value={displayResponse.fullUrl} hover />
-            <TextGrid title="Method" value={displayResponse.method} hover />
-            <TextGrid title="Status" value={displayResponse.status} hover />
-            <TypeArray
-              arrayTitle="Request Headers"
-              value={Object.entries(displayResponse.requestHeaders)}
-              component={({ value: v }) => {
-                const [headerKey] = v;
-                let [, headerValue] = v;
-                if (headerKey && ['authorization'].includes(headerKey.toLowerCase())) headerValue = headerValue.replace(/[^*]/g, '•');
-                return (
-                  <TextGrid title={headerKey} value={headerValue} hover titleStartCase={false} />
-                );
-              }}
-            />
-            { displayResponse.requestContentType === 'application/json' ? (
-              <>
-                <Typography variant="subtitle2">Request Data</Typography>
-                <ReactJson
-                  src={displayResponse.requestData}
-                  theme="solarized"
-                  displayDataTypes={false}
-                  collapsed={false}
-                  enableClipboard={(copy) => navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))}
-                  displayObjectSize={false}
-                  name={false}
-                />
-              </>
-            ) : (
+            {curlResponse ? (
               <TextGrid
-                title="Request Data"
-                value={displayResponse.requestData}
+                value={requestToCurl(displayResponse)}
                 variant="code"
-                hover
-                hideNoValue
+                codeProps={{ lineNumbers: false, mode: 'shell' }}
               />
-            )}
-            {displayResponse.responseHeaders && (
-              <TypeArray
-                arrayTitle="Response Headers"
-                value={Object.entries(displayResponse.responseHeaders)}
-                component={({ value: v }) => (
-                  <TextGrid title={v[0]} value={v[1]} hover titleStartCase={false} />
-                )}
-              />
-            )}
-            {displayResponse.responseData && (
+            ) : (
               <>
-                { displayResponse.responseContentType === 'application/json' ? (
+                <TextGrid title="URL" value={displayResponse.fullUrl} hover />
+                <TextGrid title="Method" value={displayResponse.method} hover />
+                <TextGrid title="Status" value={displayResponse.status} hover />
+                <TypeArray
+                  arrayTitle="Request Headers"
+                  value={Object.entries(displayResponse.requestHeaders)}
+                  component={({ value: v }) => {
+                    const [headerKey] = v;
+                    let [, headerValue] = v;
+                    if (headerKey && ['authorization'].includes(headerKey.toLowerCase())) headerValue = headerValue.replace(/[^*]/g, '•');
+                    return (
+                      <TextGrid
+                        title={headerKey}
+                        value={headerValue}
+                        hover
+                        titleStartCase={false}
+                      />
+                    );
+                  }}
+                />
+                { displayResponse.requestContentType === 'application/json' ? (
                   <>
-                    <Typography variant="subtitle2">Response Data</Typography>
+                    <Typography variant="subtitle2">Request Data</Typography>
                     <ReactJson
-                      src={displayResponse.responseData}
+                      src={displayResponse.requestData}
                       theme="solarized"
                       displayDataTypes={false}
-                      collapsed={2}
+                      collapsed={false}
                       enableClipboard={(copy) => navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))}
+                      displayObjectSize={false}
                       name={false}
                     />
                   </>
                 ) : (
                   <TextGrid
-                    title="Response Data"
-                    value={displayResponse.responseData}
+                    title="Request Data"
+                    value={displayResponse.requestData}
                     variant="code"
                     hover
                     hideNoValue
                   />
+                )}
+                {displayResponse.responseHeaders && (
+                <TypeArray
+                  arrayTitle="Response Headers"
+                  value={Object.entries(displayResponse.responseHeaders)}
+                  component={({ value: v }) => (
+                    <TextGrid title={v[0]} value={v[1]} hover titleStartCase={false} />
+                  )}
+                />
+                )}
+                {displayResponse.responseData && (
+                <>
+                  { displayResponse.responseContentType === 'application/json' ? (
+                    <>
+                      <Typography variant="subtitle2">Response Data</Typography>
+                      <ReactJson
+                        src={displayResponse.responseData}
+                        theme="solarized"
+                        displayDataTypes={false}
+                        collapsed={2}
+                        enableClipboard={(copy) => navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))}
+                        name={false}
+                      />
+                    </>
+                  ) : (
+                    <TextGrid
+                      title="Response Data"
+                      value={displayResponse.responseData}
+                      variant="code"
+                      hover
+                      hideNoValue
+                    />
+                  )}
+                </>
                 )}
               </>
             )}
