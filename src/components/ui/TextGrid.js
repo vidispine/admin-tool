@@ -45,6 +45,7 @@ function SetValueComponent({
   capitalize,
   classes,
   to,
+  onDelete,
   ...typographyProps
 }) {
   let valueComponent = null;
@@ -315,7 +316,12 @@ function SetValueComponent({
       if (Array.isArray(value)) {
         valueComponent = (
           value.map((label) => (
-            <Chip key={label} label={label} />
+            <Chip
+              key={label}
+              label={label}
+              // eslint-disable-next-line react/jsx-no-bind
+              onDelete={onDelete ? (e) => onDelete(e, label) : undefined}
+            />
           ))
         );
       }
@@ -347,6 +353,7 @@ function TextGrid({
   titleStartCase = true,
   codeProps = {},
   onClick,
+  onDelete,
   disableOnClick = true,
   noWrap = false,
   noWrapTitle = true,
@@ -587,6 +594,7 @@ function TextGrid({
     classes,
     noWrap,
     to,
+    onDelete,
     ...valueTypographyProps,
   });
   return (

@@ -32,17 +32,18 @@ const DisableMenuItem = ({
   onDisable,
 }) => {
   if (userDocument === undefined) { return null; }
-  if (userDocument.disabled === true) {
-    return (
+  return (
+    <>
+      {userDocument.disabled === true && (
       <MenuItem onClick={onEnable}>
         <Typography>Enable User</Typography>
       </MenuItem>
-    );
-  }
-  return (
-    <MenuItem onClick={onDisable}>
-      <Typography color="secondary">Disable User</Typography>
-    </MenuItem>
+      )}
+      <MenuItem onClick={onDisable}>
+        <Typography color="secondary">Disable/Remove User</Typography>
+      </MenuItem>
+
+    </>
   );
 };
 
@@ -50,10 +51,12 @@ function UserTitle({
   userName,
   onOpen,
   onEnable,
-  onDisable,
   realNameModal,
+  aliasModal,
   tokenModal,
   passwordModal,
+  disableModal,
+  userNameModal,
   history,
   ...props
 }) {
@@ -73,11 +76,19 @@ function UserTitle({
           </Tooltip>
           <UserStatus userDocument={code} />
           <Menu>
+            {userName !== 'admin' && (
+            <MenuItem onClick={() => onOpen({ modalName: userNameModal })}>
+              <Typography>Change Username</Typography>
+            </MenuItem>
+            )}
             <MenuItem onClick={() => onOpen({ modalName: passwordModal })}>
               <Typography>Change Password</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: realNameModal })}>
               <Typography>Change Real Name</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: aliasModal })}>
+              <Typography>Add Alias</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: tokenModal })}>
               <Typography>Generate Token</Typography>
@@ -86,7 +97,7 @@ function UserTitle({
             <DisableMenuItem
               userDocument={code}
               onEnable={onEnable}
-              onDisable={onDisable}
+              onDisable={() => onOpen({ modalName: disableModal })}
             />
             )}
           </Menu>
