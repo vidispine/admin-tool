@@ -26,27 +26,6 @@ const UserStatus = ({ userDocument }) => {
   return null;
 };
 
-const DisableMenuItem = ({
-  userDocument,
-  onEnable,
-  onDisable,
-}) => {
-  if (userDocument === undefined) { return null; }
-  return (
-    <>
-      {userDocument.disabled === true && (
-      <MenuItem onClick={onEnable}>
-        <Typography>Enable User</Typography>
-      </MenuItem>
-      )}
-      <MenuItem onClick={onDisable}>
-        <Typography color="secondary">Disable/Remove User</Typography>
-      </MenuItem>
-
-    </>
-  );
-};
-
 function UserTitle({
   userName,
   onOpen,
@@ -60,7 +39,7 @@ function UserTitle({
   history,
   ...props
 }) {
-  const { code } = props;
+  const { code: userDocument } = props;
   return (
     <TitleHeader
       helpTo="/ref/user.html"
@@ -74,7 +53,7 @@ function UserTitle({
               <VpnKeyIcon />
             </IconButton>
           </Tooltip>
-          <UserStatus userDocument={code} />
+          <UserStatus userDocument={userDocument} />
           <Menu>
             {userName !== 'admin' && (
             <MenuItem onClick={() => onOpen({ modalName: userNameModal })}>
@@ -93,12 +72,15 @@ function UserTitle({
             <MenuItem onClick={() => onOpen({ modalName: tokenModal })}>
               <Typography>Generate Token</Typography>
             </MenuItem>
+            {userName !== 'admin' && userDocument?.disabled === true && (
+              <MenuItem onClick={onEnable}>
+                <Typography>Enable User</Typography>
+              </MenuItem>
+            )}
             {userName !== 'admin' && (
-            <DisableMenuItem
-              userDocument={code}
-              onEnable={onEnable}
-              onDisable={() => onOpen({ modalName: disableModal })}
-            />
+              <MenuItem onClick={() => onOpen({ modalName: disableModal })}>
+                <Typography color="secondary">Disable/Remove User</Typography>
+              </MenuItem>
             )}
           </Menu>
         </>
