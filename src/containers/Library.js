@@ -15,6 +15,7 @@ import LibraryTitle from '../components/library/LibraryTitle';
 import LibraryRemove from '../components/library/LibraryRemove';
 import LibraryUpdate from '../components/library/LibraryUpdate';
 import LibraryItemMetadata from '../components/library/LibraryItemMetadata';
+import LibraryExport from '../components/library/LibraryExport';
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import DrawerListItem from '../components/ui/DrawerListItem';
@@ -29,6 +30,7 @@ const LIBRARY_REMOVE_DIALOG = 'LIBRARY_REMOVE_DIALOG';
 const LIBRARY_UPDATE_DIALOG = 'LIBRARY_UPDATE_DIALOG';
 const LIBRARY_ITEM_METADATA_DIALOG = 'LIBRARY_ITEM_METADATA_DIALOG';
 const LIBRARY_ACCESSCONTROL_ADD_DIALOG = 'LIBRARY_ACCESSCONTROL_ADD_DIALOG';
+const LIBRARY_EXPORT_DIALOG = 'LIBRARY_EXPORT_DIALOG';
 
 const TAB_TITLE = [
   { tab: LIBRARY_SETTINGS_TAB, listText: 'Settings', component: LibrarySettings },
@@ -75,6 +77,7 @@ class Library extends React.PureComponent {
         updateModal={LIBRARY_UPDATE_DIALOG}
         itemMetadataModal={LIBRARY_ITEM_METADATA_DIALOG}
         addAccessControl={LIBRARY_ACCESSCONTROL_ADD_DIALOG}
+        exportModal={LIBRARY_EXPORT_DIALOG}
         title={listText}
         {...props}
       />
@@ -109,6 +112,11 @@ class Library extends React.PureComponent {
           dialogName={LIBRARY_ACCESSCONTROL_ADD_DIALOG}
           entityType="library"
           entityId={libraryId}
+        />
+        <LibraryExport
+          dialogName={LIBRARY_EXPORT_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          libraryId={libraryId}
         />
       </>
     );

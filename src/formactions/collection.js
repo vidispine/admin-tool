@@ -148,3 +148,21 @@ export function onRemoveEntity(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onCreateExport(form, dispatch, props) {
+  const { queryParams } = form;
+  const collectionId = props.collectionId || form.collectionId;
+  return api.getCollection({
+    collectionId,
+    queryParams,
+    path: `/API/collection/${collectionId}/export`,
+    method: 'POST',
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

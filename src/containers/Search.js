@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
+import Grid from '@material-ui/core/Grid';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import SearchParams from '../components/search/SearchParams';
@@ -98,20 +99,26 @@ class Search extends React.PureComponent {
           code={searchResultDocument}
           codeModal="SearchResultDocument"
         />
-        <SearchDocument
-          form={SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
-        <SearchParams
-          form={SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <SearchDocument
+              form={SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <SearchParams
+              form={SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+        </Grid>
         <SearchListTableCard
           searchResultDocument={searchResultDocument}
           queryParams={queryParams}

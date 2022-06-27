@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
+import Grid from '@material-ui/core/Grid';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import ItemSearchDocument from '../components/item/ItemSearch';
@@ -109,20 +110,26 @@ class ItemSearch extends React.PureComponent {
           code={itemListDocument}
           codeModal="ItemListDocument"
         />
-        <ItemSearchDocument
-          form={ITEM_SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
-        <ItemSearchParams
-          form={ITEM_SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <ItemSearchDocument
+              form={ITEM_SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <ItemSearchParams
+              form={ITEM_SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+        </Grid>
         <ViewSelect
           onChange={this.onChangeView}
           isActive={viewLayout}

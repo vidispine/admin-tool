@@ -23,7 +23,7 @@ export default function ShapeDescriptorComponentCard({
           value={descriptorComponent}
         />
         <ShapeComponentMetadataEditor
-          title="Desciptor Component Metadata"
+          title="Descriptor Component Metadata"
           metadata={metadata}
           onRefresh={onRefresh}
           itemId={itemId}

@@ -1,21 +1,14 @@
 import React from 'react';
 import { compose } from 'redux';
-import Typography from '@material-ui/core/Typography';
 
 import { collection as api } from '@vidispine/vdt-api';
 import CollectionContentParams from '../../components/collection/CollectionContentParams';
 import CollectionContentTable from '../../components/collection/CollectionContentTable';
 import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
-import CollectionRename from '../../components/collection/CollectionRename';
-import CollectionEntityAdd from '../../components/collection/CollectionEntityAdd';
-import Menu, { MenuItem } from '../../components/ui/Menu';
 
 import withSnackbar from '../../hoc/withSnackbar';
 import withUI from '../../hoc/withUI';
 import withCard from '../../hoc/withCard';
-
-const COLLECTION_RENAME_DIALOG = 'COLLECTION_RENAME_DIALOG';
-const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 
 const CollectionContentCard = withCard(CollectionContentTable);
 const CollectionMetadataCard = withCard(CollectionMetadataEditor);
@@ -32,6 +25,8 @@ class CollectionContent extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { setOnRefresh } = this.props;
+    setOnRefresh(this.onRefresh);
     this.onRefresh();
   }
 
@@ -49,9 +44,13 @@ class CollectionContent extends React.PureComponent {
   }
 
   onFetch(collectionId) {
+    const { setName } = this.props;
     try {
       api.getCollection({ collectionId })
-        .then((response) => this.setState({ collectionDocument: response.data }))
+        .then((response) => {
+          this.setState({ collectionDocument: response.data });
+          if (setName) setName(response?.data?.name);
+        })
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -66,7 +65,6 @@ class CollectionContent extends React.PureComponent {
 
   render() {
     const {
-      onOpen,
       collectionId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
@@ -79,17 +77,6 @@ class CollectionContent extends React.PureComponent {
             code={collectionDocument}
             codeModal="CollectionDocument"
             onRefresh={this.onRefresh}
-            titleChip={collectionDocument && collectionDocument.name}
-            actionComponent={(
-              <Menu>
-                <MenuItem onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}>
-                  <Typography>Add Entity</Typography>
-                </MenuItem>
-                <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
-                  <Typography>Rename</Typography>
-                </MenuItem>
-              </Menu>
-            )}
           />
         )}
         {TabComponent && (
@@ -113,19 +100,9 @@ class CollectionContent extends React.PureComponent {
                 onSuccess={() => this.onRefresh()}
               />
             )}
-            <CollectionRename
-              dialogName={COLLECTION_RENAME_DIALOG}
-              collectionId={collectionId}
-              collectionDocument={collectionDocument}
-              onSuccess={() => this.onRefresh()}
-            />
           </>
         )}
-        <CollectionEntityAdd
-          dialogName={COLLECTION_ENTITY_ADD_DIALOG}
-          onSuccess={this.onRefresh}
-          collectionId={collectionId}
-        />
+
       </>
     );
   }

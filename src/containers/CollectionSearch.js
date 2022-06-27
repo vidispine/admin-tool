@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
+import Grid from '@material-ui/core/Grid';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import CollectionSearchParams from '../components/collection/CollectionSearchParams';
@@ -102,20 +103,26 @@ class CollectionSearch extends React.PureComponent {
           codeModal="CollectionListDocument"
           createModal={COLLECTION_CREATE_DIALOG}
         />
-        <CollectionSearchDocument
-          form={COLLECTION_SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
-        <CollectionSearchParams
-          form={COLLECTION_SEARCH_FORM}
-          defaultExpanded={false}
-          onSuccess={this.onSearchSuccess}
-          initialValues={this.initialValues}
-          destroyOnUnmount={false}
-        />
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <CollectionSearchDocument
+              form={COLLECTION_SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CollectionSearchParams
+              form={COLLECTION_SEARCH_FORM}
+              defaultExpanded={false}
+              onSuccess={this.onSearchSuccess}
+              initialValues={this.initialValues}
+              destroyOnUnmount={false}
+            />
+          </Grid>
+        </Grid>
         <CollectionListTableCard
           collectionListDocument={collectionListDocument}
           queryParams={queryParams}

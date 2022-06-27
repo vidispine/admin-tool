@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { FormSection, FieldArray } from 'redux-form';
 import Delete from '@material-ui/icons/Delete';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,6 +22,11 @@ const hoverStyle = (theme) => ({
   },
   marginLeft: {
     marginLeft: '10px',
+  },
+  header: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
   },
 });
 
@@ -63,7 +69,12 @@ function TypeArray({
   return (
     <div>
       { arrayHeader && (
+      <div className={classes.header}>
         <Typography variant="subtitle2">{thisLabel}</Typography>
+        <IconButton onClick={() => fields.push()} size="small" color="primary">
+          <AddCircleOutlineIcon />
+        </IconButton>
+      </div>
       )}
 
       {fields.map((thisField, index) => (
@@ -122,7 +133,11 @@ function TypeArray({
           )}
         </div>
       ))}
-      {fields.length !== maxOccurs && (
+      {/* TODO check when there is no header label */}
+      {((
+        fields.length > 0 && fields.length !== maxOccurs)
+        || (arrayHeader === false && fields.length === 0 && fields.length !== maxOccurs)
+      ) && (
         <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
           {thisLabel ? `Add ${thisLabel}` : 'Add'}
         </TextButton>

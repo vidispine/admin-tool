@@ -112,3 +112,21 @@ export function onRemove(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onCreateExport(form, dispatch, props) {
+  const { queryParams } = form;
+  const libraryId = props.libraryId || form.libraryId;
+  return api.getLibrary({
+    libraryId,
+    queryParams,
+    path: `/API/library/${libraryId}/export`,
+    method: 'POST',
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

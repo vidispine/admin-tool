@@ -201,3 +201,43 @@ export function onCreateShapeAnalyze(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onCreateExport(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  return api.createTranscode({
+    itemId,
+    shapeId,
+    queryParams,
+    path: `/API/item/${itemId}/shape/${shapeId}/export`,
+    method: 'POST',
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onCreateExportImp(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  return api.createTranscode({
+    itemId,
+    shapeId,
+    queryParams,
+    path: `/API/item/${itemId}/shape/${shapeId}/export/imp`,
+    method: 'POST',
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

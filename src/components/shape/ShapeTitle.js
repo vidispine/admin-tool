@@ -54,6 +54,8 @@ function ShapeTitle({
   removeTagModal,
   analyzeTagModal,
   addComponentModal,
+  exportModal,
+  exportImpModal,
   breadcrumbList = [],
   ...props
 }) {
@@ -79,6 +81,12 @@ function ShapeTitle({
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: addTagModal })}>
             <Typography>Add Tag</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
+            <Typography>Export</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
+            <Typography>Export IMF Package</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: removeTagModal })}>
             <Typography color="secondary">Remove Tag</Typography>

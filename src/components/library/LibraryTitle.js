@@ -11,6 +11,7 @@ function LibraryTitle({
   removeModal,
   updateModal,
   itemMetadataModal,
+  exportModal,
   title,
   ...props
 }) {
@@ -24,6 +25,7 @@ function LibraryTitle({
       entityId={libraryId}
       entityType="library"
       removeModal={removeModal}
+      exportModal={exportModal}
       actionComponent={(
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: updateModal })}>
@@ -31,6 +33,12 @@ function LibraryTitle({
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: itemMetadataModal })}>
             <Typography>Update Item Metadata</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: itemMetadataModal })}>
+            <Typography>Update Item Metadata</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
+            <Typography>Export</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: removeModal })}>
             <Typography color="secondary">Delete</Typography>
