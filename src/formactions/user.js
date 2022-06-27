@@ -17,6 +17,38 @@ export function onCreate(form) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+export function onDisable(form, dispatch, props) {
+  const { queryParams } = form;
+  const userName = props.userName || form.userName;
+  return api.disableUser({
+    userName,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onUpdate(form, dispatch, props) {
+  const userName = props.userName || form.userName;
+  const { userDocument, queryParams } = form;
+  return api.updateUser({
+    userName,
+    userDocument,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
 
 export function onUpdatePassword(form, dispatch, props) {
   const userName = props.userName || form.userName;
@@ -138,6 +170,22 @@ export function onUpdateRealName(form, dispatch, props) {
   return api.updateUserRealName({
     userName,
     realName,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function createAlias(form, dispatch, props) {
+  const { alias } = form;
+  const userName = props.userName || form.userName;
+  return api.createAlias({
+    userName,
+    alias,
   })
     .catch((error) => {
       let errorMessage = error.message;
