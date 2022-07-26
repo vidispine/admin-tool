@@ -58,7 +58,7 @@ export const UserGroupDisplay = ({ userDocument }) => (
   </>
 );
 
-const UserSection = ({ value = {} }) => (
+const UserSection = ({ value = {}, onDeleteAlias }) => (
   <>
     <TextGrid
       title="userName"
@@ -76,6 +76,7 @@ const UserSection = ({ value = {} }) => (
       variant="list"
       hideNoValue
       hover
+      onDelete={onDeleteAlias}
     />
     <TextGrid
       title="id"
@@ -110,23 +111,26 @@ const UserSection = ({ value = {} }) => (
   </>
 );
 
-export const UserBasicDisplay = ({ userDocument }) => (
+export const UserBasicDisplay = ({ userDocument, onDeleteAlias }) => (
   <>
     <TypeSection
       component={UserSection}
       value={userDocument}
+      onDeleteAlias={onDeleteAlias}
     />
   </>
 );
 
 export default function UserDisplay({
   userDocument,
+  onDeleteAlias,
 }) {
   return (
     <>
       <TypeSection
         component={UserSection}
         value={userDocument}
+        onDeleteAlias={onDeleteAlias}
       />
       <TypeSection
         component={GroupSection}

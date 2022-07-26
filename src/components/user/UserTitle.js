@@ -26,38 +26,20 @@ const UserStatus = ({ userDocument }) => {
   return null;
 };
 
-const DisableMenuItem = ({
-  userDocument,
-  onEnable,
-  onDisable,
-}) => {
-  if (userDocument === undefined) { return null; }
-  if (userDocument.disabled === true) {
-    return (
-      <MenuItem onClick={onEnable}>
-        <Typography>Enable User</Typography>
-      </MenuItem>
-    );
-  }
-  return (
-    <MenuItem onClick={onDisable}>
-      <Typography color="secondary">Disable User</Typography>
-    </MenuItem>
-  );
-};
-
 function UserTitle({
   userName,
   onOpen,
   onEnable,
-  onDisable,
   realNameModal,
+  aliasModal,
   tokenModal,
   passwordModal,
+  disableModal,
+  userNameModal,
   history,
   ...props
 }) {
-  const { code } = props;
+  const { code: userDocument } = props;
   return (
     <TitleHeader
       helpTo="/ref/user.html"
@@ -71,23 +53,34 @@ function UserTitle({
               <VpnKeyIcon />
             </IconButton>
           </Tooltip>
-          <UserStatus userDocument={code} />
+          <UserStatus userDocument={userDocument} />
           <Menu>
+            {userName !== 'admin' && (
+            <MenuItem onClick={() => onOpen({ modalName: userNameModal })}>
+              <Typography>Change Username</Typography>
+            </MenuItem>
+            )}
             <MenuItem onClick={() => onOpen({ modalName: passwordModal })}>
               <Typography>Change Password</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: realNameModal })}>
               <Typography>Change Real Name</Typography>
             </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: aliasModal })}>
+              <Typography>Add Alias</Typography>
+            </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: tokenModal })}>
               <Typography>Generate Token</Typography>
             </MenuItem>
+            {userName !== 'admin' && userDocument?.disabled === true && (
+              <MenuItem onClick={onEnable}>
+                <Typography>Enable User</Typography>
+              </MenuItem>
+            )}
             {userName !== 'admin' && (
-            <DisableMenuItem
-              userDocument={code}
-              onEnable={onEnable}
-              onDisable={onDisable}
-            />
+              <MenuItem onClick={() => onOpen({ modalName: disableModal })}>
+                <Typography color="secondary">Disable/Remove User</Typography>
+              </MenuItem>
             )}
           </Menu>
         </>

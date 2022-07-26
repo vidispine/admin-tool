@@ -7,6 +7,10 @@ import UserGroupCard from '../components/user/UserGroupCard';
 import UserPassword from '../components/user/UserPassword';
 import UserToken from '../components/user/UserToken';
 import UserRealName from '../components/user/UserRealName';
+import UserAliasAddDialog from '../components/user/UserAliasAddDialog';
+import UserAliasRemoveDialog from '../components/user/UserAliasRemoveDialog';
+import UserDisableDialog from '../components/user/UserDisableDialog';
+import UserUserNameDialog from '../components/user/UserUserNameDialog';
 import SimpleMetadataCard from '../components/ui/SimpleMetadataCard';
 
 import withUI from '../hoc/withUI';
@@ -14,6 +18,10 @@ import withUI from '../hoc/withUI';
 const USER_PASSWORD_DIALOG = 'USER_PASSWORD_DIALOG';
 const USER_TOKEN_DIALOG = 'USER_TOKEN_DIALOG';
 const USER_REALNAME_DIALOG = 'USER_REALNAME_DIALOG';
+const USER_ALIAS_ADD_DIALOG = 'USER_ALIAS_ADD_DIALOG';
+const USER_ALIAS_REMOVE_DIALOG = 'USER_ALIAS_REMOVE_DIALOG';
+const USER_DISABLE_DIALOG = 'USER_DISABLE_DIALOG';
+const USER_USERNAME_DIALOG = 'USER_USERNAME_DIALOG';
 
 class User extends React.PureComponent {
   constructor(props) {
@@ -22,10 +30,13 @@ class User extends React.PureComponent {
     this.onFetch = this.onFetch.bind(this);
     this.onFetchError = this.onFetchError.bind(this);
     this.onEnable = this.onEnable.bind(this);
-    this.onDisable = this.onDisable.bind(this);
+    this.onDisableSuccess = this.onDisableSuccess.bind(this);
+    this.onDeleteAlias = this.onDeleteAlias.bind(this);
+    this.onUserNameSuccess = this.onUserNameSuccess.bind(this);
     this.state = {
       userDocument: undefined,
       userToken: undefined,
+      alias: undefined,
     };
   }
 
@@ -79,23 +90,27 @@ class User extends React.PureComponent {
     }
   }
 
-  onDisable() {
-    const { userName, openSnackBar } = this.props;
-    try {
-      api.disableUser({ userName })
-        .then(() => {
-          const messageContent = 'User Disabled';
-          openSnackBar({ messageContent });
-          this.onRefresh();
-        })
-        .catch((error) => this.onRefreshError(error));
-    } catch (error) {
-      this.onRefreshError(error);
-    }
+  onDisableSuccess(response, dispatch, props) {
+    const { history } = this.props;
+    const hard = props?.values?.queryParams?.hard;
+    if (hard === true || hard === 'true') history.push('/user/');
+    else this.onRefresh();
+  }
+
+  onUserNameSuccess(response, dispatch, props) {
+    const { history } = this.props;
+    const userName = props?.values?.userDocument?.userName;
+    if (userName) history.push(`/user/${userName}`);
+    else this.onRefresh();
+  }
+
+  onDeleteAlias(event, alias) {
+    const { onOpen } = this.props;
+    this.setState({ alias }, () => onOpen({ modalName: USER_ALIAS_REMOVE_DIALOG }));
   }
 
   render() {
-    const { userDocument, userToken } = this.state;
+    const { userDocument, userToken, alias } = this.state;
     const { userName } = this.props;
     return (
       <>
@@ -106,14 +121,17 @@ class User extends React.PureComponent {
           userName={userName}
           passwordModal={USER_PASSWORD_DIALOG}
           realNameModal={USER_REALNAME_DIALOG}
+          aliasModal={USER_ALIAS_ADD_DIALOG}
           tokenModal={USER_TOKEN_DIALOG}
           onEnable={this.onEnable}
-          onDisable={this.onDisable}
+          disableModal={USER_DISABLE_DIALOG}
+          userNameModal={USER_USERNAME_DIALOG}
         />
         {userDocument && (
           <>
             <UserCard
               userDocument={userDocument}
+              onDeleteAlias={this.onDeleteAlias}
             />
             <SimpleMetadataCard
               simpleMetadataDocument={userDocument.metadata}
@@ -132,11 +150,32 @@ class User extends React.PureComponent {
               userName={userName}
               realName={userDocument.realName}
             />
+            <UserAliasAddDialog
+              dialogName={USER_ALIAS_ADD_DIALOG}
+              onSuccess={this.onRefresh}
+              userName={userName}
+            />
           </>
         )}
         <UserPassword
           dialogName={USER_PASSWORD_DIALOG}
           userName={userName}
+        />
+        <UserDisableDialog
+          dialogName={USER_DISABLE_DIALOG}
+          userName={userName}
+          onSuccess={this.onDisableSuccess}
+        />
+        <UserUserNameDialog
+          dialogName={USER_USERNAME_DIALOG}
+          userName={userName}
+          onSuccess={this.onUserNameSuccess}
+        />
+        <UserAliasRemoveDialog
+          dialogName={USER_ALIAS_REMOVE_DIALOG}
+          userName={userName}
+          alias={alias}
+          onSuccess={this.onRefresh}
         />
         <UserToken
           dialogName={USER_TOKEN_DIALOG}
