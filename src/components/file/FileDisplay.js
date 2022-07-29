@@ -90,7 +90,9 @@ const BasicSection = ({ value = {} }) => (
               <>
                 <TextGrid
                   title="shape"
+                  variant="shapeId"
                   value={x.id}
+                  variantProps={{ itemId: v.id }}
                 />
                 <TypeArray
                   value={x.component}
@@ -100,6 +102,8 @@ const BasicSection = ({ value = {} }) => (
                         title="component"
                         value={y.id}
                         hideNoValue
+                        variant="componentId"
+                        variantProps={{ itemId: v.id, shapeId: x.id }}
                       />
                     </>
                   )}

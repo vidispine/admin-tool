@@ -15,6 +15,7 @@ import formatXML from '../../utils/formatXML';
 import formatJSON from '../../utils/formatJSON';
 import { capitalizeString, bytesToSize } from '../../utils';
 import UnstyledLink from './UnstyledLink';
+import UnstyledHashLink from './UnstyledHashLink';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 const hoverStyle = (theme) => ({
@@ -42,17 +43,22 @@ function fromNow(value) {
 function SetValueComponent({
   value,
   variant,
+  variantProps,
   capitalize,
   classes,
   to,
   onDelete,
   ...typographyProps
 }) {
-  let valueComponent = null;
   if (value === undefined || null) {
-    return valueComponent;
+    return null;
   }
   const StyledTypography = (props) => <Typography color="textPrimary" variant="subtitle2" {...typographyProps} {...props} />;
+  let valueComponent = (
+    <StyledTypography>
+      {capitalize ? capitalizeString(value) : value.toString()}
+    </StyledTypography>
+  );
   switch (variant) {
     case 'checkbox':
       valueComponent = (
@@ -234,6 +240,7 @@ function SetValueComponent({
         </StyledTypography>
       );
       break;
+    case 'item':
     case 'itemId':
       valueComponent = (
         <StyledTypography>
@@ -241,20 +248,28 @@ function SetValueComponent({
         </StyledTypography>
       );
       break;
-    case 'item':
-      valueComponent = (
-        <StyledTypography>
-          <UnstyledLink to={`/item/${value}/`}>{value}</UnstyledLink>
-        </StyledTypography>
-      );
+    case 'shapeId':
+    case 'shape': {
+      if (variantProps?.itemId) {
+        valueComponent = (
+          <StyledTypography>
+            <UnstyledLink to={`/item/${variantProps.itemId}/shape/${value}/`}>{value}</UnstyledLink>
+          </StyledTypography>
+        );
+      }
       break;
+    }
+    case 'componentId': {
+      if (variantProps?.itemId && variantProps?.shapeId) {
+        valueComponent = (
+          <StyledTypography>
+            <UnstyledHashLink to={`/item/${variantProps.itemId}/shape/${variantProps.shapeId}#${value}`}>{value}</UnstyledHashLink>
+          </StyledTypography>
+        );
+      }
+      break;
+    }
     case 'collectionId':
-      valueComponent = (
-        <StyledTypography>
-          <UnstyledLink to={`/collection/${value}/`}>{value}</UnstyledLink>
-        </StyledTypography>
-      );
-      break;
     case 'collection':
       valueComponent = (
         <StyledTypography>
@@ -328,11 +343,6 @@ function SetValueComponent({
       break;
     default:
       if (variant) { console.warn(`TextGrid: Unknown variant=${variant}`); } // eslint-disable-line no-console
-      valueComponent = (
-        <StyledTypography>
-          {capitalize ? capitalizeString(value) : value.toString()}
-        </StyledTypography>
-      );
       break;
   }
   return valueComponent;
@@ -342,6 +352,7 @@ function TextGrid({
   title,
   value,
   variant,
+  variantProps,
   capitalize = false,
   titleGridProps,
   valueGridProps,
@@ -589,6 +600,7 @@ function TextGrid({
   const valueComponent = SetValueComponent({
     value,
     variant,
+    variantProps,
     capitalize,
     onClick: onTextClick,
     classes,

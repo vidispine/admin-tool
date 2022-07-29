@@ -13,7 +13,7 @@ export default function ShapeDescriptorComponentCard({
   if (descriptorComponent === undefined) { return null; }
   const { id: descriptorComponentId, metadata } = descriptorComponent;
   return (
-    <SquareCard>
+    <SquareCard id={descriptorComponentId}>
       <CardHeader
         disableTypography
         title={descriptorComponentId ? <Typography variant="subtitle1">{`Descriptor Component - ${descriptorComponentId}`}</Typography> : undefined}

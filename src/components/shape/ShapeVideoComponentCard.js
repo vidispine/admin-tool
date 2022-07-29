@@ -13,7 +13,7 @@ export default function ShapeVideoComponentCard({
   if (videoComponent === undefined) { return null; }
   const { id: videoComponentId, metadata } = videoComponent;
   return (
-    <SquareCard>
+    <SquareCard id={videoComponentId}>
       <CardHeader
         disableTypography
         title={videoComponentId ? <Typography variant="subtitle1">{`Video Component - ${videoComponentId}`}</Typography> : undefined}

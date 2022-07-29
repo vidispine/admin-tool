@@ -14,7 +14,7 @@ export default function ShapeContainerComponentCard({
   if (containerComponent === undefined) { return null; }
   const { id: containerComponentId, metadata } = containerComponent;
   return (
-    <SquareCard>
+    <SquareCard id={containerComponentId}>
       <CardHeader
         disableTypography
         title={containerComponentId ? <Typography variant="subtitle1">{`Container Component - ${containerComponentId}`}</Typography> : undefined}

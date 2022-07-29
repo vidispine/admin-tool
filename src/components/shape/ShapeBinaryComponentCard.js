@@ -13,7 +13,7 @@ export default function ShapeBinaryComponentCard({
   if (binaryComponent === undefined) { return null; }
   const { id: binaryComponentId, metadata } = binaryComponent;
   return (
-    <SquareCard>
+    <SquareCard id={binaryComponentId}>
       <CardHeader
         disableTypography
         title={binaryComponentId ? <Typography variant="subtitle1">{`Binary Component - ${binaryComponentId}`}</Typography> : undefined}

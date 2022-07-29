@@ -10,7 +10,7 @@ export default function ShapeSubtitleComponentCard({ subtitleComponent = {} }) {
   if (subtitleComponent === undefined) { return null; }
   const { id: subtitleComponentId } = subtitleComponent;
   return (
-    <SquareCard>
+    <SquareCard id={subtitleComponentId}>
       <CardHeader
         disableTypography
         title={subtitleComponentId ? <Typography variant="subtitle1">{`Subtitle Component - ${subtitleComponentId}`}</Typography> : undefined}
