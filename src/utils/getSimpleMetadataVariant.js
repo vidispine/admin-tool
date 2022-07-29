@@ -3,6 +3,10 @@ export default function getSimpleMetadataVariant(key) {
   switch (key) {
     case 'item':
       return 'itemId';
+    case 'imf_locale':
+      return 'xml';
+    case 'imf_opl':
+      return 'xml';
     default:
       return undefined;
   }
