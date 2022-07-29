@@ -1,5 +1,6 @@
 import React from 'react';
 import TextGrid from './TextGrid';
+import getSimpleMetadataVariant from '../../utils/getSimpleMetadataVariant';
 
 export default function SimpleMetadataDisplay({ simpleMetadataList = [] }) {
   return (
@@ -9,6 +10,8 @@ export default function SimpleMetadataDisplay({ simpleMetadataList = [] }) {
         title={simpleMetadata.key}
         value={simpleMetadata.value}
         titleStartCase={false}
+        variant={getSimpleMetadataVariant(simpleMetadata.key)}
+        hideCode
       />
     ))
   );
@@ -23,6 +26,8 @@ export const SimpleMetadataType = ({ simpleMetadata }) => {
         title={field.key}
         value={field.value}
         titleStartCase={false}
+        variant={getSimpleMetadataVariant(field.key)}
+        hideCode
       />
     ))
   );

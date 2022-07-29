@@ -1,4 +1,4 @@
-export default function JobMetadataVariant(key) {
+export default function getJobDataVariant(key) {
   if (key.startsWith('transcodeShapeDocument')) return 'xml';
   if (key.startsWith('assetMapShapeDocument')) return 'xml';
   if (key.endsWith('transcodePreset')) return 'xml';
