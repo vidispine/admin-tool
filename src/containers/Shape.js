@@ -15,6 +15,7 @@ import ShapeFileList from './shape/ShapeFileList';
 import ShapeTitle from '../components/shape/ShapeTitle';
 import ShapeDelete from '../components/shape/ShapeDelete';
 import ShapeTranscode from '../components/shape/ShapeTranscode';
+import ShapeDeduction from '../components/shape/ShapeDeduction';
 import ShapeAnalyze from '../components/shape/ShapeAnalyze';
 import ShapeAddComponent from '../components/shape/ShapeAddComponent';
 import ShapeAddTag from '../components/shape/ShapeAddTag';
@@ -32,6 +33,7 @@ const SHAPE_REMOVE_TAG_DIALOG = 'SHAPE_REMOVE_TAG_DIALOG';
 const SHAPE_ADD_COMPONENT_DIALOG = 'SHAPE_ADD_COMPONENT_DIALOG';
 const SHAPE_EXPORT_DIALOG = 'SHAPE_EXPORT_DIALOG';
 const SHAPE_IMPEXPORT_DIALOG = 'SHAPE_IMPEXPORT_DIALOG';
+const SHAPE_DEDUCTION_DIALOG = 'SHAPE_DEDUCTION_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -136,6 +138,7 @@ class Shape extends React.PureComponent {
         itemId={itemId}
         removeModal={SHAPE_REMOVE_DIALOG}
         transcodeModal={SHAPE_TRANSCODE_DIALOG}
+        deductionModal={SHAPE_DEDUCTION_DIALOG}
         analyzeTagModal={SHAPE_ANALYZE_DIALOG}
         addTagModal={SHAPE_ADD_TAG_DIALOG}
         removeTagModal={SHAPE_REMOVE_TAG_DIALOG}
@@ -164,6 +167,12 @@ class Shape extends React.PureComponent {
         />
         <ShapeTranscode
           dialogName={SHAPE_TRANSCODE_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeDeduction
+          dialogName={SHAPE_DEDUCTION_DIALOG}
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
           itemId={itemId}
           shapeId={shapeId}

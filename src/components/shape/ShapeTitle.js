@@ -56,6 +56,7 @@ function ShapeTitle({
   addComponentModal,
   exportModal,
   exportImpModal,
+  deductionModal,
   breadcrumbList = [],
   ...props
 }) {
@@ -72,6 +73,9 @@ function ShapeTitle({
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: transcodeModal })}>
             <Typography>Transcode</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: deductionModal })}>
+            <Typography>Deduction Update</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: analyzeTagModal })}>
             <Typography>Analyze</Typography>

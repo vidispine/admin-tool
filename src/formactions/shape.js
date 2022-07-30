@@ -144,6 +144,25 @@ export function onCreateTranscode(form, dispatch, props) {
     });
 }
 
+export function onCreateDeduction(form, dispatch, props) {
+  const { queryParams = {} } = form;
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  return api.createDeduction({
+    itemId,
+    shapeId,
+    queryParams,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onUpdateShapeTag(form, dispatch, props) {
   const itemId = props.itemId || form.itemId;
   const shapeId = props.shapeId || form.shapeId;
