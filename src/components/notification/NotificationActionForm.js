@@ -174,6 +174,86 @@ function ActionTypeSqs() {
         component={TextField}
         fullWidth
       />
+      <Field
+        name="roleArn"
+        label="Role ARN"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="roleSessionName"
+        label="Role Session Name"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="roleExternalId"
+        label="Role External ID"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="messageGroupId"
+        label="Message ID"
+        component={TextField}
+        fullWidth
+      />
+      <ActionTypeBase />
+    </>
+  );
+}
+
+function ActionTypeSns() {
+  return (
+    <>
+      <Field
+        name="topic"
+        label="Topic"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="endpoint"
+        label="Endpoint"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="contentType"
+        label="Content Type"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="accessKey"
+        label="Access Key"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="secret"
+        label="Secret Key"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="roleArn"
+        label="Role ARN"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="roleSessionName"
+        label="Role Session Name"
+        component={TextField}
+        fullWidth
+      />
+      <Field
+        name="roleExternalId"
+        label="Role External ID"
+        component={TextField}
+        fullWidth
+      />
       <ActionTypeBase />
     </>
   );
@@ -227,6 +307,10 @@ function ActionTypeSelect(props) {
         return (
           <FormSection name="sqs" component={ActionTypeSqs} {...props} />
         );
+      case 'sns':
+        return (
+          <FormSection name="sns" component={ActionTypeSns} {...props} />
+        );
       case 'javascript':
         return (
           <FormSection name="javascript" component={ActionTypeJavascript} {...props} />
@@ -263,6 +347,7 @@ function ActionTypeSelect(props) {
         <MenuItem value="ejb">EJB</MenuItem>
         <MenuItem value="jms">JMS</MenuItem>
         <MenuItem value="sqs">SQS</MenuItem>
+        <MenuItem value="sns">SNS</MenuItem>
         <MenuItem value="javascript">Javascript</MenuItem>
       </StatefulSelect>
     </>
