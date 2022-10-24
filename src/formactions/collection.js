@@ -166,3 +166,19 @@ export function onCreateExport(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onUpdateFolderCollection(form, dispatch, props) {
+  const { queryParams } = form;
+  const collectionId = props.collectionId || form.collectionId;
+  return api.updateFolderCollection({
+    collectionId,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
