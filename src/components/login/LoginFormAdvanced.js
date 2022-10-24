@@ -65,7 +65,7 @@ function LoginFormAdvanced({
       />
       <Field
         name="secretKey"
-        label="Access Key"
+        label="Secret Key"
         component={TextField}
         fullWidth
         variant="outlined"
