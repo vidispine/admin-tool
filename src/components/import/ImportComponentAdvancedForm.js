@@ -6,6 +6,8 @@ import { TextField } from '../form';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import ChipInput from '../ui/ChipInput';
 import FormSection from '../ui/FormSection';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import { KeyValuePairType } from '../ui/FormType';
 
 const queryParams = () => (
   <>
@@ -126,11 +128,13 @@ const queryParams = () => (
       component={TextField}
       fullWidth
     />
-    <Field
+    <FieldTypeArray
       name="notificationData"
-      label="Notification Data"
-      component={TextField}
-      fullWidth
+      component={KeyValuePairType}
+      label="Notification Metadata"
+      arrayHeader
+      withHeader={false}
+      dense
     />
     <Field
       name="index"

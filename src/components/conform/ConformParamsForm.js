@@ -9,6 +9,8 @@ import { TextField, Select } from '../form';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import ChipInput from '../ui/ChipInput';
 import SimpleMetadataField from '../ui/SimpleMetadataField';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import { KeyValuePairType } from '../ui/FormType';
 
 function ConformParamsForm({
   handleSubmit,
@@ -96,11 +98,13 @@ function ConformParamsForm({
         component={TextField}
         fullWidth
       />
-      <Field
+      <FieldTypeArray
         name="queryParams.notificationData"
-        label="Notification Data"
-        component={TextField}
-        fullWidth
+        component={KeyValuePairType}
+        label="Notification Metadata"
+        arrayHeader
+        withHeader={false}
+        dense
       />
       <FieldArray
         name="queryParams.jobmetadata"

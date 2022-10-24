@@ -13,7 +13,7 @@ export default function ShapeAudioComponentCard({
   if (audioComponent === undefined) { return null; }
   const { id: audioComponentId, metadata } = audioComponent;
   return (
-    <SquareCard>
+    <SquareCard id={audioComponentId}>
       <CardHeader
         disableTypography
         title={audioComponentId ? <Typography variant="subtitle1">{`Audio Component - ${audioComponentId}`}</Typography> : undefined}
