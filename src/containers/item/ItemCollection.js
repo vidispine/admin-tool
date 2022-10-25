@@ -57,6 +57,7 @@ class ItemCollection extends React.PureComponent {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
       title,
+      itemId,
     } = this.props;
     const { metadataListDocument } = this.state;
     return (
@@ -75,6 +76,9 @@ class ItemCollection extends React.PureComponent {
         {metadataListDocument && (
           <ItemCollectionCard
             metadataListDocument={metadataListDocument}
+            onSuccess={this.onRefresh}
+            entityType="item"
+            entityId={itemId}
           />
         )}
       </>
