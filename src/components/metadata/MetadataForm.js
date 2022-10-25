@@ -10,7 +10,6 @@ import { TextField, Select } from '../form';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
-import InitialDisabledTextField from '../ui/InitialDisabledTextField';
 import { StatefulAsyncSelect } from '../ui/Select';
 import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
 import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
@@ -107,14 +106,14 @@ const MetadataTimespanType = () => (
       <Grid item sm={6}>
         <Field
           name="start"
-          component={InitialDisabledTextField}
+          component={TextField}
           fullWidth
         />
       </Grid>
       <Grid item sm={6}>
         <Field
           name="end"
-          component={InitialDisabledTextField}
+          component={TextField}
           fullWidth
         />
       </Grid>
