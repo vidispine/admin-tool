@@ -2,8 +2,10 @@ import React from 'react';
 import { withCookies } from 'react-cookie';
 import { noauth as NoAuthApi, utils as api } from '@vidispine/vdt-api';
 import { compose } from 'redux';
+
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
 import setWelcomeConsoleMessage from '../utils/setWelcomeConsoleMessage';
+import axiosElectronAdapter from '../utils/axiosElectronAdapter';
 
 import {
   AUTH_TOKEN,
@@ -21,6 +23,10 @@ import {
   setCookiePath,
   APP_BASENAME,
 } from '../const';
+
+if (window?.api?.axios) {
+  api.defaultClient.defaults.adapter = axiosElectronAdapter;
+}
 
 class Auth extends React.Component {
   constructor(props) {
