@@ -146,6 +146,16 @@ class Login extends React.PureComponent {
     const { status } = selfTestDocument || {};
     return (
       <ThemeProvider theme={theme}>
+        <div style={{
+          '-webkit-app-region': 'drag',
+          zIndex: 100,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: 30,
+        }}
+        />
         <Grid container>
           <Grid item sm={4}>
             <Card elevation={0} square style={{ height: '100vh' }}>

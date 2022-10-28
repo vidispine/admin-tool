@@ -31,8 +31,13 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   scrollPaper: {
-    width: '85%',
+    // width: '85%',
+    marginLeft: theme.spacing(12),
     backgroundColor: theme.palette.background.default,
+  },
+  ToolbarGrid: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(0.5),
   },
 });
 
@@ -76,13 +81,13 @@ function FullScreenDialog({
     >
       <AppBar elevation={0} className={classes.appBar}>
         <Toolbar disableGutters variant="dense">
-          <Grid container alignItems="flex-start">
+          <Grid className={classes.ToolbarGrid} container alignItems="flex-start" direction="row-reverse" spacing={4}>
             <Grid item>
               <IconButton onClick={onClose}>
                 <CloseIcon />
               </IconButton>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs>
               <NavSelect onChange={onClose} />
             </Grid>
           </Grid>

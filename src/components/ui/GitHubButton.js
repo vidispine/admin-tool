@@ -10,6 +10,7 @@ const GitHubButton = React.forwardRef((props, ref) => (
     rel="noopener noreferrer"
     disableRipple
     ref={ref}
+    {...props}
   >
     <GitHubIcon />
   </IconButton>

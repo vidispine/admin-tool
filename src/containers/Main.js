@@ -137,7 +137,8 @@ function Main({
         style={{
           marginLeft: '10px',
           marginRight: '10px',
-          marginTop: 48,
+          height: '94vh',
+          overflowX: 'scroll',
         }}
       >
         <Switch>
