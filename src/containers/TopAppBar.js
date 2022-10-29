@@ -39,9 +39,22 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(0.5),
       marginRight: theme.spacing(0.5),
     },
+    '& >*': {
+      '-webkit-app-region': 'no-drag',
+    },
   },
   baseUrl: {
     paddingLeft: theme.spacing(1),
+  },
+  centerDiv: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    '-webkit-app-region': 'drag',
+    '& >*': {
+      '-webkit-app-region': 'no-drag',
+    },
   },
 });
 
@@ -78,10 +91,7 @@ function TopAppBar({
           {baseUrl}
         </Typography>
         <Hidden xsDown>
-          <div style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center', display: 'flex',
-          }}
-          >
+          <div className={classes.centerDiv}>
             <Tooltip title="Back in history">
               <IconButton size="small" onClick={history.goBack} color="inherit">
                 <ArrowBackIcon />

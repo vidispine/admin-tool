@@ -88,13 +88,13 @@
     "dev:react": "BROWSER=none PORT=3000 yarn start",
     "dev:electron": "wait-on tcp:3000 && electron .",
     "postinstall": "electron-builder install-app-deps",
-    "pack-app": "yarn build && electron-builder --dir",
-    "pack-build": "electron-builder --dir"
+    "pack-app": "yarn build && yarn:build:electron",
+    "build:electron": "electron-builder"
   },
   "devDependencies": {
     "concurrently": "^7.5.0",
-    "electron": "^21.2.0",
-    "electron-builder": "^23.6.0",
+    "electron": "21.2.0",
+    "electron-builder": "23.6.0",
     "eslint": "7.11.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-plugin-import": "2.22.1",
@@ -112,5 +112,17 @@
     "not op_mini all"
   ],
   "main": "public/electron.js",
-  "homepage": "./"
+  "homepage": "./",
+  "build": {
+    "productName": "VidiCore Admin",
+    "appId": "com.vidispine.admin",
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    }
+  }
 }

@@ -1,5 +1,7 @@
 const path = require('path');
+const os = require('os');
 
+const isMac = os.platform() === 'darwin';
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
@@ -9,9 +11,9 @@ const axios = require('axios');
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 1920,
-    height: 1080,
-    titleBarStyle: 'hidden',
+    width: 800,
+    height: 600,
+    titleBarStyle: isMac ? 'hidden' : 'default',
     webPreferences: {
       preload: isDev
         ? path.join(app.getAppPath(), './public/preload.js')
