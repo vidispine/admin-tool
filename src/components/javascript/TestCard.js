@@ -21,8 +21,7 @@ import CodeMirror from '../ui/CodeMirror';
 const javascriptDocument = `// https://apidoc.vidispine.com/latest/system/integration/javascript.html
 
 api.path('item')
-   .get()
-
+   .get();
 `;
 
 const styles = (theme) => ({
@@ -49,9 +48,9 @@ const styles = (theme) => ({
   CodeMirror: {
     '& .CodeMirror-gutters': {
       backgroundColor:
-        ({ error }) => (error !== undefined ? red.A700 : undefined),
+        ({ error }) => (error !== undefined ? red.A700 : 'unset'),
       text:
-        ({ error }) => (error !== undefined ? theme.palette.common.white : undefined),
+        ({ error }) => (error !== undefined ? theme.palette.common.white : 'unset'),
     },
   },
 });

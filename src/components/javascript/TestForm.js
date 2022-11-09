@@ -1,18 +1,9 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import { reduxForm, Field } from 'redux-form';
 
 import CodeField from '../ui/CodeField';
 
-const styles = {
-  scriptFieldRoot: {
-  },
-  scriptFieldInput: {
-  },
-};
-
 function TestForm({
-  classes,
   handleSubmit,
   className,
   style,
@@ -24,14 +15,21 @@ function TestForm({
         component={CodeField}
         options={{
           theme: 'material',
-          mode: 'application/javascript',
+          mode: 'javascript',
           lineWrapping: true,
           lineNumbers: true,
+          lint: true,
+          highlightLines: true,
+          gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          foldGutter: true,
+          autofocus: true,
+          extraKeys: { 'Cmd-Enter': () => handleSubmit(), 'Ctrl-Enter': () => handleSubmit() },
         }}
-        className={{ root: classes.scriptFieldRoot, input: classes.scriptFieldInput }}
       />
     </form>
   );
 }
 
-export default reduxForm()(withStyles(styles)(TestForm));
+export default reduxForm()(TestForm);
