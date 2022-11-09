@@ -1,7 +1,38 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import routes from '../../const/routes';
-import { WrappedSelect } from './Select';
+import { WrappedSelectCreatable } from './Select';
+import { optionListToScore } from '../../utils/similar';
+
+const goToOptions = [
+  {
+    value: (entityId) => `/item/${entityId}`, label: 'Item', synonyms: ['item'], siteId: true,
+  },
+  {
+    value: (entityId) => `/collection/${entityId}`, label: 'Collection', synonyms: ['collection'], siteId: true,
+  },
+  {
+    value: (entityId) => `/storage/${entityId}`, label: 'Storage', synonyms: ['storage'], siteId: true,
+  },
+  {
+    value: (entityId) => `/storage/file/${entityId}`, label: 'File', synonyms: ['file'], siteId: true,
+  },
+  {
+    value: (entityId) => `/user/${entityId}`, label: 'User', synonyms: ['user'], siteId: false,
+  },
+  {
+    value: (entityId) => `/group/${entityId}`, label: 'Group', synonyms: ['group'], siteId: false,
+  },
+  {
+    value: (entityId) => `/metadata-field/${entityId}`, label: 'Metadata Field', synonyms: ['metadata', 'field', 'md'], siteId: false,
+  },
+  {
+    value: (entityId) => `/field-group/${entityId}`, label: 'Field Group', synonyms: ['fieldgroup', 'fg'], siteId: false,
+  },
+  {
+    value: (entityId) => `/job/${entityId}`, label: 'Job', synonyms: ['job'], siteId: true,
+  },
+];
 
 const linkOptions = [
   { value: '/new-job/', label: 'New Job' },
@@ -77,18 +108,60 @@ const linkOptions = [
   { value: '/deletion-lock/', label: 'Deletion Locks' },
 ];
 
-export default function NavSelect({ onChange, ...props }) {
+export default function NavSelect({ onChange: propsOnChange, ...props }) {
   const history = useHistory();
-
+  const fuzzyRef = React.useRef();
+  const isValidNewOption = React.useCallback((inputValue) => {
+    try {
+      const scoreList = optionListToScore(inputValue, goToOptions, 0.5);
+      const closestOption = scoreList?.[0]?.option;
+      if (closestOption) {
+        fuzzyRef.current = closestOption;
+        return true;
+      }
+      fuzzyRef.current = undefined;
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }, []);
+  const formatCreateLabel = React.useCallback(((inputValue) => {
+    const label = fuzzyRef?.current?.label;
+    if (label) {
+      let [, ...entityId] = inputValue.split(' ');
+      entityId = entityId.join(' ');
+      if (entityId) {
+        if (fuzzyRef.current.siteId) {
+          entityId = entityId.toUpperCase();
+          if (/^\d/.test(entityId)) entityId = `VX-${entityId}`;
+        }
+        fuzzyRef.current.entityId = entityId;
+        return `Go to ${label} ${entityId}`;
+      }
+    }
+    return 'Keep typing....';
+  }), []);
+  const onCreateOption = React.useCallback(() => {
+    if (fuzzyRef?.current?.entityId && fuzzyRef?.current?.value) {
+      const { entityId, value } = fuzzyRef.current;
+      if (typeof value === 'function') history.push(value(entityId));
+      else history.push(value);
+    }
+    fuzzyRef.current = undefined;
+  }, []);
+  const onChange = React.useCallback((e) => {
+    if (propsOnChange) propsOnChange(e);
+    history.push(e.value);
+  }, [history, propsOnChange]);
   return (
-    <WrappedSelect
+    <WrappedSelectCreatable
       value=""
       options={linkOptions}
       label="Search for endpoint..."
-      onChange={(e) => {
-        if (onChange) onChange(e);
-        history.push(e.value);
-      }}
+      formatCreateLabel={formatCreateLabel}
+      isValidNewOption={isValidNewOption}
+      onChange={onChange}
+      onCreateOption={onCreateOption}
       {...props}
     />
   );

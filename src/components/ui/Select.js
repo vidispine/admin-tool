@@ -1,5 +1,6 @@
 import React from 'react';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import CreatableSelect from 'react-select/creatable';
 import Async from 'react-select/async';
 import Select from 'react-select';
 import { change } from 'redux-form';
@@ -93,13 +94,25 @@ export default function WrappedAsyncSelect({
     optionValueKey = 'value',
     creatable = true,
   } = props;
-  const AsyncSelect = creatable ? AsyncCreatableSelect : Async;
-  const parse = (v) => {
+  const AsyncSelect = React.useMemo(() => (creatable ? AsyncCreatableSelect : Async), [creatable]);
+  const parse = React.useCallback((v) => {
     if (v) {
       return v.value;
     }
     return undefined;
-  };
+  }, []);
+  const theme = React.useCallback((selectTheme) => ({
+    ...selectTheme,
+    borderRadius: 0,
+    spacing: {
+      ...selectTheme.spacing,
+      menuGutter: 0,
+    },
+    colors: {
+      ...selectTheme.colors,
+      primary: palette.text.primary,
+    },
+  }), [palette]);
   return (
     <AsyncSelect
       {...input}
@@ -111,18 +124,7 @@ export default function WrappedAsyncSelect({
       getOptionValue={(option) => option[optionValueKey]}
       value={value ? value[optionValueKey] : ''}
       palette={palette}
-      theme={(selectTheme) => ({
-        ...selectTheme,
-        borderRadius: 0,
-        spacing: {
-          ...selectTheme.spacing,
-          menuGutter: 0,
-        },
-        colors: {
-          ...selectTheme.colors,
-          primary: palette.text.primary,
-        },
-      })}
+      theme={theme}
     />
   );
 }
@@ -277,6 +279,18 @@ export function WrappedSelect({
   ...props
 }) {
   const { palette } = useTheme();
+  const theme = React.useCallback((selectTheme) => ({
+    ...selectTheme,
+    borderRadius: 0,
+    spacing: {
+      ...selectTheme.spacing,
+      menuGutter: 0,
+    },
+    colors: {
+      ...selectTheme.colors,
+      primary: palette.text.primary,
+    },
+  }), [palette]);
   return (
     <Select
       {...input}
@@ -284,18 +298,37 @@ export function WrappedSelect({
       palette={palette}
       styles={stylesOverride}
       placeholder={props.label}
-      theme={(selectTheme) => ({
-        ...selectTheme,
-        borderRadius: 0,
-        spacing: {
-          ...selectTheme.spacing,
-          menuGutter: 0,
-        },
-        colors: {
-          ...selectTheme.colors,
-          primary: palette.text.primary,
-        },
-      })}
+      theme={theme}
+    />
+  );
+}
+
+export function WrappedSelectCreatable({
+  input,
+  meta,
+  ...props
+}) {
+  const { palette } = useTheme();
+  const theme = React.useCallback((selectTheme) => ({
+    ...selectTheme,
+    borderRadius: 0,
+    spacing: {
+      ...selectTheme.spacing,
+      menuGutter: 0,
+    },
+    colors: {
+      ...selectTheme.colors,
+      primary: palette.text.primary,
+    },
+  }), [palette]);
+  return (
+    <CreatableSelect
+      {...input}
+      {...props}
+      palette={palette}
+      styles={stylesOverride}
+      placeholder={props.label}
+      theme={theme}
     />
   );
 }

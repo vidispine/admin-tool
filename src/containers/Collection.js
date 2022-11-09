@@ -23,6 +23,7 @@ import DrawerListItem from '../components/ui/DrawerListItem';
 
 import CollectionRename from '../components/collection/CollectionRename';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import CollectionFolderMap from '../components/collection/CollectionFolderMap';
 import Menu, { MenuItem } from '../components/ui/Menu';
 
 const COLLECTION_METADATA_TAB = 'COLLECTION_METADATA_TAB';
@@ -37,6 +38,7 @@ const COLLECTION_ACCESSCONTROL_ADD_DIALOG = 'COLLECTION_ACCESSCONTROL_ADD_DIALOG
 const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
 const COLLECTION_RENAME_DIALOG = 'COLLECTION_RENAME_DIALOG';
 const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
+const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
 
 const TAB_TITLE = [
   { tab: COLLECTION_METADATA_TAB, listText: 'Metadata', component: CollectionMetadata },
@@ -125,6 +127,9 @@ class Collection extends React.PureComponent {
             <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
               <Typography>Rename</Typography>
             </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}>
+              <Typography>Map To Folder</Typography>
+            </MenuItem>
           </Menu>
         )}
         {...props}
@@ -163,8 +168,13 @@ class Collection extends React.PureComponent {
         <CollectionRename
           dialogName={COLLECTION_RENAME_DIALOG}
           collectionId={collectionId}
-          onSuccess={() => this.onRefresh()}
+          onSuccess={this.onRefresh}
           collectionDocument={{ name: collectionName }}
+        />
+        <CollectionFolderMap
+          dialogName={COLLECTION_FOLDERMAP_DIALOG}
+          collectionId={collectionId}
+          onSuccess={this.onRefresh}
         />
         <CollectionExport
           dialogName={COLLECTION_EXPORT_DIALOG}
