@@ -8,6 +8,7 @@ import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import startCase from 'lodash.startcase';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import clsx from 'clsx';
 
 import CodeMirror from './CodeMirror';
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
@@ -349,6 +350,7 @@ function SetValueComponent({
 }
 
 function TextGrid({
+  className: propsClassName,
   title,
   value,
   variant,
@@ -372,6 +374,11 @@ function TextGrid({
   initialHideCode = true,
   to,
 }) {
+  const className = clsx(propsClassName, {
+    [classes.onHover]: hover,
+    [classes.default]: !hover,
+  });
+
   const [isCodeHidden, setIsCodeHidden] = React.useState(initialHideCode);
   const toggleCode = () => setIsCodeHidden((prevState) => !prevState);
   const onTextClick = disableOnClick ? (event) => event.stopPropagation() : onClick;
@@ -392,7 +399,7 @@ function TextGrid({
               container
               direction="row"
               alignItems="center"
-              className={hover ? classes.onHover : classes.default}
+              className={className}
               wrap="nowrap"
             >
               <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
@@ -432,14 +439,14 @@ function TextGrid({
   }
   if (variant === 'json' || variant === 'application/json') {
     return (
-      <div>
+      <>
         {title !== undefined
           && (
             <Grid
               container
               direction="row"
               alignItems="center"
-              className={hover ? classes.onHover : classes.default}
+              className={className}
               wrap="nowrap"
             >
               <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
@@ -475,7 +482,7 @@ function TextGrid({
             }}
           />
         )}
-      </div>
+      </>
     );
   }
   if (variant === 'application/ld+json') {
@@ -487,7 +494,7 @@ function TextGrid({
               container
               direction="row"
               alignItems="center"
-              className={hover ? classes.onHover : classes.default}
+              className={className}
               wrap="nowrap"
             >
               <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
@@ -535,7 +542,7 @@ function TextGrid({
             container
             direction="row"
             alignItems="center"
-            className={hover ? classes.onHover : classes.default}
+            className={className}
             wrap="nowrap"
           >
             <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
@@ -577,7 +584,7 @@ function TextGrid({
   if (variant === 'boolean') {
     return (
       <div
-        className={hover ? classes.onHover : classes.default}
+        className={className}
       >
         <FormControlLabel
           classes={{ root: classes.FormControlLabel }}
@@ -614,8 +621,8 @@ function TextGrid({
       container
       direction="row"
       alignItems="center"
-      className={hover ? classes.onHover : classes.default}
       wrap="nowrap"
+      className={className}
     >
       <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
         <Typography

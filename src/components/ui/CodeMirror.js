@@ -1,4 +1,6 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import ReactCodeMirror from 'react-codemirror';
 import CodeMirrorInstance from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -14,9 +16,18 @@ import 'codemirror/addon/fold/foldgutter.css';
 
 import 'codemirror/theme/material.css';
 import 'codemirror/lib/codemirror.css';
-import '../../css/CodeMirror.css';
 
-export default class CodeMirror extends React.Component {
+const styles = {
+  CodeMirror: {
+    '& .CodeMirror': {
+      height: '100%',
+      width: '100%',
+      maxWidth: '90vw',
+    },
+  },
+};
+
+class CodeMirror extends React.Component {
   constructor(props) {
     super(props);
     this.cmRef = this.cmRef.bind(this);
@@ -27,7 +38,7 @@ export default class CodeMirror extends React.Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, classes } = this.props;
     if (this.jsonRef) { this.jsonRef.codeMirror.setValue(value); }
     return (
       <>
@@ -35,8 +46,11 @@ export default class CodeMirror extends React.Component {
           codeMirrorInstance={CodeMirrorInstance}
           ref={this.cmRef}
           {...this.props}
+          className={clsx([this.props.className, classes.CodeMirror])}
         />
       </>
     );
   }
 }
+
+export default withStyles(styles)(CodeMirror);

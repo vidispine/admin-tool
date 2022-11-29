@@ -3,9 +3,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import ReactCodeMirror from 'react-codemirror';
 import CodeMirrorInstance from 'codemirror';
+import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
 
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/lint/lint.css';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/javascript-lint';
 import 'codemirror/addon/fold/foldcode';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
@@ -13,37 +21,62 @@ import 'codemirror/addon/fold/xml-fold';
 import 'codemirror/addon/fold/indent-fold';
 import 'codemirror/addon/fold/comment-fold';
 import 'codemirror/addon/fold/foldgutter.css';
+import { JSHINT } from 'jshint';
 
 import 'codemirror/theme/material.css';
 import 'codemirror/lib/codemirror.css';
-import '../../css/CodeMirror.css';
 
-const CodeField = (p) => {
-  const className = p.className || {};
+const styles = {
+  root: {},
+  label: {},
+  input: {},
+  helper: {},
+  CodeMirror: {
+    '& .CodeMirror': {
+      height: '100%',
+      width: '100%',
+      maxWidth: '90vw',
+    },
+  },
+};
+
+function CodeField({
+  classes,
+  className,
+  style,
+  error,
+  warning,
+  options = {},
+  label,
+  cmRef,
+  input = {},
+  meta = {},
+}) {
+  if (options.mode === 'javascript' && options.lint === true) window.JSHINT = JSHINT;
   return (
-    <div className={className.root}>
-      {p.label && (
+    <div className={clsx([className, classes.root])} style={style}>
+      {label && (
       <InputLabel
-        error={Boolean(p.error || p.warning)}
-        className={className.label}
+        error={Boolean(error || warning)}
+        className={classes.label}
       >
-        {p.label}
+        {label}
       </InputLabel>
       )}
       <ReactCodeMirror
         codeMirrorInstance={CodeMirrorInstance}
-        options={{ theme: 'material', ...p.options }}
-        className={className.input}
-        ref={p.cmRef}
-        {...p.input}
+        options={{ theme: 'material', ...options }}
+        className={clsx([classes.input, classes.CodeMirror])}
+        ref={cmRef}
+        {...input}
       />
-      {Boolean(p.meta.touched && p.meta.error) && (
-        <FormHelperText error className={className.helper}>
-          {p.meta.error}
+      {Boolean(meta.touched && meta.error) && (
+        <FormHelperText error className={classes.helper}>
+          {meta.error}
         </FormHelperText>
       )}
     </div>
   );
-};
+}
 
-export default CodeField;
+export default withStyles(styles)(CodeField);
