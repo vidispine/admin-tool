@@ -14,12 +14,12 @@ import CodeMirror from './CodeMirror';
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
 import formatXML from '../../utils/formatXML';
 import formatJSON from '../../utils/formatJSON';
-import { capitalizeString, bytesToSize } from '../../utils';
+import { capitalizeString, bytesToSize, fromNow } from '../../utils';
 import UnstyledLink from './UnstyledLink';
 import UnstyledHashLink from './UnstyledHashLink';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 
-const hoverStyle = (theme) => ({
+const styles = (theme) => ({
   FormControlLabel: {
     height: theme.typography.subtitle1.lineHeight,
   },
@@ -32,21 +32,27 @@ const hoverStyle = (theme) => ({
   default: {
     minHeight: '32px',
   },
+  ValueComponent: { overflowWrap: 'anywhere' },
 });
 
-function fromNow(value) {
-  const startMoment = moment(value);
-  const nowMoment = moment();
-  const durationMoment = moment.duration(nowMoment.diff(startMoment));
-  return `${parseInt(durationMoment.asMinutes(), 10)} minutes`;
-}
+const StyledTypography = ({
+  color = 'textPrimary',
+  variant = 'subtitle2',
+  ...props
+}) => (
+  <Typography
+    color={color}
+    variant={variant}
+    {...props}
+  />
+);
 
 function SetValueComponent({
   value,
   variant,
   variantProps,
   capitalize,
-  classes,
+  classes = {},
   to,
   onDelete,
   ...typographyProps
@@ -54,9 +60,8 @@ function SetValueComponent({
   if (value === undefined || null) {
     return null;
   }
-  const StyledTypography = (props) => <Typography color="textPrimary" variant="subtitle2" {...typographyProps} {...props} />;
   let valueComponent = (
-    <StyledTypography>
+    <StyledTypography className={classes.ValueComponent} {...typographyProps}>
       {capitalize ? capitalizeString(value) : value.toString()}
     </StyledTypography>
   );
@@ -642,4 +647,4 @@ function TextGrid({
   );
 }
 
-export default withErrorBoundary(withStyles(hoverStyle)(TextGrid));
+export default withErrorBoundary(withStyles(styles)(TextGrid));
