@@ -5,28 +5,17 @@ import { reduxForm, Field } from 'redux-form';
 
 import CodeField from '../ui/CodeField';
 
-const styles = {
-  scriptFieldRoot: {
-    height: 300,
-    marginBottom: 50,
-  },
-  scriptFieldInput: {
-    height: 300,
-  },
-};
+const styles = {};
 
 function EchoForm({
-  classes,
   error,
   handleSubmit,
-  cmRef,
 }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <Field
         name="xmlDocument"
-        label="XML Input"
         component={CodeField}
         options={{
           theme: 'material',
@@ -35,23 +24,10 @@ function EchoForm({
           lineNumbers: true,
           foldGutter: true,
           gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+          autofocus: true,
+          extraKeys: { 'Cmd-Enter': () => handleSubmit(), 'Ctrl-Enter': () => handleSubmit() },
+
         }}
-        className={{ root: classes.scriptFieldRoot, input: classes.scriptFieldInput }}
-      />
-      <Field
-        name="jsonDocument"
-        label="JSON Output"
-        component={CodeField}
-        options={{
-          theme: 'material',
-          mode: 'application/json',
-          readOnly: true,
-          lineWrapping: true,
-          lineNumbers: true,
-          foldGutter: true,
-          gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        }}
-        cmRef={cmRef}
       />
     </form>
   );

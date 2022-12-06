@@ -1,42 +1,157 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
+import { compose } from 'redux';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
+import PlayIcon from '@material-ui/icons/PlayArrow';
+import Splitter, { SplitDirection, GutterTheme } from '@devbookhq/splitter';
+import { useTheme, withStyles } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+import Typography from '@material-ui/core/Typography';
+
+import withSnackbar from '../../hoc/withSnackbar';
+import withFormActions from '../../hoc/withFormActions';
+import * as formActions from '../../formactions/debug';
+import SquareCard from '../ui/SquareCard';
 
 import EchoForm from './EchoForm';
+import formatJSON from '../../utils/formatJSON';
+import CodeMirror from '../ui/CodeMirror';
 
 const ECHO_FORM = 'ECHO_FORM';
 
-export default function EchoCard({
-  onSubmit,
+const xmlDocument = `<ItemSearchDocument xmlns="http://xml.vidispine.com/schema/vidispine">
+  <field>
+    <name>title</name>
+    <value>example.mp4</value>
+  </field>
+</ItemSearchDocument>`;
+
+const styles = (theme) => ({
+  SplitterContainer: {
+    height: '80vh',
+  },
+  SquareCard: {
+    height: '100%',
+  },
+  CardContent: {
+    height: '100%',
+  },
+  EchoForm: {
+    height: '100%',
+    overflow: 'auto',
+  },
+  ResultContainer: {
+    height: '100%',
+    overflow: 'auto',
+  },
+  ResultTypography: {
+    minHeight: 32,
+  },
+  CodeMirror: {
+    '& .CodeMirror-gutters': {
+      backgroundColor:
+        ({ error }) => (error !== undefined ? red.A700 : 'unset'),
+      text:
+        ({ error }) => (error !== undefined ? theme.palette.common.white : 'unset'),
+    },
+  },
+});
+
+function EchoCard({
+  classes,
   submitForm,
-  cmRef,
+  openSnackBar,
+  onSuccess,
+  onFail,
+  result,
+  error,
 }) {
+  const theme = useTheme();
+  const gutterTheme = theme?.palette?.type === 'light' ? GutterTheme.Light : GutterTheme.Dark;
+  const onSubmitSuccess = (response, dispatch, props) => {
+    const messageContent = 'Convert Success';
+    openSnackBar({ messageContent });
+    if (onSuccess) { onSuccess(response, dispatch, props); }
+  };
+  const onSubmitFail = (errors, dispatch, submitError, props) => {
+    const messageContent = 'Error Converting XML';
+    openSnackBar({ messageContent, messageColor: 'secondary' });
+    if (onFail) { onFail(errors, dispatch, submitError, props); }
+  };
   return (
     <>
       <CardHeader
         title="XML Echo"
-      />
-      <Card elevation={0}>
-        <CardContent>
-          <EchoForm
-            onSubmit={onSubmit}
-            cmRef={cmRef}
-            form={ECHO_FORM}
-          />
-        </CardContent>
-        <DialogActions>
+        action={(
           <Button
-            size="small"
+            variant="outlined"
             color="primary"
             onClick={() => submitForm(ECHO_FORM)}
+            startIcon={<PlayIcon />}
           >
-            Submit
+            Convert (ctrl-enter)
           </Button>
-        </DialogActions>
-      </Card>
+        )}
+      />
+      <div className={classes.SplitterContainer}>
+        <Splitter
+          direction={SplitDirection.Horizontal}
+          gutterTheme={gutterTheme}
+        >
+          <SquareCard className={classes.SquareCard}>
+            <CardContent className={classes.CardContent}>
+              <Typography
+                color="textSecondary"
+                variant="subtitle2"
+                className={classes.ResultTypography}
+              >
+                Input XML
+              </Typography>
+
+              <EchoForm
+                form={ECHO_FORM}
+                onSubmit={formActions.onEcho}
+                onSubmitSuccess={onSubmitSuccess}
+                onSubmitFail={onSubmitFail}
+                className={classes.EchoForm}
+                initialValues={{ xmlDocument }}
+              />
+            </CardContent>
+          </SquareCard>
+          <SquareCard className={classes.SquareCard}>
+            <CardContent className={classes.CardContent}>
+              <div className={classes.ResultContainer}>
+                <Typography
+                  color="textSecondary"
+                  variant="subtitle2"
+                  className={classes.ResultTypography}
+                >
+                  {error === undefined ? 'Converted JSON' : 'Error'}
+                </Typography>
+                {result !== undefined || error !== undefined ? (
+                  <CodeMirror
+                    value={formatJSON(result) || formatJSON(error) || ''}
+                    className={classes.CodeMirror}
+                    options={{
+                      readOnly: true,
+                      theme: 'material',
+                      mode: 'application/json',
+                      lineWrapping: true,
+                      lineNumbers: true,
+                      foldGutter: true,
+                      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+                    }}
+                  />
+                ) : null}
+              </div>
+            </CardContent>
+          </SquareCard>
+        </Splitter>
+      </div>
+
     </>
   );
 }
+
+export default compose(withSnackbar, withFormActions)(withStyles(styles)(EchoCard));
