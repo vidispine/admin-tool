@@ -1,5 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { components as SelectComponents } from 'react-select';
+import { makeStyles } from '@material-ui/core/styles';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import routes from '../../const/routes';
 import { WrappedSelectCreatable } from './Select';
 import { optionListToScore } from '../../utils/similar';
@@ -108,8 +113,69 @@ const linkOptions = [
   { value: '/deletion-lock/', label: 'Deletion Locks' },
 ];
 
+const useOptionStyles = makeStyles({
+  Option: {
+    '&:hover $ValueIcon': {
+      visibility: 'visible',
+    },
+  },
+  ValueWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    '&:hover $ValueIcon': {
+      visibility: 'visible',
+    },
+  },
+  ValueLink: {
+    textDecoration: 'none',
+    color: 'inherit',
+    flexGrow: 1,
+  },
+  ValueIcon: {
+    color: 'inherit',
+    visibility: 'hidden',
+  },
+});
+
+const Option = (props) => {
+  const classes = useOptionStyles();
+  const { value, __isNew__: isNew, label } = props.data || {};
+  const { fuzzyRef } = props.selectProps;
+  let to = value;
+  if (isNew === true && fuzzyRef?.current?.value) {
+    const { entityId, value: fuzzyValue } = fuzzyRef.current;
+    if (typeof fuzzyValue === 'function') to = fuzzyValue(entityId);
+    else to = fuzzyValue;
+  }
+  if (to) {
+    return (
+      <SelectComponents.Option {...props} className={classes.Option}>
+        <div className={classes.ValueWrapper}>
+          <Link
+            className={classes.ValueLink}
+            to={to}
+          >
+            {label}
+          </Link>
+          <Tooltip title="Open in new tab">
+            <Link
+              className={classes.ValueIcon}
+              to={to}
+              target="_blank"
+              rel="noopener"
+            >
+              <OpenInNewIcon fontSize="small" />
+            </Link>
+          </Tooltip>
+        </div>
+      </SelectComponents.Option>
+    );
+  }
+  return SelectComponents.Option(props);
+};
+
 export default function NavSelect({ onChange: propsOnChange, ...props }) {
-  const history = useHistory();
   const fuzzyRef = React.useRef();
   const isValidNewOption = React.useCallback((inputValue) => {
     try {
@@ -141,18 +207,6 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
     }
     return 'Keep typing....';
   }), []);
-  const onCreateOption = React.useCallback(() => {
-    if (fuzzyRef?.current?.entityId && fuzzyRef?.current?.value) {
-      const { entityId, value } = fuzzyRef.current;
-      if (typeof value === 'function') history.push(value(entityId));
-      else history.push(value);
-    }
-    fuzzyRef.current = undefined;
-  }, []);
-  const onChange = React.useCallback((e) => {
-    if (propsOnChange) propsOnChange(e);
-    history.push(e.value);
-  }, [history, propsOnChange]);
   return (
     <WrappedSelectCreatable
       value=""
@@ -160,8 +214,8 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       label="Search for endpoint..."
       formatCreateLabel={formatCreateLabel}
       isValidNewOption={isValidNewOption}
-      onChange={onChange}
-      onCreateOption={onCreateOption}
+      components={{ Option }}
+      fuzzyRef={fuzzyRef}
       {...props}
     />
   );
