@@ -19,6 +19,7 @@ import ItemRelationList from './item/ItemRelationList';
 import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
 import ItemBulkyMetadata from './item/ItemBulkyMetadata';
 import ItemVersion from './item/ItemVersion';
+import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
 
 import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
@@ -54,6 +55,7 @@ const STORAGERULE_TAB = 'STORAGERULE_TAB';
 const BULKYMETADATA_TAB = 'BULKYMETADATA_TAB';
 const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 const ITEM_VERSION_TAB = 'ITEM_VERSION_TAB';
+const ITEM_METADATACHANGESETLIST_TAB = 'ITEM_METADATACHANGESETLIST_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -68,10 +70,13 @@ const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
 
 const TAB_TITLE = [
   {
-    tab: ITEM_METADATA_TAB, listText: 'Metadata', component: ItemMetadata, path: '/item/:itemId/metadata/',
+    tab: ITEM_METADATA_TAB, listText: 'Metadata', component: ItemMetadata, exact: true, path: '/item/:itemId/metadata/',
   },
   {
     tab: ITEM_CONTENT_TAB, listText: 'Content', component: ItemContent, path: '/item/:itemId/content/',
+  },
+  {
+    tab: ITEM_METADATACHANGESETLIST_TAB, listText: 'Changes', component: ItemMetadataChangeSetList, path: '/item/:itemId/metadata/changes/',
   },
   {
     tab: ITEM_COLLECTION_TAB, listText: 'Collection', component: ItemCollection, path: '/item/:itemId/collection/',

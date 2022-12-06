@@ -1,6 +1,6 @@
 import { SubmissionError } from 'redux-form';
 
-import { item as api } from '@vidispine/vdt-api';
+import { item as api, metadata as MetadataApi } from '@vidispine/vdt-api';
 
 export function onCreateExport(form, dispatch, props) {
   const { queryParams } = form;
@@ -78,6 +78,24 @@ export function onGetMetadata(form, dispatch, props) {
     queryParams,
     matrixParams: Object.entries(matrixParams),
     headers,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onListEntityMetadataChange(form, dispatch, props) {
+  const { queryParams = {} } = form;
+  const itemId = props.itemId || form.itemId;
+  return MetadataApi.listEntityMetadataChange({
+    entity: 'item',
+    entityId: itemId,
+    queryParams,
   })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {
