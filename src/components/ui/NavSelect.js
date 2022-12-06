@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { components as SelectComponents } from 'react-select';
 import { makeStyles } from '@material-ui/core/styles';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
@@ -176,6 +176,7 @@ const Option = (props) => {
 };
 
 export default function NavSelect({ onChange: propsOnChange, ...props }) {
+  const history = useHistory();
   const fuzzyRef = React.useRef();
   const isValidNewOption = React.useCallback((inputValue) => {
     try {
@@ -207,6 +208,19 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
     }
     return 'Keep typing....';
   }), []);
+
+  const onCreateOption = React.useCallback(() => {
+    if (fuzzyRef?.current?.entityId && fuzzyRef?.current?.value) {
+      const { entityId, value } = fuzzyRef.current;
+      if (typeof value === 'function') history.push(value(entityId));
+      else history.push(value);
+    }
+    fuzzyRef.current = undefined;
+  }, []);
+  const onChange = React.useCallback((e) => {
+    if (propsOnChange) propsOnChange(e);
+    history.push(e.value);
+  }, [history, propsOnChange]);
   return (
     <WrappedSelectCreatable
       value=""
@@ -216,6 +230,8 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       isValidNewOption={isValidNewOption}
       components={{ Option }}
       fuzzyRef={fuzzyRef}
+      onChange={onChange}
+      onCreateOption={onCreateOption}
       {...props}
     />
   );
