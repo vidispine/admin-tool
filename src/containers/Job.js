@@ -7,7 +7,7 @@ import JobPriority from '../components/job/JobPriority';
 import JobDuplicate from '../components/job/JobDuplicate';
 import JobAbort from '../components/job/JobAbort';
 import JobRemove from '../components/job/JobRemove';
-import { RUNNING_STATES } from '../const/JobStates';
+import { RUNNING_STATES, WAITING_STATES } from '../const/JobStates';
 
 import withUI from '../hoc/withUI';
 
@@ -23,9 +23,11 @@ class Job extends React.PureComponent {
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onAutoRefresh = this.onAutoRefresh.bind(this);
     this.onFetch = this.onFetch.bind(this);
+    this.onFetchProblem = this.onFetchProblem.bind(this);
     this.onChangeAutoRefresh = this.onChangeAutoRefresh.bind(this);
     this.state = {
       jobDocument: undefined,
+      jobProblemListDocument: undefined,
       autoRefresh: true,
     };
   }
@@ -80,7 +82,11 @@ class Job extends React.PureComponent {
     const queryParams = { metadata: true };
     try {
       JobApi.getJob({ jobId, queryParams })
-        .then((response) => this.setState({ jobDocument: response.data }))
+        .then((response) => {
+          this.setState({ jobDocument: response.data });
+          const { status } = response.data;
+          if (WAITING_STATES.includes(status)) this.onFetchProblem(jobId);
+        })
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -105,8 +111,17 @@ class Job extends React.PureComponent {
     }
   }
 
+  onFetchProblem(jobId) {
+    try {
+      JobApi.listJob({ path: `/API/job/${jobId}/problem` })
+        .then((response) => this.setState({ jobProblemListDocument: response.data }));
+    } catch (error) {
+      this.onRefreshError(error);
+    }
+  }
+
   render() {
-    const { jobDocument, autoRefresh } = this.state;
+    const { jobDocument, jobProblemListDocument, autoRefresh } = this.state;
     const { jobId, history } = this.props;
     return (
       <>
@@ -123,6 +138,7 @@ class Job extends React.PureComponent {
         />
         <JobCard
           jobDocument={jobDocument}
+          jobProblemListDocument={jobProblemListDocument}
         />
         <JobPriority
           dialogName={JOB_PRIORITY_DIALOG}

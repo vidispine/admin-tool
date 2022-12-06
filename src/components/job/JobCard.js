@@ -8,9 +8,10 @@ import {
   JobCurrentDisplay,
   JobDataDisplay,
   JobStepDisplay,
+  JobProblemDisplay,
 } from './JobDisplay';
 
-export default function JobCard({ ...props }) {
+export default function JobCard({ jobProblemListDocument, ...props }) {
   if (props.jobDocument === undefined) { return null; }
   return (
     <CardList>
@@ -21,6 +22,15 @@ export default function JobCard({ ...props }) {
           />
         </CardContent>
       </Card>
+      {jobProblemListDocument ? (
+        <Card>
+          <CardContent>
+            <JobProblemDisplay
+              jobProblemListDocument={jobProblemListDocument}
+            />
+          </CardContent>
+        </Card>
+      ) : null}
       <Card>
         <CardContent>
           <JobCurrentDisplay

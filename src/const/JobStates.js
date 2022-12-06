@@ -23,6 +23,10 @@ export const WARNING_STATES = [
   'ABORT_PENDING',
 ];
 
+export const WAITING_STATES = [
+  'WAITING',
+];
+
 export const ERROR_STATES = [
   'FAILED_TOTAL',
   'ABORTED',

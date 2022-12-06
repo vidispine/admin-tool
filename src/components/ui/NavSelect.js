@@ -42,6 +42,7 @@ const goToOptions = [
 const linkOptions = [
   { value: '/new-job/', label: 'New Job' },
   { value: '/job', label: 'Job List' },
+  { value: '/job/problem', label: 'Job Problems' },
   { value: '/jobtype/', label: 'Job Types' },
   { value: '/search/', label: 'Search Items & Collections' },
   { value: routes.itemList(), label: 'Search Items' },

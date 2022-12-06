@@ -94,6 +94,7 @@ import DeletionLock from './DeletionLock';
 import MetadataDatasetList from './MetadataDatasetList';
 import MetadataDataset from './MetadataDataset';
 import NotFound from './NotFound';
+import JobProblemList from './JobProblemList';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -169,6 +170,7 @@ function Main({
           <Route exact path="/javascript/test" component={Javascript} />
           <Route exact path="/log" component={AuditLog} />
           <Route exact path="/job" component={JobList} />
+          <Route exact path="/job/problem/" component={JobProblemList} />
           <Route exact path="/job/:jobId/" component={Job} />
           <Route exact path="/export-location" component={ExportLocationList} />
           <Route exact path="/export-location/:locationName/" component={ExportLocation} />

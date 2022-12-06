@@ -159,6 +159,31 @@ const CurrentSection = ({ value = {} }) => (
   />
 );
 
+const ProblemSection = ({ value = {} }) => (
+  <TypeArray
+    title="Problem"
+    titleKey="id"
+    value={value.problem}
+    component={({ value: v }) => (
+      <>
+        <TextGrid
+          title="type"
+          value={v.type}
+          hideNoValue
+        />
+        <TextGrid
+          title="data"
+          value={v.data}
+          variant="json"
+          hideNoValue
+        />
+      </>
+    )}
+    hideNoValue
+    dense
+  />
+);
+
 const BasicSection = ({ value = {} }) => (
   <>
     <TextGrid
@@ -303,6 +328,15 @@ export const JobCurrentDisplay = ({ jobDocument }) => (
     <TypeSection
       component={CurrentSection}
       value={jobDocument}
+    />
+  </>
+);
+
+export const JobProblemDisplay = ({ jobProblemListDocument }) => (
+  <>
+    <TypeSection
+      component={ProblemSection}
+      value={jobProblemListDocument}
     />
   </>
 );
