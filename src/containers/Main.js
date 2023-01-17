@@ -165,7 +165,7 @@ function Main({
           <Route exact path="/version/" component={Version} />
           <Route exact path="/service/" component={Service} />
           <Route exact path="/jobtype/" component={JobTypeList} />
-          <Route exact path="/task-definition/jobtype/:taskDefinitionType" component={TaskDefinition} />
+          <Route path="/task-definition/jobtype/:taskDefinitionType" component={TaskDefinition} />
           <Route exact path="/debug/echo" component={Echo} />
           <Route exact path="/javascript/test" component={Javascript} />
           <Route exact path="/log" component={AuditLog} />
