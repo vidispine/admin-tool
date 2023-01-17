@@ -15,6 +15,8 @@ export default function getJobDataVariant(key) {
       return 'fileId';
     case 'originalFileId':
       return 'fileId';
+    case 'fileIds':
+      return 'fileId';
     case 'username':
       return 'username';
     case 'destinationStorageId':

@@ -9,6 +9,7 @@ import withUI from '../hoc/withUI';
 import CollectionMetadata from './collection/CollectionMetadata';
 import CollectionContent from './collection/CollectionContent';
 import CollectionCollection from './collection/CollectionCollection';
+import CollectionMetadataChangeSetList from './collection/CollectionMetadataChangeSetList';
 import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
 import StorageRule from './StorageRule';
@@ -33,6 +34,7 @@ const ACCESS_TAB = 'ACCESS_TAB';
 const ACCESSMERGED_TAB = 'ACCESSMERGED_TAB';
 const STORAGERULE_TAB = 'STORAGERULE_TAB';
 const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
+const COLLECTION_METADATACHANGESETLIST_TAB = 'COLLECTION_METADATACHANGESETLIST_TAB';
 const COLLECTION_REMOVE_DIALOG = 'COLLECTION_REMOVE_DIALOG';
 const COLLECTION_ACCESSCONTROL_ADD_DIALOG = 'COLLECTION_ACCESSCONTROL_ADD_DIALOG';
 const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
@@ -41,8 +43,13 @@ const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
 
 const TAB_TITLE = [
-  { tab: COLLECTION_METADATA_TAB, listText: 'Metadata', component: CollectionMetadata },
+  {
+    tab: COLLECTION_METADATA_TAB, listText: 'Metadata', exact: true, component: CollectionMetadata,
+  },
   { tab: COLLECTION_CONTENT_TAB, listText: 'Content', component: CollectionContent },
+  {
+    tab: COLLECTION_METADATACHANGESETLIST_TAB, listText: 'Changes', component: CollectionMetadataChangeSetList,
+  },
   { tab: COLLECTION_COLLECTION_TAB, listText: 'Collection', component: CollectionCollection },
   { tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl },
   { tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged },

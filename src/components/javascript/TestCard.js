@@ -89,7 +89,7 @@ function TestCard({
             onClick={() => submitForm(TEST_FORM)}
             startIcon={<PlayIcon />}
           >
-            RUN
+            RUN (ctrl-enter)
           </Button>
         )}
       />

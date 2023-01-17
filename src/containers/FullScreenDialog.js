@@ -94,6 +94,7 @@ function FullScreenDialog({
             <ListGroup subheader="Workflow">
               <ListLink to="/new-job/" primary="New Job" />
               <ListLink to="/job" primary="Job List" />
+              <ListLink to="/job/problem/" primary="Job Problems" />
               <ListLink to="/jobtype/" primary="Job Types" />
               <ListLink to="/task-group/" primary="Task Groups" />
             </ListGroup>

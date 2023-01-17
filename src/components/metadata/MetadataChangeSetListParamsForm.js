@@ -11,7 +11,7 @@ import { StatefulAsyncSelect } from '../ui/Select';
 import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
 import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
 
-const matrixParams = () => (
+const queryParams = () => (
   <>
     <Field
       name="field"
@@ -34,6 +34,21 @@ const matrixParams = () => (
       creatable
     />
     <Field
+      name="change"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="first"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="number"
+      component={TextField}
+      fullWidth
+    />
+    <Field
       name="interval"
       component={TextField}
       fullWidth
@@ -50,11 +65,6 @@ const matrixParams = () => (
     />
     <Field
       name="samplerate"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="revision"
       component={TextField}
       fullWidth
     />
@@ -86,11 +96,11 @@ const matrixParams = () => (
     <FormControlLabel
       control={(
         <Field
-          name="conflict"
+          name="starttc"
           component={BoolCheckbox}
         />
       )}
-      label="Conflict"
+      label="Start TC"
     />
     <FormControlLabel
       control={(
@@ -104,39 +114,25 @@ const matrixParams = () => (
     <FormControlLabel
       control={(
         <Field
-          name="starttc"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Start TC"
-    />
-    <FormControlLabel
-      control={(
-        <Field
-          name="terse"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Terse"
-    />
-  </>
-);
-
-const queryParams = () => (
-  <>
-    <FormControlLabel
-      control={(
-        <Field
           name="includeTransientMetadata"
           component={BoolCheckbox}
         />
       )}
       label="Include Transient Metadata"
     />
+    <FormControlLabel
+      control={(
+        <Field
+          name="conflict"
+          component={BoolCheckbox}
+        />
+      )}
+      label="Conflict"
+    />
   </>
 );
 
-function MetadataDisplayParamsForm({
+function MetadataChangeSetListParamsForm({
   error,
   handleSubmit,
 }) {
@@ -147,12 +143,8 @@ function MetadataDisplayParamsForm({
         name="queryParams"
         component={queryParams}
       />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
-      />
     </form>
   );
 }
 
-export default reduxForm()(MetadataDisplayParamsForm);
+export default reduxForm()(MetadataChangeSetListParamsForm);
