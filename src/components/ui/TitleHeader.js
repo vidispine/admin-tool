@@ -43,6 +43,7 @@ function TitleHeader({
   createModal,
   removeModal,
   code,
+  codeVariant,
   titleChip,
   addAccessControl,
   style = {},
@@ -282,6 +283,7 @@ function TitleHeader({
         dialogName={codeModal}
         code={code}
         title={codeModal}
+        variant={codeVariant}
       />
       )}
     </div>

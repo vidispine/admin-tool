@@ -11,6 +11,7 @@ class TaskDefinitionGraph extends React.PureComponent {
     this.onRefreshError = this.onRefreshError.bind(this);
     this.state = {
       graphImage: undefined,
+      graphDot: undefined,
     };
   }
 
@@ -43,6 +44,15 @@ class TaskDefinitionGraph extends React.PureComponent {
           this.setState({ graphImage: response.data });
         })
         .catch((error) => this.onRefreshError(error));
+      api.getTaskDefinitionType({
+        taskDefinitionType,
+        path: `/API/task-definition/jobtype/${taskDefinitionType}/graph/dot`,
+        headers: { accept: 'text/plain' },
+      })
+        .then((response) => {
+          this.setState({ graphDot: response.data });
+        })
+        .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
     }
@@ -58,13 +68,16 @@ class TaskDefinitionGraph extends React.PureComponent {
     const {
       titleComponent: TitleComponent,
     } = this.props;
-    const { graphImage } = this.state;
+    const { graphImage, graphDot } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
             onRefresh={this.onRefresh}
             breadcumbList={['Graph']}
+            code={graphDot}
+            codeModal="DOT"
+            codeVariant="text"
           />
         )}
         {graphImage && <img alt="graph" src={URL.createObjectURL(graphImage)} style={{ width: '100%' }} />}
