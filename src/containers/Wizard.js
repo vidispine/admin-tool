@@ -53,7 +53,7 @@ const storageInitialValues = {
 const transcoderInitialValues = {
   resourceDocument: {
     transcoder: {
-      url: 'http://transcoder:8888/',
+      url: 'http://vidicoder:8888/',
     },
   },
 };
@@ -64,6 +64,10 @@ const thumbnailInitialValues = {
     },
   },
 };
+
+const apiUrlInitialValues = { configurationPropertyDocument: { key: 'apiUri', value: 'http://vidicore:8080/API' } };
+
+const solrPathInitialValues = { configurationPropertyDocument: { key: 'solrPath', value: 'http://solr:8983/solr' } };
 
 function Wizard({
   openSnackBar,
@@ -321,7 +325,7 @@ function Wizard({
           <PropertiesForm
             form={EDIT_CONFIGURATIONPROPERTIES_APIURI_FORM}
             onSubmit={configurationFormActions.onUpdatePropertiesConfiguration}
-            initialValues={{ configurationPropertyDocument: { key: 'apiUri', value: 'http://vidispineserver:8080/API' } }}
+            initialValues={apiUrlInitialValues}
             onSubmitSuccess={() => onSubmitSuccess({ stepName: EDIT_CONFIGURATIONPROPERTIES_APIURI_FORM, messageContent: 'API URL Added' })}
             onSubmitFail={() => onSubmitFail({ stepName: EDIT_CONFIGURATIONPROPERTIES_APIURI_FORM, messageContent: 'Error Adding API URL' })}
             destroyOnUnmount
@@ -359,7 +363,7 @@ function Wizard({
           <PropertiesForm
             form={EDIT_CONFIGURATIONPROPERTIES_SOLRPATH_FORM}
             onSubmit={configurationFormActions.onUpdatePropertiesConfiguration}
-            initialValues={{ configurationPropertyDocument: { key: 'solrPath', value: 'http://solr:8983/solr' } }}
+            initialValues={solrPathInitialValues}
             onSubmitSuccess={() => onSubmitSuccess({ stepName: EDIT_CONFIGURATIONPROPERTIES_SOLRPATH_FORM, messageContent: 'Solr Server Added' })}
             onSubmitFail={() => onSubmitFail({ stepName: EDIT_CONFIGURATIONPROPERTIES_SOLRPATH_FORM, messageContent: 'Error Adding Solr Server' })}
             destroyOnUnmount
