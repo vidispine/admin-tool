@@ -275,12 +275,10 @@ export const DescriptorComponentType = ({ value = {} }) => (
       component={({ value: v }) => (
         <>
           <TextGrid
-            value={v.type}
-            title="Type"
-          />
-          <TextGrid
             value={v.value}
             variant="xml"
+            title={v.type}
+            hideCode
           />
         </>
       )}
