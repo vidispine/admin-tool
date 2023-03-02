@@ -12,13 +12,20 @@ import UriListRow from './UriListRow';
 
 export default function UriListTable({
   uriListDocument = {},
+  sort = false,
   page,
   rowsPerPage,
   onChangePage,
   onChangeRowsPerPage,
   ...props
 }) {
-  const { uri: uriList = [], hits: count = 0 } = uriListDocument;
+  const { hits: count = 0 } = uriListDocument;
+  const uriList = React.useMemo(() => {
+    if (!Array.isArray(uriListDocument?.uri)) return [];
+    if (sort === true) return uriListDocument.uri.sort();
+    if (typeof sort === 'function') return uriListDocument.uri.sort(sort);
+    return uriListDocument.uri;
+  }, [sort, uriListDocument]);
   const rowsPerPageOptions = [10, 100, 250];
   if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
   return (

@@ -1,75 +1,122 @@
 import React from 'react';
+import { compose } from 'redux';
+import List from '@material-ui/core/List';
+import { Route, Switch, generatePath } from 'react-router-dom';
 
-import { taskdefinition as api } from '@vidispine/vdt-api';
+import { withRouterProps } from '../hoc/withRouterProps';
+
+import TaskDefinitionOverview from './taskdefinition/TaskDefinitionOverview';
+import TaskDefinitionGraph from './taskdefinition/TaskDefinitionGraph';
+
 import TaskDefinitionTitle from '../components/taskdefinition/TaskDefinitionTitle';
-import TaskDefinitionListCard from '../components/taskdefinition/TaskDefinitionListCard';
-import TaskDefinitionDialog from '../components/taskdefinition/TaskDefinitionDialog';
 import JobTypeRemove from '../components/jobtype/JobTypeRemove';
 
-import withSnackbar from '../hoc/withSnackbar';
+import DrawerContainer from '../components/ui/DrawerContainer';
+import ListItemLink from '../components/ui/ListItemLink';
 
-const JOBTYPE_REMOVE_MODAL = 'JOBTYPE_REMOVE_MODAL';
-const TASKDEFINITION_DIALOG = 'TASKDEFINITION_DIALOG';
+const TASKDEFINITION_REMOVE_DIALOG = 'TASKDEFINITION_REMOVE_DIALOG';
+
+const TAB_TITLE = [
+  {
+    listText: 'Overview',
+    component: TaskDefinitionOverview,
+    path: '/task-definition/jobtype/:taskDefinitionType/',
+    exact: true,
+  },
+  {
+    listText: 'Graph',
+    component: TaskDefinitionGraph,
+    path: '/task-definition/jobtype/:taskDefinitionType/graph/',
+  },
+
+];
+
+const listComponentRoute = ({ taskDefinitionType }) => (
+  <List>
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, { taskDefinitionType })}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
+        exact={exact}
+      />
+    ))}
+  </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+  </Switch>
+);
 
 class TaskDefinition extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
+    this.setOnRefresh = this.setOnRefresh.bind(this);
     this.state = {
-      taskDefinitionListDocument: undefined,
+      onRefresh: undefined,
     };
   }
 
   componentDidMount() {
     const { taskDefinitionType } = this.props;
-    this.onRefresh();
     document.title = `VidiCore Admin | Task Definition | ${taskDefinitionType}`;
   }
 
   onRefresh() {
-    const { openSnackBar, taskDefinitionType } = this.props;
-    try {
-      api.getTaskDefinitionType({ taskDefinitionType })
-        .then((response) => this.setState({ taskDefinitionListDocument: response.data }));
-    } catch (error) {
-      const messageContent = 'Error Getting Job Type';
-      openSnackBar({ messageContent, messageColor: 'secondary' });
-    }
+    const { onRefresh } = this.state;
+    if (onRefresh) { onRefresh(); }
+  }
+
+  setOnRefresh(onRefresh) {
+    this.setState({ onRefresh });
   }
 
   render() {
-    const { taskDefinitionType, history } = this.props;
-    const { taskDefinitionListDocument } = this.state;
+    const {
+      taskDefinitionType,
+      history,
+    } = this.props;
+    const titleComponent = (props) => (
+      <TaskDefinitionTitle
+        onRefresh={this.onRefresh}
+        taskDefinitionType={taskDefinitionType}
+        removeModal={TASKDEFINITION_REMOVE_DIALOG}
+        {...props}
+      />
+    );
     return (
       <>
-        <TaskDefinitionTitle
-          onRefresh={this.onRefresh}
+        <DrawerContainer
           taskDefinitionType={taskDefinitionType}
-          code={taskDefinitionListDocument}
-          codeModal="TaskDefinitionListDocument"
-          removeModal={JOBTYPE_REMOVE_MODAL}
-          createModal={TASKDEFINITION_DIALOG}
+          mainComponent={mainComponentRoute}
+          listComponent={listComponentRoute}
+          defaultOpen
+          titleComponent={titleComponent}
+          setOnRefresh={this.setOnRefresh}
         />
-        { taskDefinitionListDocument
-          && (
-          <TaskDefinitionListCard
-            onRefresh={this.onRefresh}
-            taskDefinitionListDocument={taskDefinitionListDocument}
-          />
-          )}
         <JobTypeRemove
-          dialogName={JOBTYPE_REMOVE_MODAL}
+          dialogName={TASKDEFINITION_REMOVE_DIALOG}
           jobType={taskDefinitionType}
           onSuccess={() => history.push('/jobtype/')}
-        />
-        <TaskDefinitionDialog
-          dialogName={TASKDEFINITION_DIALOG}
-          jobType={taskDefinitionType}
-          onSuccess={this.onRefresh}
         />
       </>
     );
   }
 }
 
-export default withSnackbar(TaskDefinition);
+export default compose(withRouterProps)(TaskDefinition);
