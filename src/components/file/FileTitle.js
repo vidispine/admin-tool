@@ -30,6 +30,7 @@ function FileTitle({
   pathModal,
   overwriteModal,
   analyzeModal,
+  impAnalyzeModal,
   hashModal,
   fileDocument,
   breadcrumbList = [],
@@ -66,6 +67,9 @@ function FileTitle({
                 </UnstyledLink>
                 <MenuItem onClick={() => onOpen({ modalName: analyzeModal })}>
                   <Typography color="inherit">Shape Deduction</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: impAnalyzeModal })}>
+                  <Typography color="inherit">IMP Deduction</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: moveModal })}>
                   <Typography color="inherit">Copy/Move File</Typography>
