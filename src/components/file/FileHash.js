@@ -25,13 +25,13 @@ function FileHash({
   if (fileDocument === undefined) { return null; }
   const { id: fileId } = fileDocument;
   const onSubmitSuccess = (response, dispatch, props) => {
-    const messageContent = 'Starting Shape Deduction Job';
+    const messageContent = 'Checksum Hash Updated';
     openSnackBar({ messageContent });
     if (onSuccess) { onSuccess(response, dispatch, props); }
     onClose();
   };
   const onSubmitFail = () => {
-    const messageContent = 'Error Starting Shape Deduction Job';
+    const messageContent = 'Error Updating Checksum Hash';
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
