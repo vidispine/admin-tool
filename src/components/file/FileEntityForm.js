@@ -13,6 +13,7 @@ import BoolCheckbox from '../ui/BoolCheckbox';
 import FileStates from '../../const/FileStates';
 import { loadStorageOptions } from '../storage/StorageSelect';
 import { StatefulAsyncSelect } from '../ui/Select';
+import { SimpleMetadataTypeForm } from '../ui/SimpleMetadataField';
 
 const fileDocument = () => (
   <>
@@ -36,6 +37,30 @@ const fileDocument = () => (
         ))}
       </Field>
     </FormControl>
+    <Field
+      name="size"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="hash"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="timestamp"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="refreshFlag"
+      component={TextField}
+      fullWidth
+    />
+    <FormSection
+      name="metadata"
+      component={SimpleMetadataTypeForm}
+    />
   </>
 );
 
