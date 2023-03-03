@@ -14,10 +14,12 @@ export default function ShapeCard({
   const { metadata } = shapeDocument;
   return (
     <SquareCard>
-      <CardHeader
-        disableTypography
-        title={<Typography variant="subtitle1">{`Shape - ${shapeId}`}</Typography>}
-      />
+      {shapeId !== undefined ? (
+        <CardHeader
+          disableTypography
+          title={<Typography variant="subtitle1">{`Shape - ${shapeId}`}</Typography>}
+        />
+      ) : null}
       <CardContent>
         <ShapeSection
           value={shapeDocument}
