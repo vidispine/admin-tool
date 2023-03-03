@@ -82,7 +82,10 @@ const JobTaskType = ({ value = {} }) => (
     />
     <TypeArray
       title="subTask"
-      value={value.subTask}
+      titleKey="step"
+      value={Array.isArray(value.subTask)
+        ? value.subTask.sort((a, b) => b.step - a.step)
+        : value.subTask}
       component={JobTaskType}
       hideNoValue
       hover
@@ -102,6 +105,7 @@ const DataSection = ({ value = {} }) => (
         titleStartCase={false}
         variant={getJobDataVariant(v.key)}
         hideCode
+        hover
       />
     )}
     hideNoValue
@@ -116,9 +120,9 @@ const StepSection = ({ value = {} }) => (
     dense
     component={({ value: v }) => (
       <TypeArray
-        arrayTitle="Step"
+        title="Step"
         titleKey="step"
-        value={Array.isArray(v.task) ? v.task.reverse() : v.task}
+        value={Array.isArray(v.task) ? v.task.sort((a, b) => b.step - a.step) : v.task}
         component={JobTaskType}
         hideNoValue
         hover

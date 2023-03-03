@@ -311,6 +311,15 @@ function SetValueComponent({
         </StyledTypography>
       );
       break;
+    case 'fileIdList':
+      valueComponent = (
+        value.split(',').map((label) => (
+          <StyledTypography>
+            <UnstyledLink to={`/file/${label}/`}>{label}</UnstyledLink>
+          </StyledTypography>
+        ))
+      );
+      break;
     case 'storageId':
       valueComponent = (
         <StyledTypography>
@@ -346,6 +355,15 @@ function SetValueComponent({
           ))
         );
       }
+      break;
+    case 'commaseparatedlist':
+      valueComponent = (
+        value.split(',').map((label) => (
+          <StyledTypography className={classes.ValueComponent} {...typographyProps}>
+            {capitalize ? capitalizeString(label) : label.toString()}
+          </StyledTypography>
+        ))
+      );
       break;
     default:
       if (variant) { console.warn(`TextGrid: Unknown variant=${variant}`); } // eslint-disable-line no-console
@@ -407,7 +425,7 @@ function TextGrid({
               className={className}
               wrap="nowrap"
             >
-              <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
+              <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
                 <Typography
                   variant="subtitle2"
                   color="textSecondary"
@@ -454,7 +472,7 @@ function TextGrid({
               className={className}
               wrap="nowrap"
             >
-              <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
+              <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
                 <Typography
                   variant="subtitle2"
                   color="textSecondary"
@@ -502,7 +520,7 @@ function TextGrid({
               className={className}
               wrap="nowrap"
             >
-              <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
+              <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
                 <Typography
                   variant="subtitle2"
                   color="textSecondary"
@@ -550,7 +568,7 @@ function TextGrid({
             className={className}
             wrap="nowrap"
           >
-            <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
+            <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
               <Typography
                 variant="subtitle2"
                 color="textSecondary"
@@ -625,11 +643,11 @@ function TextGrid({
     <Grid
       container
       direction="row"
-      alignItems="center"
       wrap="nowrap"
       className={className}
+      alignItems="flex-start"
     >
-      <Grid xl={1} lg={2} md={3} sm={4} xs={6} {...titleGridProps} item>
+      <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
         <Typography
           color="textSecondary"
           variant="subtitle2"
