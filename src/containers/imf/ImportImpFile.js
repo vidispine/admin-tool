@@ -14,10 +14,12 @@ class ImportImpFile extends React.PureComponent {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, location } = this.props;
+    const query = new URLSearchParams(location.search);
+    const fileId = query.get('fileId');
     return (
       <ImportImpFileWizard
-        initialValues={{ metadataDocument: {} }}
+        initialValues={{ fileId, metadataDocument: {} }}
         onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
       />
     );

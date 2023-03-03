@@ -65,6 +65,11 @@ function FileTitle({
                     <Typography color="inherit">Import As Sidecar</Typography>
                   </MenuItem>
                 </UnstyledLink>
+                <UnstyledLink to={`/import-imp/?tab=IMPORTIMP_FILE_TAB&fileId=${fileId}`}>
+                  <MenuItem>
+                    <Typography color="inherit">Import As IMP</Typography>
+                  </MenuItem>
+                </UnstyledLink>
                 <MenuItem onClick={() => onOpen({ modalName: analyzeModal })}>
                   <Typography color="inherit">Shape Deduction</Typography>
                 </MenuItem>
