@@ -30,6 +30,7 @@ function FileTitle({
   pathModal,
   overwriteModal,
   analyzeModal,
+  hashModal,
   fileDocument,
   breadcrumbList = [],
   ...props
@@ -71,6 +72,9 @@ function FileTitle({
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: pathModal })}>
                   <Typography color="inherit">Set New Path</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: hashModal })}>
+                  <Typography color="inherit">Set Checksum Hash</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: overwriteModal })}>
                   <Typography color="inherit">Overwrite File Data</Typography>

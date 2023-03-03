@@ -18,6 +18,23 @@ export function onUpdateFileState(form, dispatch, props) {
     });
 }
 
+export function onUpdateFileHash(form, dispatch, props) {
+  const fileId = props.fileId || form.fileId;
+  const { hash, queryParams } = form;
+  return api.updateFileHash({
+    fileId,
+    hash,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onFileMove(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { targetStorageId, queryParams } = form;
