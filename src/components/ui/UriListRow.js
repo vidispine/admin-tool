@@ -8,12 +8,14 @@ export default function UriListRow({
   uri,
   linkTo,
   textTo,
+  onClick,
   titleCase = false,
 }) {
-  const linkProps = {};
+  const linkProps = { };
   let uriText = uri;
   if (textTo) { uriText = textTo(uri); }
   if (linkTo) { linkProps.to = linkTo(uri); }
+  if (onClick) { linkProps.onClick = () => onClick(uri); }
   const cellText = titleCase ? startCase(uriText) : uriText;
   return (
     <TableRowLink hover {...linkProps}>

@@ -31,6 +31,7 @@ function FileTitle({
   overwriteModal,
   analyzeModal,
   impAnalyzeModal,
+  uriModal,
   hashModal,
   fileDocument,
   breadcrumbList = [],
@@ -49,6 +50,9 @@ function FileTitle({
               <Menu>
                 <MenuItem onClick={() => onOpen({ modalName: stateModal })}>
                   <Typography color="inherit">Change State</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: uriModal })}>
+                  <Typography color="inherit">Generate Temporary URI</Typography>
                 </MenuItem>
                 <UnstyledLink to={`/import?tab=IMPORTFILE_TAB&fileId=${fileId}`}>
                   <MenuItem>
