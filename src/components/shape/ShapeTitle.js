@@ -52,6 +52,8 @@ function ShapeTitle({
   removeModal,
   addTagModal,
   removeTagModal,
+  addMimeTypeModal,
+  removeMimeTypeModal,
   analyzeTagModal,
   addComponentModal,
   exportModal,
@@ -87,6 +89,9 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: addTagModal })}>
             <Typography>Add Tag</Typography>
           </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: addMimeTypeModal })}>
+            <Typography>Add Mime-Type</Typography>
+          </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: placeholderUpdateModal })}>
             <Typography>Placeholder Update</Typography>
           </MenuItem>
@@ -98,6 +103,9 @@ function ShapeTitle({
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: removeTagModal })}>
             <Typography color="secondary">Remove Tag</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: MimeType })}>
+            <Typography color="secondary">Remove Mime-Type</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: removeModal })}>
             <Typography color="secondary">Delete</Typography>

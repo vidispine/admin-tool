@@ -20,6 +20,8 @@ import ShapeAnalyze from '../components/shape/ShapeAnalyze';
 import ShapeAddComponent from '../components/shape/ShapeAddComponent';
 import ShapeAddTag from '../components/shape/ShapeAddTag';
 import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
+import ShapeAddMimeType from '../components/shape/ShapeAddMimeType';
+import ShapeRemoveMimeType from '../components/shape/ShapeRemoveMimeType';
 import ShapeExport from '../components/shape/ShapeExport';
 import ShapeImpExport from '../components/shape/ShapeImpExport';
 import ShapePlaceholderUpdate from '../components/shape/ShapePlaceholderUpdate';
@@ -31,6 +33,8 @@ const SHAPE_TRANSCODE_DIALOG = 'SHAPE_TRANSCODE_DIALOG';
 const SHAPE_ANALYZE_DIALOG = 'SHAPE_ANALYZE_DIALOG';
 const SHAPE_ADD_TAG_DIALOG = 'SHAPE_ADD_TAG_DIALOG';
 const SHAPE_REMOVE_TAG_DIALOG = 'SHAPE_REMOVE_TAG_DIALOG';
+const SHAPE_ADD_MIMETYPE_DIALOG = 'SHAPE_ADD_MIMETYPE_DIALOG';
+const SHAPE_REMOVE_MIMETYPE_DIALOG = 'SHAPE_REMOVE_MIMETYPE_DIALOG';
 const SHAPE_ADD_COMPONENT_DIALOG = 'SHAPE_ADD_COMPONENT_DIALOG';
 const SHAPE_EXPORT_DIALOG = 'SHAPE_EXPORT_DIALOG';
 const SHAPE_IMPEXPORT_DIALOG = 'SHAPE_IMPEXPORT_DIALOG';
@@ -144,6 +148,8 @@ class Shape extends React.PureComponent {
         analyzeTagModal={SHAPE_ANALYZE_DIALOG}
         addTagModal={SHAPE_ADD_TAG_DIALOG}
         removeTagModal={SHAPE_REMOVE_TAG_DIALOG}
+        addMimeTypeModal={SHAPE_ADD_MIMETYPE_DIALOG}
+        removeMimeTypeModal={SHAPE_REMOVE_MIMETYPE_DIALOG}
         addComponentModal={SHAPE_ADD_COMPONENT_DIALOG}
         exportModal={SHAPE_EXPORT_DIALOG}
         exportImpModal={SHAPE_IMPEXPORT_DIALOG}
@@ -200,6 +206,18 @@ class Shape extends React.PureComponent {
         />
         <ShapeRemoveTag
           dialogName={SHAPE_REMOVE_TAG_DIALOG}
+          onSuccess={this.onRefresh}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeAddMimeType
+          dialogName={SHAPE_ADD_MIMETYPE_DIALOG}
+          onSuccess={this.onRefresh}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeRemoveMimeType
+          dialogName={SHAPE_REMOVE_MIMETYPE_DIALOG}
           onSuccess={this.onRefresh}
           itemId={itemId}
           shapeId={shapeId}
