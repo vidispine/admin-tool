@@ -35,11 +35,11 @@ export function onCreateShapeImport(form, dispatch, props) {
 }
 
 export function onCreateShapePlaceholder(form, dispatch, props) {
-  const { queryParams, metadataDocument = {} } = form;
+  const { queryParams, simpleMetadataDocument = {} } = form;
   const itemId = props.itemId || form.itemId;
   return api.createShapePlaceholder({
     itemId,
-    metadataDocument,
+    metadataDocument: simpleMetadataDocument,
     queryParams,
   })
     .catch((error) => {
@@ -171,6 +171,25 @@ export function onUpdateShapeTag(form, dispatch, props) {
     itemId,
     shapeId,
     tagName,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+export function onUpdateShapePlaceholder(form, dispatch, props) {
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  const { queryParams, simpleMetadataDocument } = form;
+  return api.updateShapePlaceholder({
+    itemId,
+    shapeId,
+    queryParams,
+    simpleMetadataDocument,
   })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {

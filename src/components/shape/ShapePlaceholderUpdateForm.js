@@ -5,7 +5,6 @@ import { TextField } from '../form';
 
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { StatefulAsyncSelect } from '../ui/Select';
-import { SimpleMetadataType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
 import FormSection from '../ui/FormSection';
 
@@ -63,32 +62,41 @@ const queryParams = () => (
   </>
 );
 
-function ImportShapePlaceholderForm({
+function ShapePlaceholderUpdateForm({
   error,
   handleSubmit,
+  itemId,
+  shapeId,
 }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <Field
-        name="itemId"
-        label="Item Id"
-        component={TextField}
-        validate={[required]}
-        required
-        fullWidth
-      />
+      {itemId === undefined ? (
+        <Field
+          name="itemId"
+          label="Item ID"
+          component={TextField}
+          validate={[required]}
+          required
+          fullWidth
+        />
+      ) : null}
+      {shapeId === undefined ? (
+        <Field
+          name="shapeId"
+          label="Shape ID"
+          component={TextField}
+          validate={[required]}
+          required
+          fullWidth
+        />
+      ) : null}
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="simpleMetadataDocument"
-        label="Metadata"
-        component={SimpleMetadataType}
       />
       <button type="submit" hidden />
     </form>
   );
 }
-export default reduxForm()(ImportShapePlaceholderForm);
+export default reduxForm()(ShapePlaceholderUpdateForm);

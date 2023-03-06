@@ -22,6 +22,7 @@ import ShapeAddTag from '../components/shape/ShapeAddTag';
 import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
 import ShapeExport from '../components/shape/ShapeExport';
 import ShapeImpExport from '../components/shape/ShapeImpExport';
+import ShapePlaceholderUpdate from '../components/shape/ShapePlaceholderUpdate';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
 
@@ -34,6 +35,7 @@ const SHAPE_ADD_COMPONENT_DIALOG = 'SHAPE_ADD_COMPONENT_DIALOG';
 const SHAPE_EXPORT_DIALOG = 'SHAPE_EXPORT_DIALOG';
 const SHAPE_IMPEXPORT_DIALOG = 'SHAPE_IMPEXPORT_DIALOG';
 const SHAPE_DEDUCTION_DIALOG = 'SHAPE_DEDUCTION_DIALOG';
+const SHAPE_PLACEHOLDERUPDATE_DIALOG = 'SHAPE_PLACEHOLDERUPDATE_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -145,6 +147,7 @@ class Shape extends React.PureComponent {
         addComponentModal={SHAPE_ADD_COMPONENT_DIALOG}
         exportModal={SHAPE_EXPORT_DIALOG}
         exportImpModal={SHAPE_IMPEXPORT_DIALOG}
+        placeholderUpdateModal={SHAPE_PLACEHOLDERUPDATE_DIALOG}
         {...props}
       />
     );
@@ -197,6 +200,12 @@ class Shape extends React.PureComponent {
         />
         <ShapeRemoveTag
           dialogName={SHAPE_REMOVE_TAG_DIALOG}
+          onSuccess={this.onRefresh}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapePlaceholderUpdate
+          dialogName={SHAPE_PLACEHOLDERUPDATE_DIALOG}
           onSuccess={this.onRefresh}
           itemId={itemId}
           shapeId={shapeId}
