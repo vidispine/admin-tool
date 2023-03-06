@@ -50,6 +50,21 @@ export function onCreateShapePlaceholder(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+export function onCreateShapeImportImp(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.createShapeImportImp({
+    itemId,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
 
 export function onList(form, dispatch, props) {
   const { queryParams = {} } = form;
@@ -114,6 +129,22 @@ export function onRemoveShape(form, dispatch, props) {
   return api.removeShape({
     itemId,
     shapeId,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onRemoveShapeAll(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.removeShapeAll({
+    itemId,
     queryParams,
   })
     .catch((error) => {

@@ -53,6 +53,8 @@ function ItemTitle({
   title,
   createModal,
   createTooltip = 'New',
+  removeAllShapesModal,
+  importImpModal,
   breadcrumbList,
   ...props
 }) {
@@ -66,6 +68,7 @@ function ItemTitle({
       entityId={itemId}
       entityType="item"
       removeModal={removeModal}
+      removeAllShapesModal={removeAllShapesModal}
       breadcrumbList={Array.isArray(breadcrumbList) ? [{ title: 'Item', to: routes.itemList() }, { title: itemId, to: routes.item({ itemId }) }, ...breadcrumbList] : undefined}
       actionComponent={(
         <>
@@ -92,6 +95,11 @@ function ItemTitle({
                 <Typography color="inherit">Import Sidecar</Typography>
               </MenuItem>
             </UnstyledLink>
+            {importImpModal ? (
+              <MenuItem onClick={() => onOpen({ modalName: importImpModal })}>
+                <Typography color="inherit">Import IMF Package</Typography>
+              </MenuItem>
+            ) : null}
             <UnstyledLink to={`/import?tab=IMPORTSHAPEPLACEHOLDER_TAB&itemId=${itemId}`}>
               <MenuItem>
                 <Typography color="inherit">Create Shape Placeholder</Typography>
@@ -122,8 +130,13 @@ function ItemTitle({
               <Typography>Export IMF Package</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: removeModal })}>
-              <Typography color="secondary">Delete</Typography>
+              <Typography color="secondary">Delete Item</Typography>
             </MenuItem>
+            {removeAllShapesModal ? (
+              <MenuItem onClick={() => onOpen({ modalName: removeAllShapesModal })}>
+                <Typography color="secondary">Delete All Shapes</Typography>
+              </MenuItem>
+            ) : null}
           </Menu>
         </>
       )}

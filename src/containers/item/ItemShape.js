@@ -17,6 +17,8 @@ class ItemShape extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { setOnRefresh } = this.props;
+    if (setOnRefresh) setOnRefresh(this.onRefresh);
     this.onRefresh();
   }
 
