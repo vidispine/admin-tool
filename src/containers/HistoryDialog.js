@@ -20,25 +20,14 @@ import TableCell from '../components/ui/TableCell';
 import TableRow from '../components/ui/TableRow';
 import TextGrid from '../components/ui/TextGrid';
 import TypeArray from '../components/ui/TypeArray';
+import RequestToJavascript from '../components/ui/RequestToJavascript';
+import RequestToCurl from '../components/ui/RequestToCurl';
 import formatXML from '../utils/formatXML';
 
-import { withModalNoRouter } from '../hoc/withModal';
+import withModal from '../hoc/withModal';
 
-const escapeBash = (str) => String(str).replaceAll('\'', '\'\\\'\'');
-
-const requestToCurl = ({
-  method, fullUrl, requestHeaders, requestData, requestContentType,
-}) => {
-  const output = [];
-  output.push(`curl '${escapeBash(fullUrl)}'`);
-  output.push(`--request ${method}`);
-  Object.entries(requestHeaders).forEach(([key, value]) => output.push(`--header '${escapeBash(`${key}: ${value}`)}'`));
-  if (requestData) {
-    if (requestContentType === 'application/json') output.push(`--data-raw '${escapeBash(JSON.stringify(requestData))}'`);
-    else output.push(`--data-raw '${escapeBash(requestData)}'`);
-  }
-  return output.join(' \\\n');
-};
+const TRANSFORM_CURL = 'TRANSFORM_CURL';
+const TRANSFORM_JAVASCRIPTAPI = 'TRANSFORM_JAVASCRIPTAPI';
 
 const styles = (theme) => ({
   appBar: {
@@ -59,6 +48,10 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
   },
+  transformButtonList: {
+    display: 'flex',
+    gap: theme.spacing(2),
+  },
 });
 
 class HistoryDialog extends React.PureComponent {
@@ -67,6 +60,7 @@ class HistoryDialog extends React.PureComponent {
     this.onRequest = this.onRequest.bind(this);
     this.onResponse = this.onResponse.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.onTransform = this.onTransform.bind(this);
     this.maxReponsesLength = 20;
     this.requestInterceptor = api.defaultClient.interceptors.request.use(
       (request) => {
@@ -88,7 +82,7 @@ class HistoryDialog extends React.PureComponent {
     this.state = {
       recentResponses: [],
       displayResponse: undefined,
-      curlResponse: undefined,
+      transformResponse: undefined,
     };
   }
 
@@ -215,19 +209,28 @@ class HistoryDialog extends React.PureComponent {
   onClose() {
     const { onClose: onCloseDialog } = this.props;
     onCloseDialog();
-    this.setState({ displayResponse: undefined, curlResponse: undefined });
+    this.setState({ displayResponse: undefined, transformResponse: undefined });
+  }
+
+  onTransform(newstate) {
+    const { transformResponse: currentState } = this.state;
+    this.setState({
+      transformResponse: currentState === newstate ? undefined : newstate,
+    });
   }
 
   render() {
     const {
       classes,
       open,
+      history,
     } = this.props;
     const {
       recentResponses,
       displayResponse,
-      curlResponse,
+      transformResponse,
     } = this.state;
+    if (open === false) return null;
     return (
       <Dialog
         fullScreen
@@ -245,19 +248,28 @@ class HistoryDialog extends React.PureComponent {
                 <IconButton
                   onClick={() => this.setState({
                     displayResponse: undefined,
-                    curlResponse: undefined,
+                    transformResponse: undefined,
                   })}
                   style={{ padding: 4 }}
                 >
                   <ArrowBackIcon />
                 </IconButton>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => this.setState({ curlResponse: !curlResponse })}
-                >
-                  {curlResponse ? 'Hide cURL' : 'cURL'}
-                </Button>
+                <div className={classes.transformButtonList}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => this.onTransform(TRANSFORM_JAVASCRIPTAPI)}
+                  >
+                    {transformResponse === TRANSFORM_JAVASCRIPTAPI ? 'Hide Javascript API' : 'Show Javascript API'}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => this.onTransform(TRANSFORM_CURL)}
+                  >
+                    {transformResponse === TRANSFORM_CURL ? 'Hide cURL' : 'Show cURL'}
+                  </Button>
+                </div>
               </div>
             ) : (
               <IconButton onClick={this.onClose}>
@@ -268,13 +280,21 @@ class HistoryDialog extends React.PureComponent {
         </AppBar>
         {displayResponse ? (
           <DialogContent>
-            {curlResponse ? (
-              <TextGrid
-                value={requestToCurl(displayResponse)}
-                variant="code"
-                codeProps={{ lineNumbers: false, mode: 'shell' }}
+            {transformResponse === TRANSFORM_CURL ? (
+              <RequestToCurl
+                request={displayResponse}
               />
-            ) : (
+            ) : null}
+            {transformResponse === TRANSFORM_JAVASCRIPTAPI ? (
+              <RequestToJavascript
+                request={displayResponse}
+                onClick={(javascriptDocument) => {
+                  history.push({ pathname: '/javascript/test/', state: { initialValues: { javascriptDocument } } });
+                  this.onClose();
+                }}
+              />
+            ) : null}
+            {transformResponse === undefined ? (
               <>
                 <TextGrid title="URL" value={displayResponse.fullUrl} hover />
                 <TextGrid title="Method" value={displayResponse.method} hover />
@@ -353,7 +373,7 @@ class HistoryDialog extends React.PureComponent {
                 </>
                 )}
               </>
-            )}
+            ) : null}
           </DialogContent>
         ) : (
           <Table>
@@ -383,4 +403,4 @@ class HistoryDialog extends React.PureComponent {
   }
 }
 
-export default compose(withModalNoRouter, withStyles(styles))(HistoryDialog);
+export default compose(withModal, withStyles(styles))(HistoryDialog);

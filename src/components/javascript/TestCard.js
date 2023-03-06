@@ -65,6 +65,7 @@ function TestCard({
   onFail,
   result,
   error,
+  initialValues = { javascriptDocument },
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Script Success';
@@ -113,7 +114,7 @@ function TestCard({
                 onSubmitFail={onSubmitFail}
                 form={TEST_FORM}
                 className={classes.TestForm}
-                initialValues={{ javascriptDocument }}
+                initialValues={initialValues}
               />
             </CardContent>
           </SquareCard>

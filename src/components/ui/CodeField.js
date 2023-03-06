@@ -52,7 +52,7 @@ function CodeField({
   input = {},
   meta = {},
 }) {
-  if (options.mode === 'javascript' && options.lint === true) window.JSHINT = JSHINT;
+  if (options.mode === 'javascript' && options.lint !== false && options.lint !== undefined) window.JSHINT = JSHINT;
   return (
     <div className={clsx([className, classes.root])} style={style}>
       {label && (
