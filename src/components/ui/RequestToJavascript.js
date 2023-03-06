@@ -10,7 +10,6 @@ const STANDARD_HEADERS = ['accept', 'content-type', 'authorization'];
 const requestToJavascriptApi = ({
   method, fullUrl, requestHeaders, requestData, requestContentType,
 }) => {
-  console.log({ requestData });
   const output = [];
   let requestBody;
   const url = new URL(fullUrl);
