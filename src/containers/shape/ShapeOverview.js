@@ -39,6 +39,7 @@ class ShapeOverview extends React.PureComponent {
       api.getShape({
         itemId,
         shapeId,
+        queryParams: { includePlaceholder: true },
       })
         .then((response) => this.setState({ shapeDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
@@ -83,6 +84,7 @@ class ShapeOverview extends React.PureComponent {
           shapeId={shapeId}
           itemId={itemId}
           onSuccess={this.onSuccess}
+          initialValues={{ queryParams: { includePlaceholder: true } }}
         />
         {shapeDocument && (
           <ShapeOverviewComponent

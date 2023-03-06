@@ -16,7 +16,7 @@ export default function ShapeDescriptorComponentCard({
     <SquareCard id={descriptorComponentId}>
       <CardHeader
         disableTypography
-        title={descriptorComponentId ? <Typography variant="subtitle1">{`Descriptor Component - ${descriptorComponentId}`}</Typography> : undefined}
+        title={descriptorComponentId ? <Typography variant="subtitle1">{`Descriptor Component - ${descriptorComponentId}`}</Typography> : 'Descriptor Component'}
       />
       <CardContent>
         <DescriptorComponentType

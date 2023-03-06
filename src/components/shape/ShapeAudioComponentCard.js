@@ -16,7 +16,7 @@ export default function ShapeAudioComponentCard({
     <SquareCard id={audioComponentId}>
       <CardHeader
         disableTypography
-        title={audioComponentId ? <Typography variant="subtitle1">{`Audio Component - ${audioComponentId}`}</Typography> : undefined}
+        title={audioComponentId ? <Typography variant="subtitle1">{`Audio Component - ${audioComponentId}`}</Typography> : 'Audio Component'}
       />
       <CardContent>
         <AudioComponentType
