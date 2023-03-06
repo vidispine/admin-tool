@@ -82,6 +82,11 @@ function ItemTitle({
                 <Typography>Import Component</Typography>
               </UnstyledLink>
             </MenuItem>
+            <MenuItem>
+              <UnstyledLink to={`/import?tab=IMPORTSHAPE_TAB&itemId=${itemId}`}>
+                <Typography>Import Shape</Typography>
+              </UnstyledLink>
+            </MenuItem>
             <UnstyledLink to={`/import?tab=IMPORTSIDECAR_TAB&itemId=${itemId}`}>
               <MenuItem>
                 <Typography color="inherit">Import Sidecar</Typography>

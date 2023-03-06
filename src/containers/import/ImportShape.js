@@ -13,10 +13,14 @@ class ImportShape extends React.PureComponent {
   }
 
   render() {
-    const { history, ...props } = this.props;
+    const { history, location, ...props } = this.props;
+    const query = new URLSearchParams(location.search);
+    const fileId = query.get('fileId');
+    const itemId = query.get('itemId');
     return (
       <ImportShapeWizard
         onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+        initialValues={{ itemId, queryParams: { fileId } }}
         {...props}
       />
     );

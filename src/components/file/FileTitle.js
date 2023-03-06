@@ -59,6 +59,11 @@ function FileTitle({
                     <Typography color="inherit">Import As Item</Typography>
                   </MenuItem>
                 </UnstyledLink>
+                <MenuItem>
+                  <UnstyledLink to={`/import?tab=IMPORTSHAPE_TAB&fileId=${fileId}`}>
+                    <Typography>Import As Shape</Typography>
+                  </UnstyledLink>
+                </MenuItem>
                 <UnstyledLink to={`/import?tab=IMPORTCOMPONENT_TAB&fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import To Component</Typography>
