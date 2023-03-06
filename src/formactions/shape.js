@@ -18,6 +18,22 @@ export function onCreateShapeEssenceImport(form, dispatch, props) {
     });
 }
 
+export function onCreateShape(form, dispatch, props) {
+  const { queryParams, shapeDocument = {} } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.createShape({
+    itemId,
+    queryParams,
+    shapeDocument,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
 export function onCreateShapeImport(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;

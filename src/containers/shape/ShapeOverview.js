@@ -4,6 +4,9 @@ import { shape as api } from '@vidispine/vdt-api';
 import withSnackbar from '../../hoc/withSnackbar';
 import ShapeParams from '../../components/shape/ShapeParams';
 import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
+import ItemShapeCreate from '../../components/item/ItemShapeCreate';
+
+const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
 
 class ShapeOverview extends React.PureComponent {
   constructor(props) {
@@ -67,6 +70,7 @@ class ShapeOverview extends React.PureComponent {
       tabComponent: TabComponent,
       shapeId,
       itemId,
+      history,
     } = this.props;
     const { shapeDocument } = this.state;
     return (
@@ -77,6 +81,8 @@ class ShapeOverview extends React.PureComponent {
             codeModal="ShapeDocument"
             onRefresh={this.onRefresh}
             breadcrumbList={['Overview']}
+            createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
+
           />
         )}
         {TabComponent && (
@@ -89,12 +95,20 @@ class ShapeOverview extends React.PureComponent {
           initialValues={{ queryParams: { includePlaceholder: true } }}
         />
         {shapeDocument && (
-          <ShapeOverviewComponent
-            shapeDocument={shapeDocument}
-            shapeId={shapeId}
-            itemId={itemId}
-            onRefresh={this.onRefresh}
-          />
+          <>
+            <ShapeOverviewComponent
+              shapeDocument={shapeDocument}
+              shapeId={shapeId}
+              itemId={itemId}
+              onRefresh={this.onRefresh}
+            />
+            <ItemShapeCreate
+              dialogName={ITEM_SHAPE_CREATE_DIALOG}
+              onSuccess={(response) => history.push(`/item/${itemId}/shape/${response.data.id}/`)}
+              itemId={itemId}
+              initialValues={{ shapeDocument: JSON.stringify(shapeDocument, null, 2) }}
+            />
+          </>
         )}
       </>
     );

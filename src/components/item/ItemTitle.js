@@ -56,6 +56,7 @@ function ItemTitle({
   removeAllShapesModal,
   importImpModal,
   breadcrumbList,
+  createShapeModal,
   ...props
 }) {
   return (
@@ -98,6 +99,11 @@ function ItemTitle({
             {importImpModal ? (
               <MenuItem onClick={() => onOpen({ modalName: importImpModal })}>
                 <Typography color="inherit">Import IMF Package</Typography>
+              </MenuItem>
+            ) : null}
+            {createShapeModal ? (
+              <MenuItem onClick={() => onOpen({ modalName: createShapeModal })}>
+                <Typography color="inherit">Create Shape</Typography>
               </MenuItem>
             ) : null}
             <UnstyledLink to={`/import?tab=IMPORTSHAPEPLACEHOLDER_TAB&itemId=${itemId}`}>

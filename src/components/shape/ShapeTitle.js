@@ -60,6 +60,7 @@ function ShapeTitle({
   exportImpModal,
   deductionModal,
   placeholderUpdateModal,
+  createShapeModal,
   breadcrumbList = [],
   ...props
 }) {
@@ -101,6 +102,11 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export IMF Package</Typography>
           </MenuItem>
+          { createShapeModal ? (
+            <MenuItem onClick={() => onOpen({ modalName: createShapeModal })}>
+              <Typography>Create Shape</Typography>
+            </MenuItem>
+          ) : null}
           <MenuItem onClick={() => onOpen({ modalName: removeTagModal })}>
             <Typography color="secondary">Remove Tag</Typography>
           </MenuItem>

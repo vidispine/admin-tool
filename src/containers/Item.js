@@ -34,6 +34,7 @@ import ItemRelationDialog from '../components/item/ItemRelation';
 import ItemExport from '../components/item/ItemExport';
 import ItemImpExport from '../components/item/ItemImpExport';
 import ItemImpImport from '../components/item/ItemImpImport';
+import ItemShapeCreate from '../components/item/ItemShapeCreate';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
 import JobCreate from '../components/job/JobCreate';
 import AccessControlDialog from '../components/access/AccessControlDialog';
@@ -68,6 +69,7 @@ const ITEM_EXPORT_DIALOG = 'ITEM_EXPORT_DIALOG';
 const ITEM_IMPEXPORT_DIALOG = 'ITEM_IMPEXPORT_DIALOG';
 const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const JOB_CREATE_DIALOG = 'JOB_CREATE_DIALOG';
+const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
 const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
 const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
@@ -213,6 +215,7 @@ class Item extends React.PureComponent {
         addAccessControl={ITEM_ACCESSCONTROL_ADD_DIALOG}
         removeAllShapesModal={ITEM_REMOVEALLSHAPES_DIALOG}
         importImpModal={ITEM_IMPIMPORT_DIALOG}
+        createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
         {...props}
       />
     );
@@ -275,6 +278,11 @@ class Item extends React.PureComponent {
         <ItemImpImport
           dialogName={ITEM_IMPIMPORT_DIALOG}
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+        />
+        <ItemShapeCreate
+          dialogName={ITEM_SHAPE_CREATE_DIALOG}
+          onSuccess={(response) => history.push(`/item/${itemId}/shape/${response.data.id}/`)}
           itemId={itemId}
         />
         <CollectionEntityAdd
