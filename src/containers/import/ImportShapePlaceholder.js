@@ -13,8 +13,14 @@ class ImportShapePlaceholder extends React.PureComponent {
   }
 
   render() {
+    const { location } = this.props;
+    const query = new URLSearchParams(location.search);
+    const itemId = query.get('itemId');
     return (
-      <ImportShapePlaceholderWizard {...this.props} />
+      <ImportShapePlaceholderWizard
+        initialValues={{ itemId }}
+        {...this.props}
+      />
     );
   }
 }

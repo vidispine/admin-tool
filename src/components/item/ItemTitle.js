@@ -87,6 +87,11 @@ function ItemTitle({
                 <Typography color="inherit">Import Sidecar</Typography>
               </MenuItem>
             </UnstyledLink>
+            <UnstyledLink to={`/import?tab=IMPORTSHAPEPLACEHOLDER_TAB&itemId=${itemId}`}>
+              <MenuItem>
+                <Typography color="inherit">Create Shape Placeholder</Typography>
+              </MenuItem>
+            </UnstyledLink>
             <MenuItem onClick={() => onOpen({ modalName: addToCollectionModal })}>
               <Typography>Add To Collection</Typography>
             </MenuItem>

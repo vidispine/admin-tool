@@ -3,15 +3,8 @@ import { compose } from 'redux';
 
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportShapePlaceholderForm from './ImportShapePlaceholderForm';
-import ImportShapePlaceholderAdvancedForm from './ImportShapePlaceholderAdvancedForm';
-import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/shape';
 import withFormActions from '../../hoc/withFormActions';
@@ -26,9 +19,6 @@ function ImportShapePlaceholderWizard({
   onSuccess,
   onFail,
   submitForm,
-  onNext,
-  onBack,
-  activeStep,
   openSnackBar,
 }) {
   const defaultValues = {
@@ -65,85 +55,18 @@ function ImportShapePlaceholderWizard({
           </Button>
         )}
       />
-      <Stepper activeStep={activeStep} orientation="vertical">
-        <Step>
-          <StepLabel>Placeholder Shape</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportShapePlaceholderForm
-                  onSubmit={formActions.onCreateShapePlaceholder}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTSHAPEPLACEHOLDER_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={onNext}
-                >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Metadata</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <MetadataForm
-                  onSubmit={formActions.onCreateShapePlaceholder}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTSHAPEPLACEHOLDER_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={onNext}
-                >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportShapePlaceholderAdvancedForm
-                  onSubmit={formActions.onCreateShapePlaceholder}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTSHAPEPLACEHOLDER_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-      </Stepper>
+      <SquareCard>
+        <CardContent>
+          <ImportShapePlaceholderForm
+            onSubmit={formActions.onCreateShapePlaceholder}
+            initialValues={defaultValues}
+            onSubmitSuccess={onSubmitSuccess}
+            onSubmitFail={onSubmitFail}
+            form={EDIT_IMPORTSHAPEPLACEHOLDER_FORM}
+            destroyOnUnmount={false}
+          />
+        </CardContent>
+      </SquareCard>
     </>
 
   );

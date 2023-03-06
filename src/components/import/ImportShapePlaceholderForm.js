@@ -52,6 +52,13 @@ const queryParams = () => (
       fullWidth
       isMulti
     />
+    <Field
+      name="frameDuration"
+      label="Frame Duration"
+      component={TextField}
+      type="number"
+      fullWidth
+    />
   </>
 );
 
