@@ -31,6 +31,9 @@ const TranscoderRow = ({ resource }) => (
 const ThumbnailServiceRow = ({ resource }) => (
   <>
     <TableCell>{resource.path}</TableCell>
+    <TableCell>
+      {resource.state === 'ONLINE' ? <OnlineIcon /> : <OfflineIcon />}
+    </TableCell>
   </>
 );
 
@@ -94,6 +97,7 @@ const EidrRow = ({ resource }) => (
 );
 
 const ResourceRow = ({ resource, resourceType }) => {
+  if (resource[resourceType] === undefined) return null;
   switch (resourceType) {
     case 'network':
       return (
