@@ -1,21 +1,21 @@
 import React from 'react';
 import { compose } from 'redux';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
-import * as formActions from '../../formactions/shape';
-import ItemShapeCreateForm from './ItemShapeCreateForm';
+import ShapeComponentMoveForm from './ShapeComponentMoveForm';
+import * as formActions from '../../formactions/component';
 import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
 
-const ITEM_SHAPE_CREATE_FORM = 'ITEM_SHAPE_CREATE_FORM';
+const SHAPE_COMPONENT_MOVE_FORM = 'SHAPE_COMPONENT_MOVE_FORM';
 
-function ItemShapeCreate({
+function ShapeComponentMove({
   open,
   onClose,
   onSuccess,
@@ -23,37 +23,33 @@ function ItemShapeCreate({
   openSnackBar,
   submitForm,
   itemId,
-  initialValues,
-  form = ITEM_SHAPE_CREATE_FORM,
+  shapeId,
+  componentId,
+  form = SHAPE_COMPONENT_MOVE_FORM,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    const messageContent = 'Shape Created';
+    const messageContent = 'Component Moved';
     openSnackBar({ messageContent });
     if (onSuccess) { onSuccess(response, dispatch, props); }
     onClose();
   };
   const onSubmitFail = (error, dispatch, props) => {
-    const messageContent = 'Error Creating Shape';
+    const messageContent = 'Error Moving Component';
     openSnackBar({ messageContent, messageColor: 'secondary' });
     if (onFail) { onFail(error, dispatch, props); }
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
-      <DialogTitle>Duplicate Shape</DialogTitle>
-      <DialogContent>
-        <ItemShapeCreateForm
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
+      <DialogTitle>Move Component</DialogTitle>
+      <DialogContent style={{ minHeight: 200 }}>
+        <ShapeComponentMoveForm
           form={form}
-          onSubmit={formActions.onCreateShape}
+          onSubmit={formActions.onMoveComponent}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
-          onCancel={onClose}
           itemId={itemId}
-          initialValues={initialValues}
+          shapeId={shapeId}
+          componentId={componentId}
         />
       </DialogContent>
       <Divider />
@@ -70,11 +66,11 @@ function ItemShapeCreate({
           color="primary"
           onClick={() => submitForm(form)}
         >
-          Create
+          Move
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export default compose(withUI, withFormActions)(ItemShapeCreate);
+export default compose(withUI, withFormActions)(ShapeComponentMove);

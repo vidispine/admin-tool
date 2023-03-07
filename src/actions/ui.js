@@ -11,10 +11,11 @@ export function closeModal() {
   });
 }
 
-export function openModal({ modalName }) {
+export function openModal({ modalName, ...props }) {
   return {
     type: MODAL_RECEIVE,
     modalName,
+    ...props,
   };
 }
 export function setLoading(isLoading = false) {

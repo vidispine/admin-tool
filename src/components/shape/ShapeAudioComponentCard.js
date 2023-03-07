@@ -6,17 +6,26 @@ import CardContent from '@material-ui/core/CardContent';
 import { AudioComponentType } from './ShapeDisplay';
 import SquareCard from '../ui/SquareCard';
 import ShapeComponentMetadataEditor from './ShapeComponentMetadataEditor';
+import ShapeComponentMenu from './ShapeComponentMenu';
 
 export default function ShapeAudioComponentCard({
-  audioComponent = {}, itemId, shapeId, onRefresh,
+  audioComponent = {}, itemId, shapeId, onRefresh, ShapeComponentMenuProps = {},
 }) {
   if (audioComponent === undefined) { return null; }
-  const { id: audioComponentId, metadata } = audioComponent;
+  const { id: componentId, metadata } = audioComponent;
   return (
-    <SquareCard id={audioComponentId}>
+    <SquareCard id={componentId}>
       <CardHeader
         disableTypography
-        title={audioComponentId ? <Typography variant="subtitle1">{`Audio Component - ${audioComponentId}`}</Typography> : 'Audio Component'}
+        title={componentId ? <Typography variant="subtitle1">{`Audio Component - ${componentId}`}</Typography> : 'Audio Component'}
+        action={componentId ? (
+          <ShapeComponentMenu
+            componentId={componentId}
+            itemId={itemId}
+            shapeId={shapeId}
+            {...ShapeComponentMenuProps}
+          />
+        ) : undefined}
       />
       <CardContent>
         <AudioComponentType
@@ -28,7 +37,7 @@ export default function ShapeAudioComponentCard({
           onRefresh={onRefresh}
           itemId={itemId}
           shapeId={shapeId}
-          componentId={audioComponentId}
+          componentId={componentId}
         />
       </CardContent>
     </SquareCard>

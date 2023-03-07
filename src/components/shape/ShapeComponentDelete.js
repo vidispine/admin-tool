@@ -1,21 +1,21 @@
 import React from 'react';
 import { compose } from 'redux';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
-import * as formActions from '../../formactions/shape';
-import ItemShapeCreateForm from './ItemShapeCreateForm';
+import Dialog from '@material-ui/core/Dialog';
+import * as formActions from '../../formactions/component';
+import ShapeComponentDeleteForm from './ShapeComponentDeleteForm';
 import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import DialogContent from '../ui/DialogContent';
 
-const ITEM_SHAPE_CREATE_FORM = 'ITEM_SHAPE_CREATE_FORM';
+const SHAPE_COMPONENT_DELETE_FORM = 'SHAPE_COMPONENT_DELETE_FORM';
 
-function ItemShapeCreate({
+function ShapeComponentDelete({
   open,
   onClose,
   onSuccess,
@@ -23,17 +23,18 @@ function ItemShapeCreate({
   openSnackBar,
   submitForm,
   itemId,
-  initialValues,
-  form = ITEM_SHAPE_CREATE_FORM,
+  shapeId,
+  componentId,
+  form = SHAPE_COMPONENT_DELETE_FORM,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    const messageContent = 'Shape Created';
+    const messageContent = 'Shape Component';
     openSnackBar({ messageContent });
     if (onSuccess) { onSuccess(response, dispatch, props); }
     onClose();
   };
   const onSubmitFail = (error, dispatch, props) => {
-    const messageContent = 'Error Creating Shape';
+    const messageContent = 'Error Deleting Component';
     openSnackBar({ messageContent, messageColor: 'secondary' });
     if (onFail) { onFail(error, dispatch, props); }
   };
@@ -44,37 +45,36 @@ function ItemShapeCreate({
       fullWidth
       maxWidth={false}
     >
-      <DialogTitle>Duplicate Shape</DialogTitle>
+      <DialogTitle>{`Delete Component ${componentId}`}</DialogTitle>
       <DialogContent>
-        <ItemShapeCreateForm
+        <ShapeComponentDeleteForm
           form={form}
-          onSubmit={formActions.onCreateShape}
+          onSubmit={formActions.onRemoveComponent}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
-          onCancel={onClose}
           itemId={itemId}
-          initialValues={initialValues}
+          shapeId={shapeId}
+          componentId={componentId}
         />
       </DialogContent>
       <Divider />
       <DialogActions>
         <Button
           size="small"
-          color="secondary"
           onClick={onClose}
         >
           Close
         </Button>
         <Button
           size="small"
-          color="primary"
+          color="secondary"
           onClick={() => submitForm(form)}
         >
-          Create
+          Delete
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export default compose(withUI, withFormActions)(ItemShapeCreate);
+export default compose(withUI, withFormActions)(ShapeComponentDelete);

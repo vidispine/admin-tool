@@ -18,6 +18,7 @@ import ShapeTranscode from '../components/shape/ShapeTranscode';
 import ShapeDeduction from '../components/shape/ShapeDeduction';
 import ShapeAnalyze from '../components/shape/ShapeAnalyze';
 import ShapeAddComponent from '../components/shape/ShapeAddComponent';
+import ShapeCreateComponentPlaceholder from '../components/shape/ShapeCreateComponentPlaceholder';
 import ShapeAddTag from '../components/shape/ShapeAddTag';
 import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
 import ShapeAddMimeType from '../components/shape/ShapeAddMimeType';
@@ -40,6 +41,7 @@ const SHAPE_EXPORT_DIALOG = 'SHAPE_EXPORT_DIALOG';
 const SHAPE_IMPEXPORT_DIALOG = 'SHAPE_IMPEXPORT_DIALOG';
 const SHAPE_DEDUCTION_DIALOG = 'SHAPE_DEDUCTION_DIALOG';
 const SHAPE_PLACEHOLDERUPDATE_DIALOG = 'SHAPE_PLACEHOLDERUPDATE_DIALOG';
+const SHAPE_CREATEPLACEHOLDERCOMPONENT_DIALOG = 'SHAPE_CREATEPLACEHOLDERCOMPONENT_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -154,6 +156,7 @@ class Shape extends React.PureComponent {
         exportModal={SHAPE_EXPORT_DIALOG}
         exportImpModal={SHAPE_IMPEXPORT_DIALOG}
         placeholderUpdateModal={SHAPE_PLACEHOLDERUPDATE_DIALOG}
+        createPlaceholderComponentModal={SHAPE_CREATEPLACEHOLDERCOMPONENT_DIALOG}
         {...props}
       />
     );
@@ -224,6 +227,12 @@ class Shape extends React.PureComponent {
         />
         <ShapePlaceholderUpdate
           dialogName={SHAPE_PLACEHOLDERUPDATE_DIALOG}
+          onSuccess={this.onRefresh}
+          itemId={itemId}
+          shapeId={shapeId}
+        />
+        <ShapeCreateComponentPlaceholder
+          dialogName={SHAPE_CREATEPLACEHOLDERCOMPONENT_DIALOG}
           onSuccess={this.onRefresh}
           itemId={itemId}
           shapeId={shapeId}

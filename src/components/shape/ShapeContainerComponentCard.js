@@ -6,18 +6,27 @@ import CardContent from '@material-ui/core/CardContent';
 import { ContainerComponentType } from './ShapeDisplay';
 import SquareCard from '../ui/SquareCard';
 import ShapeComponentMetadataEditor from './ShapeComponentMetadataEditor';
+import ShapeComponentMenu from './ShapeComponentMenu';
 
 export default function ShapeContainerComponentCard({
-  shapeDocument = {}, itemId, shapeId, onRefresh,
+  shapeDocument = {}, itemId, shapeId, onRefresh, ShapeComponentMenuProps = {},
 }) {
   const { containerComponent } = shapeDocument;
   if (containerComponent === undefined) { return null; }
-  const { id: containerComponentId, metadata } = containerComponent;
+  const { id: componentId, metadata } = containerComponent;
   return (
-    <SquareCard id={containerComponentId}>
+    <SquareCard>
       <CardHeader
         disableTypography
-        title={containerComponentId ? <Typography variant="subtitle1">{`Container Component - ${containerComponentId}`}</Typography> : 'Container Component'}
+        title={componentId ? <Typography variant="subtitle1">{`Container Component - ${componentId}`}</Typography> : 'Container Component'}
+        action={componentId ? (
+          <ShapeComponentMenu
+            componentId={componentId}
+            itemId={itemId}
+            shapeId={shapeId}
+            {...ShapeComponentMenuProps}
+          />
+        ) : undefined}
       />
       <CardContent>
         <ContainerComponentType
@@ -29,7 +38,7 @@ export default function ShapeContainerComponentCard({
           onRefresh={onRefresh}
           itemId={itemId}
           shapeId={shapeId}
-          componentId={containerComponentId}
+          componentId={componentId}
         />
       </CardContent>
     </SquareCard>

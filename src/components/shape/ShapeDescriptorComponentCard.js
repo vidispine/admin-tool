@@ -6,17 +6,26 @@ import CardContent from '@material-ui/core/CardContent';
 import { DescriptorComponentType } from './ShapeDisplay';
 import SquareCard from '../ui/SquareCard';
 import ShapeComponentMetadataEditor from './ShapeComponentMetadataEditor';
+import ShapeComponentMenu from './ShapeComponentMenu';
 
 export default function ShapeDescriptorComponentCard({
-  descriptorComponent = {}, itemId, shapeId, onRefresh,
+  descriptorComponent = {}, itemId, shapeId, onRefresh, ShapeComponentMenuProps = {},
 }) {
   if (descriptorComponent === undefined) { return null; }
-  const { id: descriptorComponentId, metadata } = descriptorComponent;
+  const { id: componentId, metadata } = descriptorComponent;
   return (
-    <SquareCard id={descriptorComponentId}>
+    <SquareCard>
       <CardHeader
         disableTypography
-        title={descriptorComponentId ? <Typography variant="subtitle1">{`Descriptor Component - ${descriptorComponentId}`}</Typography> : 'Descriptor Component'}
+        title={componentId ? <Typography variant="subtitle1">{`Descriptor Component - ${componentId}`}</Typography> : 'Descriptor Component'}
+        action={componentId ? (
+          <ShapeComponentMenu
+            componentId={componentId}
+            itemId={itemId}
+            shapeId={shapeId}
+            {...ShapeComponentMenuProps}
+          />
+        ) : undefined}
       />
       <CardContent>
         <DescriptorComponentType
@@ -28,7 +37,7 @@ export default function ShapeDescriptorComponentCard({
           onRefresh={onRefresh}
           itemId={itemId}
           shapeId={shapeId}
-          componentId={descriptorComponentId}
+          componentId={componentId}
         />
       </CardContent>
     </SquareCard>

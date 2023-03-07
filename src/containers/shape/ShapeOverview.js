@@ -4,9 +4,21 @@ import { shape as api } from '@vidispine/vdt-api';
 import withSnackbar from '../../hoc/withSnackbar';
 import ShapeParams from '../../components/shape/ShapeParams';
 import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
+import ShapeComponentDelete from '../../components/shape/ShapeComponentDelete';
+import ShapeComponentAnalyze from '../../components/shape/ShapeComponentAnalyze';
+import ShapeComponentCopy from '../../components/shape/ShapeComponentCopy';
+import ShapeComponentCopyShape from '../../components/shape/ShapeComponentCopyShape';
+import ShapeComponentMove from '../../components/shape/ShapeComponentMove';
+import ShapeComponentMoveShape from '../../components/shape/ShapeComponentMoveShape';
 import ItemShapeCreate from '../../components/item/ItemShapeCreate';
 
 const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
+const SHAPE_COMPONENT_DELETE_DIALOG = 'SHAPE_COMPONENT_DELETE_DIALOG';
+const SHAPE_COMPONENT_ANALYZE_DIALOG = 'SHAPE_COMPONENT_ANALYZE_DIALOG';
+const SHAPE_COMPONENT_COPY_DIALOG = 'SHAPE_COMPONENT_COPY_DIALOG';
+const SHAPE_COMPONENT_COPY_SHAPE_DIALOG = 'SHAPE_COMPONENT_COPY_SHAPE_DIALOG';
+const SHAPE_COMPONENT_MOVE_DIALOG = 'SHAPE_COMPONENT_MOVE_DIALOG';
+const SHAPE_COMPONENT_MOVE_SHAPE_DIALOG = 'SHAPE_COMPONENT_MOVE_SHAPE_DIALOG';
 
 class ShapeOverview extends React.PureComponent {
   constructor(props) {
@@ -101,12 +113,57 @@ class ShapeOverview extends React.PureComponent {
               shapeId={shapeId}
               itemId={itemId}
               onRefresh={this.onRefresh}
+              ShapeComponentMenuProps={{
+                removeModal: SHAPE_COMPONENT_DELETE_DIALOG,
+                analyzeModal: SHAPE_COMPONENT_ANALYZE_DIALOG,
+                copyToComponentModal: SHAPE_COMPONENT_COPY_DIALOG,
+                copyToShapeModal: SHAPE_COMPONENT_COPY_SHAPE_DIALOG,
+                moveToComponentModal: SHAPE_COMPONENT_MOVE_DIALOG,
+                moveToShapeModal: SHAPE_COMPONENT_MOVE_SHAPE_DIALOG,
+              }}
             />
             <ItemShapeCreate
               dialogName={ITEM_SHAPE_CREATE_DIALOG}
               onSuccess={(response) => history.push(`/item/${itemId}/shape/${response.data.id}/`)}
               itemId={itemId}
               initialValues={{ shapeDocument: JSON.stringify(shapeDocument, null, 2) }}
+            />
+            <ShapeComponentCopy
+              dialogName={SHAPE_COMPONENT_COPY_DIALOG}
+              onSuccess={(response, dispatch, props) => history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)}
+              itemId={itemId}
+              shapeId={shapeId}
+            />
+            <ShapeComponentCopyShape
+              dialogName={SHAPE_COMPONENT_COPY_SHAPE_DIALOG}
+              onSuccess={(response, dispatch, props) => history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)}
+              itemId={itemId}
+              shapeId={shapeId}
+            />
+            <ShapeComponentMove
+              dialogName={SHAPE_COMPONENT_MOVE_DIALOG}
+              onSuccess={this.onRefresh}
+              itemId={itemId}
+              shapeId={shapeId}
+            />
+            <ShapeComponentMoveShape
+              dialogName={SHAPE_COMPONENT_MOVE_SHAPE_DIALOG}
+              onSuccess={this.onRefresh}
+              itemId={itemId}
+              shapeId={shapeId}
+            />
+            <ShapeComponentDelete
+              dialogName={SHAPE_COMPONENT_DELETE_DIALOG}
+              shapeId={shapeId}
+              itemId={itemId}
+              onSuccess={this.onRefresh}
+              initialValues={{ queryParams: { keepFiles: true } }}
+            />
+            <ShapeComponentAnalyze
+              dialogName={SHAPE_COMPONENT_ANALYZE_DIALOG}
+              shapeId={shapeId}
+              itemId={itemId}
+              onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
             />
           </>
         )}

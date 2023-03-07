@@ -61,6 +61,7 @@ function ShapeTitle({
   deductionModal,
   placeholderUpdateModal,
   createShapeModal,
+  createPlaceholderComponentModal,
   breadcrumbList = [],
   ...props
 }) {
@@ -94,7 +95,7 @@ function ShapeTitle({
             <Typography>Add Mime-Type</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: placeholderUpdateModal })}>
-            <Typography>Placeholder Update</Typography>
+            <Typography>Update Placeholder</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export</Typography>
@@ -102,6 +103,11 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export IMF Package</Typography>
           </MenuItem>
+          { createPlaceholderComponentModal ? (
+            <MenuItem onClick={() => onOpen({ modalName: createPlaceholderComponentModal })}>
+              <Typography>Create Placeholder Component</Typography>
+            </MenuItem>
+          ) : null}
           { createShapeModal ? (
             <MenuItem onClick={() => onOpen({ modalName: createShapeModal })}>
               <Typography>Create Shape</Typography>

@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import { TextField, Select } from '../form';
+import AnalyzeJobType from '../ui/AnalyzeJobType';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import { StatefulAsyncSelect } from '../ui/Select';
@@ -14,7 +15,6 @@ import JobPriority from '../../const/JobPriority';
 import { KeyValuePairType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
 import { loadStorageOptions } from '../storage/StorageSelect';
-import AnalyzeJobType from '../ui/AnalyzeJobType';
 
 const queryParams = () => (
   <>
@@ -30,6 +30,11 @@ const queryParams = () => (
       loadOptions={loadStorageOptions}
       cacheOptions
       isClearable
+      fullWidth
+    />
+    <Field
+      name="callbackId"
+      component={TextField}
       fullWidth
     />
     <Field
@@ -66,11 +71,12 @@ const queryParams = () => (
   </>
 );
 
-function ShapeAnalyzeForm({
+function ShapeComponentAnalyzeForm({
   error,
   handleSubmit,
   itemId,
   shapeId,
+  componentId,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -91,6 +97,14 @@ function ShapeAnalyzeForm({
           fullWidth
         />
       )}
+      {!componentId && (
+        <Field
+          name="componentId"
+          component={TextField}
+          validate={[required]}
+          fullWidth
+        />
+      )}
       <FormSection
         name="queryParams"
         label="queryParams"
@@ -106,4 +120,4 @@ function ShapeAnalyzeForm({
   );
 }
 
-export default reduxForm()(ShapeAnalyzeForm);
+export default reduxForm()(ShapeComponentAnalyzeForm);

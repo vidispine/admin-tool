@@ -6,10 +6,15 @@ import * as actions from '../actions';
 
 function mapStateToProps(state, ownProps) {
   const { dialogName, isOpen } = ownProps;
-  const { ui: { modalName: currentDialog } } = state;
+  const { ui: { modalName: currentDialog, ...props } } = state;
   let open = (dialogName !== undefined) && (currentDialog === dialogName);
   if (isOpen !== undefined) { open = isOpen; } // To be deprecated
-  return {
+  return open ? { // only map state props to open dialog
+    open,
+    currentDialog,
+    modalName: currentDialog,
+    ...props,
+  } : {
     open,
     currentDialog,
     modalName: currentDialog,
