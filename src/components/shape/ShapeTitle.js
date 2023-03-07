@@ -85,7 +85,7 @@ function ShapeTitle({
             <Typography>Analyze</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: addComponentModal })}>
-            <Typography>Add Component</Typography>
+            <Typography>Import Component</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: addTagModal })}>
             <Typography>Add Tag</Typography>
