@@ -2,6 +2,7 @@ import React from 'react';
 import { taskdefinition as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
+import GraphViz from '../../components/ui/GraphViz';
 
 class TaskDefinitionGraph extends React.PureComponent {
   constructor(props) {
@@ -33,26 +34,30 @@ class TaskDefinitionGraph extends React.PureComponent {
   }
 
   onFetch(taskDefinitionType) {
+    const { useGraphViz = true } = this.props;
     try {
-      api.getTaskDefinitionType({
-        taskDefinitionType,
-        path: `/API/task-definition/jobtype/${taskDefinitionType}/graph`,
-        headers: { accept: 'image/png' },
-        responseType: 'blob',
-      })
-        .then((response) => {
-          this.setState({ graphImage: response.data });
+      if (useGraphViz === true) {
+        api.getTaskDefinitionType({
+          taskDefinitionType,
+          path: `/API/task-definition/jobtype/${taskDefinitionType}/graph/dot`,
+          headers: { accept: 'text/plain' },
         })
-        .catch((error) => this.onRefreshError(error));
-      api.getTaskDefinitionType({
-        taskDefinitionType,
-        path: `/API/task-definition/jobtype/${taskDefinitionType}/graph/dot`,
-        headers: { accept: 'text/plain' },
-      })
-        .then((response) => {
-          this.setState({ graphDot: response.data });
+          .then((response) => {
+            this.setState({ graphDot: response.data });
+          })
+          .catch((error) => this.onRefreshError(error));
+      } else {
+        api.getTaskDefinitionType({
+          taskDefinitionType,
+          path: `/API/task-definition/jobtype/${taskDefinitionType}/graph`,
+          headers: { accept: 'image/png' },
+          responseType: 'blob',
         })
-        .catch((error) => this.onRefreshError(error));
+          .then((response) => {
+            this.setState({ graphImage: response.data });
+          })
+          .catch((error) => this.onRefreshError(error));
+      }
     } catch (error) {
       this.onRefreshError(error);
     }
@@ -67,6 +72,7 @@ class TaskDefinitionGraph extends React.PureComponent {
   render() {
     const {
       titleComponent: TitleComponent,
+      useGraphViz = true,
     } = this.props;
     const { graphImage, graphDot } = this.state;
     return (
@@ -80,8 +86,20 @@ class TaskDefinitionGraph extends React.PureComponent {
             codeVariant="text"
           />
         )}
-        {graphImage && <img alt="graph" src={URL.createObjectURL(graphImage)} style={{ width: '100%' }} />}
-
+        {useGraphViz === false && graphImage ? (
+          <img
+            alt="graph"
+            src={URL.createObjectURL(graphImage)}
+            style={{ width: '100%' }}
+          />
+        ) : null}
+        {useGraphViz === true && graphDot ? (
+          <GraphViz
+            dot={graphDot}
+            width="100%"
+            height="80vh"
+          />
+        ) : null}
       </>
     );
   }
