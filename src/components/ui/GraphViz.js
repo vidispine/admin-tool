@@ -6,6 +6,17 @@ import clsx from 'clsx';
 
 const styles = (theme) => ({
   root: {
+    '& .edge:hover': {
+      '& path': {
+        stroke: theme.palette.error.main,
+      },
+      '& text': {
+        fill: theme.palette.error.main,
+      },
+      '& polygon': {
+        stroke: theme.palette.error.main,
+      },
+    },
     '& polygon': {
       fill: theme.palette.background.paper,
       stroke: theme.palette.text.primary,
