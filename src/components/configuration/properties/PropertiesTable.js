@@ -10,6 +10,7 @@ import withDialogProps from '../../../hoc/withDialogProps';
 import PropertiesRow from './PropertiesRow';
 import PropertiesRemove from './PropertiesRemove';
 import PropertiesDialog from './PropertiesDialog';
+import sortKeyCaseInsensitive from '../../../utils/sortKeyCaseInsensitive';
 
 const REMOVE_CONFIGURATIONPROPERTIES_DIALOG = 'REMOVE_CONFIGURATIONPROPERTIES_DIALOG';
 const CONFIGURATIONPROPERTIES_EDIT_MODAL = 'CONFIGURATIONPROPERTIES_EDIT_MODAL';
@@ -33,7 +34,7 @@ function PropertiesTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {propertyList.map((configurationPropertyDocument) => (
+          {propertyList.sort(sortKeyCaseInsensitive('key')).map((configurationPropertyDocument) => (
             <PropertiesRow
               key={configurationPropertyDocument.key}
               configurationPropertyDocument={configurationPropertyDocument}
