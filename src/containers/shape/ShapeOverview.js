@@ -10,6 +10,8 @@ import ShapeComponentCopy from '../../components/shape/ShapeComponentCopy';
 import ShapeComponentCopyShape from '../../components/shape/ShapeComponentCopyShape';
 import ShapeComponentMove from '../../components/shape/ShapeComponentMove';
 import ShapeComponentMoveShape from '../../components/shape/ShapeComponentMoveShape';
+import ShapeComponentAssociateFile from '../../components/shape/ShapeComponentAssociateFile';
+import ShapeComponentRemoveFile from '../../components/shape/ShapeComponentRemoveFile';
 import ItemShapeCreate from '../../components/item/ItemShapeCreate';
 
 const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
@@ -19,6 +21,8 @@ const SHAPE_COMPONENT_COPY_DIALOG = 'SHAPE_COMPONENT_COPY_DIALOG';
 const SHAPE_COMPONENT_COPY_SHAPE_DIALOG = 'SHAPE_COMPONENT_COPY_SHAPE_DIALOG';
 const SHAPE_COMPONENT_MOVE_DIALOG = 'SHAPE_COMPONENT_MOVE_DIALOG';
 const SHAPE_COMPONENT_MOVE_SHAPE_DIALOG = 'SHAPE_COMPONENT_MOVE_SHAPE_DIALOG';
+const SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG = 'SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG';
+const SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG = 'SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG';
 
 class ShapeOverview extends React.PureComponent {
   constructor(props) {
@@ -120,6 +124,8 @@ class ShapeOverview extends React.PureComponent {
                 copyToShapeModal: SHAPE_COMPONENT_COPY_SHAPE_DIALOG,
                 moveToComponentModal: SHAPE_COMPONENT_MOVE_DIALOG,
                 moveToShapeModal: SHAPE_COMPONENT_MOVE_SHAPE_DIALOG,
+                associateFileModal: SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG,
+                removeFileModal: SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG,
               }}
             />
             <ItemShapeCreate
@@ -164,6 +170,18 @@ class ShapeOverview extends React.PureComponent {
               shapeId={shapeId}
               itemId={itemId}
               onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+            />
+            <ShapeComponentAssociateFile
+              dialogName={SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG}
+              shapeId={shapeId}
+              itemId={itemId}
+              onSuccess={this.onRefresh}
+            />
+            <ShapeComponentRemoveFile
+              dialogName={SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG}
+              shapeId={shapeId}
+              itemId={itemId}
+              onSuccess={this.onRefresh}
             />
           </>
         )}
