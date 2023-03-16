@@ -2,6 +2,7 @@ import React from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
+import GraphViz from '../../components/ui/GraphViz';
 
 class ShapeGraph extends React.PureComponent {
   constructor(props) {
@@ -11,6 +12,7 @@ class ShapeGraph extends React.PureComponent {
     this.onRefreshError = this.onRefreshError.bind(this);
     this.state = {
       graphImage: undefined,
+      graphDot: undefined,
     };
   }
 
@@ -32,16 +34,28 @@ class ShapeGraph extends React.PureComponent {
   }
 
   onFetch(itemId, shapeId) {
+    const { useGraphViz = true } = this.props;
     try {
-      api.getShapeGraph({
-        itemId,
-        shapeId,
-        responseType: 'blob',
-      })
-        .then((response) => {
-          this.setState({ graphImage: response.data });
+      if (useGraphViz) {
+        api.getShapeGraphDot({
+          itemId,
+          shapeId,
         })
-        .catch((error) => this.onRefreshError(error));
+          .then((response) => {
+            this.setState({ graphDot: response.data });
+          })
+          .catch((error) => this.onRefreshError(error));
+      } else {
+        api.getShapeGraph({
+          itemId,
+          shapeId,
+          responseType: 'blob',
+        })
+          .then((response) => {
+            this.setState({ graphImage: response.data });
+          })
+          .catch((error) => this.onRefreshError(error));
+      }
     } catch (error) {
       this.onRefreshError(error);
     }
@@ -56,17 +70,34 @@ class ShapeGraph extends React.PureComponent {
   render() {
     const {
       titleComponent: TitleComponent,
+      useGraphViz = true,
     } = this.props;
-    const { graphImage } = this.state;
+    const { graphImage, graphDot } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
             onRefresh={this.onRefresh}
             breadcumbList={['Graph']}
+            code={graphDot}
+            codeModal="DOT"
+            codeVariant="text"
           />
         )}
-        {graphImage && <img alt="graph" src={URL.createObjectURL(graphImage)} style={{ width: '100%' }} />}
+        {useGraphViz === false && graphImage ? (
+          <img
+            alt="graph"
+            src={URL.createObjectURL(graphImage)}
+            style={{ width: '100%' }}
+          />
+        ) : null}
+        {useGraphViz === true && graphDot ? (
+          <GraphViz
+            dot={graphDot}
+            width="100%"
+            height="80vh"
+          />
+        ) : null}
 
       </>
     );

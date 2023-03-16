@@ -2,13 +2,14 @@ export default function getJobDataVariant(key) {
   if (key.startsWith('transcodeShapeDocument')) return 'xml';
   if (key.startsWith('assetMapShapeDocument')) return 'xml';
   if (key.endsWith('transcodePreset')) return 'xml';
+  if (key.match(/shapeDocument\d+$/g)) return 'xml';
   switch (key) {
     case 'item':
       return 'itemId';
     case 'itemId':
       return 'itemId';
     case 'fileId':
-      return 'fileId';
+      return 'fileIdList';
     case 'sourceFileId':
       return 'fileId';
     case 'destinationFileId':
@@ -16,7 +17,7 @@ export default function getJobDataVariant(key) {
     case 'originalFileId':
       return 'fileId';
     case 'fileIds':
-      return 'fileId';
+      return 'fileIdList';
     case 'username':
       return 'username';
     case 'destinationStorageId':
@@ -47,6 +48,16 @@ export default function getJobDataVariant(key) {
       return 'xml';
     case 'originalShapeIdsStruct':
       return 'json';
+    case 'filePathMap':
+      return 'commaseparatedlist';
+    case 'sourceUris':
+      return 'commaseparatedlist';
+    case 'sourceFileIds':
+      return 'commaseparatedlist';
+    case 'fileItemMapping':
+      return 'commaseparatedlist';
+    case 'shapeIds':
+      return 'commaseparatedlist';
     default:
       return undefined;
   }

@@ -1,28 +1,44 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 import { TextField } from '../form';
+
 import FormSection from '../ui/FormSection';
+import Field from '../ui/Field';
+import { required } from '../../utils/FieldValidation';
 
 const queryParams = () => (
   <>
     <Field
-      name="frameDuration"
-      label="Frame Duration"
+      name="algorithm"
       component={TextField}
-      type="number"
       fullWidth
     />
   </>
 );
 
-function ImportShapePlaceholderAdvancedForm({
+function FileHashForm({
   error,
   handleSubmit,
+  fileId,
 }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
+      {!fileId && (
+        <Field
+          name="fileId"
+          component={TextField}
+          validate={[required]}
+          fullWidth
+        />
+      )}
+      <Field
+        name="hash"
+        component={TextField}
+        validate={[required]}
+        fullWidth
+      />
       <FormSection
         name="queryParams"
         component={queryParams}
@@ -31,4 +47,5 @@ function ImportShapePlaceholderAdvancedForm({
     </form>
   );
 }
-export default reduxForm()(ImportShapePlaceholderAdvancedForm);
+
+export default reduxForm()(FileHashForm);

@@ -5,6 +5,7 @@ import { TextField } from '../form';
 
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { StatefulAsyncSelect } from '../ui/Select';
+import { SimpleMetadataType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
 import FormSection from '../ui/FormSection';
 
@@ -52,6 +53,13 @@ const queryParams = () => (
       fullWidth
       isMulti
     />
+    <Field
+      name="frameDuration"
+      label="Frame Duration"
+      component={TextField}
+      type="number"
+      fullWidth
+    />
   </>
 );
 
@@ -73,6 +81,11 @@ function ImportShapePlaceholderForm({
       <FormSection
         name="queryParams"
         component={queryParams}
+      />
+      <FormSection
+        name="simpleMetadataDocument"
+        label="Metadata"
+        component={SimpleMetadataType}
       />
       <button type="submit" hidden />
     </form>

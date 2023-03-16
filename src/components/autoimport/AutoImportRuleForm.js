@@ -119,6 +119,7 @@ const AutoImportRuleTypeForm = () => (
     <FormSection
       name="jobmetadata"
       component={SimpleMetadataTypeForm}
+      label="Job Metadata"
     />
     <FormSection
       name="metadata"

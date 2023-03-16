@@ -1,15 +1,16 @@
 {
   "name": "@vidispine/admin-tool",
-  "version": "23.1.0",
+  "version": "23.1.1",
   "private": true,
   "dependencies": {
     "@devbookhq/splitter": "^1.3.2",
     "@fontsource/open-sans": "4.5.2",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
-    "@vidispine/vdt-api": "21.3.0",
+    "@vidispine/vdt-api": "^23.1.0",
     "clsx": "1.1.1",
     "codemirror": "5.65.9",
+    "d3-graphviz": "2.6.1",
     "history": "5.1.0",
     "immutability-helper": "3.1.1",
     "jshint": "^2.13.5",
@@ -27,7 +28,8 @@
     "react-scripts": "4.0.3",
     "react-select": "5.2.1",
     "redux": "4.1.2",
-    "redux-form": "8.3.7"
+    "redux-form": "8.3.7",
+    "stringify-object": "^5.0.0"
   },
   "resolutions": {
     "codemirror": "5.65.9",

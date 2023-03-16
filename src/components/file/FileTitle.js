@@ -30,6 +30,9 @@ function FileTitle({
   pathModal,
   overwriteModal,
   analyzeModal,
+  impAnalyzeModal,
+  uriModal,
+  hashModal,
   fileDocument,
   breadcrumbList = [],
   ...props
@@ -48,11 +51,19 @@ function FileTitle({
                 <MenuItem onClick={() => onOpen({ modalName: stateModal })}>
                   <Typography color="inherit">Change State</Typography>
                 </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: uriModal })}>
+                  <Typography color="inherit">Generate Temporary URI</Typography>
+                </MenuItem>
                 <UnstyledLink to={`/import?tab=IMPORTFILE_TAB&fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import As Item</Typography>
                   </MenuItem>
                 </UnstyledLink>
+                <MenuItem>
+                  <UnstyledLink to={`/import?tab=IMPORTSHAPE_TAB&fileId=${fileId}`}>
+                    <Typography>Import As Shape</Typography>
+                  </UnstyledLink>
+                </MenuItem>
                 <UnstyledLink to={`/import?tab=IMPORTCOMPONENT_TAB&fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import To Component</Typography>
@@ -63,14 +74,25 @@ function FileTitle({
                     <Typography color="inherit">Import As Sidecar</Typography>
                   </MenuItem>
                 </UnstyledLink>
+                <UnstyledLink to={`/import-imp/?tab=IMPORTIMP_FILE_TAB&fileId=${fileId}`}>
+                  <MenuItem>
+                    <Typography color="inherit">Import As IMP</Typography>
+                  </MenuItem>
+                </UnstyledLink>
                 <MenuItem onClick={() => onOpen({ modalName: analyzeModal })}>
                   <Typography color="inherit">Shape Deduction</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: impAnalyzeModal })}>
+                  <Typography color="inherit">IMP Deduction</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: moveModal })}>
                   <Typography color="inherit">Copy/Move File</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: pathModal })}>
                   <Typography color="inherit">Set New Path</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => onOpen({ modalName: hashModal })}>
+                  <Typography color="inherit">Set Checksum Hash</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: overwriteModal })}>
                   <Typography color="inherit">Overwrite File Data</Typography>

@@ -2,7 +2,7 @@ import React from 'react';
 import { file as api } from '@vidispine/vdt-api';
 
 import withUI from '../../hoc/withUI';
-import FileShapeOverview from '../../components/file/FileShapeOverview';
+import ShapeOverview from '../../components/shape/ShapeOverview';
 
 class FileOverview extends React.PureComponent {
   constructor(props) {
@@ -72,7 +72,7 @@ class FileOverview extends React.PureComponent {
         )}
         {shapeListDocument && shapeListDocument.shape && (
           shapeListDocument.shape.map((shapeDocument) => (
-            <FileShapeOverview
+            <ShapeOverview
               shapeDocument={shapeDocument}
             />
           ))

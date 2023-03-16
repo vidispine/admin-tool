@@ -6,17 +6,26 @@ import CardContent from '@material-ui/core/CardContent';
 import { VideoComponentType } from './ShapeDisplay';
 import SquareCard from '../ui/SquareCard';
 import ShapeComponentMetadataEditor from './ShapeComponentMetadataEditor';
+import ShapeComponentMenu from './ShapeComponentMenu';
 
 export default function ShapeVideoComponentCard({
-  videoComponent = {}, itemId, shapeId, onRefresh,
+  videoComponent = {}, itemId, shapeId, onRefresh, ShapeComponentMenuProps = {},
 }) {
   if (videoComponent === undefined) { return null; }
-  const { id: videoComponentId, metadata } = videoComponent;
+  const { id: componentId, metadata } = videoComponent;
   return (
-    <SquareCard id={videoComponentId}>
+    <SquareCard>
       <CardHeader
         disableTypography
-        title={videoComponentId ? <Typography variant="subtitle1">{`Video Component - ${videoComponentId}`}</Typography> : undefined}
+        title={componentId ? <Typography variant="subtitle1">{`Video Component - ${componentId}`}</Typography> : 'Video Component'}
+        action={componentId ? (
+          <ShapeComponentMenu
+            componentId={componentId}
+            itemId={itemId}
+            shapeId={shapeId}
+            {...ShapeComponentMenuProps}
+          />
+        ) : undefined}
       />
       <CardContent>
         <VideoComponentType
@@ -28,7 +37,7 @@ export default function ShapeVideoComponentCard({
           onRefresh={onRefresh}
           itemId={itemId}
           shapeId={shapeId}
-          componentId={videoComponentId}
+          componentId={componentId}
         />
       </CardContent>
     </SquareCard>

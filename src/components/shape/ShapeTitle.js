@@ -52,11 +52,16 @@ function ShapeTitle({
   removeModal,
   addTagModal,
   removeTagModal,
+  addMimeTypeModal,
+  removeMimeTypeModal,
   analyzeTagModal,
   addComponentModal,
   exportModal,
   exportImpModal,
   deductionModal,
+  placeholderUpdateModal,
+  createShapeModal,
+  createPlaceholderComponentModal,
   breadcrumbList = [],
   ...props
 }) {
@@ -81,10 +86,16 @@ function ShapeTitle({
             <Typography>Analyze</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: addComponentModal })}>
-            <Typography>Add Component</Typography>
+            <Typography>Import Component</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: addTagModal })}>
             <Typography>Add Tag</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: addMimeTypeModal })}>
+            <Typography>Add Mime-Type</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: placeholderUpdateModal })}>
+            <Typography>Update Placeholder</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export</Typography>
@@ -92,8 +103,21 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export IMF Package</Typography>
           </MenuItem>
+          { createPlaceholderComponentModal ? (
+            <MenuItem onClick={() => onOpen({ modalName: createPlaceholderComponentModal })}>
+              <Typography>Create Placeholder Component</Typography>
+            </MenuItem>
+          ) : null}
+          { createShapeModal ? (
+            <MenuItem onClick={() => onOpen({ modalName: createShapeModal })}>
+              <Typography>Create Shape</Typography>
+            </MenuItem>
+          ) : null}
           <MenuItem onClick={() => onOpen({ modalName: removeTagModal })}>
             <Typography color="secondary">Remove Tag</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => onOpen({ modalName: MimeType })}>
+            <Typography color="secondary">Remove Mime-Type</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: removeModal })}>
             <Typography color="secondary">Delete</Typography>

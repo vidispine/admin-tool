@@ -30,7 +30,9 @@ export default class Javascript extends React.PureComponent {
   }
 
   render() {
+    const { location } = this.props;
     const { result, error } = this.state;
+    const initialValues = location?.state?.initialValues;
     return (
       <>
         <TestCard
@@ -38,6 +40,7 @@ export default class Javascript extends React.PureComponent {
           error={error}
           onSuccess={this.onSuccess}
           onFail={this.onFail}
+          initialValues={initialValues}
         />
       </>
     );

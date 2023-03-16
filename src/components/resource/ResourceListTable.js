@@ -92,6 +92,7 @@ const EidrHeader = () => (
 const ThumbnailServiceHeader = () => (
   <>
     <TableCell>Path</TableCell>
+    <TableCell>Status</TableCell>
   </>
 );
 

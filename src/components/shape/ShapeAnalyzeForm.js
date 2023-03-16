@@ -6,7 +6,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import { TextField, Select } from '../form';
-import ChipInput from '../ui/ChipInput';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import { StatefulAsyncSelect } from '../ui/Select';
@@ -15,7 +14,7 @@ import JobPriority from '../../const/JobPriority';
 import { KeyValuePairType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
 import { loadStorageOptions } from '../storage/StorageSelect';
-import { OtifPresetType } from '../shapetag/ShapeTagForm';
+import AnalyzeJobType from '../ui/AnalyzeJobType';
 
 const queryParams = () => (
   <>
@@ -67,128 +66,6 @@ const queryParams = () => (
   </>
 );
 
-const AnalyzeAudioChannelType = () => (
-  <>
-    <Field
-      name="tone"
-      label="tone"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
-    <Field
-      name="stream"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="channel"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="thresh"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-  </>
-);
-
-const analyzeJobDocument = () => (
-  <>
-    <FormSection
-      name="black"
-      label="Black"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="percentage"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FormSection
-      name="bars"
-      label="Bars"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="percentage"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FormSection
-      name="freeze"
-      label="Freeze"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="time"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FieldTypeArray
-      name="channel"
-      label="channel"
-      component={AnalyzeAudioChannelType}
-    />
-    <FormSection
-      name="audio"
-      label="Audio"
-      component={() => (
-        <FieldTypeArray
-          name="otif"
-          label="otif"
-          component={OtifPresetType}
-        />
-      )}
-    />
-    <FormSection
-      name="video"
-      label="Video"
-      component={() => (
-        <FieldTypeArray
-          name="otif"
-          label="otif"
-          component={OtifPresetType}
-        />
-      )}
-    />
-  </>
-);
-
 function ShapeAnalyzeForm({
   error,
   handleSubmit,
@@ -222,7 +99,7 @@ function ShapeAnalyzeForm({
       <FormSection
         name="analyzeJobDocument"
         label="analyzeJobDocument"
-        component={analyzeJobDocument}
+        component={AnalyzeJobType}
       />
       <button type="submit" hidden />
     </form>

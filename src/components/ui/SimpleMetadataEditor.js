@@ -64,7 +64,7 @@ class SimpleMetadataEditor extends React.PureComponent {
         <CardHeader
           title={<Typography variant="subtitle1" {...titleProps}>{title}</Typography>}
           disableTypography
-          action={(
+          action={entityId !== undefined ? (
             <Grid container direction="row-reverse" alignItems="center">
               <Grid item>
                 <FormControlLabel
@@ -75,7 +75,7 @@ class SimpleMetadataEditor extends React.PureComponent {
                 />
               </Grid>
             </Grid>
-          )}
+          ) : undefined}
         />
         <CardContent>
           {isEditing

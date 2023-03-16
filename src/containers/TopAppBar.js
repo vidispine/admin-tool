@@ -21,6 +21,7 @@ import LoadingProgress from '../components/ui/LoadingProgress';
 import { useChangeTheme } from '../components/ui/Theme';
 import NavSelect from '../components/ui/NavSelect';
 import GitHubButton from '../components/ui/GitHubButton';
+import VidispineButton from '../components/ui/VidispineButton';
 import getCookie from '../utils/getCookie';
 
 const styles = (theme) => ({
@@ -28,6 +29,17 @@ const styles = (theme) => ({
     backgroundColor: { light: 'rgb(36, 41, 46)', dark: 'rgb(22, 27, 34)' }[theme.palette.type],
     color: { light: 'rgb(255, 255, 255)', dark: 'rgb(240, 246, 252)' }[theme.palette.type],
     zIndex: theme.zIndex.drawer + 1,
+  },
+  VidispineIcon: {
+    width: 15,
+    height: 15,
+  },
+  VidispineButton: {
+    width: 24,
+    height: 24,
+    backgroundColor: { light: 'rgb(255, 255, 255)', dark: 'rgb(240, 246, 252)' }[theme.palette.type],
+    padding: 2,
+    borderRadius: 20,
   },
 });
 
@@ -103,6 +115,12 @@ function TopAppBar({
         }[paletteType]}
         <Tooltip title="GitHub">
           <GitHubButton />
+        </Tooltip>
+        <Tooltip title="Vidispine">
+          <VidispineButton
+            IconProps={{ className: classes.VidispineIcon }}
+            IconButtonProps={{ className: classes.VidispineButton }}
+          />
         </Tooltip>
         <Menu icon={<AccountCircle />} iconProps={{ color: 'inherit' }}>
           <MenuItem disabled>

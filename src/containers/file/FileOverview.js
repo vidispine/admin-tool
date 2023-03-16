@@ -13,6 +13,9 @@ import FileEntityRemove from '../../components/file/FileEntityRemove';
 import FilePath from '../../components/file/FilePath';
 import FileOverwrite from '../../components/file/FileOverwrite';
 import FileAnalyze from '../../components/file/FileAnalyze';
+import FileImpAnalyze from '../../components/file/FileImpAnalyze';
+import FileHash from '../../components/file/FileHash';
+import FileUri from '../../components/file/FileUri';
 
 const FILE_DELETE_DIALOG = 'FILE_DELETE_DIALOG';
 const FILE_ABANDON_DIALOG = 'FILE_ABANDON_DIALOG';
@@ -22,6 +25,9 @@ const FILE_ENTITY_REMOVE_DIALOG = 'FILE_ENTITY_REMOVE_DIALOG';
 const FILE_PATH_DIALOG = 'FILE_PATH_DIALOG';
 const FILE_OVERWRITE_DIALOG = 'FILE_OVERWRITE_DIALOG';
 const FILE_ANALYZE_DIALOG = 'FILE_ANALYZE_DIALOG';
+const FILE_IMP_ANALYZE_DIALOG = 'FILE_IMP_ANALYZE_DIALOG';
+const FILE_HASH_DIALOG = 'FILE_HASH_DIALOG';
+const FILE_URI_DIALOG = 'FILE_URI_DIALOG';
 const FILE_PARAMS_FORM = 'FILE_PARAMS_FORM';
 
 class FileOverview extends React.PureComponent {
@@ -101,6 +107,9 @@ class FileOverview extends React.PureComponent {
             pathModal={FILE_PATH_DIALOG}
             overwriteModal={FILE_OVERWRITE_DIALOG}
             analyzeModal={FILE_ANALYZE_DIALOG}
+            impAnalyzeModal={FILE_IMP_ANALYZE_DIALOG}
+            uriModal={FILE_URI_DIALOG}
+            hashModal={FILE_HASH_DIALOG}
           />
         )}
         {fileDocument
@@ -158,6 +167,21 @@ class FileOverview extends React.PureComponent {
               <FileAnalyze
                 dialogName={FILE_ANALYZE_DIALOG}
                 onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+                fileDocument={fileDocument}
+              />
+              <FileImpAnalyze
+                dialogName={FILE_IMP_ANALYZE_DIALOG}
+                onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+                fileDocument={fileDocument}
+              />
+              <FileHash
+                dialogName={FILE_HASH_DIALOG}
+                onSuccess={this.onRefresh}
+                fileDocument={fileDocument}
+              />
+              <FileUri
+                dialogName={FILE_URI_DIALOG}
+                onSuccess={this.onRefresh}
                 fileDocument={fileDocument}
               />
             </>

@@ -41,7 +41,7 @@ export default function uiReducer(state = initialState, action) {
     case MODAL_RESET:
       return resetModal(state);
     case MODAL_RECEIVE:
-      return { ...state, modalName: action.modalName };
+      return { ...state, ...action };
     case MAINMENU_TOGGLE:
       return { ...state, isMainMenuOpen: action.isMainMenuOpen };
     default:

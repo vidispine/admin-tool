@@ -61,6 +61,15 @@ export function SimpleMetadataFieldRemove({
   );
 }
 
+const InitialTextField = (p) => (
+  <TextField
+    disabled={p.meta.initial !== undefined}
+    onFocus={p.onFocus}
+    onBlur={p.onBlur}
+    {...p}
+  />
+);
+
 export function SimpleMetadataFieldArray({
   fields,
   buttonLabel,
@@ -77,14 +86,6 @@ export function SimpleMetadataFieldArray({
     if (onRemove) { onRemove(thisField, index); }
     fields.remove(index);
   };
-  const InitialTextField = (p) => (
-    <TextField
-      disabled={p.meta.initial !== undefined}
-      onFocus={p.onFocus}
-      onBlur={p.onBlur}
-      {...p}
-    />
-  );
   return (
     <Grid
       container
@@ -93,7 +94,8 @@ export function SimpleMetadataFieldArray({
       <InputLabel shrink>{label}</InputLabel>
       {fields.map((thisField, index) => (
         <Grid
-          key={thisField}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           container
           direction="row"
           wrap="nowrap"
@@ -137,7 +139,6 @@ export const SimpleMetadataTypeForm = () => (
   <FieldArray
     name="field"
     component={SimpleMetadataFieldArray}
-    label="Job Metadata"
   />
 );
 

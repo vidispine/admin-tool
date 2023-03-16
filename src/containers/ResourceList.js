@@ -17,6 +17,7 @@ class ResourceList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
+    this.onFetch = this.onFetch.bind(this);
     this.state = {
       resourceListDocument: undefined,
     };
@@ -28,8 +29,17 @@ class ResourceList extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
-    const { openSnackBar, resourceType } = this.props;
+  UNSAFE_componentWillReceiveProps({ resourceType }) {
+    const { resourceType: prevResourceType } = this.props;
+    if (resourceType !== prevResourceType) {
+      this.setState({ resourceListDocument: undefined });
+      this.onFetch(resourceType);
+      document.title = `VidiCore Admin | Resource | ${startCase(resourceType)}`;
+    }
+  }
+
+  onFetch(resourceType) {
+    const { openSnackBar } = this.props;
     try {
       api.listResourceType({ resourceType })
         .then((response) => this.setState({ resourceListDocument: response.data }));
@@ -37,6 +47,11 @@ class ResourceList extends React.PureComponent {
       const messageContent = 'Error Loading Resource List';
       openSnackBar({ messageContent, messageColor: 'secondary' });
     }
+  }
+
+  onRefresh() {
+    const { resourceType } = this.props;
+    this.onFetch(resourceType);
   }
 
   render() {

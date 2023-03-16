@@ -38,7 +38,7 @@ function ShapeAddComponent({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>Add Component To Shape</DialogTitle>
+      <DialogTitle>Import Component To Shape</DialogTitle>
       <DialogContent style={{ minHeight: 200 }}>
         <ShapeAddComponentForm
           form={SHAPE_ADD_COMPONENT_FORM}

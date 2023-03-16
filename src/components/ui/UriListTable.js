@@ -17,6 +17,7 @@ export default function UriListTable({
   rowsPerPage,
   onChangePage,
   onChangeRowsPerPage,
+  header = true,
   ...props
 }) {
   const { hits: count = 0 } = uriListDocument;
@@ -30,12 +31,14 @@ export default function UriListTable({
   if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
   return (
     <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>ID</TableCell>
-          <TableCell />
-        </TableRow>
-      </TableHead>
+      {header === true && (
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableHead>
+      )}
       <TableBody>
         {uriList.map((uri) => (
           <UriListRow

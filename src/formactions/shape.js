@@ -18,6 +18,22 @@ export function onCreateShapeEssenceImport(form, dispatch, props) {
     });
 }
 
+export function onCreateShape(form, dispatch, props) {
+  const { queryParams, shapeDocument = {} } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.createShape({
+    itemId,
+    queryParams,
+    shapeDocument,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
 export function onCreateShapeImport(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
@@ -35,11 +51,26 @@ export function onCreateShapeImport(form, dispatch, props) {
 }
 
 export function onCreateShapePlaceholder(form, dispatch, props) {
-  const { queryParams, metadataDocument = {} } = form;
+  const { queryParams, simpleMetadataDocument = {} } = form;
   const itemId = props.itemId || form.itemId;
   return api.createShapePlaceholder({
     itemId,
-    metadataDocument,
+    metadataDocument: simpleMetadataDocument,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+export function onCreateShapeImportImp(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.createShapeImportImp({
+    itemId,
     queryParams,
   })
     .catch((error) => {
@@ -125,6 +156,22 @@ export function onRemoveShape(form, dispatch, props) {
     });
 }
 
+export function onRemoveShapeAll(form, dispatch, props) {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.removeShapeAll({
+    itemId,
+    queryParams,
+  })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onCreateTranscode(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
@@ -182,6 +229,45 @@ export function onUpdateShapeTag(form, dispatch, props) {
     });
 }
 
+export function onUpdateShapeMime(form, dispatch, props) {
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  const mimeType = props.mimeType || form.mimeType;
+  return api.updateShapeMime({
+    itemId,
+    shapeId,
+    mimeType: encodeURIComponent(mimeType),
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onUpdateShapePlaceholder(form, dispatch, props) {
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  const { queryParams, simpleMetadataDocument } = form;
+  return api.updateShapePlaceholder({
+    itemId,
+    shapeId,
+    queryParams,
+    simpleMetadataDocument,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onRemoveShapeTag(form, dispatch, props) {
   const itemId = props.itemId || form.itemId;
   const shapeId = props.shapeId || form.shapeId;
@@ -190,6 +276,24 @@ export function onRemoveShapeTag(form, dispatch, props) {
     itemId,
     shapeId,
     tagName,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+export function onRemoveShapeMime(form, dispatch, props) {
+  const itemId = props.itemId || form.itemId;
+  const shapeId = props.shapeId || form.shapeId;
+  const mimeType = props.mimeType || form.mimeType;
+  return api.removeShapeMime({
+    itemId,
+    shapeId,
+    mimeType: encodeURIComponent(mimeType),
   })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {

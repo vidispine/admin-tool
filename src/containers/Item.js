@@ -33,9 +33,12 @@ import ItemThumbnailDialog from '../components/item/ItemThumbnail';
 import ItemRelationDialog from '../components/item/ItemRelation';
 import ItemExport from '../components/item/ItemExport';
 import ItemImpExport from '../components/item/ItemImpExport';
+import ItemImpImport from '../components/item/ItemImpImport';
+import ItemShapeCreate from '../components/item/ItemShapeCreate';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
 import JobCreate from '../components/job/JobCreate';
 import AccessControlDialog from '../components/access/AccessControlDialog';
+import ShapeDeleteAll from '../components/shape/ShapeDeleteAll';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
 
@@ -66,7 +69,10 @@ const ITEM_EXPORT_DIALOG = 'ITEM_EXPORT_DIALOG';
 const ITEM_IMPEXPORT_DIALOG = 'ITEM_IMPEXPORT_DIALOG';
 const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const JOB_CREATE_DIALOG = 'JOB_CREATE_DIALOG';
+const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
 const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
+const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
+const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -207,6 +213,9 @@ class Item extends React.PureComponent {
         addToCollectionModal={COLLECTION_ENTITY_ADD_DIALOG}
         startJobModal={JOB_CREATE_DIALOG}
         addAccessControl={ITEM_ACCESSCONTROL_ADD_DIALOG}
+        removeAllShapesModal={ITEM_REMOVEALLSHAPES_DIALOG}
+        importImpModal={ITEM_IMPIMPORT_DIALOG}
+        createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
         {...props}
       />
     );
@@ -227,6 +236,11 @@ class Item extends React.PureComponent {
         <ItemDelete
           dialogName={ITEM_REMOVE_DIALOG}
           onSuccess={() => history.push('/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true')}
+          itemId={itemId}
+        />
+        <ShapeDeleteAll
+          dialogName={ITEM_REMOVEALLSHAPES_DIALOG}
+          onSuccess={this.onRefresh}
           itemId={itemId}
         />
         <ItemTranscode
@@ -259,6 +273,16 @@ class Item extends React.PureComponent {
         <ItemImpExport
           dialogName={ITEM_IMPEXPORT_DIALOG}
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+        />
+        <ItemImpImport
+          dialogName={ITEM_IMPIMPORT_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+        />
+        <ItemShapeCreate
+          dialogName={ITEM_SHAPE_CREATE_DIALOG}
+          onSuccess={(response) => history.push(`/item/${itemId}/shape/${response.data.id}/`)}
           itemId={itemId}
         />
         <CollectionEntityAdd

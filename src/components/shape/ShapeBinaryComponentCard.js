@@ -6,17 +6,26 @@ import CardContent from '@material-ui/core/CardContent';
 import { BinaryComponentType } from './ShapeDisplay';
 import SquareCard from '../ui/SquareCard';
 import ShapeComponentMetadataEditor from './ShapeComponentMetadataEditor';
+import ShapeComponentMenu from './ShapeComponentMenu';
 
 export default function ShapeBinaryComponentCard({
-  binaryComponent = {}, itemId, shapeId, onRefresh,
+  binaryComponent = {}, itemId, shapeId, onRefresh, ShapeComponentMenuProps = {},
 }) {
   if (binaryComponent === undefined) { return null; }
-  const { id: binaryComponentId, metadata } = binaryComponent;
+  const { id: componentId, metadata } = binaryComponent;
   return (
-    <SquareCard id={binaryComponentId}>
+    <SquareCard>
       <CardHeader
         disableTypography
-        title={binaryComponentId ? <Typography variant="subtitle1">{`Binary Component - ${binaryComponentId}`}</Typography> : undefined}
+        title={componentId ? <Typography variant="subtitle1">{`Binary Component - ${componentId}`}</Typography> : 'Binary Component'}
+        action={componentId ? (
+          <ShapeComponentMenu
+            componentId={componentId}
+            itemId={itemId}
+            shapeId={shapeId}
+            {...ShapeComponentMenuProps}
+          />
+        ) : undefined}
       />
       <CardContent>
         <BinaryComponentType
@@ -28,7 +37,7 @@ export default function ShapeBinaryComponentCard({
           onRefresh={onRefresh}
           itemId={itemId}
           shapeId={shapeId}
-          componentId={binaryComponentId}
+          componentId={componentId}
         />
       </CardContent>
     </SquareCard>
