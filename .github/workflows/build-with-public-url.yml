@@ -1,0 +1,37 @@
+name: Publish To GitHub Pages
+on:
+  workflow_dispatch:
+    inputs:
+      public_url:
+        required: true
+        description: The URL where the site will be published.
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn install
+      - name: Publish to GitHub Pages
+        run: PUBLIC_URL=${PUBLIC_URL} yarn build
+        env:
+          PUBLIC_URL: ${{ github.event.inputs.public_url }}
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+          retention-days: 1
