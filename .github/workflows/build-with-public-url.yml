@@ -25,11 +25,11 @@ jobs:
       - name: Install dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: yarn install
-      - name: Publish to GitHub Pages
+      - name: Build site
         run: PUBLIC_URL=${PUBLIC_URL} yarn build
         env:
           PUBLIC_URL: ${{ github.event.inputs.public_url }}
-      - name: 'Upload Artifact'
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: build
