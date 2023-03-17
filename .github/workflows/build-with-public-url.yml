@@ -1,4 +1,4 @@
-name: Publish To GitHub Pages
+name: Build With Public URL
 on:
   workflow_dispatch:
     inputs:
