@@ -40,17 +40,19 @@ const ComponentType = ({
       {...props}
     />
     {!hideMetadata && (
-    <TypeSection
-      title={`${title} Metadata`}
-      value={value.metadata}
-      component={SimpleMetadataType}
-      dense
-      {...props}
-    />
+      <TypeSection
+        title={`${title} Metadata`}
+        value={value.metadata}
+        component={SimpleMetadataType}
+        dense
+        {...props}
+      />
     )}
     <FileTypeTable
       title={`${title} Files`}
-      value={value.file}
+      // hide files if there is no component id
+      value={value.id !== undefined ? value.file : undefined}
+      hideNoValue={value.id === undefined}
       {...props}
     />
   </>
