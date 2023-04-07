@@ -14,6 +14,8 @@ import PathAlias from './configuration/PathAlias';
 import Cors from './configuration/Cors';
 import OAuth2 from './configuration/OAuth2';
 import BulkyMetadata from './configuration/BulkyMetadata';
+import DatabasePurging from './configuration/DatabasePurging';
+import JobPriority from './configuration/JobPriority';
 import StorageList from './StorageList';
 import Storage from './Storage';
 import StorageMethod from './StorageMethod';
@@ -156,6 +158,8 @@ function Main({
           <Route exact path="/configuration/cors/" component={Cors} />
           <Route exact path="/configuration/auth/" component={OAuth2} />
           <Route exact path="/configuration/bulkymetadata/" component={BulkyMetadata} />
+          <Route exact path="/configuration/purging/" component={DatabasePurging} />
+          <Route exact path="/configuration/job-priority/" component={JobPriority} />
           <Route exact path="/resource/" component={ResourceTypeList} />
           <Route exact path="/resource/:resourceType/" component={ResourceList} />
           <Route exact path="/resource/:resourceType/:resourceId/" component={Resource} />
