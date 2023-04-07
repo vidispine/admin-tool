@@ -19,7 +19,7 @@ export default function StorageMethodRemove({
       .then(() => {
         const messageContent = `Storage Method ${storageMethodId} Removed`;
         openSnackBar({ messageContent });
-        history.push(`/storage/${storageMethodId}`);
+        history.push(`/storage/${storageId}`);
         closeModal();
       })
       .catch(() => {
