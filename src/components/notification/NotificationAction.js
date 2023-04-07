@@ -59,6 +59,20 @@ const SqsActionType = ({ action: { sqs } }) => (
   </>
 );
 
+const SnsActionType = ({ action: { sns } }) => (
+  <>
+    <TextGrid title="Topic" value={sns.topic} />
+    <TextGrid title="Endpoint" value={sns.endpoint} />
+    <TextGrid title="Content Type" value={sns.contentType} />
+    <TextGrid title="Access Key" value={sns.accessKey} />
+    <TextGrid title="Secret Key" value={sns.secret} />
+    <TextGrid title="Role ARN" value={sns.roleArn} />
+    <TextGrid title="RoleSession Name" value={sns.roleSessionName} />
+    <TextGrid title="Role External ID" value={sns.roleExternalId} />
+    <ActionType {...sns} />
+  </>
+);
+
 const JavascriptActionType = ({ action: { javascript } }) => (
   <>
     <TextGrid
@@ -81,6 +95,8 @@ export function getActionType(action = {}) {
     return 'jms';
   } if ('sqs' in action) {
     return 'sqs';
+  } if ('sns' in action) {
+    return 'sns';
   } if ('javascript' in action) {
     return 'javascript';
   }
@@ -104,6 +120,9 @@ export default function NotificationAction({
       break;
     case 'sqs':
       ActionComponent = SqsActionType;
+      break;
+    case 'sns':
+      ActionComponent = SnsActionType;
       break;
     case 'javascript':
       ActionComponent = JavascriptActionType;
