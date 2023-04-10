@@ -22,7 +22,7 @@ class Notification extends React.PureComponent {
 
   componentDidMount() {
     const { notificationId } = this.props;
-    document.title = `VidiCore Admin | NotificationPLACEHOLDER | ${notificationId}`;
+    document.title = `VidiCore Admin | Notification | ${notificationId}`;
     this.onRefresh();
   }
 
@@ -63,7 +63,7 @@ class Notification extends React.PureComponent {
       <>
         <TitleHeader
           title={notificationId}
-          parentTitle="NotificationPLACEHOLDER"
+          parentTitle="Notification"
           parentTo="/notification/"
           helpTo="/ref/notification/index.html"
           onRefresh={this.onRefresh}
