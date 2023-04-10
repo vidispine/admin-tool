@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { withModalNoRouter } from '../hoc/withModal';
+import { NOTIFICATION_ENTITY } from '../const';
 
 import Configuration from './Configuration';
 import Indexing from './configuration/Indexing';
@@ -66,6 +67,7 @@ import Projection from './Projection';
 import MetadataField from './MetadataField';
 import NotificationList from './NotificationList';
 import Notification from './Notification';
+import NotificationPlaceholder from './NotificationPlaceholder';
 import NotificationEntityList from './NotificationEntityList';
 import ImportSettingsList from './ImportSettingsList';
 import ImportSettings from './ImportSettings';
@@ -217,8 +219,17 @@ function Main({
           <Route path="/projection/:projectionId" component={Projection} />
           <Route path="/metadata-field/:fieldName" component={MetadataField} />
           <Route exact path="/notification/" component={NotificationEntityList} />
-          <Route exact path="/notification/:entityType/" component={NotificationList} />
-          <Route exact path="/notification/:entityType/:notificationId" component={Notification} />
+          <Route
+            exact
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/`}
+            component={NotificationList}
+          />
+          <Route
+            exact
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/:notificationId`}
+            component={Notification}
+          />
+          <Route exact path="/notification/:notificationId" component={NotificationPlaceholder} />
           <Route exact path="/import/settings/" component={ImportSettingsList} />
           <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
           <Route exact path="/import/access/:userName" component={ImportAccess} />

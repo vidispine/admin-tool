@@ -57,6 +57,18 @@ export const setCookiePath = (vidispineUrl) => {
   return [baseName, encodedVidispineUrl, ''].join('/');
 };
 
+export const NOTIFICATION_ENTITY = [
+  'item',
+  'collection',
+  'job',
+  'storage',
+  'file',
+  'quota',
+  'group',
+  'document',
+  'deletion-lock',
+];
+
 // const cookieVidispineUrl = getVidispineUrlFromCookie();
 // const windowVidispineUrl = getVidispineUrlFromWindow();
 // const envVidispineUrl = getVidispineUrlFromEnv();

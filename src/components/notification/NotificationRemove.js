@@ -15,6 +15,20 @@ function NotificationRemove({
   entityType,
   onSuccess,
 }) {
+  const onRemovePlaceholder = () => {
+    const path = `/API/notification/${notificationId}`;
+    api.removeNotification({ notificationId, entityType: 'placeholder', path })
+      .then(() => {
+        const messageContent = `Notification ${notificationId} Removed`;
+        openSnackBar({ messageContent });
+        onClose();
+        if (onSuccess) { onSuccess(); }
+      })
+      .catch(() => {
+        const messageContent = 'Error Removing Notification';
+        openSnackBar({ messageContent, messageColor: 'secondary' });
+      });
+  };
   const onRemove = () => {
     api.removeNotification({ notificationId, entityType })
       .then(() => {
@@ -39,7 +53,7 @@ function NotificationRemove({
         </Button>
         <Button
           variant="text"
-          onClick={onRemove}
+          onClick={entityType ? onRemove : onRemovePlaceholder}
           color="secondary"
           autoFocus
         >

@@ -40,36 +40,40 @@ function NotificationCreate({
   const initialValues = {
     notificationDocument: {
       action: {},
-      trigger: {
-        [entityType === 'deletion-lock' ? 'deletionLock' : entityType]: {},
-      },
+      // trigger: {},
     },
   };
+  if (entityType) {
+    initialValues.notificationDocument.trigger = {};
+    if (entityType === 'deletion-lock') initialValues.notificationDocument.trigger.deletionLock = {};
+    else initialValues.notificationDocument.trigger[entityType] = {};
+  }
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>
-        New
-        {entityType ? capitalizeString(entityType) : ''}
-        {' '}
-        Notification
+        {entityType ? `New ${capitalizeString(entityType)} Notification` : 'New Notification'}
       </DialogTitle>
       <DialogContent>
-        <Typography
-          variant="h5"
-          color="textSecondary"
-          style={{ textDecoration: 'none' }}
-        >
-          Trigger
-        </Typography>
-        <NotificationTriggerForm
-          entityType={entityType}
-          form={NOTIFICATION_CREATE_FORM}
-          onSubmit={formActions.onCreate}
-          onSubmitSuccess={onSubmitSuccess}
-          onSubmitFail={onSubmitFail}
-          valueSelector={valueSelector}
-          initialValues={initialValues}
-        />
+        {entityType && (
+          <>
+            <Typography
+              variant="h5"
+              color="textSecondary"
+              style={{ textDecoration: 'none' }}
+            >
+              Trigger
+            </Typography>
+            <NotificationTriggerForm
+              entityType={entityType}
+              form={NOTIFICATION_CREATE_FORM}
+              onSubmit={entityType ? formActions.onCreate : formActions.onCreatePlaceholder}
+              onSubmitSuccess={onSubmitSuccess}
+              onSubmitFail={onSubmitFail}
+              valueSelector={valueSelector}
+              initialValues={initialValues}
+            />
+          </>
+        )}
         <Typography
           variant="h5"
           color="textSecondary"
@@ -80,7 +84,7 @@ function NotificationCreate({
         <NotificationActionForm
           entityType={entityType}
           form={NOTIFICATION_CREATE_FORM}
-          onSubmit={formActions.onCreate}
+          onSubmit={entityType ? formActions.onCreate : formActions.onCreatePlaceholder}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           valueSelector={valueSelector}
