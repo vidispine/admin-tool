@@ -41,7 +41,7 @@ function NotificationCreate({
     notificationDocument: {
       action: {},
       trigger: {
-        [entityType]: {},
+        [entityType === 'deletion-lock' ? 'deletionLock' : entityType]: {},
       },
     },
   };

@@ -13,6 +13,7 @@ const NOTIFICATION_ENTITY = [
   'quota',
   'group',
   'document',
+  'deletion-lock',
 ];
 
 const NOTIFICATION_CREATE_DIALOG = 'NOTIFICATION_CREATE_DIALOG';

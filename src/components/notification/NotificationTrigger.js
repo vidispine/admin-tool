@@ -47,6 +47,8 @@ export function getTriggerEntity(trigger) {
     triggerEntity = 'quota';
   } else if ('document' in trigger) {
     triggerEntity = 'document';
+  } else if ('deletionLock' in trigger) {
+    triggerEntity = 'deletionLock';
   }
   return triggerEntity;
 }
@@ -258,6 +260,26 @@ const DocumentTriggerType = ({ trigger: { document } }) => {
   );
 };
 
+const DeletionLockTriggerType = ({ trigger: { deletionLock } }) => {
+  let triggerAction;
+  if ('create' in deletionLock) {
+    triggerAction = 'create';
+  } else if ('delete' in deletionLock) {
+    triggerAction = 'delete';
+  } else if ('modify' in deletionLock) {
+    triggerAction = 'modify';
+  } else if ('effective' in deletionLock) {
+    triggerAction = 'effective';
+  } else if ('expire' in deletionLock) {
+    triggerAction = 'expire';
+  }
+  return (
+    <>
+      <TextGrid title="Trigger Action" value={triggerAction} />
+    </>
+  );
+};
+
 export default function NotificationTrigger({
   trigger = {},
 }) {
@@ -296,6 +318,9 @@ export default function NotificationTrigger({
       break;
     case 'document':
       TriggerComponent = DocumentTriggerType;
+      break;
+    case 'deletionLock':
+      TriggerComponent = DeletionLockTriggerType;
       break;
     default:
       break;
