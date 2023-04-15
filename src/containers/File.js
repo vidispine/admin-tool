@@ -11,9 +11,11 @@ import DrawerContainer from '../components/ui/DrawerContainer';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
 import ListItemLink from '../components/ui/ListItemLink';
+import DeletionLockList from './DeletionLockList';
 
 const FILE_OVERVIEW_TAB = 'FILE_OVERVIEW_TAB';
 const FILE_SHAPE_TAB = 'FILE_SHAPE_TAB';
+const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 
 const TAB_TITLE = [
   {
@@ -21,6 +23,9 @@ const TAB_TITLE = [
   },
   {
     tab: FILE_SHAPE_TAB, listText: 'Shape', component: FileShape, path: '/file/:fileId/shape/',
+  },
+  {
+    tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/file/:fileId/deletion-locks/',
   },
 ];
 

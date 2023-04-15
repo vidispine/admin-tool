@@ -90,6 +90,7 @@ class DeletionLockList extends React.PureComponent {
           codeModal="DeletionLockListDocument"
           onRefresh={this.onRefresh}
           createModal={DELETIONLOCK_CREATE_MODAL}
+          createTooltip="New Deletion Lock"
           title={title}
         />
         <DeletionLockListFilterCard

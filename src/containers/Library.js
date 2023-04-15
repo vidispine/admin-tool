@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
+import { Route, Switch, generatePath } from 'react-router-dom';
 
 import withTabs from '../hoc/withTabs';
 import { withRouterProps } from '../hoc/withRouterProps';
@@ -18,13 +19,15 @@ import LibraryItemMetadata from '../components/library/LibraryItemMetadata';
 import LibraryExport from '../components/library/LibraryExport';
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import DrawerContainer from '../components/ui/DrawerContainer';
-import DrawerListItem from '../components/ui/DrawerListItem';
+import ListItemLink from '../components/ui/ListItemLink';
+import DeletionLockList from './DeletionLockList';
 
 const LIBRARY_SETTINGS_TAB = 'LIBRARY_SETTINGS_TAB';
 const LIBRARY_CONTENT_TAB = 'LIBRARY_CONTENT_TAB';
 const ACCESS_TAB = 'ACCESS_TAB';
 const ACCESSMERGED_TAB = 'ACCESSMERGED_TAB';
 const STORAGERULE_TAB = 'STORAGERULE_TAB';
+const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 
 const LIBRARY_REMOVE_DIALOG = 'LIBRARY_REMOVE_DIALOG';
 const LIBRARY_UPDATE_DIALOG = 'LIBRARY_UPDATE_DIALOG';
@@ -33,26 +36,55 @@ const LIBRARY_ACCESSCONTROL_ADD_DIALOG = 'LIBRARY_ACCESSCONTROL_ADD_DIALOG';
 const LIBRARY_EXPORT_DIALOG = 'LIBRARY_EXPORT_DIALOG';
 
 const TAB_TITLE = [
-  { tab: LIBRARY_SETTINGS_TAB, listText: 'Settings', component: LibrarySettings },
-  { tab: LIBRARY_CONTENT_TAB, listText: 'Content', component: LibraryContent },
-  { tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl },
-  { tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged },
-  { tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule },
+  {
+    tab: LIBRARY_SETTINGS_TAB, listText: 'Settings', component: LibrarySettings, path: '/library/:libraryId/settings/',
+  },
+  {
+    tab: LIBRARY_CONTENT_TAB, listText: 'Content', component: LibraryContent, path: '/library/:libraryId/', exact: true,
+  },
+  {
+    tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl, path: '/library/:libraryId/direct-access/',
+  },
+  {
+    tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged, path: '/library/:libraryId/merged-access/',
+  },
+  {
+    tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule, path: '/library/:libraryId/storage-rules/',
+  },
+  {
+    tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/library/:libraryId/deletion-locks/',
+  },
 ];
 
-const listComponent = ({ onChangeTab, tabValue }) => (
+const listComponentRoute = (props) => (
   <List>
-    {TAB_TITLE.map(({ tab, listText }) => (
-      <DrawerListItem
-        key={listText}
-        listText={listText}
-        listItemProps={{
-          onClick: () => onChangeTab(null, tab),
-          selected: tabValue === tab || undefined,
-        }}
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, props)}
+        exact={exact}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
       />
     ))}
   </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact,
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+  </Switch>
 );
 
 class Library extends React.PureComponent {
@@ -68,8 +100,6 @@ class Library extends React.PureComponent {
       libraryId,
       history,
     } = this.props;
-    const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
-    const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
       <LibraryTitle
         libraryId={libraryId}
@@ -78,15 +108,14 @@ class Library extends React.PureComponent {
         itemMetadataModal={LIBRARY_ITEM_METADATA_DIALOG}
         addAccessControl={LIBRARY_ACCESSCONTROL_ADD_DIALOG}
         exportModal={LIBRARY_EXPORT_DIALOG}
-        title={listText}
         {...props}
       />
     );
     return (
       <>
         <DrawerContainer
-          mainComponent={mainComponent}
-          listComponent={listComponent}
+          mainComponent={mainComponentRoute}
+          listComponent={listComponentRoute}
           defaultOpen
           onChangeTab={onChangeTab}
           tabValue={tabValue}
@@ -94,6 +123,7 @@ class Library extends React.PureComponent {
           libraryId={libraryId}
           entityId={libraryId}
           entityType="library"
+          setOnRefresh={this.setOnRefresh}
         />
         <LibraryUpdate
           dialogName={LIBRARY_UPDATE_DIALOG}

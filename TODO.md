@@ -4,8 +4,8 @@ TO-DO
 1. ~~Placeholder notifications not associated with entities~~
 2. Notifications on specific entities.
 3. ~~Deletion lock notifications~~
-4. Deletion locks on files
-5. Deletion locks on libraries
+4. ~~Deletion locks on files~~
+5. ~~Deletion locks on libraries~~
 6. Search users
 7. User graph
 8. Search groups
