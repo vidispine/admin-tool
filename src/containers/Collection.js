@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import { Route, Switch, generatePath } from 'react-router-dom';
 
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
@@ -14,13 +15,15 @@ import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
 import StorageRule from './StorageRule';
 import DeletionLockList from './DeletionLockList';
+import NotificationEntityList from './NotificationEntityList';
+import NotificationEntity from './NotificationEntity';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import CollectionRemove from '../components/collection/CollectionRemove';
 import CollectionExport from '../components/collection/CollectionExport';
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import DrawerContainer from '../components/ui/DrawerContainer';
-import DrawerListItem from '../components/ui/DrawerListItem';
+import ListItemLink from '../components/ui/ListItemLink';
 
 import CollectionRename from '../components/collection/CollectionRename';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
@@ -35,6 +38,7 @@ const ACCESSMERGED_TAB = 'ACCESSMERGED_TAB';
 const STORAGERULE_TAB = 'STORAGERULE_TAB';
 const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 const COLLECTION_METADATACHANGESETLIST_TAB = 'COLLECTION_METADATACHANGESETLIST_TAB';
+const NOTIFICATION_TAB = 'NOTIFICATION_TAB';
 const COLLECTION_REMOVE_DIALOG = 'COLLECTION_REMOVE_DIALOG';
 const COLLECTION_ACCESSCONTROL_ADD_DIALOG = 'COLLECTION_ACCESSCONTROL_ADD_DIALOG';
 const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
@@ -44,32 +48,105 @@ const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
 
 const TAB_TITLE = [
   {
-    tab: COLLECTION_METADATA_TAB, listText: 'Metadata', exact: true, component: CollectionMetadata,
+    tab: COLLECTION_METADATA_TAB,
+    listText: 'Metadata',
+    exact: true,
+    component: CollectionMetadata,
+    path: '/collection/:collectionId/metadata/',
   },
-  { tab: COLLECTION_CONTENT_TAB, listText: 'Content', component: CollectionContent },
   {
-    tab: COLLECTION_METADATACHANGESETLIST_TAB, listText: 'Changes', component: CollectionMetadataChangeSetList,
+    tab: COLLECTION_CONTENT_TAB,
+    listText: 'Content',
+    component: CollectionContent,
+    path: '/collection/:collectionId/content/',
   },
-  { tab: COLLECTION_COLLECTION_TAB, listText: 'Collection', component: CollectionCollection },
-  { tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl },
-  { tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged },
-  { tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule },
-  { tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList },
+  {
+    tab: COLLECTION_METADATACHANGESETLIST_TAB,
+    listText: 'Changes',
+    component: CollectionMetadataChangeSetList,
+    path: '/collection/:collectionId/metadata/changes/',
+  },
+  {
+    tab: COLLECTION_COLLECTION_TAB,
+    listText: 'Collection',
+    component: CollectionCollection,
+    path: '/collection/:collectionId/collection/',
+  },
+  {
+    tab: ACCESS_TAB,
+    listText: 'Direct Access',
+    component: AccessControl,
+    path: '/collection/:collectionId/direct-access/',
+
+  },
+  {
+    tab: ACCESSMERGED_TAB,
+    listText: 'Merged Access',
+    component: AccessControlMerged,
+    path: '/collection/:collectionId/merged-access/',
+
+  },
+  {
+    tab: STORAGERULE_TAB,
+    listText: 'Storage Rules',
+    component: StorageRule,
+    path: '/collection/:collectionId/storage-rules/',
+  },
+  {
+    tab: DELETIONLOCK_TAB,
+    listText: 'Deletion Locks',
+    component: DeletionLockList,
+    path: '/collection/:collectionId/deletion-locks/',
+  },
+  {
+    tab: NOTIFICATION_TAB,
+    listText: 'Notifications',
+    component: NotificationEntityList,
+    path: '/collection/:collectionId/notification/',
+    entityType: 'collection',
+    exact: true,
+  },
 ];
 
-const listComponent = ({ onChangeTab, tabValue }) => (
+const listComponentRoute = ({ collectionId }) => (
   <List>
-    {TAB_TITLE.map(({ tab, listText }) => (
-      <DrawerListItem
-        key={listText}
-        listText={listText}
-        listItemProps={{
-          onClick: () => onChangeTab(null, tab),
-          selected: tabValue === tab || undefined,
-        }}
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        secondary={listText}
+        to={generatePath(path, { collectionId })}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
+        exact={exact}
       />
     ))}
   </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    <Route
+      exact
+      path="/item/:itemId/notification/:notificationId"
+      render={() => <NotificationEntity {...props} />}
+      {...props}
+    />
+    {TAB_TITLE.map(({
+      path, component: RenderComponent, listText, exact, ...renderProps
+    }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} {...renderProps} title={listText} />}
+      />
+    ))}
+    <Route
+      path="*"
+      render={() => <CollectionMetadata {...props} title="Metadata" />}
+    />
+  </Switch>
 );
 
 class Collection extends React.PureComponent {
@@ -111,14 +188,11 @@ class Collection extends React.PureComponent {
       onOpen,
     } = this.props;
     const { collectionName } = this.state;
-    const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
-    const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
       <TitleHeader
         grandParentTitle="Collection"
         grandParentTo="/collection/"
         parentTitle={collectionId}
-        title={listText}
         removeModal={COLLECTION_REMOVE_DIALOG}
         helpTo="/ref/collection.html"
         entityId={collectionId}
@@ -145,8 +219,8 @@ class Collection extends React.PureComponent {
     return (
       <>
         <DrawerContainer
-          mainComponent={mainComponent}
-          listComponent={listComponent}
+          mainComponent={mainComponentRoute}
+          listComponent={listComponentRoute}
           setOnRefresh={this.setOnRefresh}
           setName={this.setName}
           defaultOpen

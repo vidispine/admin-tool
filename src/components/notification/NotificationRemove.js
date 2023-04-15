@@ -13,6 +13,7 @@ function NotificationRemove({
   openSnackBar,
   notificationId,
   entityType,
+  entityId,
   onSuccess,
 }) {
   const onRemovePlaceholder = () => {
@@ -29,7 +30,7 @@ function NotificationRemove({
         openSnackBar({ messageContent, messageColor: 'secondary' });
       });
   };
-  const onRemove = () => {
+  const onRemoveResource = () => {
     api.removeNotification({ notificationId, entityType })
       .then(() => {
         const messageContent = `Notification ${notificationId} Removed`;
@@ -42,6 +43,22 @@ function NotificationRemove({
         openSnackBar({ messageContent, messageColor: 'secondary' });
       });
   };
+  const onRemoveEntity = () => {
+    api.removeNotificationEntity({ notificationId, entityType, entityId })
+      .then(() => {
+        const messageContent = `Notification ${notificationId} Removed`;
+        openSnackBar({ messageContent });
+        onClose();
+        if (onSuccess) { onSuccess(); }
+      })
+      .catch(() => {
+        const messageContent = 'Error Removing Notification';
+        openSnackBar({ messageContent, messageColor: 'secondary' });
+      });
+  };
+  let onRemove = onRemovePlaceholder;
+  if (entityId && entityType) onRemove = onRemoveEntity;
+  else if (entityType) onRemove = onRemoveResource;
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>
@@ -53,7 +70,7 @@ function NotificationRemove({
         </Button>
         <Button
           variant="text"
-          onClick={entityType ? onRemove : onRemovePlaceholder}
+          onClick={onRemove}
           color="secondary"
           autoFocus
         >

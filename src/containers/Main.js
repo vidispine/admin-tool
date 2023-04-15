@@ -68,7 +68,7 @@ import MetadataField from './MetadataField';
 import NotificationList from './NotificationList';
 import Notification from './Notification';
 import NotificationPlaceholder from './NotificationPlaceholder';
-import NotificationEntityList from './NotificationEntityList';
+import NotificationResourceList from './NotificationResourceList';
 import ImportSettingsList from './ImportSettingsList';
 import ImportSettings from './ImportSettings';
 import ImportAccess from './ImportAccess';
@@ -218,7 +218,7 @@ function Main({
           <Route exact path="/projection/" component={ProjectionList} />
           <Route path="/projection/:projectionId" component={Projection} />
           <Route path="/metadata-field/:fieldName" component={MetadataField} />
-          <Route exact path="/notification/" component={NotificationEntityList} />
+          <Route exact path="/notification/" component={NotificationResourceList} />
           <Route
             exact
             path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/`}

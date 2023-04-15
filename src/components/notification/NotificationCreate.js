@@ -24,6 +24,7 @@ function NotificationCreate({
   onSuccess,
   submitForm,
   entityType,
+  entityId,
   valueSelector,
   openSnackBar,
 }) {
@@ -38,6 +39,7 @@ function NotificationCreate({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   const initialValues = {
+    entityId,
     notificationDocument: {
       action: {},
       // trigger: {},

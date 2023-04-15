@@ -23,6 +23,7 @@ export const NOTIFICATION_EDIT_FORM = 'NOTIFICATION_EDIT_FORM';
 function NotificationCard({
   notificationId,
   entityType,
+  entityId,
   notificationDocument,
   submitForm,
   onRefresh,
@@ -62,6 +63,7 @@ function NotificationCard({
                   <NotificationTriggerForm
                     notificationId={notificationId}
                     entityType={entityType}
+                    entityId={entityId}
                     form={NOTIFICATION_EDIT_FORM}
                     onSubmit={formActions.onUpdate}
                     onSubmitSuccess={onSubmitSuccess}
@@ -87,6 +89,7 @@ function NotificationCard({
                   notificationId={notificationId}
                   trigger={trigger}
                   entityType={entityType}
+                  entityId={entityId}
                 />
               </CardContent>
             )}
@@ -100,6 +103,7 @@ function NotificationCard({
               <NotificationActionForm
                 notificationId={notificationId}
                 entityType={entityType}
+                entityId={entityId}
                 form={NOTIFICATION_EDIT_FORM}
                 onSubmit={formActions.onUpdate}
                 onSubmitSuccess={onSubmitSuccess}
@@ -121,11 +125,11 @@ function NotificationCard({
           </>
         ) : (
           <CardContent>
-
             <NotificationAction
               notificationId={notificationId}
               action={action}
               entityType={entityType}
+              entityId={entityId}
             />
           </CardContent>
         )}

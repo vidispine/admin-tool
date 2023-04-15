@@ -58,6 +58,7 @@ class CollectionMetadata extends React.PureComponent {
       collectionId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { metadataDocument } = this.state;
     return (
@@ -67,6 +68,8 @@ class CollectionMetadata extends React.PureComponent {
             code={metadataDocument}
             codeModal="MetadataDocument"
             onRefresh={this.onRefresh}
+            title={title}
+
           />
         )}
         {TabComponent && (

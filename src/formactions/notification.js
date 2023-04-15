@@ -32,7 +32,21 @@ export function onUpdate(form, dispatch, props) {
   try {
     const notificationId = props.notificationId || form.notificationId;
     const entityType = props.entityType || form.entityType;
+    const entityId = props.entityId || form.entityId;
     const { notificationDocument } = form;
+    if (entityId !== undefined) {
+      return api.updateNotificationEntity({
+        notificationId,
+        entityType,
+        entityId,
+        notificationDocument,
+      })
+        .catch((error) => {
+          let errorMessage = error.message;
+          if (error.response) errorMessage = parseErrorResponse(error);
+          throw new SubmissionError({ _error: errorMessage });
+        });
+    }
     return api.updateNotification({
       notificationId,
       entityType,
@@ -72,6 +86,20 @@ export function onCreate(form, dispatch, props) {
   try {
     const { notificationDocument } = form;
     const entityType = props.entityType || Object.keys(notificationDocument.trigger)[0];
+    const entityId = props.entityId || form.entityId;
+    if (entityId !== undefined) {
+      return api.createNotificationEntity({
+        entityId,
+        entityType,
+        notificationDocument,
+      })
+        .then((response) => ({ ...response, entityType, entityId }))
+        .catch((error) => {
+          let errorMessage = error.message;
+          if (error.response) errorMessage = parseErrorResponse(error);
+          throw new SubmissionError({ _error: errorMessage });
+        });
+    }
     return api.createNotification({
       entityType,
       notificationDocument,
