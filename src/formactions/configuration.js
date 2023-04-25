@@ -123,3 +123,27 @@ export function onUpdateAuthConfiguration(form) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onUpdateBulkyMetadataConfiguration(form) {
+  const { bulkyMetadataConfigurationDocument } = form;
+  return api.updateBulkyMetadataConfiguration({ bulkyMetadataConfigurationDocument })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onUpdateJobPriorityConfiguration(form) {
+  const { jobPriorityConfigurationDocument } = form;
+  return api.updateJobPriorityConfiguration({ jobPriorityConfigurationDocument })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

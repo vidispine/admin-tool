@@ -1,5 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
 import TitleHeader from '../ui/TitleHeader';
 import Menu, { MenuItem } from '../ui/Menu';
@@ -13,6 +16,8 @@ function LibraryTitle({
   itemMetadataModal,
   exportModal,
   title,
+  createModal,
+  createTooltip = 'New',
   ...props
 }) {
   return (
@@ -26,6 +31,17 @@ function LibraryTitle({
       entityType="library"
       removeModal={removeModal}
       exportModal={exportModal}
+      iconList={(
+        <>
+          {createModal && (
+          <Tooltip title={createTooltip}>
+            <IconButton onClick={() => onOpen({ modalName: createModal })}>
+              <PlaylistAdd />
+            </IconButton>
+          </Tooltip>
+          )}
+        </>
+      )}
       actionComponent={(
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: updateModal })}>

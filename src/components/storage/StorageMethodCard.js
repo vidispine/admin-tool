@@ -1,16 +1,24 @@
 import React from 'react';
+import Card from '@material-ui/core/Card';
 
-import SquareCard from '../ui/SquareCard';
+import CardList from '../ui/CardList';
 import StorageMethodEditor from './StorageMethodEditor';
+import StorageMethodMetadataEditor from './StorageMethodMetadataEditor';
 
 export default function StorageCard(props) {
   return (
-    <>
-      <SquareCard>
+    <CardList>
+      <Card>
         <StorageMethodEditor
           {...props}
         />
-      </SquareCard>
-    </>
+      </Card>
+      <Card>
+        <StorageMethodMetadataEditor
+          {...props}
+        />
+      </Card>
+
+    </CardList>
   );
 }

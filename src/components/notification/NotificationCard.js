@@ -1,13 +1,14 @@
 import React from 'react';
 import { compose } from 'redux';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
+import DialogActions from '@material-ui/core/DialogActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
-import SquareCard from '../ui/SquareCard';
+import CardList from '../ui/CardList';
 import NotificationAction from './NotificationAction';
 import NotificationTrigger from './NotificationTrigger';
 import NotificationActionForm from './NotificationActionForm';
@@ -22,6 +23,7 @@ export const NOTIFICATION_EDIT_FORM = 'NOTIFICATION_EDIT_FORM';
 function NotificationCard({
   notificationId,
   entityType,
+  entityId,
   notificationDocument,
   submitForm,
   onRefresh,
@@ -42,31 +44,75 @@ function NotificationCard({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   const { action, trigger } = notificationDocument;
+  const ActionComponent = (
+    <FormControlLabel
+      control={<Switch color="primary" />}
+      label="Edit"
+      checked={isEditing}
+      onChange={toggleEdit}
+    />
+  );
   return (
-    <>
-      <Grid container direction="row" alignItems="center">
-        <Grid item xs={10}>
-          <Typography
-            variant="h5"
-            color="textSecondary"
-            style={{ textDecoration: 'none' }}
-          >
-            Trigger
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Grid container direction="row-reverse" alignItems="center">
-            <Grid item>
-              <FormControlLabel
-                control={<Switch color="primary" />}
-                label="Edit"
-                checked={isEditing}
-                onChange={toggleEdit}
+    <CardList>
+      {trigger && (
+        <Card>
+          <CardHeader title="Trigger" action={ActionComponent} />
+            {isEditing ? (
+              <>
+                <CardContent>
+                  <NotificationTriggerForm
+                    notificationId={notificationId}
+                    entityType={entityType}
+                    entityId={entityId}
+                    form={NOTIFICATION_EDIT_FORM}
+                    onSubmit={formActions.onUpdate}
+                    onSubmitSuccess={onSubmitSuccess}
+                    onSubmitFail={onSubmitFail}
+                    initialValues={{ notificationDocument }}
+                    valueSelector={valueSelector}
+                  />
+                </CardContent>
+                <DialogActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => submitForm(NOTIFICATION_EDIT_FORM)}
+                  >
+                    Save
+                  </Button>
+                </DialogActions>
+              </>
+            ) : (
+              <CardContent>
+                <NotificationTrigger
+                  notificationId={notificationId}
+                  trigger={trigger}
+                  entityType={entityType}
+                  entityId={entityId}
+                />
+              </CardContent>
+            )}
+        </Card>
+      )}
+      <Card>
+        <CardHeader title="Action" action={ActionComponent} />
+        {isEditing ? (
+          <>
+            <CardContent>
+              <NotificationActionForm
+                notificationId={notificationId}
+                entityType={entityType}
+                entityId={entityId}
+                form={NOTIFICATION_EDIT_FORM}
+                onSubmit={formActions.onUpdate}
+                onSubmitSuccess={onSubmitSuccess}
+                onSubmitFail={onSubmitFail}
+                initialValues={{ notificationDocument }}
+                valueSelector={valueSelector}
               />
-            </Grid>
-            <Grid item>
-              {isEditing
-              && (
+            </CardContent>
+            <DialogActions>
               <Button
                 size="small"
                 color="primary"
@@ -75,68 +121,20 @@ function NotificationCard({
               >
                 Save
               </Button>
-              )}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-      <SquareCard>
-        <CardContent>
-          {isEditing
-            ? (
-              <NotificationTriggerForm
-                notificationId={notificationId}
-                entityType={entityType}
-                form={NOTIFICATION_EDIT_FORM}
-                onSubmit={formActions.onUpdate}
-                onSubmitSuccess={onSubmitSuccess}
-                onSubmitFail={onSubmitFail}
-                initialValues={{ notificationDocument }}
-                valueSelector={valueSelector}
-              />
-            )
-            : (
-              <NotificationTrigger
-                notificationId={notificationId}
-                trigger={trigger}
-                entityType={entityType}
-              />
-            )}
-        </CardContent>
-      </SquareCard>
-      <Typography
-        variant="h5"
-        color="textSecondary"
-        style={{ textDecoration: 'none' }}
-      >
-        Action
-      </Typography>
-      <SquareCard>
-        <CardContent>
-          {isEditing
-            ? (
-              <NotificationActionForm
-                notificationId={notificationId}
-                entityType={entityType}
-                form={NOTIFICATION_EDIT_FORM}
-                onSubmit={formActions.onUpdate}
-                onSubmitSuccess={onSubmitSuccess}
-                onSubmitFail={onSubmitFail}
-                initialValues={{ notificationDocument }}
-                valueSelector={valueSelector}
-              />
-            )
-            : (
-              <NotificationAction
-                notificationId={notificationId}
-                action={action}
-                entityType={entityType}
-              />
-            )}
-
-        </CardContent>
-      </SquareCard>
-    </>
+            </DialogActions>
+          </>
+        ) : (
+          <CardContent>
+            <NotificationAction
+              notificationId={notificationId}
+              action={action}
+              entityType={entityType}
+              entityId={entityId}
+            />
+          </CardContent>
+        )}
+      </Card>
+    </CardList>
   );
 }
 

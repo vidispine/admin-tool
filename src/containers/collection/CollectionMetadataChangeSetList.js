@@ -54,6 +54,7 @@ class CollectionMetadataChangeSetList extends React.PureComponent {
       collectionId,
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
+      title,
     } = this.props;
     const { metadataChangeSetDocument } = this.state;
     return (
@@ -63,6 +64,7 @@ class CollectionMetadataChangeSetList extends React.PureComponent {
             code={metadataChangeSetDocument}
             codeModal="MetadataChangeSetDocument"
             onRefresh={this.onRefresh}
+            title={title}
           />
         )}
         {TabComponent && (

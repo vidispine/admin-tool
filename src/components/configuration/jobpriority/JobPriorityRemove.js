@@ -4,36 +4,39 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { storage as api } from '@vidispine/vdt-api';
+import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
+import withUI from '../../../hoc/withUI';
 
-export default function StorageMethodRemove({
-  closeModal,
-  isOpen,
-  storageId,
-  storageMethodId,
-  history,
+function JobPriorityRemove({
+  open,
+  onClose,
   openSnackBar,
+  onSuccess,
+  onError,
 }) {
   const onRemove = () => {
-    api.removeStorageMethod({ storageId, storageMethodId })
+    ConfigurationApi.updateJobPriorityConfiguration({
+      jobPriorityConfigurationDocument: { },
+    })
       .then(() => {
-        const messageContent = `Storage Method ${storageMethodId} Removed`;
+        const messageContent = 'Job Priority Configuration Removed';
         openSnackBar({ messageContent });
-        history.push(`/storage/${storageId}`);
-        closeModal();
+        if (onSuccess) onSuccess();
+        onClose();
       })
       .catch(() => {
-        const messageContent = 'Error Removing Storage Method';
+        const messageContent = 'Error Removing Job Priority Configuration';
         openSnackBar({ messageContent, messageColor: 'secondary' });
+        if (onError) onError();
       });
   };
   return (
-    <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>
-        {`Remove Storage Method "${storageMethodId}"?`}
+        Remove Job Priority Configuration?
       </DialogTitle>
       <DialogActions>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
         <Button
@@ -48,3 +51,5 @@ export default function StorageMethodRemove({
     </Dialog>
   );
 }
+
+export default withUI(JobPriorityRemove);

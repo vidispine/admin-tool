@@ -395,6 +395,58 @@ function NotificationTriggerDocumentType(props) {
   );
 }
 
+function NotificationTriggerDeletionLockType(props) {
+  const { initialValues = {}, valueSelector, dirty } = props;
+  const name = props.id || 'notificationDocument.trigger.deletionLock';
+  let initialvalue;
+  if (dirty) {
+    const item = valueSelector(name);
+    initialvalue = item && Object.keys(item)[0];
+  } else {
+    const { notificationDocument = {} } = initialValues;
+    const { trigger = {} } = notificationDocument;
+    const { item } = trigger;
+    initialvalue = item && Object.keys(item)[0];
+  }
+  const onChange = (event, newValue, previousValue) => {
+    const prevState = valueSelector(name);
+    const setValue = '';
+    if (prevState) {
+      const newState = update(prevState, {
+        [newValue]: {
+          $set: setValue,
+        },
+        $unset: [previousValue],
+      });
+      props.change(name, newState);
+    } else {
+      props.change(name, { [newValue]: setValue });
+    }
+  };
+  return (
+    <>
+      <StatefulSelect
+        label="Trigger Action"
+        initialvalue={initialvalue}
+        fullWidth
+        onChange={onChange}
+        name={name}
+      >
+        <MenuItem value="create">Create</MenuItem>
+        <MenuItem value="delete">Delete</MenuItem>
+        <MenuItem value="delete">Modify</MenuItem>
+        <MenuItem value="delete">Effective</MenuItem>
+        <MenuItem value="delete">Expire</MenuItem>
+      </StatefulSelect>
+      <Field name="create" type="hidden" component="input" />
+      <Field name="delete" type="hidden" component="input" />
+      <Field name="modify" type="hidden" component="input" />
+      <Field name="effective" type="hidden" component="input" />
+      <Field name="expire" type="hidden" component="input" />
+    </>
+  );
+}
+
 function NotificationTriggerMetadataModifyType() {
   return (
     <>
@@ -757,6 +809,10 @@ function TriggerEntitySelect(props) {
         return (
           <FormSection name="document" component={NotificationTriggerDocumentType} {...props} />
         );
+      case 'deletionLock':
+        return (
+          <FormSection name="deletionLock" component={NotificationTriggerDeletionLockType} {...props} />
+        );
       default:
         return null;
     }
@@ -798,6 +854,7 @@ function TriggerEntitySelect(props) {
         <MenuItem value="quota">Quota</MenuItem>
         <MenuItem value="access">Access</MenuItem>
         <MenuItem value="document">Document</MenuItem>
+        <MenuItem value="deletionLock">Deletion Lock</MenuItem>
       </StatefulSelect>
     </>
   );

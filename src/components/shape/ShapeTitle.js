@@ -97,7 +97,7 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: placeholderUpdateModal })}>
             <Typography>Update Placeholder</Typography>
           </MenuItem>
-          <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
+          <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
             <Typography>Export</Typography>
           </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>

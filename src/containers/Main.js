@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { withModalNoRouter } from '../hoc/withModal';
+import { NOTIFICATION_ENTITY } from '../const';
 
 import Configuration from './Configuration';
 import Indexing from './configuration/Indexing';
@@ -13,6 +14,9 @@ import LogReport from './configuration/LogReport';
 import PathAlias from './configuration/PathAlias';
 import Cors from './configuration/Cors';
 import OAuth2 from './configuration/OAuth2';
+import BulkyMetadata from './configuration/BulkyMetadata';
+import DatabasePurging from './configuration/DatabasePurging';
+import JobPriority from './configuration/JobPriority';
 import StorageList from './StorageList';
 import Storage from './Storage';
 import StorageMethod from './StorageMethod';
@@ -63,7 +67,8 @@ import Projection from './Projection';
 import MetadataField from './MetadataField';
 import NotificationList from './NotificationList';
 import Notification from './Notification';
-import NotificationEntityList from './NotificationEntityList';
+import NotificationPlaceholder from './NotificationPlaceholder';
+import NotificationResourceList from './NotificationResourceList';
 import ImportSettingsList from './ImportSettingsList';
 import ImportSettings from './ImportSettings';
 import ImportAccess from './ImportAccess';
@@ -154,6 +159,9 @@ function Main({
           <Route exact path="/configuration/logreport/" component={LogReport} />
           <Route exact path="/configuration/cors/" component={Cors} />
           <Route exact path="/configuration/auth/" component={OAuth2} />
+          <Route exact path="/configuration/bulkymetadata/" component={BulkyMetadata} />
+          <Route exact path="/configuration/purging/" component={DatabasePurging} />
+          <Route exact path="/configuration/job-priority/" component={JobPriority} />
           <Route exact path="/resource/" component={ResourceTypeList} />
           <Route exact path="/resource/:resourceType/" component={ResourceList} />
           <Route exact path="/resource/:resourceType/:resourceId/" component={Resource} />
@@ -210,9 +218,18 @@ function Main({
           <Route exact path="/projection/" component={ProjectionList} />
           <Route path="/projection/:projectionId" component={Projection} />
           <Route path="/metadata-field/:fieldName" component={MetadataField} />
-          <Route exact path="/notification/" component={NotificationEntityList} />
-          <Route exact path="/notification/:entityType/" component={NotificationList} />
-          <Route exact path="/notification/:entityType/:notificationId" component={Notification} />
+          <Route exact path="/notification/" component={NotificationResourceList} />
+          <Route
+            exact
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/`}
+            component={NotificationList}
+          />
+          <Route
+            exact
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/:notificationId`}
+            component={Notification}
+          />
+          <Route exact path="/notification/:notificationId" component={NotificationPlaceholder} />
           <Route exact path="/import/settings/" component={ImportSettingsList} />
           <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
           <Route exact path="/import/access/:userName" component={ImportAccess} />
