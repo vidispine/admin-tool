@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
-import NotificationCard from '../components/notification/NotificationCard';
+import NotificationPlaceholderCard from '../components/notification/NotificationPlaceholderCard';
 import NotificationRemove from '../components/notification/NotificationRemove';
 import withSnackbar from '../hoc/withSnackbar';
 import TitleHeader from '../components/ui/TitleHeader';
@@ -73,7 +73,7 @@ class Notification extends React.PureComponent {
           entityType="notification"
           removeModal={NOTIFICATION_REMOVE_DIALOG}
         />
-        <NotificationCard
+        <NotificationPlaceholderCard
           notificationDocument={notificationDocument}
           notificationId={notificationId}
           isEditing={isEditing}
