@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { utils as api } from '@vidispine/vdt-api';
@@ -42,6 +43,7 @@ function TitleHeader({
   onOpen: openModal,
   createModal,
   removeModal,
+  downloadModal,
   code,
   codeVariant,
   titleChip,
@@ -236,6 +238,13 @@ function TitleHeader({
       </IconButton>
     </Tooltip>
   );
+  const openDownload = downloadModal && (
+    <Tooltip title="Download">
+      <IconButton onClick={() => openModal({ modalName: downloadModal })}>
+        <CloudDownloadIcon />
+      </IconButton>
+    </Tooltip>
+  );
   const openExternalId = entityId && (
     <ExternalIdLink entityId={entityId} entityType={entityType} />
   );
@@ -266,6 +275,7 @@ function TitleHeader({
             alignItems="center"
           >
             {autoRefreshSwitch}
+            {openDownload}
             {openRemove}
             {openHelp}
             {openAddAccess}
