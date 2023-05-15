@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Menu, { MenuItem } from '../ui/Menu';
 import { withModalNoRouter } from '../../hoc/withModal';
+import UnstyledLink from '../ui/UnstyledLink';
 
 function ShapeComponentMenu({
   itemId,
@@ -20,6 +21,9 @@ function ShapeComponentMenu({
 }) {
   return (
     <Menu>
+      <MenuItem component={UnstyledLink} to={`/item/${itemId}/shape/${shapeId}/component/${componentId}/`}>
+        <Typography>Go To Component</Typography>
+      </MenuItem>
       {analyzeModal ? (
         <MenuItem onClick={() => onOpen({
           modalName: analyzeModal, itemId, shapeId, componentId,
