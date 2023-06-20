@@ -100,6 +100,7 @@ import MetadataDatasetList from './MetadataDatasetList';
 import MetadataDataset from './MetadataDataset';
 import NotFound from './NotFound';
 import JobProblemList from './JobProblemList';
+import Component from './Component';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -193,6 +194,7 @@ function Main({
           <Route exact path="/search/field-group/" component={FieldGroupSearch} />
           <Route exact path="/item/" component={ItemSearch} />
           <Route exact path="/shape" component={ShapeSearch} />
+          <Route path="/item/:itemId/shape/:shapeId/component/:componentId/" component={Component} />
           <Route path="/item/:itemId/shape/:shapeId/" component={Shape} />
           <Route path="/item/:itemId/" component={Item} />
           <Route exact path="/reindex/" component={ReindexList} />

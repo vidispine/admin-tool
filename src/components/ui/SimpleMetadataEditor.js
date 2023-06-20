@@ -4,7 +4,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 import AccordionActions from '@material-ui/core/AccordionActions';
@@ -62,6 +61,7 @@ class SimpleMetadataEditor extends React.PureComponent {
     return (
       <>
         <CardHeader
+          style={{ paddingLeft: 0 }}
           title={<Typography variant="subtitle1" {...titleProps}>{title}</Typography>}
           disableTypography
           action={entityId !== undefined ? (
@@ -77,21 +77,19 @@ class SimpleMetadataEditor extends React.PureComponent {
             </Grid>
           ) : undefined}
         />
-        <CardContent>
-          {isEditing
-            ? (
-              <SimpleMetadataForm
-                form={EDIT_SIMPLE_METADATA_FORM}
-                initialValues={initialValues}
-                onSubmit={formActions.onUpdateSimpleMetadataSubmit}
-                onSubmitSuccess={onSubmitSuccess}
-                onSubmitFail={formActions.onUpdateSimpleMetadataSubmitFail}
-                entityType={entityType}
-                entityId={entityId}
-              />
-            )
-            : <SimpleMetadataDisplay simpleMetadataList={simpleMetadataList} />}
-        </CardContent>
+        {isEditing
+          ? (
+            <SimpleMetadataForm
+              form={EDIT_SIMPLE_METADATA_FORM}
+              initialValues={initialValues}
+              onSubmit={formActions.onUpdateSimpleMetadataSubmit}
+              onSubmitSuccess={onSubmitSuccess}
+              onSubmitFail={formActions.onUpdateSimpleMetadataSubmitFail}
+              entityType={entityType}
+              entityId={entityId}
+            />
+          )
+          : <SimpleMetadataDisplay simpleMetadataList={simpleMetadataList} />}
         {isEditing
           && (
           <>

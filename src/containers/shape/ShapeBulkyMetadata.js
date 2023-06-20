@@ -7,6 +7,9 @@ import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 import withSnackbar from '../../hoc/withSnackbar';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import BulkyMetadataDisplay from '../../components/bulkymetadata/BulkyMetadataDisplay';
+import BulkyMetadataDownloadDialog from '../../components/bulkymetadata/BulkyMetadataDownloadDialog';
+
+const BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG = 'BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG';
 
 class ShapeBulkyMetadata extends React.PureComponent {
   constructor(props) {
@@ -69,6 +72,7 @@ class ShapeBulkyMetadata extends React.PureComponent {
             codeModal="BulkyMetadataDocument"
             onRefresh={this.onRefresh}
             breadcrumbList={[{ title: 'Bulky Metadata', to: generatePath('/item/:itemId/shape/:shapeId/bulky-metadata/', { itemId, shapeId }) }, bulkyMetadataKey]}
+            downloadModal={BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG}
           />
         )}
         {TabComponent && (
@@ -77,6 +81,12 @@ class ShapeBulkyMetadata extends React.PureComponent {
         { bulkyMetadataDocument && (
           <BulkyMetadataDisplay bulkyMetadataDocument={bulkyMetadataDocument} />
         )}
+        <BulkyMetadataDownloadDialog
+          dialogName={BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG}
+          itemId={itemId}
+          shapeId={shapeId}
+          bulkyMetadataKey={bulkyMetadataKey}
+        />
       </>
     );
   }

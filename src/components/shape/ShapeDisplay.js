@@ -564,6 +564,13 @@ export const VideoComponentType = ({ value = {} }) => (
       hideNoValue
       hover
     />
+    <TypeSection
+      title="mediaInfo"
+      component={BaseMediaInfoType}
+      value={value.mediaInfo}
+      hideNoValue
+      hover
+    />
   </>
 );
 

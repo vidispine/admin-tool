@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "start",
+      "request": "launch",
+      "runtimeArgs": ["start"],
+      "runtimeExecutable": "yarn",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "env": { "VIDISPINE_URL": "${input:vidicoreUrl}"},
+      "stopOnEntry": true
+    }
+  ],
+    "inputs": [
+    {
+      "id": "vidicoreUrl",
+      "type": "promptString",
+      "description": "VidiCore URL",
+      "default": "http://localhost:8080"
+    }
+  ]
+}
