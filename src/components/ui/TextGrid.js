@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles';
 import startCase from 'lodash.startcase';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import clsx from 'clsx';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
 import CodeMirror from './CodeMirror';
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
@@ -33,6 +35,22 @@ const styles = (theme) => ({
     minHeight: '32px',
   },
   ValueComponent: { overflowWrap: 'anywhere' },
+  TitleGridItem: {},
+  TitleTypography: {},
+  ValueGridItem: {},
+  IconButton: {
+    visibility: 'hidden',
+  },
+  EditIcon: {},
+  root: {
+    '&:hover $IconButton': {
+      visibility: 'visible',
+    },
+    alignItems: 'center',
+  },
+  EditGridItem: {
+    marginLeft: theme.spacing(0.5),
+  },
 });
 
 const StyledTypography = ({
@@ -365,6 +383,17 @@ function SetValueComponent({
         ))
       );
       break;
+    case 'row':
+      if (Array.isArray(value)) {
+        valueComponent = (
+          value.map((label) => (
+            <StyledTypography className={classes.ValueComponent} {...typographyProps}>
+              {capitalize ? capitalizeString(label) : label.toString()}
+            </StyledTypography>
+          ))
+        );
+      }
+      break;
     default:
       if (variant) { console.warn(`TextGrid: Unknown variant=${variant}`); } // eslint-disable-line no-console
       break;
@@ -396,8 +425,9 @@ function TextGrid({
   hideCode = false,
   initialHideCode = true,
   to,
+  onEdit,
 }) {
-  const className = clsx(propsClassName, {
+  const className = clsx(propsClassName, classes.root, {
     [classes.onHover]: hover,
     [classes.default]: !hover,
   });
@@ -647,20 +677,28 @@ function TextGrid({
       className={className}
       alignItems="flex-start"
     >
-      <Grid md={3} sm={4} xs={6} {...titleGridProps} item>
+      <Grid md={3} sm={4} xs={6} className={classes.TitleGridItem} {...titleGridProps} item>
         <Typography
           color="textSecondary"
           variant="subtitle2"
           onClick={onTextClick}
           noWrap={noWrapTitle}
+          className={classes.TitleTypography}
           {...titleTypographyProps}
         >
           {titleStartCase ? startCase(title) : title}
         </Typography>
       </Grid>
-      <Grid xs="auto" {...valueGridProps} item>
+      <Grid xs="auto" className={classes.ValueGridItem} {...valueGridProps} item>
         {valueComponent}
       </Grid>
+      {onEdit && (
+        <Grid item className={classes.EditGridItem}>
+          <IconButton className={classes.IconButton} size="small" onClick={onEdit}>
+            <EditIcon className={classes.EditIcon} />
+          </IconButton>
+        </Grid>
+      )}
     </Grid>
   );
 }

@@ -1310,13 +1310,6 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.21.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
-  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
-  dependencies:
-    regenerator-runtime "^0.13.11"
-
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.44.tgz#f8832f4fdcee5d59bf515e595fc5106c529b394f"
@@ -2449,14 +2442,26 @@
     "@typescript-eslint/types" "4.21.0"
     eslint-visitor-keys "^2.0.0"
 
-"@vidispine/vdt-api@^23.1.0":
-  version "23.1.0"
-  resolved "https://registry.yarnpkg.com/@vidispine/vdt-api/-/vdt-api-23.1.0.tgz#6d312ee226be0f067092840e5e80a12359129c15"
-  integrity sha512-nH/9D1aTkfYqwIpFZy3BIVbtXx8d9JvRF242vchnT7D9erff+Rb15DjCKajr0Y8TfaDSSUuD4iSwMgkUY+UlFg==
+"@vidispine/types@23.2.0":
+  version "23.2.0"
+  resolved "https://registry.yarnpkg.com/@vidispine/types/-/types-23.2.0.tgz#978626653368e9a08aabb0553d5b9dd2f75d8f76"
+  integrity sha512-ZYRbPxy7h7CSLFOSgei4qykb1Wrw4EvFPabthOQVJMxxEmGn4CqldOEZhlQgQoPfhttoHpwV4XumaBiujABZ/w==
+
+"@vidispine/vdt-api@23.2.0":
+  version "23.2.0"
+  resolved "https://registry.yarnpkg.com/@vidispine/vdt-api/-/vdt-api-23.2.0.tgz#a7f530277aee6c5e3a19daf315a2705d53781e31"
+  integrity sha512-tmZvBP7WL6y5pCvJH1BnVlC/rJgkP8J3EigamJ+gAATgrhwG0pJHf+yFUznmePLyHpU1MuK92cpWecFGvq2uTA==
   dependencies:
-    "@babel/runtime" "^7.21.0"
     axios "~0.21.4"
     buffer "^6.0.3"
+
+"@vidispine/vdt-js@23.2.0":
+  version "23.2.0"
+  resolved "https://registry.yarnpkg.com/@vidispine/vdt-js/-/vdt-js-23.2.0.tgz#57824892f781671d32386842c90acc1674fb45f9"
+  integrity sha512-vgt5bRbydyyQ8dtiGk0DlzcoQKIWddRYmlnTPkO8acX6VFqe1tQ2y8TnUn63eFOsGBRutsNBEhBneKetVa2Hig==
+  dependencies:
+    "@vidispine/types" "23.2.0"
+    filesize "^10.0.6"
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -5901,6 +5906,11 @@ filesize@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-6.1.0.tgz#e81bdaa780e2451d714d71c0d7a4f3238d37ad00"
   integrity sha512-LpCHtPQ3sFx67z+uh2HnSyWSLLu5Jxo21795uRDuar/EOuYWXib5EmPaGIBuSnRqH2IODiKA2k5re/K9OnN/Yg==
+
+filesize@^10.0.6:
+  version "10.0.8"
+  resolved "https://registry.yarnpkg.com/filesize/-/filesize-10.0.8.tgz#3091e0db2ab836dcd704f7b65d278519ef634457"
+  integrity sha512-/ylBrxZ1GAjgh2CEemKKLwTtmXfWqTtN1jRl6iqLwnMEucUX5cmaCCUPGstQOHVCcK9uYL6o1cPNakLQU2sasQ==
 
 fill-range@^4.0.0:
   version "4.0.0"
@@ -10941,11 +10951,6 @@ regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
-
-regenerator-runtime@^0.13.11:
-  version "0.13.11"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
-  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-runtime@^0.13.2:
   version "0.13.2"

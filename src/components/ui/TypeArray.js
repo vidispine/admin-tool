@@ -36,6 +36,7 @@ const TypeArray = ({
   hideNoValue = false,
   titleStartCase = true,
   arrayKey,
+  ...props
 }) => {
   if (hideNoValue && value === undefined) { return null; }
   if (hideNoValue && value.length === 0) { return null; }
@@ -77,7 +78,7 @@ const TypeArray = ({
           </Typography>
           )}
           <div className={dense ? undefined : classes.marginLeft}>
-            <Component value={thisValue} />
+            <Component value={thisValue} {...props} />
           </div>
         </div>
       ))}
