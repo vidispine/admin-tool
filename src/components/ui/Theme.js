@@ -2,6 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import getCookie from '../../utils/getCookie';
 
 import '@fontsource/open-sans';
@@ -56,7 +57,14 @@ export default function ThemeProvider({ children }) {
   }, [preferredMode]);
   const theme = React.useMemo(
     () => createTheme({
-      overrides: {},
+      overrides: {
+        MuiAccordion: {
+          root: {
+            marginTop: 4,
+            marginBottom: 4,
+          },
+        },
+      },
       props: {
         MuiTextField: {
           InputLabelProps: { shrink: true },
@@ -90,6 +98,13 @@ export default function ThemeProvider({ children }) {
         },
         MuiTableRow: {
           component: 'div',
+        },
+        MuiAccordion: {
+          square: true,
+          elevation: 0,
+        },
+        MuiAccordionSummary: {
+          expandIcon: <ExpandMoreIcon />,
         },
       },
       palette: {
