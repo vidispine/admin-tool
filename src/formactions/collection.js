@@ -3,13 +3,12 @@ import { SubmissionError } from 'redux-form';
 import { collection as api, metadata as MetadataApi } from '@vidispine/vdt-api';
 
 export function onUpdateMetadata(form, dispatch, props) {
-  const { metadataDocument = {}, matrixParams = [], queryParams } = form;
+  const { metadataDocument = {}, queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
   return api.updateCollectionMetadata({
     collectionId,
     metadataDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({ collectionId, ...response }))
     .catch((error) => {
@@ -22,12 +21,11 @@ export function onUpdateMetadata(form, dispatch, props) {
 }
 
 export function onGetMetadata(form, dispatch, props) {
-  const { matrixParams = [], queryParams = {} } = form;
+  const { queryParams = {} } = form;
   const collectionId = props.collectionId || form.collectionId;
   return api.getCollectionMetadata({
     collectionId,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({ collectionId, ...response }))
     .catch((error) => {
@@ -77,17 +75,14 @@ export function onGet(form, dispatch, props) {
 export function onSearch(form) {
   const {
     queryParams = {},
-    matrixParams = [],
     itemSearchDocument = {},
   } = form;
   return api.searchCollection({
     itemSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       itemSearchDocument,
       ...response,
     }))

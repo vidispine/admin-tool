@@ -7,7 +7,7 @@ import Field from '../ui/Field';
 import { StatefulAsyncSelect } from '../ui/Select';
 import { loadProjectionOptions } from '../projection/ProjectionSelect';
 
-const matrixParams = () => (
+const queryParams = () => (
   <>
     <Field
       name="projection"
@@ -29,8 +29,8 @@ function ItemProjectionForm({
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <FormSection
-        name="matrixParams"
-        component={matrixParams}
+        name="queryParams"
+        component={queryParams}
       />
     </form>
   );

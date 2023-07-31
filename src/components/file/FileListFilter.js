@@ -30,11 +30,11 @@ function FileListFilter({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   const onClick = async () => {
-    await changeForm(form, 'matrixParams.first', 0);
+    await changeForm(form, 'queryParams.first', 0);
     submitForm(form);
   };
   const initialValues = {
-    matrixParams: {
+    queryParams: {
       first: 0,
       number: 10,
       prefixFirst: 0,

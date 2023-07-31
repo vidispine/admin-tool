@@ -75,11 +75,6 @@ const queryParams = () => (
       )}
       label="Include Source"
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -105,10 +100,6 @@ function FieldGroupSearchParamsForm({
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

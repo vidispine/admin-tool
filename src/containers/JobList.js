@@ -57,8 +57,8 @@ class JobList extends React.PureComponent {
   onSuccess(response) {
     const jobListDocument = response.data;
     const { formValues = {} } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { first = 0, number = 10 } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { first = 0, number = 10 } = queryParams;
     const { hits = 0 } = jobListDocument;
     const page = Math.ceil(hits / number) - Math.ceil((hits - first) / number);
     this.setState({
@@ -71,19 +71,19 @@ class JobList extends React.PureComponent {
 
   async onChangePage({ page }) {
     const { formValues = {}, changeForm } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { number = 10 } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { number = 10 } = queryParams;
     const first = page * number;
-    changeForm(JOB_FILTER_FORM, 'matrixParams.first', first);
-    await changeForm(JOB_FILTER_FORM, 'matrixParams.number', number);
+    changeForm(JOB_FILTER_FORM, 'queryParams.first', first);
+    await changeForm(JOB_FILTER_FORM, 'queryParams.number', number);
     this.onRefresh();
   }
 
   async onChangeRowsPerPage({ target: { value: number } } = {}) {
     const { changeForm } = this.props;
     const first = 0;
-    changeForm(JOB_FILTER_FORM, 'matrixParams.first', first);
-    await changeForm(JOB_FILTER_FORM, 'matrixParams.number', number);
+    changeForm(JOB_FILTER_FORM, 'queryParams.first', first);
+    await changeForm(JOB_FILTER_FORM, 'queryParams.number', number);
     this.onRefresh();
   }
 
@@ -104,7 +104,7 @@ class JobList extends React.PureComponent {
         sort = [`${orderBy} ${newOrderDirection}`];
       }
       this.setState({ orderBy: newOrderBy, orderDirection: newOrderDirection });
-      await changeForm(JOB_FILTER_FORM, 'matrixParams.sort', sort);
+      await changeForm(JOB_FILTER_FORM, 'queryParams.sort', sort);
       this.onRefresh();
     };
   }

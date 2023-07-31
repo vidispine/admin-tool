@@ -11,7 +11,7 @@ import { StatefulAsyncSelect } from '../ui/Select';
 import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
 import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
 
-const matrixParams = () => (
+const queryParams = () => (
   <>
     <Field
       name="field"
@@ -119,11 +119,6 @@ const matrixParams = () => (
       )}
       label="Terse"
     />
-  </>
-);
-
-const queryParams = () => (
-  <>
     <FormControlLabel
       control={(
         <Field
@@ -146,10 +141,6 @@ function MetadataDisplayParamsForm({
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
     </form>
   );

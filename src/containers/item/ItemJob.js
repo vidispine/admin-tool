@@ -51,12 +51,10 @@ class ItemJob extends React.PureComponent {
 
   onFetch(itemId) {
     const { sort, first, number } = this.state;
-    const matrixParams = {
+    const queryParams = {
       first,
       number,
       sort,
-    };
-    const queryParams = {
       jobmetadata: [
         {
           key: 'itemId',
@@ -67,7 +65,6 @@ class ItemJob extends React.PureComponent {
     try {
       api.listJob({
         queryParams,
-        matrixParams: Object.entries(matrixParams),
       })
         .then((response) => this.onSuccess(response))
         .catch((error) => this.onRefreshError(error));

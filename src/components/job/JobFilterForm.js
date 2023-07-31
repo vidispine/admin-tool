@@ -87,11 +87,6 @@ const queryParams = () => (
       }}
       fullWidth
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <FormControl fullWidth>
       <InputLabel htmlFor="state">State</InputLabel>
       <Field name="state" component={Select}>
@@ -155,10 +150,6 @@ function JobFilterForm({
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

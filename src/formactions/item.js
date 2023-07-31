@@ -51,13 +51,12 @@ export function onRemoveItem(form, dispatch, props) {
 }
 
 export function onUpdateMetadata(form, dispatch, props) {
-  const { metadataDocument = {}, matrixParams = [], queryParams } = form;
+  const { metadataDocument = {}, queryParams } = form;
   const itemId = props.itemId || form.itemId;
   return api.updateItemMetadata({
     itemId,
     metadataDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {
@@ -70,13 +69,12 @@ export function onUpdateMetadata(form, dispatch, props) {
 }
 
 export function onGetMetadata(form, dispatch, props) {
-  const { matrixParams = [], queryParams = {} } = form;
+  const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
   const headers = props.headers || form.headers;
   return api.getItemMetadata({
     itemId,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
     headers,
   })
     .then((response) => ({ itemId, ...response }))
@@ -108,12 +106,11 @@ export function onListEntityMetadataChange(form, dispatch, props) {
 }
 
 export function onGet(form, dispatch, props) {
-  const { matrixParams = [], queryParams = {} } = form;
+  const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
   return api.getItem({
     itemId,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {
@@ -127,18 +124,15 @@ export function onGet(form, dispatch, props) {
 
 export function onSearch(form) {
   const {
-    matrixParams = [],
     queryParams = {},
     itemSearchDocument = {},
   } = form;
   return api.searchItem({
     itemSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       itemSearchDocument,
       ...response,
     }))

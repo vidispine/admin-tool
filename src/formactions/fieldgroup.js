@@ -51,18 +51,15 @@ export function onUpdateFieldGroupField(form, dispatch, props) {
 
 export function onSearch(form) {
   const {
-    matrixParams = [],
     queryParams = {},
     metadataFieldGroupSearchDocument = {},
   } = form;
   return api.searchFieldGroup({
     metadataFieldGroupSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       metadataFieldGroupSearchDocument,
       ...response,
     }))

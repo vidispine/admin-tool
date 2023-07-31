@@ -8,7 +8,7 @@ import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 
-const matrixParams = () => (
+const queryParams = () => (
   <>
     <Field
       name="first"
@@ -55,9 +55,9 @@ function LibraryListParamsForm({
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <FormSection
-        name="matrixParams"
-        label="matrixParams"
-        component={matrixParams}
+        name="queryParams"
+        label="queryParams"
+        component={queryParams}
       />
     </form>
   );

@@ -119,11 +119,10 @@ export function onGetFile(form, dispatch, props) {
 
 export function onFileList(form, dispatch, props) {
   const { storageId } = props;
-  const { queryParams, matrixParams = {} } = form;
+  const { queryParams } = form;
   return api.listFile({
     storageId,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .catch((error) => {
       let errorMessage = error.message;

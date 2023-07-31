@@ -21,11 +21,11 @@ export function onUpdate(form, dispatch, props) {
 }
 
 export function onGet(form, dispatch, props) {
-  const { matrixParams } = form;
+  const { queryParams } = form;
   const documentMetadataName = props.documentMetadataName || form.documentMetadataName;
   return api.getDocumentMetadata({
     documentMetadataName,
-    matrixParams: Object.entries(matrixParams),
+    queryParams,
   })
     .then((response) => ({ documentMetadataName, ...response }))
     .catch((error) => {

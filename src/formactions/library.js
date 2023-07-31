@@ -18,9 +18,9 @@ export function onCreate(form) {
 }
 
 export function onList(form) {
-  const { matrixParams = [] } = form;
+  const { queryParams } = form;
   return api.listLibrary({
-    matrixParams: Object.entries(matrixParams),
+    queryParams,
   })
     .catch((error) => {
       let errorMessage = error.message;
@@ -32,12 +32,11 @@ export function onList(form) {
 }
 
 export function onGet(form, dispatch, props) {
-  const { queryParams, matrixParams = [] } = form;
+  const { queryParams } = form;
   const libraryId = props.libraryId || form.libraryId;
   return api.getLibrary({
     libraryId,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .catch((error) => {
       let errorMessage = error.message;

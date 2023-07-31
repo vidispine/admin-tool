@@ -38,7 +38,7 @@ function ItemProjection({
         itemId={itemId}
         headers={{ accept: 'application/xml' }}
         initialValues={{
-          matrixParams: {
+          queryParams: {
             projection: 'default',
           },
         }}

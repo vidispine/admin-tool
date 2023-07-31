@@ -19,7 +19,6 @@ export default function AuditLogRow({
       <TableCell>{entry.method}</TableCell>
       <TableCell>{entry.path}</TableCell>
       <TableCell>{entry.queryParameters}</TableCell>
-      <TableCell>{entry.matrixParameters}</TableCell>
     </TableRow>
   );
 }

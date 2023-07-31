@@ -3,10 +3,9 @@ import { SubmissionError } from 'redux-form';
 import { job as api } from '@vidispine/vdt-api';
 
 export function onJobList(form) {
-  const { queryParams, matrixParams = {} } = form;
+  const { queryParams } = form;
   return api.listJob({
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .catch((error) => {
       let errorMessage = error.message;

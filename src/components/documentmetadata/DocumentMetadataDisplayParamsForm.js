@@ -8,7 +8,7 @@ import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 
-const matrixParams = () => (
+const queryParams = () => (
   <>
     <Field
       name="interval"
@@ -74,8 +74,8 @@ function DocumentMetadataDisplayParamsForm({
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <FormSection
-        name="matrixParams"
-        component={matrixParams}
+        name="queryParams"
+        component={queryParams}
       />
     </form>
   );
