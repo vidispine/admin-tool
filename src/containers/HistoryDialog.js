@@ -106,6 +106,8 @@ class HistoryDialog extends React.PureComponent {
     } = request;
     let { url: fullUrl } = request;
     if (baseURL) fullUrl = [baseURL, url].join('');
+    const requestUrl = new URL(fullUrl);
+    const requestParams = Array.from(requestUrl.searchParams);
     const requestHeaders = {};
     Object.entries(headers).forEach(([key, value]) => {
       if (typeof value === 'string') { requestHeaders[key] = value; }
@@ -145,6 +147,7 @@ class HistoryDialog extends React.PureComponent {
       method: method.toUpperCase(),
       requestData: requestDataString,
       requestHeaders,
+      requestParams,
       requestContentType,
     };
     const recentResponses = [thisRequest, ...prevResponses].slice(0, this.maxReponsesLength);
@@ -299,6 +302,18 @@ class HistoryDialog extends React.PureComponent {
                 <TextGrid title="URL" value={displayResponse.fullUrl} hover />
                 <TextGrid title="Method" value={displayResponse.method} hover />
                 <TextGrid title="Status" value={displayResponse.status} hover />
+                <TypeArray
+                  arrayTitle="Request Params"
+                  value={displayResponse.requestParams}
+                  component={({ value: [paramKey, paramValue] }) => (
+                    <TextGrid
+                      title={paramKey}
+                      value={paramValue}
+                      hover
+                      titleStartCase={false}
+                    />
+                  )}
+                />
                 <TypeArray
                   arrayTitle="Request Headers"
                   value={Object.entries(displayResponse.requestHeaders)}
