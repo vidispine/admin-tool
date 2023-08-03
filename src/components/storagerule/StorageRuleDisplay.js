@@ -47,7 +47,7 @@ const StorageRuleType = ({ value = {} }) => (
     />
     <TextGrid
       title="Storage Group"
-      value={value.storage}
+      value={value.group}
       hover
       hideNoValue
     />
@@ -64,7 +64,7 @@ const StorageRuleType = ({ value = {} }) => (
           />
           <TextGrid
             title="Storage Group"
-            value={v.storage}
+            value={v.group}
             hover
           />
         </>
@@ -84,7 +84,7 @@ const StorageRuleType = ({ value = {} }) => (
           />
           <TextGrid
             title="Storage Group"
-            value={v.storage}
+            value={v.group}
             hover
           />
         </>
