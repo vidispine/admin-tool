@@ -1,6 +1,6 @@
 export default function getJobDataVariant(key) {
   if (key.startsWith('transcodeShapeDocument')) return 'xml';
-  if (key.startsWith('assetMapShapeDocument')) return 'xml';
+  if (key.startsWith('batonTestPlan')) return 'xml';
   if (key.endsWith('transcodePreset')) return 'xml';
   if (key.match(/shapeDocument\d+$/g)) return 'xml';
   switch (key) {
