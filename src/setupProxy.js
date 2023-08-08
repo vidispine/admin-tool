@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware'); // eslint-di
 
 const VIDISPINE_ENDPOINTS = ['/API/', '/APInoauth/', '/APIinit/', '/APIdoc/', '/UploadLicense/'];
 
-const VIDISPINE_URL = process.env.REACT_APP_VIDISPINE_URL === '' ? undefined : process.env.REACT_APP_VIDISPINE_URL;
+const VIDISPINE_URL = process.env.VITE_VIDISPINE_URL === '' ? undefined : process.env.VITE_VIDISPINE_URL;
 
 const onProxyRes = (proxyRes) => delete proxyRes.headers['www-authenticate']; // eslint-disable-line no-param-reassign
 

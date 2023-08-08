@@ -223,7 +223,7 @@ function FullScreenDialog({
       </DialogContent>
       <DialogActions>
         <Typography variant="caption">
-          {`Last Commit: ${process.env.REACT_APP_GIT_COMMIT}` || 'Last Commit: UNKNOWN'}
+          {`Last Commit: ${process.env.VITE_GIT_COMMIT}` || 'Last Commit: UNKNOWN'}
         </Typography>
       </DialogActions>
     </Dialog>

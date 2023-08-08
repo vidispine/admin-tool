@@ -29,7 +29,7 @@ export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') =>
   if (cookies[cookieKey]) return decodeURIComponent(cookies[cookieKey]);
   return undefined;
 };
-export const getVidispineUrlFromEnv = (envKey = 'REACT_APP_VIDISPINE_URL') => (process.env[envKey] !== '' ? process.env[envKey] : undefined);
+export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') => (process.env[envKey] !== '' ? process.env[envKey] : undefined);
 export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
 export const getVidispineUrlFromPath = () => {
   const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '').replace(/^\/+/, '');

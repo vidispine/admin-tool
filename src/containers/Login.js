@@ -26,7 +26,7 @@ import { getVidispineUrlFromPath } from '../const';
 const INIT_DIALOG = 'INIT_DIALOG';
 const HELP_DIALOG = 'HELP_DIALOG';
 
-const { REACT_APP_VERSION } = process.env;
+const { VITE_VERSION } = process.env;
 const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'light' } });
 
 class Login extends React.PureComponent {
@@ -197,7 +197,7 @@ class Login extends React.PureComponent {
                       variant="body2"
                       color="inherit"
                     >
-                      {`v${REACT_APP_VERSION}`}
+                      {`v${VITE_VERSION}`}
                     </Typography>
                     <GitHubButton />
                     <IconButton
