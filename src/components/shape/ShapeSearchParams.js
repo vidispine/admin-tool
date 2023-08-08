@@ -7,9 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Accordion from '@material-ui/core/Accordion';
 
-import Accordion from '../ui/Accordion';
 import ShapeSearchParamsForm from './ShapeSearchParamsForm';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
@@ -44,7 +43,7 @@ function ShapeSearchParams({
       expanded={expanded}
       onChange={onChangeExpansion}
     >
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary>
         <Typography variant="subtitle2" color="textSecondary">
           Shape Search Params
         </Typography>

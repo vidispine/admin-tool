@@ -7,9 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import Accordion from '../ui/Accordion';
+import Accordion from '@material-ui/core/Accordion';
 
 import LoginForm from './LoginForm';
 import LoginFormAdvanced from './LoginFormAdvanced';
@@ -47,7 +45,7 @@ function Login({
           {...formProps}
         />
         <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{ padding: 0 }}>
+          <AccordionSummary style={{ padding: 0 }}>
             <Typography variant="subtitle2" color="textSecondary">
               Advanced
             </Typography>

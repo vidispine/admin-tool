@@ -44,8 +44,8 @@ class FileList extends React.PureComponent {
   onSuccess(response) {
     const fileListDocument = response.data;
     const { formValues = {} } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { first = 0, number = 10 } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { first = 0, number = 10 } = queryParams;
     const { hits = 0 } = fileListDocument;
     const page = Math.ceil(hits / number) - Math.ceil((hits - first) / number);
     this.setState({
@@ -58,11 +58,11 @@ class FileList extends React.PureComponent {
 
   async onChangePage({ page }) {
     const { formValues = {}, changeForm } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { number = 10 } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { number = 10 } = queryParams;
     const first = page * number;
-    changeForm(FILE_FILTER_FORM, 'matrixParams.first', first);
-    await changeForm(FILE_FILTER_FORM, 'matrixParams.number', number);
+    changeForm(FILE_FILTER_FORM, 'queryParams.first', first);
+    await changeForm(FILE_FILTER_FORM, 'queryParams.number', number);
     this.onRefresh();
   }
 
@@ -75,8 +75,8 @@ class FileList extends React.PureComponent {
   async onChangeRowsPerPage({ target: { value: number } } = {}) {
     const { changeForm } = this.props;
     const first = 0;
-    changeForm(FILE_FILTER_FORM, 'matrixParams.first', first);
-    await changeForm(FILE_FILTER_FORM, 'matrixParams.number', number);
+    changeForm(FILE_FILTER_FORM, 'queryParams.first', first);
+    await changeForm(FILE_FILTER_FORM, 'queryParams.number', number);
     this.onRefresh();
   }
 
@@ -97,7 +97,7 @@ class FileList extends React.PureComponent {
         sort = [`${orderBy} ${newOrderDirection}`];
       }
       this.setState({ orderBy: newOrderBy, orderDirection: newOrderDirection });
-      await changeForm(FILE_FILTER_FORM, 'matrixParams.sort', sort);
+      await changeForm(FILE_FILTER_FORM, 'queryParams.sort', sort);
       this.onRefresh();
     };
   }

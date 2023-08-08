@@ -36,10 +36,10 @@ class CollectionSearch extends React.PureComponent {
     } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
-      queryParams,
-      matrixParams: {
+      queryParams: {
         first,
         number,
+        ...queryParams,
       },
       itemSearchDocument: {
         sort,

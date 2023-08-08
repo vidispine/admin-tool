@@ -40,8 +40,8 @@ class LibraryList extends React.PureComponent {
   async onChangePage({ page }) {
     const { rowsPerPage } = this.state;
     const { formValues = {}, changeForm } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { number = rowsPerPage } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { number = rowsPerPage } = queryParams;
     const first = page * number + 1;
     changeForm(LIBRARY_CONTENT_PARAMS_FORM, 'queryParams.first', first);
     await changeForm(LIBRARY_CONTENT_PARAMS_FORM, 'queryParams.number', number);

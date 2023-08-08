@@ -19,10 +19,9 @@ export function onUpdateTransferPriority(form, dispatch, props) {
 }
 
 export function onTransferList(form) {
-  const { queryParams, matrixParams = {} } = form;
+  const { queryParams } = form;
   return api.listTransfer({
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .catch((error) => {
       let errorMessage = error.message;

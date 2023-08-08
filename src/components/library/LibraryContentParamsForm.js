@@ -7,7 +7,7 @@ import { TextField } from '../form';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
-import { queryParams as itemQueryParams, matrixParams as itemMatrixParams } from '../item/ItemContentParamsForm';
+import { queryParams as itemQueryParams } from '../item/ItemContentParamsForm';
 
 const queryParams = () => (
   <>
@@ -58,11 +58,6 @@ function LibraryContentParamsForm({
       <FormSection
         name="queryParams"
         component={itemQueryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        label="matrixParams"
-        component={itemMatrixParams}
       />
     </form>
   );

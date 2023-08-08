@@ -20,11 +20,6 @@ const queryParams = () => (
       )}
       label="Count"
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -54,10 +49,6 @@ function CollectionSearchParamsForm({
       <FormSection
         name="queryParams"
         component={contentQueryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

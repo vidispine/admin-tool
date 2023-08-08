@@ -6,9 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import Accordion from '../ui/Accordion';
+import Accordion from '@material-ui/core/Accordion';
 
 import * as formActions from '../../formactions/file';
 import FileParamsForm from './FileParamsForm';
@@ -34,7 +32,7 @@ function FileParams({
   };
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary>
         <Typography variant="subtitle2" color="textSecondary">
           File Params
         </Typography>

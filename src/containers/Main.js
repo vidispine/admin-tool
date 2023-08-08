@@ -101,6 +101,8 @@ import MetadataDataset from './MetadataDataset';
 import NotFound from './NotFound';
 import JobProblemList from './JobProblemList';
 import Component from './Component';
+import AnalyzePresetList from './AnalyzePresetList';
+import AnalyzePreset from './AnalyzePreset';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -252,6 +254,8 @@ function Main({
           <Route exact path="/external-id/:entityType/:entitySubType/:entityId" component={ExternalId} />
           <Route exact path="/metadata-dataset/" component={MetadataDatasetList} />
           <Route exact path="/metadata-dataset/:datasetId/" component={MetadataDataset} />
+          <Route exact path="/analyze-preset/" component={AnalyzePresetList} />
+          <Route exact path="/analyze-preset/:preset/" component={AnalyzePreset} />
           <Redirect exact from="/" push to="/job" />
           <Route path="*" component={NotFound} />
         </Switch>

@@ -56,8 +56,8 @@ const withPaginationForm = (WrappedComponent) => class extends React.PureCompone
   async onChangeRowsPerPage({ rowsPerPage: number }) {
     const {
       changeForm,
-      firstField = 'matrixParams.first',
-      numberField = 'matrixParams.number',
+      firstField = 'queryParams.first',
+      numberField = 'queryParams.number',
       submitForm,
       form,
     } = this.props;
@@ -72,13 +72,13 @@ const withPaginationForm = (WrappedComponent) => class extends React.PureCompone
     const {
       formValues = {},
       changeForm,
-      firstField = 'matrixParams.first',
-      numberField = 'matrixParams.number',
+      firstField = 'queryParams.first',
+      numberField = 'queryParams.number',
       submitForm,
       form,
     } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { number = rowsPerPage } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { number = rowsPerPage } = queryParams;
     const first = page * number + 1;
     changeForm(form, firstField, first);
     await changeForm(form, numberField, number);
@@ -91,7 +91,7 @@ const withPaginationForm = (WrappedComponent) => class extends React.PureCompone
       changeForm,
       submitForm,
       sortField = 'itemSearchDocument.sort',
-      firstField = 'matrixParams.first',
+      firstField = 'queryParams.first',
       form,
     } = this.props;
     let sortValue = [];

@@ -16,29 +16,6 @@ import { loadStorageGroupOptions } from '../storagegroup/StorageGroupSelect';
 
 const queryParams = () => (
   <>
-    <FormControlLabel
-      control={(
-        <Field
-          name="count"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Count"
-    />
-    <FormControlLabel
-      control={(
-        <Field
-          name="save"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Save"
-    />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -71,6 +48,24 @@ const matrixParams = () => (
       fullWidth
       isMulti
     />
+    <FormControlLabel
+      control={(
+        <Field
+          name="count"
+          component={BoolCheckbox}
+        />
+      )}
+      label="Count"
+    />
+    <FormControlLabel
+      control={(
+        <Field
+          name="save"
+          component={BoolCheckbox}
+        />
+      )}
+      label="Save"
+    />
   </>
 );
 
@@ -88,10 +83,6 @@ function SearchParamsForm({
       <FormSection
         name="queryParams"
         component={contentQueryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

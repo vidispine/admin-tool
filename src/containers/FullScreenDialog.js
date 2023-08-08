@@ -180,6 +180,7 @@ function FullScreenDialog({
             <ListGroup subheader="Transcoding">
               <ListLink to="/shape-tag/" primary="Shape Tags" />
               <ListLink to="/conform/" primary="Conform Media" />
+              <ListLink to="/analyze-preset/" primary="Analyze Presets" />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>

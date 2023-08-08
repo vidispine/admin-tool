@@ -6,9 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Accordion from '@material-ui/core/Accordion';
 
-import Accordion from '../ui/Accordion';
 import * as formActions from '../../formactions/job';
 import JobFilterForm from './JobFilterForm';
 import withFormActions from '../../hoc/withFormActions';
@@ -31,11 +30,11 @@ function JobFilter({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   const onClick = async () => {
-    await changeForm(form, 'matrixParams.first', 0);
+    await changeForm(form, 'queryParams.first', 0);
     submitForm(form);
   };
   const initialValues = {
-    matrixParams: {
+    queryParams: {
       first: 0,
       number: 10,
       sort: ['jobId desc'],
@@ -44,7 +43,7 @@ function JobFilter({
   };
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary>
         <Typography variant="subtitle2" color="textSecondary">
           Job List Options
         </Typography>

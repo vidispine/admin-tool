@@ -36,11 +36,11 @@ class CollectionCollection extends React.PureComponent {
   }
 
   onFetch(collectionId) {
-    const matrixParams = { field: '__collection,__ancestor_collection,__parent_collection' };
+    const queryParams = { field: '__collection,__ancestor_collection,__parent_collection' };
     try {
       api.getCollectionMetadata({
         collectionId,
-        matrixParams: Object.entries(matrixParams),
+        queryParams: Object.entries(queryParams),
       })
         .then((response) => this.setState({ metadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));

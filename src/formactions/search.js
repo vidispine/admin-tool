@@ -4,18 +4,15 @@ import { search as api } from '@vidispine/vdt-api';
 
 export function onSearchShape(form) {
   const {
-    matrixParams = [],
     queryParams = {},
     shapeSearchDocument = {},
   } = form;
   return api.searchShape({
     shapeSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       shapeSearchDocument,
       ...response,
     }))
@@ -30,18 +27,15 @@ export function onSearchShape(form) {
 
 export function onSearchFile(form) {
   const {
-    matrixParams = [],
     queryParams = {},
     fileSearchDocument = {},
   } = form;
   return api.searchFile({
     fileSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       fileSearchDocument,
       ...response,
     }))
@@ -56,18 +50,15 @@ export function onSearchFile(form) {
 
 export function onSearch(form) {
   const {
-    matrixParams = [],
     queryParams = {},
     itemSearchDocument = {},
   } = form;
   return api.searchItemCollection({
     itemSearchDocument,
     queryParams,
-    matrixParams: Object.entries(matrixParams),
   })
     .then((response) => ({
       queryParams,
-      matrixParams,
       itemSearchDocument,
       ...response,
     }))

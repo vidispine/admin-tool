@@ -112,6 +112,7 @@ const linkOptions = [
   { value: '/scheduled-request/', label: 'Scheduled Requests' },
   { value: '/stitch/', label: 'Stitch' },
   { value: '/deletion-lock/', label: 'Deletion Locks' },
+  { value: '/analyze-preset/', label: 'Analyze Presets' },
 ];
 
 const useOptionStyles = makeStyles({

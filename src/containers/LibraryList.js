@@ -37,8 +37,8 @@ class LibraryList extends React.PureComponent {
   async onChangeRowsPerPage({ target: { value: number } } = {}) {
     const { changeForm } = this.props;
     const first = 1;
-    changeForm(LIBRARY_LIST_PARAMS_FORM, 'matrixParams.first', first);
-    await changeForm(LIBRARY_LIST_PARAMS_FORM, 'matrixParams.number', number);
+    changeForm(LIBRARY_LIST_PARAMS_FORM, 'queryParams.first', first);
+    await changeForm(LIBRARY_LIST_PARAMS_FORM, 'queryParams.number', number);
     this.setState({ page: 0, rowsPerPage: number });
     this.onRefresh();
   }
@@ -46,11 +46,11 @@ class LibraryList extends React.PureComponent {
   async onChangePage({ page }) {
     const { rowsPerPage } = this.state;
     const { formValues = {}, changeForm } = this.props;
-    const { matrixParams = {} } = formValues;
-    const { number = rowsPerPage } = matrixParams;
+    const { queryParams = {} } = formValues;
+    const { number = rowsPerPage } = queryParams;
     const first = page * number + 1;
-    changeForm(LIBRARY_LIST_PARAMS_FORM, 'matrixParams.first', first);
-    await changeForm(LIBRARY_LIST_PARAMS_FORM, 'matrixParams.number', number);
+    changeForm(LIBRARY_LIST_PARAMS_FORM, 'queryParams.first', first);
+    await changeForm(LIBRARY_LIST_PARAMS_FORM, 'queryParams.number', number);
     this.setState({ page, rowsPerPage: number });
     this.onRefresh();
   }
@@ -77,7 +77,7 @@ class LibraryList extends React.PureComponent {
         <LibraryListParams
           onSuccess={(response) => this.setState({ uriListDocument: response.data })}
           initialValues={{
-            matrixParams: {
+            queryParams: {
               number: 100,
               first: 1,
             },

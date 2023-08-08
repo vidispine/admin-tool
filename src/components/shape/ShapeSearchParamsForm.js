@@ -54,11 +54,6 @@ const queryParams = () => (
       )}
       label="Count"
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -84,10 +79,6 @@ function ShapeSearchParamsForm({
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

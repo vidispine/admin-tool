@@ -33,11 +33,11 @@ class ItemCollection extends React.PureComponent {
   }
 
   onFetch(itemId) {
-    const matrixParams = { field: '__collection,__ancestor_collection,__parent_collection' };
+    const queryParams = { field: '__collection,__ancestor_collection,__parent_collection' };
     try {
       api.getItemMetadata({
         itemId,
-        matrixParams: Object.entries(matrixParams),
+        queryParams: Object.entries(queryParams),
       })
         .then((response) => this.setState({ metadataListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));

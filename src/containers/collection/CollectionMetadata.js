@@ -3,6 +3,7 @@ import React from 'react';
 import { collection as api } from '@vidispine/vdt-api';
 import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
 import CollectionMetadataDisplayParams from '../../components/collection/CollectionMetadataDisplayParams';
+import TimeRepresentation from '../../components/ui/TimeRepresentation';
 
 import withSnackbar from '../../hoc/withSnackbar';
 import withCard from '../../hoc/withCard';
@@ -15,8 +16,10 @@ class CollectionMetadata extends React.PureComponent {
     this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
+    this.onSubmitTimeRepresentation = this.onSubmitTimeRepresentation.bind(this);
     this.state = {
       metadataDocument: undefined,
+      timeRepresentation: undefined,
     };
   }
 
@@ -53,6 +56,10 @@ class CollectionMetadata extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
+  onSubmitTimeRepresentation(timeRepresentation) {
+    this.setState({ timeRepresentation });
+  }
+
   render() {
     const {
       collectionId,
@@ -60,7 +67,7 @@ class CollectionMetadata extends React.PureComponent {
       tabComponent: TabComponent,
       title,
     } = this.props;
-    const { metadataDocument } = this.state;
+    const { metadataDocument, timeRepresentation } = this.state;
     return (
       <>
         {TitleComponent && (
@@ -79,11 +86,15 @@ class CollectionMetadata extends React.PureComponent {
           collectionId={collectionId}
           onSuccess={(response) => this.setState({ metadataDocument: response.data })}
         />
+        <TimeRepresentation
+          onSubmit={this.onSubmitTimeRepresentation}
+        />
         {metadataDocument && (
           <CollectionMetadataCard
             collectionId={collectionId}
             metadataDocument={metadataDocument}
-            onSuccess={() => this.onRefresh()}
+            timeRepresentation={timeRepresentation}
+            onSuccess={this.onRefresh}
           />
         )}
       </>

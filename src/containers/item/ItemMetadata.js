@@ -2,6 +2,7 @@ import React from 'react';
 import { item as api } from '@vidispine/vdt-api';
 import ItemMetadataListCard from '../../components/item/ItemMetadataListCard';
 import ItemMetadataDisplayParams from '../../components/item/ItemMetadataDisplayParams';
+import TimeRepresentation from '../../components/ui/TimeRepresentation';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -11,8 +12,10 @@ class ItemMetadata extends React.PureComponent {
     this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
+    this.onSubmitTimeRepresentation = this.onSubmitTimeRepresentation.bind(this);
     this.state = {
       metadataListDocument: undefined,
+      timeRepresentation: undefined,
     };
   }
 
@@ -49,6 +52,10 @@ class ItemMetadata extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
+  onSubmitTimeRepresentation(timeRepresentation) {
+    this.setState({ timeRepresentation });
+  }
+
   render() {
     const {
       itemId,
@@ -56,7 +63,7 @@ class ItemMetadata extends React.PureComponent {
       tabComponent: TabComponent,
       title,
     } = this.props;
-    const { metadataListDocument } = this.state;
+    const { metadataListDocument, timeRepresentation } = this.state;
     return (
       <>
         {TitleComponent && (
@@ -74,11 +81,15 @@ class ItemMetadata extends React.PureComponent {
           itemId={itemId}
           onSuccess={(response) => this.setState({ metadataListDocument: response.data })}
         />
+        <TimeRepresentation
+          onSubmit={this.onSubmitTimeRepresentation}
+        />
         {metadataListDocument && (
           <ItemMetadataListCard
             itemId={itemId}
             metadataListDocument={metadataListDocument}
-            onSuccess={() => this.onRefresh()}
+            timeRepresentation={timeRepresentation}
+            onSuccess={this.onRefresh}
           />
         )}
       </>

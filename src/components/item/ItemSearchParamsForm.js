@@ -12,7 +12,6 @@ import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import {
   queryParams as contentQueryParams,
-  matrixParams as contentMatrixParams,
 } from './ItemContentParamsForm';
 
 const queryParams = () => (
@@ -42,11 +41,6 @@ const queryParams = () => (
       )}
       label="Save"
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -108,14 +102,6 @@ function ItemSearchParamsForm({
       <FormSection
         name="queryParams"
         component={contentQueryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={contentMatrixParams}
       />
       <button type="submit" hidden />
     </form>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-// import { TextField, Select } from '../form';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -24,23 +23,6 @@ const queryParams = () => (
   </FormControl>
 );
 
-// const matrixParams = () => (
-//   <React.Fragment>
-//     <Field
-//       name="first"
-//       component={TextField}
-//       type="number"
-//       fullWidth
-//     />
-//     <Field
-//       name="number"
-//       component={TextField}
-//       type="number"
-//       fullWidth
-//     />
-//   </React.Fragment>
-// );
-
 function TransferFilterForm({
   error,
   handleSubmit,
@@ -52,10 +34,6 @@ function TransferFilterForm({
         name="queryParams"
         component={queryParams}
       />
-      {/* <FormSection
-        name="matrixParams"
-        component={matrixParams}
-      /> */}
       <button type="submit" hidden />
     </form>
   );

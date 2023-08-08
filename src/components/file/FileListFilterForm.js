@@ -121,11 +121,6 @@ const queryParams = () => (
       label="Method Metadata"
       component={KeyValuePairType}
     />
-  </>
-);
-
-const matrixParams = () => (
-  <>
     <Field
       name="first"
       component={TextField}
@@ -230,10 +225,6 @@ function FileListFilterForm({
       <FormSection
         name="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        component={matrixParams}
       />
       <button type="submit" hidden />
     </form>

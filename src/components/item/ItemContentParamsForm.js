@@ -208,11 +208,6 @@ export const queryParams = () => (
       )}
       label="Include Transient Metadata"
     />
-  </>
-);
-
-export const matrixParams = () => (
-  <>
     <Field
       name="storage"
       label="Storage"
@@ -261,11 +256,6 @@ function ItemContentParamsForm({
         name="queryParams"
         label="queryParams"
         component={queryParams}
-      />
-      <FormSection
-        name="matrixParams"
-        label="matrixParams"
-        component={matrixParams}
       />
     </form>
   );
