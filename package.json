@@ -12,9 +12,10 @@
     "clsx": "1.1.1",
     "codemirror": "5.65.9",
     "d3-graphviz": "2.6.1",
+    "events": "^3.3.0",
     "history": "5.1.0",
     "immutability-helper": "3.1.1",
-    "jshint": "^2.13.5",
+    "jshint": "2.13.5",
     "lodash.debounce": "4.0.8",
     "lodash.startcase": "4.4.0",
     "material-ui-chip-input": "1.1.0",
@@ -28,7 +29,7 @@
     "react-router-dom": "5.3.0",
     "react-select": "5.2.1",
     "redux": "4.1.2",
-    "redux-form": "8.3.7",
+    "redux-form": "^8.3.10",
     "stringify-object": "^5.0.0"
   },
   "resolutions": {
@@ -42,7 +43,7 @@
     "predocker:build": "PUBLIC_URL=/ yarn build",
     "docker:build": "docker build -t \"${npm_package_name:1}:latest\" -t \"${npm_package_name:1}:${npm_package_version}\" .",
     "docker:push": "docker push \"${npm_package_name:1}:${npm_package_version}\" && docker push \"${npm_package_name:1}:latest\"",
-    "docker:run": "docker run --name \"${npm_package_name/@vidispine\\//vidispine_}\" --rm -dti -e VIDISPINE_URL=$VIDISPINE_URL -p 80:80 \"${npm_package_name:1}:${npm_package_version}\"",
+    "docker:run": "docker run --name \"${npm_package_name/@vidispine\\//vidispine_}\" --rm -dti -e VIDISPINE_URL=$VIDISPINE_URL -e NGINX_RESOLVER=1.1.1.1 -p 80:80 \"${npm_package_name:1}:${npm_package_version}\"",
     "docker:stop": "docker stop \"${npm_package_name/@vidispine\\//vidispine_}\""
   },
   "devDependencies": {
@@ -54,7 +55,6 @@
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-react-hooks": "1.7.0",
     "gh-pages": "3.2.3",
-    "http-proxy-middleware": "2.0.1",
     "sass": "^1.64.2",
     "vite": "^4.4.9"
   },
