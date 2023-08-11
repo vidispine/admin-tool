@@ -76,6 +76,10 @@ export function onGetComponentBulkyMetadataAsFile(form, dispatch, props) {
       path: `/API/item/${itemId}/shape/${shapeId}/component/${componentId}/metadata/bulky/${bulkyMetadataKey}/as-file`,
       headers: { accept: 'application/octet-stream' },
       queryParams,
+      transitional: {
+        silentJSONParsing: false,
+        forcedJSONParsing: false,
+      },
     })
       .catch(onError);
   } catch (error) {
