@@ -1,6 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import dns from 'dns';
+
+dns.setDefaultResultOrder('verbatim');
 
 const VIDISPINE_ENDPOINTS = ['/API/', '/APInoauth/', '/APIinit/', '/APIdoc/', '/UploadLicense/'];
 const VIDISPINE_URL = process.env.VITE_VIDISPINE_URL === '' ? undefined : process.env.VITE_VIDISPINE_URL;
@@ -26,8 +29,10 @@ export default ({ mode }) => defineConfig({
   base,
   server: {
     port: 3000,
+    host: 'localhost',
     open: true,
     proxy,
+
   },
   plugins: [splitVendorChunkPlugin(), react()],
   define: {
