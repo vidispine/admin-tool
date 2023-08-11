@@ -26,6 +26,10 @@ export function onGetItemBulkyMetadataAsFile(form, dispatch, props) {
       path: `/API/item/${itemId}/metadata/bulky/${bulkyMetadataKey}/as-file`,
       headers: { accept: 'application/octet-stream' },
       queryParams,
+      transitional: {
+        silentJSONParsing: false,
+        forcedJSONParsing: false,
+      },
     })
       .catch(onError);
   } catch (error) {
@@ -46,6 +50,10 @@ export function onGetShapeBulkyMetadataAsFile(form, dispatch, props) {
       path: `/API/item/${itemId}/shape/${shapeId}/metadata/bulky/${bulkyMetadataKey}/as-file`,
       headers: { accept: 'application/octet-stream' },
       queryParams,
+      transitional: {
+        silentJSONParsing: false,
+        forcedJSONParsing: false,
+      },
     })
       .catch(onError);
   } catch (error) {
