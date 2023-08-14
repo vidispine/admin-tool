@@ -37,6 +37,7 @@ import ItemExport from '../components/item/ItemExport';
 import ItemImpExport from '../components/item/ItemImpExport';
 import ItemImpImport from '../components/item/ItemImpImport';
 import ItemShapeCreate from '../components/item/ItemShapeCreate';
+import ItemAnalyze from '../components/item/ItemAnalyze';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
 import JobCreate from '../components/job/JobCreate';
 import AccessControlDialog from '../components/access/AccessControlDialog';
@@ -76,6 +77,7 @@ const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
 const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
 const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
+const ITEM_ANALYZE_DIALOG = 'ITEM_ANALYZE_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -286,6 +288,7 @@ class Item extends React.PureComponent {
         removeAllShapesModal={ITEM_REMOVEALLSHAPES_DIALOG}
         importImpModal={ITEM_IMPIMPORT_DIALOG}
         createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
+        analyzeModal={ITEM_ANALYZE_DIALOG}
         {...props}
       />
     );
@@ -376,6 +379,12 @@ class Item extends React.PureComponent {
             },
           }}
         />
+        <ItemAnalyze
+          dialogName={ITEM_ANALYZE_DIALOG}
+          onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          itemId={itemId}
+        />
+
       </>
     );
   }

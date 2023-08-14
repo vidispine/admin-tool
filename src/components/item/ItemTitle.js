@@ -57,6 +57,7 @@ function ItemTitle({
   importImpModal,
   breadcrumbList,
   createShapeModal,
+  analyzeModal,
   ...props
 }) {
   return (
@@ -119,6 +120,9 @@ function ItemTitle({
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: startJobModal })}>
               <Typography>Start Job</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: analyzeModal })}>
+              <Typography>Analyze</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: transcodeModal })}>
               <Typography>Transcode</Typography>

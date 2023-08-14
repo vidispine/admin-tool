@@ -15,6 +15,7 @@ import { KeyValuePairType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
 import { loadStorageOptions } from '../storage/StorageSelect';
 import AnalyzeJobType from '../ui/AnalyzeJobType';
+import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 
 const queryParams = () => (
   <>
@@ -33,12 +34,16 @@ const queryParams = () => (
       fullWidth
     />
     <Field
-      name="callbackId"
-      component={TextField}
+      name="tag"
+      label="Shape Tag"
+      component={StatefulAsyncSelect}
+      loadOptions={loadShapeTagOptions}
+      cacheOptions
+      isClearable
       fullWidth
     />
     <Field
-      name="preset"
+      name="callbackId"
       component={TextField}
       fullWidth
     />
@@ -76,11 +81,10 @@ const queryParams = () => (
   </>
 );
 
-function ShapeAnalyzeForm({
+function ItemAnalyzeForm({
   error,
   handleSubmit,
   itemId,
-  shapeId,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -88,14 +92,6 @@ function ShapeAnalyzeForm({
       {!itemId && (
         <Field
           name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      {!shapeId && (
-        <Field
-          name="shapeId"
           component={TextField}
           validate={[required]}
           fullWidth
@@ -116,4 +112,4 @@ function ShapeAnalyzeForm({
   );
 }
 
-export default reduxForm()(ShapeAnalyzeForm);
+export default reduxForm()(ItemAnalyzeForm);
