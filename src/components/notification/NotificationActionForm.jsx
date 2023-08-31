@@ -194,7 +194,7 @@ function ActionTypeSqs() {
       />
       <Field
         name="messageGroupId"
-        label="Message ID"
+        label="Message Group ID"
         component={TextField}
         fullWidth
       />
