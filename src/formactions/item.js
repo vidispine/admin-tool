@@ -253,3 +253,21 @@ export function onUpdateItemRelation(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onCreateItemAnalyze(form, dispatch, props) {
+  const { analyzeJobDocument = {}, queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  return api.createItemAnalyze({
+    itemId,
+    queryParams,
+    analyzeJobDocument,
+  })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

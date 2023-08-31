@@ -8,14 +8,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import ShapeAnalyzeForm from './ShapeAnalyzeForm';
-import * as formActions from '../../formactions/shape';
+import ItemAnalyzeForm from './ItemAnalyzeForm';
+import * as formActions from '../../formactions/item';
 import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
 
-const SHAPE_ANALYZE_FORM = 'SHAPE_ANALYZE_FORM';
+const ITEM_ANALYZE_FORM = 'ITEM_ANALYZE_FORM';
 
-function ShapeAnalyze({
+function ItemAnalyze({
   open,
   onClose,
   onSuccess,
@@ -23,8 +23,7 @@ function ShapeAnalyze({
   openSnackBar,
   submitForm,
   itemId,
-  shapeId,
-  form = SHAPE_ANALYZE_FORM,
+  form = ITEM_ANALYZE_FORM,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Analyze Job Created';
@@ -39,15 +38,14 @@ function ShapeAnalyze({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>Start Shape Analyze Job</DialogTitle>
+      <DialogTitle>Start Item Analyze Job</DialogTitle>
       <DialogContent style={{ minHeight: 200 }}>
-        <ShapeAnalyzeForm
+        <ItemAnalyzeForm
           form={form}
-          onSubmit={formActions.onCreateShapeAnalyze}
+          onSubmit={formActions.onCreateItemAnalyze}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           itemId={itemId}
-          shapeId={shapeId}
           initialValues={{}}
         />
       </DialogContent>
@@ -72,4 +70,4 @@ function ShapeAnalyze({
   );
 }
 
-export default compose(withUI, withFormActions)(ShapeAnalyze);
+export default compose(withUI, withFormActions)(ItemAnalyze);
