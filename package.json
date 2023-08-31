@@ -35,7 +35,8 @@
   "resolutions": {
     "codemirror": "5.65.9",
     "eslint": "7.11.0",
-    "axios": ">=0.27.2"
+    "axios": ">=0.27.2",
+    "d3-color": ">=3.1.0"
   },
   "scripts": {
     "start": "VITE_VIDISPINE_URL=${VIDISPINE_URL} VITE_GIT_COMMIT=${npm_package_version} vite",
