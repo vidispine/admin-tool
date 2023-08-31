@@ -35,6 +35,12 @@ server {
   		add_header "Pragma" "cache";
     }
 
+    location /assets/ {
+        add_header "Cache-Control" "public";
+        expires 30d;
+  		add_header "Pragma" "cache";
+    }
+
     location / {
         # Never cache index.html
         try_files  /index.html =404;

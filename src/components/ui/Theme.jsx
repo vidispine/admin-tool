@@ -47,13 +47,11 @@ export default function ThemeProvider({ children }) {
   }, {});
   const { paletteType = preferredMode } = themeOptions;
   React.useEffect(() => {
-    if (process.browser) {
-      const nextPaletteType = getCookie('paletteType') || preferredMode;
-      dispatch({
-        type: 'CHANGE',
-        payload: { paletteType: nextPaletteType },
-      });
-    }
+    const nextPaletteType = getCookie('paletteType') || preferredMode;
+    dispatch({
+      type: 'CHANGE',
+      payload: { paletteType: nextPaletteType },
+    });
   }, [preferredMode]);
   const theme = React.useMemo(
     () => createTheme({

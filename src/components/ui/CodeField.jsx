@@ -52,6 +52,7 @@ function CodeField({
   input = {},
   meta = {},
 }) {
+  // eslint-disable-next-line max-len
   if (options.mode === 'javascript' && options.lint !== false && options.lint !== undefined) window.JSHINT = JSHINT;
   return (
     <div className={clsx([className, classes.root])} style={style}>

@@ -26,7 +26,7 @@ import { getVidispineUrlFromPath } from '../const';
 const INIT_DIALOG = 'INIT_DIALOG';
 const HELP_DIALOG = 'HELP_DIALOG';
 
-const { REACT_APP_VERSION } = process.env;
+const { VITE_VERSION } = import.meta.env;
 const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'light' } });
 
 class Login extends React.PureComponent {
@@ -148,10 +148,22 @@ class Login extends React.PureComponent {
       <ThemeProvider theme={theme}>
         <Grid container>
           <Grid item sm={4}>
-            <Card elevation={0} square style={{ height: '100vh' }}>
-              <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '100%' }}>
+            <Card elevation={0} square style={{ height: "100vh" }}>
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                style={{ height: "100%" }}
+              >
                 <Grid item>
-                  <Grid container alignItems="center" justifyContent="center" direction="row" style={{ height: 35, marginBottom: 20 }}>
+                  <Grid
+                    container
+                    alignItems="center"
+                    justifyContent="center"
+                    direction="row"
+                    style={{ height: 35, marginBottom: 20 }}
+                  >
                     {selfTestDocument && (
                       <SelfTestStatus
                         selfTestDocument={selfTestDocument}
@@ -173,10 +185,10 @@ class Login extends React.PureComponent {
               <AppBar
                 color="inherit"
                 style={{
-                  top: 'auto',
+                  top: "auto",
                   bottom: 0,
-                  backgroundColor: 'black',
-                  color: 'white',
+                  backgroundColor: "black",
+                  color: "white",
                 }}
                 square
                 elevation={0}
@@ -193,11 +205,8 @@ class Login extends React.PureComponent {
                     >
                       VidiCore Admin
                     </Link>
-                    <Typography
-                      variant="body2"
-                      color="inherit"
-                    >
-                      {`v${REACT_APP_VERSION}`}
+                    <Typography variant="body2" color="inherit">
+                      {`v${VITE_VERSION}`}
                     </Typography>
                     <GitHubButton />
                     <IconButton
@@ -216,35 +225,34 @@ class Login extends React.PureComponent {
             item
             sm={8}
             style={{
-              background: 'linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)',
+              background:
+                "linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)",
             }}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
           >
-            <div
-              style={{
-                width: '25vw',
-                minWidth: '100px',
-                backgroundColor: '#fff',
-              }}
-            >
-              <img src={APP_LOGO} alt="VidiCore Admin Tool" />
-            </div>
-
+              <APP_LOGO
+                alt="VidiCore Admin Tool"
+                style={{
+                  height: "inherit",
+                  width: "25vw",
+                  minWidth: "100px",
+                  backgroundColor: "#fff",
+                }}
+              />
           </Grid>
         </Grid>
         <InitDialog
           dialogName={INIT_DIALOG}
           onSuccess={this.onRefresh}
           loadingInit={loadingInit}
-          setLoadingInit={(newState) => this.setState({ loadingInit: newState })}
+          setLoadingInit={(newState) =>
+            this.setState({ loadingInit: newState })
+          }
         />
-        <LoginHelpDialog
-          dialogName={HELP_DIALOG}
-          baseUrl={baseUrl}
-        />
+        <LoginHelpDialog dialogName={HELP_DIALOG} baseUrl={baseUrl} />
       </ThemeProvider>
     );
   }

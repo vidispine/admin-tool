@@ -121,9 +121,18 @@ function FullScreenDialog({
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Create">
-              <ListLink to="/import/?tab=IMPORTPLACEHOLDER_TAB" primary="Item" />
-              <ListLink to="/import/?tab=IMPORTCOLLECTION_TAB" primary="Collection" />
-              <ListLink to="/import/?tab=IMPORTSHAPEPLACEHOLDER_TAB" primary="Shape" />
+              <ListLink
+                to="/import/?tab=IMPORTPLACEHOLDER_TAB"
+                primary="Item"
+              />
+              <ListLink
+                to="/import/?tab=IMPORTCOLLECTION_TAB"
+                primary="Collection"
+              />
+              <ListLink
+                to="/import/?tab=IMPORTSHAPEPLACEHOLDER_TAB"
+                primary="Shape"
+              />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
@@ -132,15 +141,27 @@ function FullScreenDialog({
               <ListLink to="/import/?tab=IMPORTRAW_TAB" primary="Upload" />
               <ListLink to="/import/?tab=IMPORTURI_TAB" primary="URIs" />
               <ListLink to="/import/?tab=IMPORTSHAPE_TAB" primary="Shape" />
-              <ListLink to="/import/?tab=IMPORTCOMPONENT_TAB" primary="Component" />
+              <ListLink
+                to="/import/?tab=IMPORTCOMPONENT_TAB"
+                primary="Component"
+              />
               <ListLink to="/import/settings/" primary="Settings" />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="IMF">
-              <ListLink to="/import-imp/?tab=IMPORTIMP_URL_TAB" primary="Import From URL" />
-              <ListLink to="/import-imp/?tab=IMPORTIMP_PATH_TAB" primary="Import From Path" />
-              <ListLink to="/import-imp/?tab=IMPORTIMP_FILE_TAB" primary="Import From File" />
+              <ListLink
+                to="/import-imp/?tab=IMPORTIMP_URL_TAB"
+                primary="Import From URL"
+              />
+              <ListLink
+                to="/import-imp/?tab=IMPORTIMP_PATH_TAB"
+                primary="Import From Path"
+              />
+              <ListLink
+                to="/import-imp/?tab=IMPORTIMP_FILE_TAB"
+                primary="Import From File"
+              />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
@@ -223,7 +244,8 @@ function FullScreenDialog({
       </DialogContent>
       <DialogActions>
         <Typography variant="caption">
-          {`Last Commit: ${process.env.REACT_APP_GIT_COMMIT}` || 'Last Commit: UNKNOWN'}
+          {`Last Commit: ${import.meta.env.VITE_GIT_COMMIT}`
+            || 'Last Commit: UNKNOWN'}
         </Typography>
       </DialogActions>
     </Dialog>

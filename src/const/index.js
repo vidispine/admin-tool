@@ -3,7 +3,7 @@ Sets the basename for the router so that all paths are relative
 https://reactrouter.com/web/api/BrowserRouter/basename-string
 */
 
-let publicUrl = process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL;
+let publicUrl = import.meta.env.BASE_URL === '' ? '/' : import.meta.env.BASE_URL;
 if (publicUrl && publicUrl.startsWith('http')) {
   publicUrl = new URL(publicUrl);
   publicUrl = publicUrl.pathname.replace(/(.+?)\/+$/, '$1');
@@ -29,7 +29,7 @@ export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') =>
   if (cookies[cookieKey]) return decodeURIComponent(cookies[cookieKey]);
   return undefined;
 };
-export const getVidispineUrlFromEnv = (envKey = 'REACT_APP_VIDISPINE_URL') => (process.env[envKey] !== '' ? process.env[envKey] : undefined);
+export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') => (import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined);
 export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
 export const getVidispineUrlFromPath = () => {
   const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '').replace(/^\/+/, '');
