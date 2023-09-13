@@ -62,6 +62,11 @@ export default function ThemeProvider({ children }) {
             marginBottom: 4,
           },
         },
+        MuiButton: {
+          textSecondary: {
+            color: red,
+          },
+        },
       },
       props: {
         MuiTextField: {
@@ -121,18 +126,32 @@ export default function ThemeProvider({ children }) {
           main: red,
         },
         background: {
-          default: { light: 'rgb(246, 248, 250)', dark: 'rgb(9, 12, 16)' }[paletteType],
-          paper: { light: 'rgb(255, 255, 255)', dark: 'rgb(13, 17, 23)' }[paletteType],
+          default: { light: 'rgb(246, 248, 250)', dark: 'rgb(9, 12, 16)' }[
+            paletteType
+          ],
+          paper: { light: 'rgb(255, 255, 255)', dark: 'rgb(13, 17, 23)' }[
+            paletteType
+          ],
         },
         text: {
-          primary: { light: 'rgba(0, 0, 0, 0.87)', dark: 'rgb(201, 209, 217)' }[paletteType],
-          secondary: { light: 'rgba(0, 0, 0, 0.54)', dark: 'rgb(139, 148, 158)' }[paletteType],
+          primary: {
+            light: 'rgba(0, 0, 0, 0.87)',
+            dark: 'rgb(201, 209, 217)',
+          }[paletteType],
+          secondary: {
+            light: 'rgba(0, 0, 0, 0.54)',
+            dark: 'rgb(139, 148, 158)',
+          }[paletteType],
         },
       },
       action: {
-        active: { light: 'rgba(0, 0, 0, 0.54)', dark: 'rgb(201, 209, 217)' }[paletteType],
+        active: { light: 'rgba(0, 0, 0, 0.54)', dark: 'rgb(201, 209, 217)' }[
+          paletteType
+        ],
       },
-      divider: { light: 'rgba(0, 0, 0, 0.12)', dark: 'rgb(48, 54, 61)' }[paletteType],
+      divider: { light: 'rgba(0, 0, 0, 0.12)', dark: 'rgb(48, 54, 61)' }[
+        paletteType
+      ],
       typography: { fontFamily },
     }),
     [paletteType],
