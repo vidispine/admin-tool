@@ -34,7 +34,7 @@ class ItemProjection extends React.PureComponent {
 
   onFetch(itemId) {
     const headers = { accept: 'application/xml' };
-    const queryParams = [{ projection: 'default' }];
+    const queryParams = { projection: 'default' };
     try {
       api.getItemMetadata({
         itemId,

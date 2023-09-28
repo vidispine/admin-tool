@@ -39,7 +39,7 @@ class DocumentMetadataList extends React.PureComponent {
   }
 
   onFetch(first, number) {
-    const queryParams = [{ first }, { number }];
+    const queryParams = { first, number };
     try {
       api.listDocumentMetadata({ queryParams })
         .then((response) => this.setState({ documentListDocument: response.data }))
