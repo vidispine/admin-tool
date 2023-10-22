@@ -385,7 +385,7 @@ function SetValueComponent({
       if (Array.isArray(value)) {
         valueComponent = (
           value.map((label) => (
-            <StyledTypography className={classes.ValueComponent} {...typographyProps}>
+            <StyledTypography className={classes.ValueComponent} {...typographyProps} key={label}>
               {capitalize ? capitalizeString(label) : label.toString()}
             </StyledTypography>
           ))
