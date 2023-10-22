@@ -170,14 +170,10 @@ const ProblemSection = ({ value = {} }) => (
     value={value.problem}
     component={({ value: v }) => (
       <>
-        <TextGrid
-          title="type"
-          value={v.type}
-          hideNoValue
-        />
+        <TextGrid title="type" value={v.type} hideNoValue />
         <TextGrid
           title="data"
-          value={v.data}
+          value={v.data ? JSON.stringify(v.data) : undefined}
           variant="json"
           hideNoValue
         />

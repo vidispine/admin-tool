@@ -62,7 +62,7 @@ class FileOverview extends React.PureComponent {
   }
 
   onFetch(fileId) {
-    const queryParams = [{ includeItem: true }];
+    const queryParams = { includeItem: true };
     try {
       api.getFile({ fileId, queryParams })
         .then((response) => this.setState({ fileDocument: response.data }))

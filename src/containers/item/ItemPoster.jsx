@@ -1,6 +1,9 @@
 import React from 'react';
 import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
 import ItemPosterGrid from '../../components/item/ItemPosterGrid';
+import ItemThumbnailDeleteDialog, {
+  DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG,
+} from '../../components/item/ItemThumbnailDeleteDialog';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -71,18 +74,18 @@ class ItemPoster extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {itemDocument && (
           <>
             {itemDocument.posters && (
-              <ItemPosterGrid
-                uriListDocument={itemDocument.posters}
-              />
+              <ItemPosterGrid uriListDocument={itemDocument.posters} />
             )}
           </>
         )}
+        <ItemThumbnailDeleteDialog
+          dialogName={ITEMTHUMBNAILDELETE_DIALOG}
+          onSuccess={this.onRefresh}
+        />
       </>
     );
   }

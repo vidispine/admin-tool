@@ -1,7 +1,8 @@
 import React from 'react';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ItemThumbnailMenu from './ItemThumbnailMenu';
 
 export default function ItemPosterGrid({
   uriListDocument,
@@ -14,15 +15,16 @@ export default function ItemPosterGrid({
     return output;
   };
   return (
-    <GridList cellHeight="auto" cols={1}>
+    <ImageList rowHeight="auto" cols={1}>
       {uriList.map((thisUri) => (
-        <GridListTile key={thisUri}>
+        <ImageListItem key={thisUri}>
           <img src={thisUri} alt={thisUri} />
           <GridListTileBar
             title={splitUri(thisUri)}
+            actionIcon={<ItemThumbnailMenu uri={thisUri} />}
           />
-        </GridListTile>
+        </ImageListItem>
       ))}
-    </GridList>
+    </ImageList>
   );
 }
