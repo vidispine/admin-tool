@@ -1,6 +1,6 @@
 import { SubmissionError } from 'redux-form';
-
 import { access as api } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
 export function onUpdateImportAccessGroup(form, dispatch, props) {
   const { groupName, queryParams } = form;
@@ -56,3 +56,14 @@ export function onGet(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export const onGetEntityAccessGraphDot = withSubmissionError((form, dispatch, props) => {
+  const { queryParams = {} } = form;
+  const entityType = props.entityType || form.entityType;
+  const entityId = props.entityId || form.entityId;
+  return api.getEntityAccessGraphDot({
+    entityType,
+    entityId,
+    queryParams,
+  });
+});
