@@ -62,6 +62,9 @@ export default function ThemeProvider({ children }) {
             marginBottom: 4,
           },
         },
+        MuiTablePagination: {
+          root: { overflow: 'visible' },
+        },
         MuiButton: {
           textSecondary: {
             color: red,
