@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import startCase from 'lodash.startcase';
+import clsx from 'clsx';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 
@@ -11,17 +12,14 @@ const hoverStyle = (theme) => ({
       backgroundColor: theme.palette.action.hover,
     },
   },
-});
-
-const style = {
-  marginLeft: {
-    marginLeft: '10px',
+  withMargin: {
+    marginLeft: 10,
   },
   withPadding: {
-    paddingTop: '10px',
-    paddingBottom: '10px',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
-};
+});
 
 const TypeArray = ({
   title,
@@ -43,41 +41,41 @@ const TypeArray = ({
   if (!Array.isArray(value)) { return null; }
   return (
     <>
-      {arrayTitle
-      && (
-      <Typography variant="subtitle2">
-        {arrayStartCase ? startCase(arrayTitle) : arrayTitle}
-      </Typography>
+      {arrayTitle && (
+        <Typography variant="subtitle2">
+          {arrayStartCase ? startCase(arrayTitle) : arrayTitle}
+        </Typography>
       )}
       {value.map((thisValue, index) => (
         <div
-          className={hover ? classes.onHover : undefined}
-          style={dense ? undefined : style.marginLeft}
+          className={clsx({
+            [classes.onHover]: hover,
+            [classes.withMargin]: dense === false,
+          })}
           key={arrayKey ? thisValue[arrayKey] : index}
         >
-          { (title && !titleKey)
-          && (
-          <Typography variant="subtitle2">
-            {titleStartCase
-              ? startCase(`${title} ${index + 1}`)
-              : `${title} ${index + 1}`}
-          </Typography>
+          {title && !titleKey && (
+            <Typography variant="subtitle2">
+              {titleStartCase
+                ? startCase(`${title} ${index + 1}`)
+                : `${title} ${index + 1}`}
+            </Typography>
           )}
-          { (titleKey && title)
-          && (
-          <Typography variant="subtitle2">
-            {titleStartCase
-              ? startCase(`${title} ${thisValue[titleKey]}`)
-              : `${title} ${thisValue[titleKey]}`}
-          </Typography>
+          {titleKey && title && (
+            <Typography variant="subtitle2">
+              {titleStartCase
+                ? startCase(`${title} ${thisValue[titleKey]}`)
+                : `${title} ${thisValue[titleKey]}`}
+            </Typography>
           )}
-          { (titleKey && !title)
-          && (
-          <Typography variant="subtitle2">
-            {titleStartCase ? startCase(thisValue[titleKey]) : thisValue[titleKey]}
-          </Typography>
+          {titleKey && !title && (
+            <Typography variant="subtitle2">
+              {titleStartCase
+                ? startCase(thisValue[titleKey])
+                : thisValue[titleKey]}
+            </Typography>
           )}
-          <div className={dense ? undefined : classes.marginLeft}>
+          <div className={clsx({ [classes.withMargin]: dense === false })}>
             <Component value={thisValue} {...props} />
           </div>
         </div>

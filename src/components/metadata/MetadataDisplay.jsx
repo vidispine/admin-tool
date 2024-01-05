@@ -37,25 +37,24 @@ export const MetadataFieldValueType = ({ value = {} }) => {
 };
 
 export const MetadataGroupValueType = ({ value = {} }) => (
-  <>
-    <TextGrid
-      title="Group Name"
-      value={value.name}
-      titleStartCase={false}
-    />
+  <div style={{ marginLeft: 10 }}>
     <TypeArray
       arrayTitle="Fields"
       value={value.field}
       component={MetadataFieldValueType}
       titleStartCase={false}
+      hideNoValue
     />
     <TypeArray
       arrayTitle="Groups"
+      title="Group"
+      titleKey="name"
       value={value.group}
       component={MetadataGroupValueType}
       titleStartCase={false}
+      hideNoValue
     />
-  </>
+  </div>
 );
 
 export const MetadataTimespanType = ({ value = {}, timeRepresentation }) => {
@@ -91,6 +90,8 @@ export const MetadataTimespanType = ({ value = {}, timeRepresentation }) => {
       />
       <TypeArray
         arrayTitle="Groups"
+        title="Group"
+        titleKey="name"
         value={group}
         component={MetadataGroupValueType}
         titleStartCase={false}
@@ -103,8 +104,8 @@ export const MetadataTimespanType = ({ value = {}, timeRepresentation }) => {
 export const MetadataType = ({ value = {}, ...props }) => (
   <>
     <TypeArray
+      arrayTitle="Timespans"
       value={value.timespan}
-      hover
       dense
       component={MetadataTimespanType}
       {...props}
