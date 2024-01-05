@@ -41,7 +41,6 @@ export const MetadataGroupValueType = ({ value = {} }) => (
     <TextGrid
       title="Group Name"
       value={value.name}
-      variant="group"
       titleStartCase={false}
     />
     <TypeArray
