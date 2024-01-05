@@ -345,7 +345,7 @@ function TextGridValue({
       break;
     default:
       if (variant) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-line no-console
         console.warn(`TextGrid: Unknown variant=${variant}`);
       }
       break;

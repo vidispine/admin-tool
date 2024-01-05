@@ -1,10 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import startCase from 'lodash.startcase';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import clsx from 'clsx';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,19 +10,17 @@ import IconButton from '@material-ui/core/IconButton';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import TextGridValue from './TextGridValue';
 import TextGridCode from './TextGridCode';
+import TextGridBoolean from './TextGridBoolean';
 
 const styles = (theme) => ({
-  FormControlLabel: {
-    height: theme.typography.subtitle1.lineHeight,
-  },
   onHover: {
-    minHeight: '32px',
+    minHeight: theme.spacing(4),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
   },
   default: {
-    minHeight: '32px',
+    minHeight: theme.spacing(4),
   },
   TitleGridItem: {},
   TitleTypography: {},
@@ -79,9 +75,11 @@ function TextGrid({
     [classes.default]: !hover,
   });
 
-  const onTextClick = disableOnClick
-    ? (event) => event.stopPropagation()
-    : onClick;
+  const onTextClick = disableOnClick ? (event) => event.stopPropagation() : onClick;
+
+  const [isValueHidden, setIsValueHidden] = React.useState(initialHideValue);
+  const toggleHideValue = () => setIsValueHidden((prevState) => !prevState);
+
   if (hideNoValue) {
     if (value === undefined) {
       return null;
@@ -90,8 +88,6 @@ function TextGrid({
       return null;
     }
   }
-  const [isValueHidden, setIsValueHidden] = React.useState(initialHideValue);
-  const toggleHideValue = () => setIsValueHidden((prevState) => !prevState);
 
   switch (variant) {
     case 'code':
@@ -118,23 +114,12 @@ function TextGrid({
       );
     case 'boolean':
       return (
-        <div className={className}>
-          <FormControlLabel
-            classes={{ root: classes.FormControlLabel }}
-            control={(
-              <Checkbox
-                checked={value === 'true' || value === true}
-                indeterminate={value === '' || value === undefined}
-                disabled
-              />
-            )}
-            label={(
-              <Typography variant="subtitle2" color="textSecondary">
-                {titleStartCase ? startCase(title) : title}
-              </Typography>
-            )}
-          />
-        </div>
+        <TextGridBoolean
+          className={className}
+          title={title}
+          value={value}
+          titleStartCase={titleStartCase}
+        />
       );
     default:
       return (
