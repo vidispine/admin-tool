@@ -1,6 +1,6 @@
 import { SubmissionError } from 'redux-form';
 
-import { item as api, metadata as MetadataApi } from '@vidispine/vdt-api';
+import { item as api, metadata as MetadataApi, debug as DebugApi } from '@vidispine/vdt-api';
 
 export function onCreateExport(form, dispatch, props) {
   const { queryParams } = form;
@@ -152,6 +152,34 @@ export function onGetUri(form, dispatch, props) {
     itemId,
     queryParams,
   })
+    .then((response) => ({ itemId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
+export function onGetThumbnailSpritesheet(form, dispatch, props) {
+  const { queryParams = {}, headers: formHeaders = {} } = form;
+  const headers = { accept: 'application/json', ...formHeaders };
+  const { accept } = headers;
+  const isJson = accept.toLowerCase() === 'application/json';
+  if (isJson) headers.accept = 'application/xml';
+  const itemId = props.itemId || form.itemId;
+  const path = `/API/item/${itemId}/thumbnail/spritesheet`;
+  return api.getItem({
+    itemId,
+    path,
+    params: queryParams,
+    headers,
+  })
+    .then((response) => {
+      if (isJson) return DebugApi.echo({ xmlDocument: response.data });
+      return Promise.resolve(response);
+    })
     .then((response) => ({ itemId, ...response }))
     .catch((error) => {
       let errorMessage = error.message;

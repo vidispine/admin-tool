@@ -52,6 +52,7 @@ class ItemJob extends React.PureComponent {
   onFetch(itemId) {
     const { sort, first, number } = this.state;
     const queryParams = {
+      user: false,
       first,
       number,
       sort,

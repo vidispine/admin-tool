@@ -96,7 +96,7 @@ function SetValueComponent({
       valueComponent = value;
       break;
     case 'aspectratio':
-      if (typeof value === 'object' && value.horizontal) {
+      if (typeof value === 'object' && value.horizontal !== undefined) {
         valueComponent = (
           <StyledTypography>
             {`Horizontal:${value.horizontal} Vertical:${value.vertical}`}
@@ -105,16 +105,14 @@ function SetValueComponent({
       }
       break;
     case 'duration':
-      if (typeof value === 'object' && value.started) {
+      if (typeof value === 'object' && value.started !== undefined) {
         const startMoment = moment(value.started);
         const finishedMoment = moment(value.finished);
-        const durationMoment = moment.duration(finishedMoment.diff(startMoment));
-        const durationHuman = durationMoment.humanize();
-        valueComponent = (
-          <StyledTypography>
-            {durationHuman}
-          </StyledTypography>
+        const durationMoment = moment.duration(
+          finishedMoment.diff(startMoment),
         );
+        const durationHuman = durationMoment.humanize();
+        valueComponent = <StyledTypography>{durationHuman}</StyledTypography>;
       }
       break;
     case 'fromnow':
@@ -146,7 +144,7 @@ function SetValueComponent({
       );
       break;
     case 'rational':
-      if (typeof value === 'object' && value.denominator) {
+      if (typeof value === 'object' && value.denominator !== undefined) {
         valueComponent = (
           <StyledTypography>
             {`${value.numerator}/${value.denominator}`}
@@ -155,7 +153,7 @@ function SetValueComponent({
       }
       break;
     case 'resolution':
-      if (typeof value === 'object' && value.width) {
+      if (typeof value === 'object' && value.width !== undefined) {
         valueComponent = (
           <StyledTypography>
             {`Width:${value.width} Height:${value.height}`}
@@ -164,7 +162,7 @@ function SetValueComponent({
       }
       break;
     case 'timebase':
-      if (typeof value === 'object' && value.denominator) {
+      if (typeof value === 'object' && value.denominator !== undefined) {
         valueComponent = (
           <StyledTypography>
             {`${value.denominator}/${value.numerator}`}
@@ -173,7 +171,7 @@ function SetValueComponent({
       }
       break;
     case 'timecode':
-      if (typeof value === 'object' && value.samples) {
+      if (typeof value === 'object' && value.samples !== undefined) {
         valueComponent = (
           <StyledTypography>
             {`${value.samples}@${value.timeBase.denominator}/${value.timeBase.numerator}`}
@@ -182,22 +180,22 @@ function SetValueComponent({
       }
       break;
     case 'fps':
-      if (typeof value === 'object' && value.denominator) {
-        const videoSamplerate = +(value.denominator / value.numerator).toFixed(2);
+      if (typeof value === 'object' && value.denominator !== undefined) {
+        const videoSamplerate = +(value.denominator / value.numerator).toFixed(
+          2,
+        );
         valueComponent = (
-          <StyledTypography>
-            {`${videoSamplerate} fps`}
-          </StyledTypography>
+          <StyledTypography>{`${videoSamplerate} fps`}</StyledTypography>
         );
       }
       break;
     case 'fps-reverse':
-      if (typeof value === 'object' && value.denominator) {
-        const videoSamplerate = +(value.numerator / value.denominator).toFixed(2);
+      if (typeof value === 'object' && value.denominator !== undefined) {
+        const videoSamplerate = +(value.numerator / value.denominator).toFixed(
+          2,
+        );
         valueComponent = (
-          <StyledTypography>
-            {`${videoSamplerate} fps`}
-          </StyledTypography>
+          <StyledTypography>{`${videoSamplerate} fps`}</StyledTypography>
         );
       }
       break;
@@ -387,7 +385,7 @@ function SetValueComponent({
       if (Array.isArray(value)) {
         valueComponent = (
           value.map((label) => (
-            <StyledTypography className={classes.ValueComponent} {...typographyProps}>
+            <StyledTypography className={classes.ValueComponent} {...typographyProps} key={label}>
               {capitalize ? capitalizeString(label) : label.toString()}
             </StyledTypography>
           ))

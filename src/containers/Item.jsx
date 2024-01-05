@@ -20,6 +20,8 @@ import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
 import ItemBulkyMetadata from './item/ItemBulkyMetadata';
 import ItemVersion from './item/ItemVersion';
 import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
+import ItemSpritesheet from './item/ItemSpritesheet';
+import AccessGraph from './AccessGraph';
 import NotificationEntityList from './NotificationEntityList';
 import NotificationEntity from './NotificationEntity';
 
@@ -63,6 +65,8 @@ const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 const ITEM_VERSION_TAB = 'ITEM_VERSION_TAB';
 const ITEM_METADATACHANGESETLIST_TAB = 'ITEM_METADATACHANGESETLIST_TAB';
 const NOTIFICATION_TAB = 'NOTIFICATION_TAB';
+const ITEM_SPRITESHEET_TAB = 'ITEM_SPRITESHEET_TAB';
+const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -136,6 +140,12 @@ const TAB_TITLE = [
     path: '/item/:itemId/poster/',
   },
   {
+    tab: ITEM_SPRITESHEET_TAB,
+    listText: 'Spritesheet',
+    component: ItemSpritesheet,
+    path: '/item/:itemId/spritesheet/',
+  },
+  {
     tab: ITEM_JOB_TAB,
     listText: 'Job',
     component: ItemJob,
@@ -164,6 +174,12 @@ const TAB_TITLE = [
     listText: 'Merged Access',
     component: AccessControlMerged,
     path: '/item/:itemId/merged-access/',
+  },
+  {
+    tab: ACCESSGRAPH_TAB,
+    listText: 'Access Graph',
+    component: AccessGraph,
+    path: '/item/:itemId/access/graph/',
   },
   {
     tab: STORAGERULE_TAB,
