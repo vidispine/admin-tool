@@ -7,17 +7,15 @@ import TypeArray from '../ui/TypeArray';
 import formatTimeRepresentation from '../../utils/formatTimeRepresentation';
 import { TEXT_TIME } from '../../const/Time';
 
-export const MetadataFieldValueType = ({ value = {} }) => {
-  const { value: valueList = [] } = value;
-  const valueListValues = valueList.map((thisValue) => thisValue.value);
+export const MetadataFieldValueType = ({ value: metadataField = {} }) => {
+  const { value: metadataFieldValueList = [] } = metadataField;
   return (
     <TextGridArray
-      title={value.name}
-      value={valueListValues}
+      title={metadataField.name}
+      value={metadataFieldValueList}
+      variant="metadataFieldValue"
       titleStartCase={false}
-      titleGridProps={{
-        xl: 2,
-      }}
+      titleGridProps={{ xl: 2 }}
       titleTypographyProps={{
         style: {
           wordWrap: 'break-word',
@@ -31,7 +29,7 @@ export const MetadataFieldValueType = ({ value = {} }) => {
         noWrap: false,
       }}
       hover
-      // onEdit={() => console.log(value)}
+      // onEdit={(metadataFieldValue) => console.log({ metadataField, metadataFieldValue })}
     />
   );
 };
@@ -101,28 +99,25 @@ export const MetadataTimespanType = ({ value = {}, timeRepresentation }) => {
   );
 };
 
-export const MetadataType = ({ value = {}, ...props }) => (
+export const MetadataType = ({ value = {}, timeRepresentation }) => (
   <>
     <TypeArray
       arrayTitle="Timespans"
       value={value.timespan}
       dense
       component={MetadataTimespanType}
-      {...props}
+      timeRepresentation={timeRepresentation}
     />
   </>
 );
 
-export default function MetadataDisplay({
-  metadataDocument,
-  ...props
-}) {
+export default function MetadataDisplay({ metadataDocument, timeRepresentation }) {
   return (
     <>
       <TypeSection
         value={metadataDocument}
         component={MetadataType}
-        {...props}
+        timeRepresentation={timeRepresentation}
       />
     </>
   );
