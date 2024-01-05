@@ -18,20 +18,20 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Configure yarn
-        run: yarn config set script-shell bash
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Configure npm
+        run: npm config set script-shell bash
       - name: Docker login
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
         shell: bash
       - name: Install app dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm install
         shell: bash
       - name: Build the Docker image
-        run: yarn docker:build
+        run: npm run docker:build
         shell: bash
       - name: Push the Docker image
-        run: yarn docker:push
+        run: npm run docker:push
         shell: bash
 

@@ -4,7 +4,7 @@
       "name": "start",
       "request": "launch",
       "runtimeArgs": ["start"],
-      "runtimeExecutable": "yarn",
+      "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
       "env": { "VIDISPINE_URL": "${input:vidicoreUrl}"},

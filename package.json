@@ -41,7 +41,7 @@
   "scripts": {
     "start": "VITE_VIDISPINE_URL=${VIDISPINE_URL} VITE_GIT_COMMIT=${npm_package_version} vite",
     "build": "GENERATE_SOURCEMAP=false VITE_GIT_COMMIT=${npm_package_version} vite build && cp build/index.html build/404.html",
-    "predocker:build": "PUBLIC_URL=/ yarn build",
+    "predocker:build": "PUBLIC_URL=/ npm run build",
     "docker:build": "docker build -t \"${npm_package_name:1}:latest\" -t \"${npm_package_name:1}:${npm_package_version}\" .",
     "docker:push": "docker push \"${npm_package_name:1}:${npm_package_version}\" && docker push \"${npm_package_name:1}:latest\"",
     "docker:run": "docker run --name \"${npm_package_name/@vidispine\\//vidispine_}\" --rm -dti -e VIDISPINE_URL=$VIDISPINE_URL -e NGINX_RESOLVER=1.1.1.1 -p 80:80 \"${npm_package_name:1}:${npm_package_version}\"",

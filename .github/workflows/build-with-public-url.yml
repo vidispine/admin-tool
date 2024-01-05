@@ -26,12 +26,12 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm install
       - name: Build site
-        run: PUBLIC_URL=${PUBLIC_URL} yarn build
+        run: PUBLIC_URL=${PUBLIC_URL} npm run build
         env:
           PUBLIC_URL: ${{ github.event.inputs.public_url }}
       - name: Upload artifact
