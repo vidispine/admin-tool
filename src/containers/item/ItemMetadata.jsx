@@ -1,5 +1,5 @@
 import React from 'react';
-import { item as api } from '@vidispine/vdt-api';
+import { item as ItemApi } from '@vidispine/vdt-api';
 import ItemMetadataListCard from '../../components/item/ItemMetadataListCard';
 import ItemMetadataDisplayParams from '../../components/item/ItemMetadataDisplayParams';
 import TimeRepresentation from '../../components/ui/TimeRepresentation';
@@ -13,6 +13,8 @@ class ItemMetadata extends React.PureComponent {
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onSubmitTimeRepresentation = this.onSubmitTimeRepresentation.bind(this);
+    this.onQuickEdit = this.onQuickEdit.bind(this);
+    this.onQuickEditError = this.onQuickEditError.bind(this);
     this.state = {
       metadataListDocument: undefined,
       timeRepresentation: undefined,
@@ -38,7 +40,7 @@ class ItemMetadata extends React.PureComponent {
 
   onFetch(itemId) {
     try {
-      api.getItemMetadata({ itemId })
+      ItemApi.getItemMetadata({ itemId })
         .then((response) => this.setState({ metadataListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,6 +52,31 @@ class ItemMetadata extends React.PureComponent {
     const { openSnackBar } = this.props;
     const messageContent = 'Error Loading Item';
     openSnackBar({ messageContent, messageColor: 'secondary' });
+  }
+
+  onQuickEditError() {
+    const { openSnackBar } = this.props;
+    const messageContent = 'Error Updating Item';
+    openSnackBar({ messageContent, messageColor: 'secondary' });
+  }
+
+  onQuickEdit(metadataDocument) {
+    const { itemId } = this.props;
+    try {
+      return ItemApi.updateItemMetadata({
+        itemId,
+        metadataDocument,
+      })
+        .then(() => ItemApi.getItemMetadata({ itemId }))
+        .then((response) => this.setState({ metadataListDocument: response.data }))
+        .catch((error) => {
+          this.onQuickEditError(error);
+          throw error;
+        });
+    } catch (error) {
+      this.onQuickEditError(error);
+      throw error;
+    }
   }
 
   onSubmitTimeRepresentation(timeRepresentation) {
@@ -64,6 +91,7 @@ class ItemMetadata extends React.PureComponent {
       title,
     } = this.props;
     const { metadataListDocument, timeRepresentation } = this.state;
+
     return (
       <>
         {TitleComponent && (
@@ -74,22 +102,19 @@ class ItemMetadata extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ItemMetadataDisplayParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ metadataListDocument: response.data })}
         />
-        <TimeRepresentation
-          onSubmit={this.onSubmitTimeRepresentation}
-        />
+        <TimeRepresentation onSubmit={this.onSubmitTimeRepresentation} />
         {metadataListDocument && (
           <ItemMetadataListCard
             itemId={itemId}
             metadataListDocument={metadataListDocument}
             timeRepresentation={timeRepresentation}
             onSuccess={this.onRefresh}
+            onQuickEdit={this.onQuickEdit}
           />
         )}
       </>

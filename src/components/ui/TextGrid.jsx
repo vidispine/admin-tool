@@ -5,7 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import startCase from 'lodash.startcase';
 import clsx from 'clsx';
 import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/CancelOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import TextGridValue from './TextGridValue';
@@ -24,19 +27,27 @@ const styles = (theme) => ({
   },
   TitleGridItem: {},
   TitleTypography: {},
-  ValueGridItem: {},
-  IconButton: {
+  ValueGridItem: {
+    flexGrow: 1,
+  },
+  EditIconButton: {
     visibility: 'hidden',
   },
   EditIcon: {},
   root: {
-    '&:hover $IconButton': {
+    alignItems: 'center',
+    '&:hover $EditIconButton': {
       visibility: 'visible',
     },
-    alignItems: 'center',
   },
   EditGridItem: {
     marginLeft: theme.spacing(0.5),
+  },
+  CheckIcon: {
+    color: theme.palette.success.main,
+  },
+  CancelIcon: {
+    color: theme.palette.error.main,
   },
 });
 
@@ -66,10 +77,34 @@ function TextGrid({
   to,
   onEdit,
 }) {
+  const inputRef = React.useRef();
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
   const onEditCallback = React.useCallback(
-    () => (onEdit ? onEdit(value) : null),
+    async () => {
+      if (!onEdit || !inputRef) return;
+      const newValue = inputRef.current.value;
+      try {
+        await onEdit(newValue, value);
+        setHasError(false);
+        setIsEdit(false);
+      } catch (error) {
+        setHasError(true);
+      }
+    },
     [onEdit, value],
   );
+  const onToggleEdit = () => setIsEdit((prevValue) => !prevValue);
+  const onCloseEdit = () => {
+    setIsEdit(false);
+    setHasError(false);
+  };
+  React.useEffect(() => { // set input focus when toggling edit
+    if (isEdit && inputRef) {
+      inputRef.current.focus();
+    }
+  }, [isEdit]);
+
   const className = clsx(propsClassName, classes.root, {
     [classes.onHover]: hover,
     [classes.default]: !hover,
@@ -156,6 +191,7 @@ function TextGrid({
             item
           >
             <TextGridValue
+              {...valueTypographyProps}
               value={value}
               variant={variant}
               variantProps={variantProps}
@@ -164,18 +200,46 @@ function TextGrid({
               noWrap={noWrap}
               to={to}
               onDelete={onDelete}
-              {...valueTypographyProps}
+              isEdit={isEdit}
+              inputRef={inputRef}
+              error={hasError}
             />
           </Grid>
           {onEdit && (
             <Grid item className={classes.EditGridItem}>
-              <IconButton
-                className={classes.IconButton}
-                size="small"
-                onClick={onEditCallback}
-              >
-                <EditIcon className={classes.EditIcon} />
-              </IconButton>
+              {isEdit === true ? (
+                <>
+                  <Tooltip title="Save" arrow>
+                    <IconButton
+                      className={classes.CheckIconButton}
+                      size="small"
+                      onClick={onEditCallback}
+                    >
+                      <CheckIcon className={classes.CheckIcon} />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Cancel" arrow>
+                    <IconButton
+                      className={classes.CancelIconButton}
+                      size="small"
+                      onClick={onCloseEdit}
+                    >
+                      <CancelIcon className={classes.CancelIcon} />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              ) : (
+                <Tooltip title="Edit" arrow>
+                  <IconButton
+                    className={classes.EditIconButton}
+                    size="small"
+                    onClick={onToggleEdit}
+                    disableRipple
+                  >
+                    <EditIcon className={classes.EditIcon} />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Grid>
           )}
         </Grid>

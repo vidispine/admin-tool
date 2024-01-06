@@ -4,14 +4,19 @@ import Chip from '@material-ui/core/Chip';
 import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
 
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
 import { capitalizeString, bytesToSize, fromNow } from '../../utils';
 import UnstyledLink from './UnstyledLink';
 import UnstyledHashLink from './UnstyledHashLink';
 
-const styles = () => ({
+const styles = (theme) => ({
   overflowWrapAnywhere: { overflowWrap: 'anywhere' },
+  text: {
+    ...theme.typography.subtitle2,
+    color: theme.palette.text.primary,
+  },
 });
 
 const StyledTypography = ({
@@ -34,6 +39,9 @@ function TextGridValue({
   classes = {},
   to,
   onDelete,
+  isEdit = false,
+  inputRef,
+  error,
   ...typographyProps
 }) {
   if (value === undefined || null) {
@@ -47,6 +55,7 @@ function TextGridValue({
       {capitalize ? capitalizeString(value) : value.toString()}
     </StyledTypography>
   );
+  let editComponent;
   switch (variant) {
     case 'checkbox':
       valueComponent = <Checkbox checked={value} disabled />;
@@ -76,6 +85,23 @@ function TextGridValue({
       break;
     case 'metadataFieldValue':
       valueComponent = <StyledTypography>{value.value}</StyledTypography>;
+      editComponent = (
+        <form noValidate autoComplete="off" style={{ width: '100%' }}>
+          <Input
+            defaultValue={value.value}
+            fullWidth
+            multiline
+            error={error}
+            className={classes.text}
+            inputRef={inputRef}
+            onFocus={(e) => e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length,
+            )}
+          />
+        </form>
+      );
+
       break;
     case 'fromnow':
       valueComponent = <StyledTypography>{fromNow(value)}</StyledTypography>;
@@ -345,12 +371,12 @@ function TextGridValue({
       break;
     default:
       if (variant) {
-        // eslint-disable-line no-console
+        // eslint-disable-next-line no-console
         console.warn(`TextGrid: Unknown variant=${variant}`);
       }
       break;
   }
-  return valueComponent;
+  return isEdit && editComponent ? editComponent : valueComponent;
 }
 
 export default withStyles(styles)(TextGridValue);

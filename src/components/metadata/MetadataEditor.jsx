@@ -13,6 +13,7 @@ function MetadataEditor({
   onFail,
   title,
   timeRepresentation,
+  onQuickEdit,
   ...formProps
 }) {
   const EDIT_METADATA_FORM = 'EDIT_METADATA_FORM';
@@ -34,7 +35,11 @@ function MetadataEditor({
       onSubmitSuccess={onSubmitSuccess}
       onSubmitFail={onSubmitFail}
       onSubmit={onSubmit}
-      displayProps={{ metadataDocument, timeRepresentation }}
+      displayProps={{
+        metadataDocument,
+        timeRepresentation,
+        onEdit: onQuickEdit,
+      }}
       initialValues={{ metadataDocument: initialMetadataDocument }}
       formComponent={MetadataForm}
       displayComponent={MetadataDisplay}
