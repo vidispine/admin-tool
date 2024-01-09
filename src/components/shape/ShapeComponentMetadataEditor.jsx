@@ -1,8 +1,19 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
 import SimpleMetadataEditor from '../ui/SimpleMetadataEditor';
 
-export default function ShapeComponentMetadataEditor({
+const styles = (theme) => ({
+  CardHeader: {
+    paddingTop: 0,
+    paddingLeft: 0,
+  },
+  CardContent: {
+    padding: theme.spacing(1),
+  },
+});
+
+function ShapeComponentMetadataEditor({
   metadata, componentId, itemId, shapeId, onRefresh, ...props
 }) {
   const entityId = itemId !== undefined || shapeId !== undefined || componentId !== undefined ? `${itemId}/shape/${shapeId}/component/${componentId}` : undefined;
@@ -17,3 +28,4 @@ export default function ShapeComponentMetadataEditor({
     />
   );
 }
+export default withStyles(styles)(ShapeComponentMetadataEditor);
