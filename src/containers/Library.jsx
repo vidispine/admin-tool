@@ -88,17 +88,34 @@ const mainComponentRoute = (props) => (
 );
 
 class Library extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.onRefresh = this.onRefresh.bind(this);
+    this.setOnRefresh = this.setOnRefresh.bind(this);
+    this.state = {
+      onRefresh: undefined,
+    };
+  }
+
   componentDidMount() {
     const { libraryId } = this.props;
     document.title = `VidiCore Admin | Library | ${libraryId}`;
   }
 
+  onRefresh() {
+    const { onRefresh } = this.state;
+    if (onRefresh) {
+      onRefresh();
+    }
+  }
+
+  setOnRefresh(onRefresh) {
+    this.setState({ onRefresh });
+  }
+
   render() {
     const {
-      onChangeTab,
-      tabValue,
-      libraryId,
-      history,
+      onChangeTab, tabValue, libraryId, history,
     } = this.props;
     const titleComponent = (props) => (
       <LibraryTitle
@@ -142,6 +159,7 @@ class Library extends React.PureComponent {
           dialogName={LIBRARY_ACCESSCONTROL_ADD_DIALOG}
           entityType="library"
           entityId={libraryId}
+          onSuccess={this.onRefresh}
         />
         <LibraryExport
           dialogName={LIBRARY_EXPORT_DIALOG}

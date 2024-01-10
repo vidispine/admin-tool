@@ -324,7 +324,9 @@ class Item extends React.PureComponent {
         />
         <ItemDelete
           dialogName={ITEM_REMOVE_DIALOG}
-          onSuccess={() => history.push('/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true')}
+          onSuccess={() => history.push(
+            '/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true',
+          )}
           itemId={itemId}
         />
         <ShapeDeleteAll
@@ -378,20 +380,24 @@ class Item extends React.PureComponent {
           dialogName={COLLECTION_ENTITY_ADD_DIALOG}
           entityId={itemId}
           entityType="item"
+          onSuccess={this.onRefresh}
         />
         <AccessControlDialog
           dialogName={ITEM_ACCESSCONTROL_ADD_DIALOG}
           entityType="item"
           entityId={itemId}
+          onSuccess={this.onRefresh}
         />
         <JobCreate
           dialogName={JOB_CREATE_DIALOG}
           initialValues={{
             queryParams: {
-              jobmetadata: [{
-                key: 'itemId',
-                value: itemId,
-              }],
+              jobmetadata: [
+                {
+                  key: 'itemId',
+                  value: itemId,
+                },
+              ],
             },
           }}
         />
@@ -400,7 +406,6 @@ class Item extends React.PureComponent {
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
           itemId={itemId}
         />
-
       </>
     );
   }

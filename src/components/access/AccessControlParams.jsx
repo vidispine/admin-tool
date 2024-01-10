@@ -10,14 +10,14 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
-import AccessControlMergedParamsForm from './AccessControlMergedParamsForm';
+import AccessControlParamsForm from './AccessControlParamsForm';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
 import * as formActions from '../../formactions/access';
 
-export const ACCESS_MERGED_PARAMS_FORM = 'ACCESS_MERGED_PARAMS_FORM';
+export const ACCESS_PARAMS_FORM = 'ACCESS_PARAMS_FORM';
 
-function AccessControlMergedParams({
+function AccessControlParams({
   onSubmit,
   onSuccess,
   onFail,
@@ -26,30 +26,34 @@ function AccessControlMergedParams({
   resetForm,
   entityType,
   entityId,
-  form = ACCESS_MERGED_PARAMS_FORM,
+  form = ACCESS_PARAMS_FORM,
   ...formProps
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
-    const messageContent = 'Error Updating Access Control Merged Display';
+    const messageContent = 'Error Updating Access Control Display';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Accordion>
       <AccordionSummary>
         <Typography variant="subtitle2" color="textSecondary">
-          Access Control Merged Options
+          Access Control Params
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container>
           <Grid item xs>
-            <AccessControlMergedParamsForm
+            <AccessControlParamsForm
               form={form}
-              onSubmit={formActions.onEntityAccessMerged}
+              onSubmit={formActions.onListEntityAccess}
               onSubmitSuccess={onSubmitSuccess}
               onSubmitFail={onSubmitFail}
               entityType={entityType}
@@ -72,4 +76,4 @@ function AccessControlMergedParams({
   );
 }
 
-export default compose(withSnackbar, withFormActions)(AccessControlMergedParams);
+export default compose(withSnackbar, withFormActions)(AccessControlParams);

@@ -240,6 +240,7 @@ class Collection extends React.PureComponent {
           dialogName={COLLECTION_ACCESSCONTROL_ADD_DIALOG}
           entityType="collection"
           entityId={collectionId}
+          onSuccess={this.onRefresh}
         />
         <CollectionEntityAdd
           dialogName={COLLECTION_ENTITY_ADD_DIALOG}

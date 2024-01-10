@@ -18,7 +18,7 @@ function AccessControlDialog({
   submitForm,
   onClose,
   open,
-  onRefresh,
+  onSuccess,
   openSnackBar,
   entityType,
   entityId,
@@ -26,7 +26,7 @@ function AccessControlDialog({
   const onSubmitSuccess = () => {
     const messageContent = 'Access Control Created';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onSuccess) onSuccess();
     onClose();
   };
   const onSubmitFail = () => {
