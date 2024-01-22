@@ -22,7 +22,7 @@ class GroupList extends React.PureComponent {
     this.state = {
       groupListDocument: undefined,
       page: 0,
-      rowsPerPage: 100,
+      rowsPerPage: 10,
     };
   }
 
@@ -95,7 +95,7 @@ class GroupList extends React.PureComponent {
         )}
         <GroupWizard
           dialogName={GROUP_CREATE_MODAL}
-          onSuccess={(response) => history.push(`/group/${response.data.groupName}`)}
+          onSuccess={({ data }) => history.push(`/group/${data.groupName}`)}
         />
       </>
     );

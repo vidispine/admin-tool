@@ -8,7 +8,10 @@ export const onUpdateGroup = withSubmissionError((form, dispatch, props) => {
     groupName,
     groupDocument,
     queryParams,
-  });
+  }).then((response) => ({ // create user does not return a response body
+    ...response,
+    data: { groupName, ...groupDocument },
+  }));
 });
 
 export const onListGroup = withSubmissionError((form) => {
