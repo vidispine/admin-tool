@@ -20,7 +20,11 @@ export default function UserRow({
       <TableCell disableOnClick>
         {onRemove
         && (
-        <IconButton onClick={() => onRemove({ userName: userDocument.userName })}>
+        <IconButton onClick={(event) => {
+          event.preventDefault();
+          onRemove({ userName: userDocument.userName });
+        }}
+        >
           <DeleteForever />
         </IconButton>
         )}
