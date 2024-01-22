@@ -34,17 +34,12 @@ function GroupChildDialog({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>{`Add Groups To ${groupName}`}</DialogTitle>
       <DialogContent>
         <GroupChildForm
           form={GROUP_CHILD_FORM}
-          onSubmit={formActions.onUpdate}
+          onSubmit={formActions.onUpdateGroup}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           onCancel={onClose}
@@ -54,11 +49,7 @@ function GroupChildDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
         <Button

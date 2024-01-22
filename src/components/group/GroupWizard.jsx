@@ -31,7 +31,7 @@ function GroupWizard({
         <WizardForm
           FormComponent={GroupForm}
           documentName="groupDocument"
-          onSubmit={formActions.onUpdate}
+          onSubmit={formActions.onUpdateGroup}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           onCancel={onClose}

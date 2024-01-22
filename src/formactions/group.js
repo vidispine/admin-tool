@@ -1,23 +1,27 @@
-import { SubmissionError } from 'redux-form';
+import { group as GroupApi } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
-import { group as api } from '@vidispine/vdt-api';
-
-export function onUpdate(form, dispatch, props) {
+export const onUpdateGroup = withSubmissionError((form, dispatch, props) => {
   const { queryParams, groupDocument } = form;
   const groupName = props.groupName || form.groupDocument.groupName;
-  return api.updateGroup({
+  return GroupApi.updateGroup({
     groupName,
     groupDocument,
     queryParams,
-  })
-    .then(() => ({ data: groupDocument }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export default onUpdate;
+export const onListGroup = withSubmissionError((form) => {
+  const { queryParams = {} } = form;
+  return GroupApi.listGroup({
+    queryParams,
+  });
+});
+
+export const onSearchGroup = withSubmissionError((form) => {
+  const { queryParams = {}, groupSearchDocument = {} } = form;
+  return GroupApi.searchGroup({
+    queryParams,
+    groupSearchDocument,
+  });
+});

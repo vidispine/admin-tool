@@ -1,11 +1,14 @@
 import React from 'react';
+import { compose } from 'redux';
 
-import { group as api } from '@vidispine/vdt-api';
 import GroupListTitle from '../components/group/GroupListTitle';
 import GroupListCard from '../components/group/GroupListCard';
 import GroupWizard from '../components/group/GroupWizard';
-
-import withSnackbar from '../hoc/withSnackbar';
+import GroupListParams, {
+  GROUP_LIST_PARAMS_FORM,
+} from '../components/group/GroupListParams';
+import withFormActions from '../hoc/withFormActions';
+import withUI from '../hoc/withUI';
 
 const GROUP_CREATE_MODAL = 'GROUP_CREATE_MODAL';
 
@@ -24,21 +27,13 @@ class GroupList extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.onRefresh();
     document.title = 'VidiCore Admin | Group';
+    this.onRefresh();
   }
 
   onRefresh() {
-    const { page, rowsPerPage: number } = this.state;
-    const first = (number * page) + 1;
-    const queryParams = { number, first };
-    try {
-      api.listGroup({ queryParams })
-        .then((response) => this.setState({ groupListDocument: response.data }))
-        .catch((error) => this.onRefreshError(error));
-    } catch (error) {
-      this.onRefreshError(error);
-    }
+    const { submitForm } = this.props;
+    submitForm(GROUP_LIST_PARAMS_FORM);
   }
 
   onRefreshError() {
@@ -48,26 +43,30 @@ class GroupList extends React.PureComponent {
   }
 
   async onChangeRowsPerPage({ target: { value: rowsPerPage } } = {}) {
-    const first = 0;
-    await this.setState({ first, rowsPerPage });
+    const { changeForm } = this.props;
+    const page = 0;
+    const first = page * rowsPerPage + 1;
+    await changeForm(GROUP_LIST_PARAMS_FORM, 'queryParams.first', first);
+    await changeForm(GROUP_LIST_PARAMS_FORM, 'queryParams.number', rowsPerPage);
+    await this.setState({ page, rowsPerPage });
     this.onRefresh();
   }
 
   async onChangePage({ page }) {
+    const { changeForm } = this.props;
     const { rowsPerPage } = this.state;
-    const first = (page * rowsPerPage) + 1;
-    await this.setState({ first, page });
+    const first = page * rowsPerPage + 1;
+    await changeForm(GROUP_LIST_PARAMS_FORM, 'queryParams.first', first);
+    await this.setState({ page });
     this.onRefresh();
   }
 
   render() {
     const {
-      groupListDocument,
-      first,
-      rowsPerPage,
-      page,
+      groupListDocument, rowsPerPage, page,
     } = this.state;
     const { history } = this.props;
+    const first = page * rowsPerPage + 1;
     return (
       <>
         <GroupListTitle
@@ -76,18 +75,23 @@ class GroupList extends React.PureComponent {
           code={groupListDocument}
           codeModal="GroupListDocument"
         />
-        {groupListDocument
-        && (
-        <GroupListCard
-          groupListDocument={groupListDocument}
-          onRefresh={this.onRefresh}
+        <GroupListParams
+          number={rowsPerPage}
           first={first}
-          rowsPerPage={rowsPerPage}
-          count={groupListDocument.hits}
-          onChangePage={this.onChangePage}
-          page={page}
-          onChangeRowsPerPage={this.onChangeRowsPerPage}
+          onSuccess={(response) => this.setState({ groupListDocument: response.data })}
         />
+
+        {groupListDocument && (
+          <GroupListCard
+            groupListDocument={groupListDocument}
+            onRefresh={this.onRefresh}
+            first={first}
+            rowsPerPage={rowsPerPage}
+            count={groupListDocument.hits}
+            onChangePage={this.onChangePage}
+            page={page}
+            onChangeRowsPerPage={this.onChangeRowsPerPage}
+          />
         )}
         <GroupWizard
           dialogName={GROUP_CREATE_MODAL}
@@ -98,4 +102,4 @@ class GroupList extends React.PureComponent {
   }
 }
 
-export default withSnackbar(GroupList);
+export default compose(withFormActions, withUI)(GroupList);
