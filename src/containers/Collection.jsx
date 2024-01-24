@@ -17,6 +17,8 @@ import StorageRule from './StorageRule';
 import DeletionLockList from './DeletionLockList';
 import NotificationEntityList from './NotificationEntityList';
 import NotificationEntity from './NotificationEntity';
+import AccessGraph from './AccessGraph';
+import MetadataGraph from './MetadataGraph';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import CollectionRemove from '../components/collection/CollectionRemove';
@@ -45,6 +47,8 @@ const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
 const COLLECTION_RENAME_DIALOG = 'COLLECTION_RENAME_DIALOG';
 const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
+const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
+const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
 
 const TAB_TITLE = [
   {
@@ -77,14 +81,12 @@ const TAB_TITLE = [
     listText: 'Direct Access',
     component: AccessControl,
     path: '/collection/:collectionId/direct-access/',
-
   },
   {
     tab: ACCESSMERGED_TAB,
     listText: 'Merged Access',
     component: AccessControlMerged,
     path: '/collection/:collectionId/merged-access/',
-
   },
   {
     tab: STORAGERULE_TAB,
@@ -105,6 +107,20 @@ const TAB_TITLE = [
     path: '/collection/:collectionId/notification/',
     entityType: 'collection',
     exact: true,
+  },
+  {
+    tab: ACCESSGRAPH_TAB,
+    listText: 'Access Graph',
+    component: AccessGraph,
+    path: '/collection/:collectionId/access/graph/',
+    entityType: 'collection',
+  },
+  {
+    tab: METADATAGRAPH_TAB,
+    listText: 'Metadata Graph',
+    component: MetadataGraph,
+    path: '/collection/:collectionId/metadata/graph/',
+    entity: 'collection',
   },
 ];
 

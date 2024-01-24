@@ -22,6 +22,7 @@ import ItemVersion from './item/ItemVersion';
 import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
 import ItemSpritesheet from './item/ItemSpritesheet';
 import AccessGraph from './AccessGraph';
+import MetadataGraph from './MetadataGraph';
 import NotificationEntityList from './NotificationEntityList';
 import NotificationEntity from './NotificationEntity';
 
@@ -67,6 +68,7 @@ const ITEM_METADATACHANGESETLIST_TAB = 'ITEM_METADATACHANGESETLIST_TAB';
 const NOTIFICATION_TAB = 'NOTIFICATION_TAB';
 const ITEM_SPRITESHEET_TAB = 'ITEM_SPRITESHEET_TAB';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
+const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -180,6 +182,13 @@ const TAB_TITLE = [
     listText: 'Access Graph',
     component: AccessGraph,
     path: '/item/:itemId/access/graph/',
+  },
+  {
+    tab: METADATAGRAPH_TAB,
+    listText: 'Metadata Graph',
+    component: MetadataGraph,
+    path: '/item/:itemId/metadata/graph/',
+    entity: 'item',
   },
   {
     tab: STORAGERULE_TAB,
