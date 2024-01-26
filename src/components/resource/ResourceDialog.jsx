@@ -10,7 +10,7 @@ import * as formActions from '../../formactions/resource';
 import * as actions from '../../actions';
 import WizardForm from '../ui/WizardForm';
 
-function ImportSettingsDialog({
+function ResourceDialog({
   closeModal,
   isOpen,
   history,
@@ -51,4 +51,4 @@ const mapDispatchToProps = {
   openSnackBar: actions.ui.openSnackBar,
 };
 
-export default connect(null, mapDispatchToProps)(ImportSettingsDialog);
+export default connect(null, mapDispatchToProps)(ResourceDialog);

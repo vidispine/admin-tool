@@ -1,5 +1,5 @@
 import React from 'react';
-import { reduxForm, FieldArray } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,6 +17,7 @@ import { SimpleMetadataFieldArray } from '../ui/SimpleMetadataField';
 import ChipInput from '../ui/ChipInput';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
+import FieldArray from '../ui/FieldArray';
 
 const TranscoderConfigurationType = () => (
   <>
@@ -662,13 +663,19 @@ export const TranscoderTypeForm = () => (
 
 export const ThumbnailServiceTypeForm = () => (
   <>
+    <FieldArray
+      name="path"
+      label="Path"
+      component={UrlField}
+    />
+    {/* // This is an array from v23.2
     <Field
       name="path"
       component={UrlField}
       label="Path"
       fullWidth
       defaultValue="file://"
-    />
+    /> */}
     <FormControl fullWidth>
       <InputLabel htmlFor="mode">Mode</InputLabel>
       <Field name="mode" component={Select}>

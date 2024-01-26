@@ -60,7 +60,7 @@ const transcoderInitialValues = {
 const thumbnailInitialValues = {
   resourceDocument: {
     thumbnail: {
-      path: 'file:///thumbnail/',
+      path: ['file:///thumbnail/'],
     },
   },
 };
