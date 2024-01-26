@@ -42,6 +42,7 @@ function TitleHeader({
   codeModal,
   onOpen: openModal,
   createModal,
+  createModalTitle = 'New',
   removeModal,
   downloadModal,
   code,
@@ -217,7 +218,7 @@ function TitleHeader({
     );
   } else if (createModal) {
     defaultAction = (
-      <Tooltip title="New">
+      <Tooltip title={createModalTitle}>
         <IconButton onClick={() => openModal({ modalName: createModal })}>
           <PlaylistAdd />
         </IconButton>
@@ -264,9 +265,7 @@ function TitleHeader({
         justifyContent="space-between"
         alignItems="baseline"
       >
-        <Grid item>
-          {breadcrumb}
-        </Grid>
+        <Grid item>{breadcrumb}</Grid>
         <Grid item>
           <Grid
             container
@@ -282,19 +281,18 @@ function TitleHeader({
             {openExternalId}
             {openCodeComponent}
             {refeshAction}
-            {iconList}
             {action}
+            {iconList}
           </Grid>
         </Grid>
       </Grid>
-      { code
-      && (
-      <CodeModal
-        dialogName={codeModal}
-        code={code}
-        title={codeModal}
-        variant={codeVariant}
-      />
+      {code && (
+        <CodeModal
+          dialogName={codeModal}
+          code={code}
+          title={codeModal}
+          variant={codeVariant}
+        />
       )}
     </div>
   );

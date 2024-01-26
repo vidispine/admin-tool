@@ -1,11 +1,10 @@
 import React from 'react';
 import { user as api } from '@vidispine/vdt-api';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import UserKeyCard from '../components/user/UserKeyCard';
-import UserKeyDialog from '../components/user/UserKeyDialog';
+import UserKeyCard from '../../components/user/UserKeyCard';
+import UserKeyDialog from '../../components/user/UserKeyDialog';
 
-import withUI from '../hoc/withUI';
+import withUI from '../../hoc/withUI';
 
 const USERKEY_CREATE_MODAL = 'USERKEY_CREATE_MODAL';
 
@@ -62,21 +61,28 @@ class UserKey extends React.PureComponent {
 
   render() {
     const { accessKeyListDocument, accessKeyDocument } = this.state;
-    const { userName } = this.props;
+    const {
+      userName,
+      titleComponent: TitleComponent,
+      tabComponent: TabComponent,
+    } = this.props;
     return (
       <>
-        <TitleHeader
-          helpTo="/ref/user.html"
-          title="Keys"
-          grandParentTitle="User"
-          grandParentTo="/user/"
-          parentTitle={userName}
-          parentTo={`/user/${userName}`}
-          onRefresh={this.onRefresh}
-          code={accessKeyListDocument}
-          codeModal="AccessKeyListDocument"
-          createModal={USERKEY_CREATE_MODAL}
-        />
+        {TitleComponent && (
+          <TitleComponent
+            title="Keys"
+            grandParentTitle="User"
+            grandParentTo="/user/"
+            parentTitle={userName}
+            parentTo={`/user/${userName}`}
+            onRefresh={this.onRefresh}
+            code={accessKeyListDocument}
+            codeModal="AccessKeyListDocument"
+            createModal={USERKEY_CREATE_MODAL}
+            createModalTitle="Create New Key"
+          />
+        )}
+        {TabComponent && <TabComponent />}
         <UserKeyCard
           accessKeyListDocument={accessKeyListDocument}
           userName={userName}

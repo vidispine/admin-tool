@@ -92,7 +92,6 @@ import ItemMetadataGroupSearch from './ItemMetadataGroupSearch';
 import ShapeSearch from './ShapeSearch';
 import FieldGroupSearch from './FieldGroupSearch';
 import ImportImp from './ImportImp';
-import UserKey from './UserKey';
 import ScheduledRequestList from './ScheduledRequestList';
 import Stitch from './Stitch';
 import DeletionLockList from './DeletionLockList';
@@ -225,8 +224,7 @@ function Main({
           <Route exact path="/group/" component={GroupList} />
           <Route exact path="/group/:groupName/" component={Group} />
           <Route exact path="/user/" component={UserList} />
-          <Route exact path="/user/:userName/" component={User} />
-          <Route exact path="/user/:userName/key" component={UserKey} />
+          <Route path="/user/:userName/" component={User} />
           <Route exact path="/external-id/" component={ExternalIdNamespace} />
           <Route exact path="/search/" component={Search} />
           <Route
