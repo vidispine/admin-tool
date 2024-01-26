@@ -1,11 +1,12 @@
 import { SubmissionError } from 'redux-form';
 
-import { item as api, metadata as MetadataApi, debug as DebugApi } from '@vidispine/vdt-api';
+import { item as ItemApi, metadata as MetadataApi, debug as DebugApi } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
 export function onCreateExport(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createExport({
+  return ItemApi.createExport({
     itemId,
     queryParams,
   })
@@ -21,7 +22,7 @@ export function onCreateExport(form, dispatch, props) {
 export function onCreateExportImp(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createExportImp({
+  return ItemApi.createExportImp({
     itemId,
     queryParams,
   })
@@ -37,7 +38,7 @@ export function onCreateExportImp(form, dispatch, props) {
 export function onRemoveItem(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.removeItem({
+  return ItemApi.removeItem({
     itemId,
     queryParams,
   })
@@ -53,7 +54,7 @@ export function onRemoveItem(form, dispatch, props) {
 export function onUpdateMetadata(form, dispatch, props) {
   const { metadataDocument = {}, queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.updateItemMetadata({
+  return ItemApi.updateItemMetadata({
     itemId,
     metadataDocument,
     queryParams,
@@ -72,7 +73,7 @@ export function onGetMetadata(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
   const headers = props.headers || form.headers;
-  return api.getItemMetadata({
+  return ItemApi.getItemMetadata({
     itemId,
     queryParams,
     headers,
@@ -108,7 +109,7 @@ export function onListEntityMetadataChange(form, dispatch, props) {
 export function onGet(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
-  return api.getItem({
+  return ItemApi.getItem({
     itemId,
     queryParams,
   })
@@ -127,7 +128,7 @@ export function onSearch(form) {
     queryParams = {},
     itemSearchDocument = {},
   } = form;
-  return api.searchItem({
+  return ItemApi.searchItem({
     itemSearchDocument,
     queryParams,
   })
@@ -148,7 +149,7 @@ export function onSearch(form) {
 export function onGetUri(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
-  return api.getItemUri({
+  return ItemApi.getItemUri({
     itemId,
     queryParams,
   })
@@ -170,7 +171,7 @@ export function onGetThumbnailSpritesheet(form, dispatch, props) {
   if (isJson) headers.accept = 'application/xml';
   const itemId = props.itemId || form.itemId;
   const path = `/API/item/${itemId}/thumbnail/spritesheet`;
-  return api.getItem({
+  return ItemApi.getItem({
     itemId,
     path,
     params: queryParams,
@@ -193,7 +194,7 @@ export function onGetThumbnailSpritesheet(form, dispatch, props) {
 export function onCreateTranscode(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createTranscode({
+  return ItemApi.createTranscode({
     itemId,
     queryParams,
   })
@@ -210,7 +211,7 @@ export function onCreateTranscode(form, dispatch, props) {
 export function onCreateThumbnail(form, dispatch, props) {
   const { queryParams = {} } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createThumbnail({
+  return ItemApi.createThumbnail({
     itemId,
     queryParams,
   })
@@ -229,7 +230,7 @@ export function onListItemRelation(form, dispatch, props) {
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
   relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
-  return api.listItemRelation({
+  return ItemApi.listItemRelation({
     itemId,
     queryParams,
   })
@@ -249,7 +250,7 @@ export function onCreateItemRelation(form, dispatch, props) {
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
   relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
-  return api.createItemRelation({
+  return ItemApi.createItemRelation({
     itemId,
     relationItemId,
     queryParams,
@@ -269,7 +270,7 @@ export function onUpdateItemRelation(form, dispatch, props) {
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
   relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
-  return api.updateRelation({
+  return ItemApi.updateRelation({
     relationId,
     queryParams,
   })
@@ -285,7 +286,7 @@ export function onUpdateItemRelation(form, dispatch, props) {
 export function onCreateItemAnalyze(form, dispatch, props) {
   const { analyzeJobDocument = {}, queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createItemAnalyze({
+  return ItemApi.createItemAnalyze({
     itemId,
     queryParams,
     analyzeJobDocument,
@@ -299,3 +300,15 @@ export function onCreateItemAnalyze(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export const onSearchItemMetadataGroup = withSubmissionError((form) => {
+  const { metadataGroupSearchDocument, queryParams } = form;
+  return ItemApi.searchItemMetadataGroup({
+    queryParams,
+    metadataGroupSearchDocument,
+  }).then((response) => ({
+    queryParams,
+    metadataGroupSearchDocument,
+    ...response,
+  }));
+});

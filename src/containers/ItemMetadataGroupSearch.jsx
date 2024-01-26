@@ -3,18 +3,18 @@ import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 
 import TitleHeader from '../components/ui/TitleHeader';
-import ItemSearchDocument from '../components/item/ItemSearch';
-import ItemSearchParams from '../components/item/ItemSearchParams';
-import ItemListTableCard from '../components/item/ItemListTableCard';
+import MetadataGroupSearchDocument from '../components/item/ItemMetadataGroupSearch';
+import ItemMetadataGroupSearchParams from '../components/item/ItemMetadataGroupSearchParams';
 import ItemListCard from '../components/item/ItemListCard';
 import ItemListGrid from '../components/item/ItemListGrid';
+import ItemListTableCard from '../components/item/ItemListTableCard';
 import ViewSelect, { CARD_VIEW, GRID_VIEW, ROW_VIEW } from '../components/ui/ViewSelect';
 
 import withFormActions from '../hoc/withFormActions';
 
-const ITEM_SEARCH_FORM = 'ITEM_SEARCH_FORM';
+const ITEM_METADATAGROUPSEARCH_FORM = 'ITEM_METADATAGROUPSEARCH_FORM';
 
-class ItemSearch extends React.PureComponent {
+class ItemMetadataGroupSearch extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -30,14 +30,16 @@ class ItemSearch extends React.PureComponent {
       orderDirection = 'desc',
       ...queryParams
     } = params;
-    const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
+    const sort = orderBy
+      ? [{ field: orderBy, order: `${orderDirection}ending` }]
+      : [];
     this.initialValues = {
       queryParams: {
         first,
         number,
         ...queryParams,
       },
-      itemSearchDocument: {
+      metadataGroupSearchDocument: {
         sort,
       },
     };
@@ -48,13 +50,13 @@ class ItemSearch extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'VidiCore Admin | Item';
+    document.title = 'VidiCore Admin | Item Metadata Group Search';
     setTimeout(this.onRefresh, 10); // wait for form to initialize
   }
 
   onRefresh() {
     const { submitForm } = this.props;
-    submitForm(ITEM_SEARCH_FORM);
+    submitForm(ITEM_METADATAGROUPSEARCH_FORM);
   }
 
   onSearchSuccess(response) {
@@ -71,10 +73,7 @@ class ItemSearch extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -84,16 +83,14 @@ class ItemSearch extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      itemListDocument,
-      queryParams,
-      viewLayout,
-    } = this.state;
+    const { itemListDocument, queryParams, viewLayout } = this.state;
     return (
       <>
         <TitleHeader
@@ -105,8 +102,8 @@ class ItemSearch extends React.PureComponent {
         />
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
-            <ItemSearchDocument
-              form={ITEM_SEARCH_FORM}
+            <MetadataGroupSearchDocument
+              form={ITEM_METADATAGROUPSEARCH_FORM}
               defaultExpanded={false}
               onSuccess={this.onSearchSuccess}
               initialValues={this.initialValues}
@@ -114,8 +111,8 @@ class ItemSearch extends React.PureComponent {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <ItemSearchParams
-              form={ITEM_SEARCH_FORM}
+            <ItemMetadataGroupSearchParams
+              form={ITEM_METADATAGROUPSEARCH_FORM}
               defaultExpanded={false}
               onSuccess={this.onSearchSuccess}
               initialValues={this.initialValues}
@@ -123,27 +120,24 @@ class ItemSearch extends React.PureComponent {
             />
           </Grid>
         </Grid>
-        <ViewSelect
-          onChange={this.onChangeView}
-          isActive={viewLayout}
-        />
-        { viewLayout === ROW_VIEW && (
+        <ViewSelect onChange={this.onChangeView} isActive={viewLayout} />
+        {viewLayout === ROW_VIEW && (
           <ItemListTableCard
-            form={ITEM_SEARCH_FORM}
+            form={ITEM_METADATAGROUPSEARCH_FORM}
             itemListDocument={itemListDocument}
             queryParams={queryParams}
           />
         )}
-        { viewLayout === CARD_VIEW && (
+        {viewLayout === CARD_VIEW && (
           <ItemListCard
-            form={ITEM_SEARCH_FORM}
+            form={ITEM_METADATAGROUPSEARCH_FORM}
             itemListDocument={itemListDocument}
             queryParams={queryParams}
           />
         )}
-        { viewLayout === GRID_VIEW && (
+        {viewLayout === GRID_VIEW && (
           <ItemListGrid
-            form={ITEM_SEARCH_FORM}
+            form={ITEM_METADATAGROUPSEARCH_FORM}
             itemListDocument={itemListDocument}
             queryParams={queryParams}
           />
@@ -153,4 +147,4 @@ class ItemSearch extends React.PureComponent {
   }
 }
 
-export default compose(withFormActions)(ItemSearch);
+export default compose(withFormActions)(ItemMetadataGroupSearch);
