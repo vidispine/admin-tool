@@ -60,16 +60,8 @@ export const UserGroupDisplay = ({ userDocument }) => (
 
 const UserSection = ({ value = {}, onDeleteAlias }) => (
   <>
-    <TextGrid
-      title="userName"
-      value={value.userName}
-      hover
-    />
-    <TextGrid
-      title="realName"
-      value={value.realName}
-      hover
-    />
+    <TextGrid title="userName" value={value.userName} hover />
+    <TextGrid title="realName" value={value.realName} hover />
     <TextGrid
       title="alias"
       value={value.alias}
@@ -78,36 +70,17 @@ const UserSection = ({ value = {}, onDeleteAlias }) => (
       hover
       onDelete={onDeleteAlias}
     />
+    <TextGrid title="id" value={value.id} hideNoValue hover />
+    <TextGrid title="loc" hideNoValue value={value.loc} hover />
+    <TextGrid title="password" value={value.password} hideNoValue hover />
+    <TextGrid title="salt" value={value.salt} hideNoValue hover />
     <TextGrid
-      title="id"
-      value={value.id}
+      title="accessPreserved"
+      value={value.accessPreserved}
       hideNoValue
       hover
     />
-    <TextGrid
-      title="loc"
-      hideNoValue
-      value={value.loc}
-      hover
-    />
-    <TextGrid
-      title="password"
-      value={value.password}
-      hideNoValue
-      hover
-    />
-    <TextGrid
-      title="salt"
-      value={value.salt}
-      hideNoValue
-      hover
-    />
-    <TextGrid
-      title="origin"
-      value={value.origin}
-      hideNoValue
-      hover
-    />
+    <TextGrid title="origin" value={value.origin} hideNoValue hover />
   </>
 );
 

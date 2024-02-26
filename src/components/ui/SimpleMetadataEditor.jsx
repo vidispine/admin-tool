@@ -4,17 +4,29 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 import SimpleMetadataForm from './SimpleMetadataForm';
 import SimpleMetadataDisplay from './SimpleMetadataDisplay';
 import * as formActions from '../../formactions/metadata';
 
 const EDIT_SIMPLE_METADATA_FORM = 'EDIT_SIMPLE_METADATA_FORM';
+
+const styles = () => ({
+  CardHeader: {
+    paddingBottom: 0,
+  },
+  CardContent: {
+    paddingTop: 0,
+  },
+  CardHeaderTypography: {},
+});
 
 class SimpleMetadataEditor extends React.PureComponent {
   constructor(props) {
@@ -39,6 +51,8 @@ class SimpleMetadataEditor extends React.PureComponent {
       onSuccess,
       title = 'Metadata',
       titleProps = {},
+      CardHeaderProps = {},
+      classes,
     } = this.props;
     const {
       isEditing,
@@ -61,24 +75,35 @@ class SimpleMetadataEditor extends React.PureComponent {
     return (
       <>
         <CardHeader
-          style={{ paddingLeft: 0 }}
-          title={<Typography variant="subtitle1" {...titleProps}>{title}</Typography>}
+          className={classes.CardHeader}
+          title={(
+            <Typography
+              variant="subtitle1"
+              className={classes.CardHeaderTypography}
+              {...titleProps}
+            >
+              {title}
+            </Typography>
+          )}
           disableTypography
-          action={entityId !== undefined ? (
-            <Grid container direction="row-reverse" alignItems="center">
-              <Grid item>
-                <FormControlLabel
-                  control={<Switch color="primary" />}
-                  label="Edit"
-                  checked={isEditing}
-                  onChange={this.toggleEdit}
-                />
+          action={
+            entityId !== undefined ? (
+              <Grid container direction="row-reverse" alignItems="center">
+                <Grid item>
+                  <FormControlLabel
+                    control={<Switch color="primary" />}
+                    label="Edit"
+                    checked={isEditing}
+                    onChange={this.toggleEdit}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          ) : undefined}
+            ) : undefined
+          }
+          {...CardHeaderProps}
         />
-        {isEditing
-          ? (
+        <CardContent className={classes.CardContent}>
+          {isEditing ? (
             <SimpleMetadataForm
               form={EDIT_SIMPLE_METADATA_FORM}
               initialValues={initialValues}
@@ -88,17 +113,15 @@ class SimpleMetadataEditor extends React.PureComponent {
               entityType={entityType}
               entityId={entityId}
             />
-          )
-          : <SimpleMetadataDisplay simpleMetadataList={simpleMetadataList} />}
-        {isEditing
-          && (
+          ) : (
+            <SimpleMetadataDisplay simpleMetadataList={simpleMetadataList} />
+          )}
+        </CardContent>
+        {isEditing && (
           <>
             <Divider />
             <AccordionActions>
-              <Button
-                size="small"
-                onClick={this.toggleEdit}
-              >
+              <Button size="small" onClick={this.toggleEdit}>
                 Cancel
               </Button>
               <Button
@@ -110,7 +133,7 @@ class SimpleMetadataEditor extends React.PureComponent {
               </Button>
             </AccordionActions>
           </>
-          )}
+        )}
       </>
     );
   }
@@ -120,4 +143,4 @@ const mapDispatchToProps = {
   submitForm: submit,
 };
 
-export default connect(null, mapDispatchToProps)(SimpleMetadataEditor);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(SimpleMetadataEditor));

@@ -22,6 +22,7 @@ import ItemVersion from './item/ItemVersion';
 import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
 import ItemSpritesheet from './item/ItemSpritesheet';
 import AccessGraph from './AccessGraph';
+import MetadataGraph from './MetadataGraph';
 import NotificationEntityList from './NotificationEntityList';
 import NotificationEntity from './NotificationEntity';
 
@@ -67,6 +68,7 @@ const ITEM_METADATACHANGESETLIST_TAB = 'ITEM_METADATACHANGESETLIST_TAB';
 const NOTIFICATION_TAB = 'NOTIFICATION_TAB';
 const ITEM_SPRITESHEET_TAB = 'ITEM_SPRITESHEET_TAB';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
+const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -180,6 +182,13 @@ const TAB_TITLE = [
     listText: 'Access Graph',
     component: AccessGraph,
     path: '/item/:itemId/access/graph/',
+  },
+  {
+    tab: METADATAGRAPH_TAB,
+    listText: 'Metadata Graph',
+    component: MetadataGraph,
+    path: '/item/:itemId/metadata/graph/',
+    entity: 'item',
   },
   {
     tab: STORAGERULE_TAB,
@@ -324,7 +333,9 @@ class Item extends React.PureComponent {
         />
         <ItemDelete
           dialogName={ITEM_REMOVE_DIALOG}
-          onSuccess={() => history.push('/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true')}
+          onSuccess={() => history.push(
+            '/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true',
+          )}
           itemId={itemId}
         />
         <ShapeDeleteAll
@@ -378,20 +389,24 @@ class Item extends React.PureComponent {
           dialogName={COLLECTION_ENTITY_ADD_DIALOG}
           entityId={itemId}
           entityType="item"
+          onSuccess={this.onRefresh}
         />
         <AccessControlDialog
           dialogName={ITEM_ACCESSCONTROL_ADD_DIALOG}
           entityType="item"
           entityId={itemId}
+          onSuccess={this.onRefresh}
         />
         <JobCreate
           dialogName={JOB_CREATE_DIALOG}
           initialValues={{
             queryParams: {
-              jobmetadata: [{
-                key: 'itemId',
-                value: itemId,
-              }],
+              jobmetadata: [
+                {
+                  key: 'itemId',
+                  value: itemId,
+                },
+              ],
             },
           }}
         />
@@ -400,7 +415,6 @@ class Item extends React.PureComponent {
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
           itemId={itemId}
         />
-
       </>
     );
   }

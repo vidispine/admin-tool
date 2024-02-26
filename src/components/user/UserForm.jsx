@@ -33,64 +33,31 @@ const GroupType = () => (
 const GroupListType = () => (
   <FieldTypeArray
     name="group"
+    label="group"
     component={GroupType}
   />
 );
 
 const UserType = () => (
   <>
-    <Field
-      name="userName"
-      component={InitialDisabledTextField}
-      fullWidth
-    />
-    <Field
-      name="realName"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="alias"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
-    <Field
-      name="password"
-      component={TextField}
-      type="password"
-      fullWidth
-    />
-    <Field
-      name="salt"
-      component={TextField}
-      fullWidth
-    />
-    <FormSection
-      name="groupList"
-      component={GroupListType}
-    />
-    <FormSection
-      name="metadata"
-      component={SimpleMetadataType}
-    />
+    <Field name="userName" component={InitialDisabledTextField} fullWidth />
+    <Field name="realName" component={TextField} fullWidth />
+    <Field name="alias" component={ChipInput} simple fullWidth />
+    <Field name="password" component={TextField} type="password" fullWidth />
+    <Field name="salt" component={TextField} fullWidth />
+    <FormSection name="groupList" component={GroupListType} />
+    <FormSection name="metadata" component={SimpleMetadataType} />
     <FormControlLabel
-      control={(
-        <Field
-          name="disabled"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="disabled" component={BoolCheckbox} />}
       label="Disabled"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="remove"
-          component={BoolCheckbox}
-        />
-      )}
-      label="remove"
+      control={<Field name="accessPreserved" component={BoolCheckbox} />}
+      label="Access Preserved"
+    />
+    <FormControlLabel
+      control={<Field name="remove" component={BoolCheckbox} />}
+      label="Remove"
     />
   </>
 );

@@ -1,12 +1,13 @@
 import { SubmissionError } from 'redux-form';
+import { metadata as MetadataApi } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
-import { metadata as api } from '@vidispine/vdt-api';
 import * as actions from '../actions';
 
 export function onUpdateSimpleMetadataSubmit(form, dispatch, props) {
   const { entityType, entityId } = props;
   const { simpleMetadataDocument, removedKeys = [] } = form;
-  const updateMetadata = new Promise((resolve, reject) => api.updateSimpleMetadata({
+  const updateMetadata = new Promise((resolve, reject) => MetadataApi.updateSimpleMetadata({
     entityType,
     entityId,
     simpleMetadataDocument,
@@ -16,7 +17,7 @@ export function onUpdateSimpleMetadataSubmit(form, dispatch, props) {
   const promises = [updateMetadata];
   removedKeys.forEach((thisRemove) => {
     const { key } = thisRemove;
-    const removeThisKey = new Promise((resolve, reject) => api.removeSimpleMetadataKey({
+    const removeThisKey = new Promise((resolve, reject) => MetadataApi.removeSimpleMetadataKey({
       entityType,
       entityId,
       key,
@@ -46,3 +47,14 @@ export function onUpdateSimpleMetadataSubmitSuccess(response, dispatch) {
   const messageContent = 'Metadata Updated';
   dispatch(openSnackBar({ messageContent }));
 }
+
+export const onEntityMetadataGraphDot = withSubmissionError((form, dispatch, props) => {
+  const { queryParams = {} } = form;
+  const entity = props.entity || form.entity;
+  const entityId = props.entityId || form.entityId;
+  return MetadataApi.getEntityMetadataGraphDot({
+    entity,
+    entityId,
+    queryParams,
+  });
+});

@@ -38,8 +38,8 @@ TO-DO
 35. Item smartcrop
 36. Item thumbnail/poster version
 37. Upload thumbnail/poster
-38. Get thumbnail sprite sheet
-39. Delete thumbnail
+38. ~~Get thumbnail sprite sheet~~
+39. ~~Delete thumbnail~~
 40. Export thumbnail
 41. Conform item
 42. Item timelines

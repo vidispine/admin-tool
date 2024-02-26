@@ -18,16 +18,16 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-log.json') }}
       - name: Install dependencies
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm install
       - name: Clean cached clones
-        run: yarn gh-pages-clean
+        run: npm run gh-pages-clean
       - name: Publish to GitHub Pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          PUBLIC_URL="https://${GITHUB_REPOSITORY%/*}.github.io/${GITHUB_REPOSITORY#*/}" yarn build
-          yarn gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
+          PUBLIC_URL="https://${GITHUB_REPOSITORY%/*}.github.io/${GITHUB_REPOSITORY#*/}" npm run build
+          npm run gh-pages -- -d build -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

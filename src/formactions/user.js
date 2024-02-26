@@ -1,76 +1,49 @@
 import { SubmissionError } from 'redux-form';
+import { user as UserApi } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
-import { user as api } from '@vidispine/vdt-api';
-
-export function onCreate(form) {
+export const onCreate = withSubmissionError((form) => {
   const { userDocument, queryParams } = form;
-  return api.createUser({
+  return UserApi.createUser({
     userDocument,
     queryParams,
   })
-    .then(() => ({ data: userDocument }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
-export function onDisable(form, dispatch, props) {
+    .then(() => ({ data: userDocument }));
+});
+
+export const onDisable = withSubmissionError((form, dispatch, props) => {
   const { queryParams } = form;
   const userName = props.userName || form.userName;
-  return api.disableUser({
+  return UserApi.disableUser({
     userName,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function onUpdate(form, dispatch, props) {
+export const onUpdate = withSubmissionError((form, dispatch, props) => {
   const userName = props.userName || form.userName;
   const { userDocument, queryParams } = form;
-  return api.updateUser({
+  return UserApi.updateUser({
     userName,
     userDocument,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function onUpdatePassword(form, dispatch, props) {
+export const onUpdatePassword = withSubmissionError((form, dispatch, props) => {
   const userName = props.userName || form.userName;
   const { password, queryParams } = form;
-  return api.updateUserPassword({
+  return UserApi.updateUserPassword({
     userName,
     password,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
 export function onGetToken(form, dispatch, props) {
   const { headers = {}, queryParams } = form;
   const runAs = props.runAs || form.runAs || headers.runAs;
-  return api.getToken({
+  return UserApi.getToken({
     queryParams,
     headers: { runAs, ...headers },
   })
@@ -93,7 +66,7 @@ function onWhoAmI(form, dispatch, props) {
   const { headers = {} } = form;
   const { status } = props;
   const { runAs, token } = headers;
-  return api.whoAmI({ headers: { Authorization: `token ${token}` } })
+  return UserApi.whoAmI({ headers: { Authorization: `token ${token}` } })
     .then(({ data }) => ({ userName: data, runAs, data: token }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -124,7 +97,7 @@ export function onGetUserToken(form, dispatch, props) {
     return onWhoAmI(form, dispatch, props);
   }
   const userName = props.userName || form.userName || headers.username;
-  return api.getUserToken({
+  return UserApi.getUserToken({
     username: userName,
     queryParams,
     headers: headerProps,
@@ -147,85 +120,58 @@ export function onGetUserToken(form, dispatch, props) {
     });
 }
 
-export function onUpdateGroups(form, dispatch, props) {
+export const onUpdateGroups = withSubmissionError((form, dispatch, props) => {
   const { groupListDocument, queryParams } = form;
   const userName = props.userName || form.userName;
-  return api.updateUserGroup({
+  return UserApi.updateUserGroup({
     userName,
     groupListDocument,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function onUpdateRealName(form, dispatch, props) {
+export const onUpdateRealName = withSubmissionError((form, dispatch, props) => {
   const { realName } = form;
   const userName = props.userName || form.userName;
-  return api.updateUserRealName({
+  return UserApi.updateUserRealName({
     userName,
     realName,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function createAlias(form, dispatch, props) {
+export const createAlias = withSubmissionError((form, dispatch, props) => {
   const { alias } = form;
   const userName = props.userName || form.userName;
-  return api.createAlias({
+  return UserApi.createAlias({
     userName,
     alias,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function onCreateKey(form, dispatch, props) {
+export const onCreateKey = withSubmissionError((form, dispatch, props) => {
   const { queryParams } = form;
   const userName = props.userName || form.userName;
-  return api.createKey({
+  return UserApi.createKey({
     userName,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
 
-export function onUpdateKey(form, dispatch, props) {
+export const onUpdateKey = withSubmissionError((form, dispatch, props) => {
   const { accessKeyDocument } = form;
   const userName = props.userName || form.userName;
   const keyId = props.keyId || form.keyId;
-  return api.updateKey({
+  return UserApi.updateKey({
     userName,
     keyId,
     accessKeyDocument,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  });
+});
+
+export const onSearchUser = withSubmissionError((form) => {
+  const { queryParams = {}, userSearchDocument = {} } = form;
+  return UserApi.searchUser({
+    queryParams,
+    userSearchDocument,
+  });
+});

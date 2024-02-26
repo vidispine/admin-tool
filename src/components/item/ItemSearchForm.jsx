@@ -17,7 +17,7 @@ import { StatefulAsyncSelect } from '../ui/Select';
 import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
 import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
 
-const ItemSearchTextValueType = () => (
+export const ItemSearchTextValueType = () => (
   <Grid container>
     <Grid item sm={10}>
       <Field
@@ -40,52 +40,33 @@ const ItemSearchTextValueType = () => (
   </Grid>
 );
 
-const ItemSearchValueType = () => (
+export const ItemSearchValueType = () => (
   <Grid container>
     <Grid item sm={6}>
-      <Field
-        name="value"
-        component={TextField}
-        fullWidth
-      />
+      <Field name="value" component={TextField} fullWidth />
     </Grid>
     <Grid item sm={2}>
       <FormControlLabel
-        control={(
-          <Field
-            name="noescape"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="noescape" component={BoolCheckbox} />}
         label="No Escape"
       />
     </Grid>
     <Grid item sm={2}>
       <FormControlLabel
-        control={(
-          <Field
-            name="minimum"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="minimum" component={BoolCheckbox} />}
         label="Minimum"
       />
     </Grid>
     <Grid item sm={2}>
       <FormControlLabel
-        control={(
-          <Field
-            name="maximum"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="maximum" component={BoolCheckbox} />}
         label="Maximum"
       />
     </Grid>
   </Grid>
 );
 
-const ItemSearchRangeType = () => (
+export const ItemSearchRangeType = () => (
   <>
     <FormSection
       name="value[0]"
@@ -94,33 +75,19 @@ const ItemSearchRangeType = () => (
       button
       initialDisplay={false}
     />
-    <FormSection
-      name="value[1]"
-      component={ItemSearchValueType}
-      label="End"
-    />
+    <FormSection name="value[1]" component={ItemSearchValueType} label="End" />
     <FormControlLabel
-      control={(
-        <Field
-          name="exclusiveMinimum"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="exclusiveMinimum" component={BoolCheckbox} />}
       label="Exclusive Minimum"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="exclusiveMaximum"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="exclusiveMaximum" component={BoolCheckbox} />}
       label="Exclusive Maximum"
     />
   </>
 );
 
-const SearchFieldType = () => (
+export const SearchFieldType = () => (
   <>
     <Field
       name="name"
@@ -159,7 +126,7 @@ const SearchFieldType = () => (
   </>
 );
 
-const SearchGroupType = () => (
+export const SearchGroupType = () => (
   <>
     <Field
       name="name"
@@ -187,15 +154,11 @@ const SearchGroupType = () => (
       withHeader={false}
       arrayHeader
     />
-    <Field
-      name="reference"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="reference" component={TextField} fullWidth />
   </>
 );
 
-const SearchOperatorType = () => (
+export const SearchOperatorType = () => (
   <>
     <FormControl fullWidth>
       <InputLabel htmlFor="operation">Operation</InputLabel>
@@ -242,13 +205,9 @@ const SearchOperatorType = () => (
   </>
 );
 
-const SearchFilterType = () => (
+export const SearchFilterType = () => (
   <>
-    <Field
-      name="name"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="name" component={TextField} fullWidth />
     <FormControl fullWidth>
       <InputLabel htmlFor="operation">Operation</InputLabel>
       <Field name="operation" component={Select}>
@@ -278,12 +237,7 @@ const SearchFilterType = () => (
       withHeader={false}
       arrayHeader
     />
-    <Field
-      name="reference"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
+    <Field name="reference" component={ChipInput} simple fullWidth />
   </>
 );
 
@@ -388,6 +342,14 @@ export const FacetRangeType = () => (
       component={TextField}
       fullWidth
     />
+  </>
+);
+
+export const FacetFilterType = () => (
+  <>
+    <Field name="field" label="Field" component={TextField} fullWidth />
+    <Field name="value" component={TextField} fullWidth />
+    <FormSection name="range" label="Range" component={FacetRangeType} />
   </>
 );
 

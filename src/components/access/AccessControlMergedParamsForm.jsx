@@ -3,12 +3,14 @@ import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import { TextField, Select } from '../form';
 
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import { StatefulAsyncSelect } from '../ui/Select';
+import BoolCheckbox from '../ui/BoolCheckbox';
 import { loadUserOptions } from '../user/UserSelect';
 
 export const queryParams = () => (
@@ -42,10 +44,18 @@ export const queryParams = () => (
       </Field>
     </FormControl>
     <Field
-      name="Extra Data"
-      label="extradata"
+      name="extradata"
+      label="Extra Data"
       component={TextField}
       fullWidth
+    />
+    <FormControlLabel
+      control={<Field name="additionalUserInfo" component={BoolCheckbox} />}
+      label="Additional User Info"
+    />
+    <FormControlLabel
+      control={<Field name="additionalGroupInfo" component={BoolCheckbox} />}
+      label="Additional Group Info"
     />
   </>
 );

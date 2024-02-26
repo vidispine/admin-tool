@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AccessControlMergedList from '../components/access/AccessControlMergedList';
-import AccessControlMergedParams, { ACCESS_PARAMS_FORM } from '../components/access/AccessControlMergedParams';
+import AccessControlMergedParams, { ACCESS_MERGED_PARAMS_FORM } from '../components/access/AccessControlMergedParams';
 import withFormActions from '../hoc/withFormActions';
 
 class AccessControlMerged extends React.PureComponent {
@@ -19,7 +19,7 @@ class AccessControlMerged extends React.PureComponent {
 
   onRefresh() {
     const { submitForm } = this.props;
-    submitForm(ACCESS_PARAMS_FORM);
+    submitForm(ACCESS_MERGED_PARAMS_FORM);
   }
 
   render() {

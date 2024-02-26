@@ -51,6 +51,7 @@ const GroupListType = () => (
 const UserListType = () => (
   <FieldTypeArray
     name="user"
+    label="User"
     component={UserLookup}
   />
 );

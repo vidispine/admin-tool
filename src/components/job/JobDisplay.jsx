@@ -7,36 +7,27 @@ import TypeArray from '../ui/TypeArray';
 import getJobDataVariant from '../../utils/getJobDataVariant';
 
 const JobTaskProgressType = ({ value = {} }) => (
-  <>
-    <TextGrid
-      title={value.total}
-      value={value.unit}
-      hideNoValue
-      hover
-    />
-  </>
+  <TextGrid
+    title={value.total}
+    value={value.unit}
+    hideNoValue
+    hover
+  />
+);
+
+const JobTaskSubstepType = ({ value = {} }) => (
+  <TextGrid
+    title={moment(value.timestamp).format('llll')}
+    value={value.description}
+    titleStartCase={false}
+  />
 );
 
 const JobTaskType = ({ value = {} }) => (
   <>
-    <TextGrid
-      title="step"
-      value={value.step}
-      hideNoValue
-      hover
-    />
-    <TextGrid
-      title="attempts"
-      value={value.attempts}
-      hideNoValue
-      hover
-    />
-    <TextGrid
-      title="status"
-      value={value.status}
-      hideNoValue
-      hover
-    />
+    <TextGrid title="step" value={value.step} hideNoValue hover />
+    <TextGrid title="attempts" value={value.attempts} hideNoValue hover />
+    <TextGrid title="status" value={value.status} hideNoValue hover />
     <TextGrid
       title="timestamp"
       value={value.timestamp}
@@ -44,12 +35,7 @@ const JobTaskType = ({ value = {} }) => (
       hideNoValue
       hover
     />
-    <TextGrid
-      title="description"
-      value={value.description}
-      hideNoValue
-      hover
-    />
+    <TextGrid title="description" value={value.description} hideNoValue hover />
     <TypeSection
       component={JobTaskProgressType}
       value={value.progress}
@@ -57,13 +43,7 @@ const JobTaskType = ({ value = {} }) => (
     />
     <TypeArray
       value={value.subStep}
-      component={({ value: v }) => (
-        <TextGrid
-          title={moment(v.timestamp).format('llll')}
-          value={v.description}
-          titleStartCase={false}
-        />
-      )}
+      component={JobTaskSubstepType}
       hideNoValue
       hover
       dense
@@ -83,9 +63,11 @@ const JobTaskType = ({ value = {} }) => (
     <TypeArray
       title="subTask"
       titleKey="step"
-      value={Array.isArray(value.subTask)
-        ? value.subTask.sort((a, b) => b.step - a.step)
-        : value.subTask}
+      value={
+        Array.isArray(value.subTask)
+          ? value.subTask.sort((a, b) => b.step - a.step)
+          : value.subTask
+      }
       component={JobTaskType}
       hideNoValue
       hover
@@ -93,74 +75,75 @@ const JobTaskType = ({ value = {} }) => (
   </>
 );
 
+const KeyValueType = ({ value }) => (
+  <TextGrid
+    title={value.key}
+    value={value.value}
+    titleStartCase={false}
+    variant={getJobDataVariant(value.key)}
+    hideCode
+    hover
+  />
+);
+
 const DataSection = ({ value = {} }) => (
   <TypeArray
     arrayTitle="Data"
     value={value.data}
     arrayKey="key"
-    component={({ value: v }) => (
-      <TextGrid
-        title={v.key}
-        value={v.value}
-        titleStartCase={false}
-        variant={getJobDataVariant(v.key)}
-        hideCode
-        hover
-      />
-    )}
+    component={KeyValueType}
     hideNoValue
     hover
     dense
   />
 );
 
-const StepSection = ({ value = {} }) => (
-  <TypeSection
-    value={value.log}
+const StepType = ({ value }) => (
+  <TypeArray
+    title="Step"
+    titleKey="step"
+    value={Array.isArray(value.task) ? value.task.sort((a, b) => b.step - a.step) : value.task}
+    component={JobTaskType}
+    hideNoValue
+    hover
     dense
-    component={({ value: v }) => (
-      <TypeArray
-        title="Step"
-        titleKey="step"
-        value={Array.isArray(v.task) ? v.task.sort((a, b) => b.step - a.step) : v.task}
-        component={JobTaskType}
-        hideNoValue
-        hover
-        dense
-      />
-    )}
   />
+
+);
+
+const StepSection = ({ value = {} }) => (
+  <TypeSection value={value.log} dense component={StepType} />
+);
+
+const CurrentStepType = ({ value }) => (
+  <>
+    <TextGrid title="description" value={value.description} hideNoValue hover />
+    <TextGrid title="number" value={value.number} hideNoValue hover />
+    <TextGrid title="status" value={value.status} hideNoValue hover />
+  </>
 );
 
 const CurrentSection = ({ value = {} }) => (
   <TypeSection
     title="currentStep"
     value={value.currentStep}
-    component={({ value: v }) => (
-      <>
-        <TextGrid
-          title="description"
-          value={v.description}
-          hideNoValue
-          hover
-        />
-        <TextGrid
-          title="number"
-          value={v.number}
-          hideNoValue
-          hover
-        />
-        <TextGrid
-          title="status"
-          value={v.status}
-          hideNoValue
-          hover
-        />
-      </>
-    )}
+    component={CurrentStepType}
     hideNoValue
     dense
   />
+);
+
+const ProblemType = ({ value }) => (
+  <>
+    <TextGrid title="type" value={value.type} hideNoValue />
+    <TextGrid
+      title="data"
+      value={value.data ? JSON.stringify(value.data) : undefined}
+      variant="json"
+      hideNoValue
+    />
+  </>
+
 );
 
 const ProblemSection = ({ value = {} }) => (
@@ -168,29 +151,38 @@ const ProblemSection = ({ value = {} }) => (
     title="Problem"
     titleKey="id"
     value={value.problem}
-    component={({ value: v }) => (
-      <>
-        <TextGrid title="type" value={v.type} hideNoValue />
-        <TextGrid
-          title="data"
-          value={v.data ? JSON.stringify(v.data) : undefined}
-          variant="json"
-          hideNoValue
-        />
-      </>
-    )}
+    component={ProblemType}
     hideNoValue
     dense
   />
 );
 
-const BasicSection = ({ value = {} }) => (
+const WaitingType = ({ value }) => (
   <>
     <TextGrid
-      title="jobId"
-      value={value.jobId}
+      title="resourceId"
+      value={value.resourceId}
+      hideNoValue
       hover
     />
+    <TextGrid
+      title="resourceType"
+      value={value.resourceType}
+      hideNoValue
+      hover
+    />
+    <TextGrid
+      title="requirement"
+      value={value.requirement}
+      hideNoValue
+      hover
+    />
+  </>
+);
+
+const BasicSection = ({ value = {} }) => (
+  <>
+    <TextGrid title="jobId" value={value.jobId} hover />
     <TextGrid
       title="user"
       value={value.user}
@@ -212,12 +204,7 @@ const BasicSection = ({ value = {} }) => (
       hideNoValue
       hover
     />
-    <TextGrid
-      title="status"
-      value={value.status}
-      hideNoValue
-      hover
-    />
+    <TextGrid title="status" value={value.status} hideNoValue hover />
     <TextGrid
       title="type"
       value={value.type}
@@ -225,43 +212,12 @@ const BasicSection = ({ value = {} }) => (
       hideNoValue
       hover
     />
-    <TextGrid
-      title="priority"
-      value={value.priority}
-      hideNoValue
-      hover
-    />
-    <TextGrid
-      title="totalSteps"
-      value={value.totalSteps}
-      hideNoValue
-      hover
-    />
+    <TextGrid title="priority" value={value.priority} hideNoValue hover />
+    <TextGrid title="totalSteps" value={value.totalSteps} hideNoValue hover />
     <TypeSection
       title="waiting"
       value={value.waiting}
-      component={({ value: v }) => (
-        <>
-          <TextGrid
-            title="resourceId"
-            value={v.resourceId}
-            hideNoValue
-            hover
-          />
-          <TextGrid
-            title="resourceType"
-            value={v.resourceType}
-            hideNoValue
-            hover
-          />
-          <TextGrid
-            title="requirement"
-            value={v.requirement}
-            hideNoValue
-            hover
-          />
-        </>
-      )}
+      component={WaitingType}
       hideNoValue
       dense
     />

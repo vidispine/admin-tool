@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { collection as api } from '@vidispine/vdt-api';
+import { collection as CollectionApi } from '@vidispine/vdt-api';
 import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
 import CollectionMetadataDisplayParams from '../../components/collection/CollectionMetadataDisplayParams';
 import TimeRepresentation from '../../components/ui/TimeRepresentation';
@@ -17,6 +17,8 @@ class CollectionMetadata extends React.PureComponent {
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onSubmitTimeRepresentation = this.onSubmitTimeRepresentation.bind(this);
+    this.onQuickEdit = this.onQuickEdit.bind(this);
+    this.onQuickEditError = this.onQuickEditError.bind(this);
     this.state = {
       metadataDocument: undefined,
       timeRepresentation: undefined,
@@ -42,7 +44,7 @@ class CollectionMetadata extends React.PureComponent {
 
   onFetch(collectionId) {
     try {
-      api.getCollectionMetadata({ collectionId })
+      CollectionApi.getCollectionMetadata({ collectionId })
         .then((response) => this.setState({ metadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -54,6 +56,31 @@ class CollectionMetadata extends React.PureComponent {
     const { openSnackBar } = this.props;
     const messageContent = 'Error Loading Collection';
     openSnackBar({ messageContent, messageColor: 'secondary' });
+  }
+
+  onQuickEditError() {
+    const { openSnackBar } = this.props;
+    const messageContent = 'Error Updating Collection';
+    openSnackBar({ messageContent, messageColor: 'secondary' });
+  }
+
+  onQuickEdit(metadataDocument) {
+    const { collectionId } = this.props;
+    try {
+      return CollectionApi.updateCollectionMetadata({
+        collectionId,
+        metadataDocument,
+      })
+        .then(() => CollectionApi.getCollectionMetadata({ collectionId }))
+        .then((response) => this.setState({ metadataDocument: response.data }))
+        .catch((error) => {
+          this.onQuickEditError(error);
+          throw error;
+        });
+    } catch (error) {
+      this.onQuickEditError(error);
+      throw error;
+    }
   }
 
   onSubmitTimeRepresentation(timeRepresentation) {
@@ -76,25 +103,21 @@ class CollectionMetadata extends React.PureComponent {
             codeModal="MetadataDocument"
             onRefresh={this.onRefresh}
             title={title}
-
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <CollectionMetadataDisplayParams
           collectionId={collectionId}
           onSuccess={(response) => this.setState({ metadataDocument: response.data })}
         />
-        <TimeRepresentation
-          onSubmit={this.onSubmitTimeRepresentation}
-        />
+        <TimeRepresentation onSubmit={this.onSubmitTimeRepresentation} />
         {metadataDocument && (
           <CollectionMetadataCard
             collectionId={collectionId}
             metadataDocument={metadataDocument}
             timeRepresentation={timeRepresentation}
             onSuccess={this.onRefresh}
+            onQuickEdit={this.onQuickEdit}
           />
         )}
       </>

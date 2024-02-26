@@ -15,7 +15,7 @@ import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
 import * as formActions from '../../formactions/access';
 
-export const ACCESS_PARAMS_FORM = 'ACCESS_PARAMS_FORM';
+export const ACCESS_MERGED_PARAMS_FORM = 'ACCESS_MERGED_PARAMS_FORM';
 
 function AccessControlMergedParams({
   onSubmit,
@@ -26,6 +26,7 @@ function AccessControlMergedParams({
   resetForm,
   entityType,
   entityId,
+  form = ACCESS_MERGED_PARAMS_FORM,
   ...formProps
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
@@ -47,8 +48,8 @@ function AccessControlMergedParams({
         <Grid container>
           <Grid item xs>
             <AccessControlMergedParamsForm
-              form={ACCESS_PARAMS_FORM}
-              onSubmit={formActions.onGet}
+              form={form}
+              onSubmit={formActions.onEntityAccessMerged}
               onSubmitSuccess={onSubmitSuccess}
               onSubmitFail={onSubmitFail}
               entityType={entityType}
@@ -60,17 +61,10 @@ function AccessControlMergedParams({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(ACCESS_PARAMS_FORM)}
-        >
+        <Button size="small" onClick={() => resetForm(form)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(ACCESS_PARAMS_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(form)}>
           Update
         </Button>
       </AccordionActions>

@@ -26,6 +26,7 @@ const GroupType = () => (
 const GroupListType = () => (
   <FieldTypeArray
     name="group"
+    label="Group"
     component={GroupType}
   />
 );

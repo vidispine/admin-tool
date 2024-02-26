@@ -88,10 +88,10 @@ import Transfer from './Transfer';
 import Shape from './Shape';
 import CollectionSearch from './CollectionSearch';
 import ItemSearch from './ItemSearch';
+import ItemMetadataGroupSearch from './ItemMetadataGroupSearch';
 import ShapeSearch from './ShapeSearch';
 import FieldGroupSearch from './FieldGroupSearch';
 import ImportImp from './ImportImp';
-import UserKey from './UserKey';
 import ScheduledRequestList from './ScheduledRequestList';
 import Stitch from './Stitch';
 import DeletionLockList from './DeletionLockList';
@@ -129,12 +129,8 @@ function Main({
   };
   return (
     <div style={{ zIndex: 1, minWidth: '100%' }}>
-      <FullScreenDialog
-        dialogName={MAINMENU_DIALOG}
-      />
-      <HistoryDialog
-        dialogName={HISTORY_DIALOG}
-      />
+      <FullScreenDialog dialogName={MAINMENU_DIALOG} />
+      <HistoryDialog dialogName={HISTORY_DIALOG} />
       <TopAppBar
         onLogout={onLogout}
         userName={userName}
@@ -153,30 +149,65 @@ function Main({
           <Route exact path="/collection/" component={CollectionSearch} />
           <Route path="/collection/:collectionId/" component={Collection} />
           <Route exact path="/configuration/" component={Configuration} />
-          <Route exact path="/configuration/properties/" component={Properties} />
+          <Route
+            exact
+            path="/configuration/properties/"
+            component={Properties}
+          />
           <Route exact path="/configuration/indexing/" component={Indexing} />
           <Route exact path="/configuration/ftp-pool/" component={FtpPool} />
           <Route exact path="/configuration/job-pool/" component={JobPool} />
-          <Route exact path="/configuration/path-alias/" component={PathAlias} />
+          <Route
+            exact
+            path="/configuration/path-alias/"
+            component={PathAlias}
+          />
           <Route exact path="/configuration/metrics/" component={Metrics} />
           <Route exact path="/configuration/logreport/" component={LogReport} />
           <Route exact path="/configuration/cors/" component={Cors} />
           <Route exact path="/configuration/auth/" component={OAuth2} />
-          <Route exact path="/configuration/bulkymetadata/" component={BulkyMetadata} />
-          <Route exact path="/configuration/purging/" component={DatabasePurging} />
-          <Route exact path="/configuration/job-priority/" component={JobPriority} />
+          <Route
+            exact
+            path="/configuration/bulkymetadata/"
+            component={BulkyMetadata}
+          />
+          <Route
+            exact
+            path="/configuration/purging/"
+            component={DatabasePurging}
+          />
+          <Route
+            exact
+            path="/configuration/job-priority/"
+            component={JobPriority}
+          />
           <Route exact path="/resource/" component={ResourceTypeList} />
-          <Route exact path="/resource/:resourceType/" component={ResourceList} />
-          <Route exact path="/resource/:resourceType/:resourceId/" component={Resource} />
+          <Route
+            exact
+            path="/resource/:resourceType/"
+            component={ResourceList}
+          />
+          <Route
+            exact
+            path="/resource/:resourceType/:resourceId/"
+            component={Resource}
+          />
           <Route exact path="/storage/" component={StorageList} />
           <Route exact path="/storage/:storageId/" component={Storage} />
-          <Route exact path="/storage/:storageId/method/:storageMethodId" component={StorageMethod} />
+          <Route
+            exact
+            path="/storage/:storageId/method/:storageMethodId"
+            component={StorageMethod}
+          />
           <Route exact path="/shape-tag/" component={ShapeTagList} />
           <Route exact path="/shape-tag/:tagName/" component={ShapeTag} />
           <Route exact path="/version/" component={Version} />
           <Route exact path="/service/" component={Service} />
           <Route exact path="/jobtype/" component={JobTypeList} />
-          <Route path="/task-definition/jobtype/:taskDefinitionType" component={TaskDefinition} />
+          <Route
+            path="/task-definition/jobtype/:taskDefinitionType"
+            component={TaskDefinition}
+          />
           <Route exact path="/debug/echo" component={Echo} />
           <Route exact path="/javascript/test" component={Javascript} />
           <Route exact path="/log" component={AuditLog} />
@@ -184,19 +215,34 @@ function Main({
           <Route exact path="/job/problem/" component={JobProblemList} />
           <Route exact path="/job/:jobId/" component={Job} />
           <Route exact path="/export-location" component={ExportLocationList} />
-          <Route exact path="/export-location/:locationName/" component={ExportLocation} />
+          <Route
+            exact
+            path="/export-location/:locationName/"
+            component={ExportLocation}
+          />
           <Route exact path="/selftest/" component={SelfTest} />
           <Route exact path="/group/" component={GroupList} />
           <Route exact path="/group/:groupName/" component={Group} />
           <Route exact path="/user/" component={UserList} />
-          <Route exact path="/user/:userName/" component={User} />
-          <Route exact path="/user/:userName/key" component={UserKey} />
+          <Route path="/user/:userName/" component={User} />
           <Route exact path="/external-id/" component={ExternalIdNamespace} />
           <Route exact path="/search/" component={Search} />
-          <Route exact path="/search/field-group/" component={FieldGroupSearch} />
+          <Route
+            exact
+            path="/search/field-group/"
+            component={FieldGroupSearch}
+          />
           <Route exact path="/item/" component={ItemSearch} />
+          <Route
+            exact
+            path="/item/metadata-group/"
+            component={ItemMetadataGroupSearch}
+          />
           <Route exact path="/shape" component={ShapeSearch} />
-          <Route path="/item/:itemId/shape/:shapeId/component/:componentId/" component={Component} />
+          <Route
+            path="/item/:itemId/shape/:shapeId/component/:componentId/"
+            component={Component}
+          />
           <Route path="/item/:itemId/shape/:shapeId/" component={Shape} />
           <Route path="/item/:itemId/" component={Item} />
           <Route exact path="/reindex/" component={ReindexList} />
@@ -216,13 +262,20 @@ function Main({
           <Route exact path="/library/" component={LibraryList} />
           <Route path="/library/:libraryId/" component={Library} />
           <Route exact path="/document/" component={DocumentMetadataList} />
-          <Route path="/document/:documentMetadataName" component={DocumentMetadata} />
+          <Route
+            path="/document/:documentMetadataName"
+            component={DocumentMetadata}
+          />
           <Route path="/metadata/:metadataUuid/" component={Metadata} />
           <Route exact path="/conform/" component={Conform} />
           <Route exact path="/projection/" component={ProjectionList} />
           <Route path="/projection/:projectionId" component={Projection} />
           <Route path="/metadata-field/:fieldName" component={MetadataField} />
-          <Route exact path="/notification/" component={NotificationResourceList} />
+          <Route
+            exact
+            path="/notification/"
+            component={NotificationResourceList}
+          />
           <Route
             exact
             path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/`}
@@ -233,29 +286,81 @@ function Main({
             path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/:notificationId`}
             component={Notification}
           />
-          <Route exact path="/notification/:notificationId" component={NotificationPlaceholder} />
-          <Route exact path="/import/settings/" component={ImportSettingsList} />
-          <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
-          <Route exact path="/import/access/:userName" component={ImportAccess} />
+          <Route
+            exact
+            path="/notification/:notificationId"
+            component={NotificationPlaceholder}
+          />
+          <Route
+            exact
+            path="/import/settings/"
+            component={ImportSettingsList}
+          />
+          <Route
+            exact
+            path="/import/settings/:settingsId"
+            component={ImportSettings}
+          />
+          <Route
+            exact
+            path="/import/access/:userName"
+            component={ImportAccess}
+          />
           <Route exact path="/task-group/" component={TaskGroupList} />
           <Route exact path="/task-group/:groupName/" component={TaskGroup} />
           <Route exact path="/quota/" component={Quota} />
           <Route exact path="/storage-group/" component={StorageGroupList} />
-          <Route exact path="/storage-group/:groupName/" component={StorageGroup} />
+          <Route
+            exact
+            path="/storage-group/:groupName/"
+            component={StorageGroup}
+          />
           <Route exact path="/auto-import/" component={AutoImportRuleList} />
-          <Route exact path="/auto-import/:storageId/" component={AutoImportRule} />
+          <Route
+            exact
+            path="/auto-import/:storageId/"
+            component={AutoImportRule}
+          />
           <Route exact path="/service/stacktrace/" component={StackTrace} />
           <Route exact path="/transfer/" component={Transfer} />
-          <Route exact path="/scheduled-request/" component={ScheduledRequestList} />
+          <Route
+            exact
+            path="/scheduled-request/"
+            component={ScheduledRequestList}
+          />
           <Route exact path="/stitch/" component={Stitch} />
           <Route exact path="/deletion-lock/" component={DeletionLockList} />
-          <Route exact path="/deletion-lock/:lockId/" component={DeletionLock} />
-          <Route exact path="/external-id/:entityType/:entityId" component={ExternalId} />
-          <Route exact path="/external-id/:entityType/:entitySubType/:entityId" component={ExternalId} />
-          <Route exact path="/metadata-dataset/" component={MetadataDatasetList} />
-          <Route exact path="/metadata-dataset/:datasetId/" component={MetadataDataset} />
+          <Route
+            exact
+            path="/deletion-lock/:lockId/"
+            component={DeletionLock}
+          />
+          <Route
+            exact
+            path="/external-id/:entityType/:entityId"
+            component={ExternalId}
+          />
+          <Route
+            exact
+            path="/external-id/:entityType/:entitySubType/:entityId"
+            component={ExternalId}
+          />
+          <Route
+            exact
+            path="/metadata-dataset/"
+            component={MetadataDatasetList}
+          />
+          <Route
+            exact
+            path="/metadata-dataset/:datasetId/"
+            component={MetadataDataset}
+          />
           <Route exact path="/analyze-preset/" component={AnalyzePresetList} />
-          <Route exact path="/analyze-preset/:preset/" component={AnalyzePreset} />
+          <Route
+            exact
+            path="/analyze-preset/:preset/"
+            component={AnalyzePreset}
+          />
           <Redirect exact from="/" push to="/job" />
           <Route path="*" component={NotFound} />
         </Switch>

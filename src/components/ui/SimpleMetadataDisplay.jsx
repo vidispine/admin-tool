@@ -12,6 +12,7 @@ export default function SimpleMetadataDisplay({ simpleMetadataList = [] }) {
         titleStartCase={false}
         variant={getSimpleMetadataVariant(simpleMetadata.key)}
         hideCode
+        hover
       />
     ))
   );

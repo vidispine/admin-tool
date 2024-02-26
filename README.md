@@ -15,18 +15,18 @@ An icon in the toolbar displays the data returned from the VidiCore API which ha
 
 ## Source
 
-* Install `nodejs` and `yarn`.
+* Install `nodejs`.
 
 * Clone this project and change into the project folder.
 
 * Install dependencies.
 ```
-yarn install
+npm install
 ```
 
 * Start with `VIDISPINE_URL` (default: `http://localhost:8080`)
 ```
-VIDISPINE_URL='https://example.myvidispine.com' yarn start
+VIDISPINE_URL='https://example.myvidispine.com' npm run start
 ```
 
 * Open http://localhost:3000/ in a browser.
@@ -35,13 +35,13 @@ VIDISPINE_URL='https://example.myvidispine.com' yarn start
 
 * Compile the application locally.
 ```
-yarn build
+npm run build
 ```
 
 * Build the docker image with the `latest` tag.
 Note that only files/folders specified with `!` prefix in the `.dockerignore` will be included.
 ```
-yarn run build-container
+npm run build-container
 ```
 ## Docker
 

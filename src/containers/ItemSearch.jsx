@@ -5,21 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import TitleHeader from '../components/ui/TitleHeader';
 import ItemSearchDocument from '../components/item/ItemSearch';
 import ItemSearchParams from '../components/item/ItemSearchParams';
-import ItemListTable from '../components/item/ItemListTable';
+import ItemListTableCard from '../components/item/ItemListTableCard';
 import ItemListCard from '../components/item/ItemListCard';
 import ItemListGrid from '../components/item/ItemListGrid';
 import ViewSelect, { CARD_VIEW, GRID_VIEW, ROW_VIEW } from '../components/ui/ViewSelect';
 
 import withFormActions from '../hoc/withFormActions';
-import withCard from '../hoc/withCard';
-import withPaginationForm from '../hoc/withPaginationForm';
 
 const ITEM_SEARCH_FORM = 'ITEM_SEARCH_FORM';
-
-const ItemListTableCard = compose(
-  withCard,
-  withPaginationForm,
-)(ItemListTable);
 
 class ItemSearch extends React.PureComponent {
   constructor(props) {
