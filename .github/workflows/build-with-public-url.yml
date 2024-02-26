@@ -31,7 +31,7 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npm install
       - name: Build site
-        run: PUBLIC_URL=${PUBLIC_URL} npm run build
+        run: PUBLIC_URL=${PUBLIC_URL} GENERATE_SOURCEMAP=false npm run build
         env:
           PUBLIC_URL: ${{ github.event.inputs.public_url }}
       - name: Upload artifact

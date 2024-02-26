@@ -39,11 +39,12 @@
     "d3-color": ">=3.1.0"
   },
   "scripts": {
-    "start": "VITE_VIDISPINE_URL=${VIDISPINE_URL} VITE_GIT_COMMIT=${npm_package_version} vite",
-    "build": "GENERATE_SOURCEMAP=false VITE_GIT_COMMIT=${npm_package_version} vite build && cp build/index.html build/404.html",
+    "start": "vite",
+    "build": "vite build",
+    "postbuild": "cp build/index.html build/404.html",
     "gh-pages-clean": "gh-pages-clean",
     "gh-pages": "gh-pages",
-    "predocker:build": "PUBLIC_URL=/ npm run build",
+    "predocker:build": "PUBLIC_URL=/ GENERATE_SOURCEMAP=false npm run build",
     "docker:build": "docker build -t \"${npm_package_name:1}:latest\" -t \"${npm_package_name:1}:${npm_package_version}\" .",
     "docker:push": "docker push \"${npm_package_name:1}:${npm_package_version}\" && docker push \"${npm_package_name:1}:latest\"",
     "docker:run": "docker run --name \"${npm_package_name/@vidispine\\//vidispine_}\" --rm -dti -e VIDISPINE_URL=$VIDISPINE_URL -e NGINX_RESOLVER=1.1.1.1 -p 80:80 \"${npm_package_name:1}:${npm_package_version}\"",
