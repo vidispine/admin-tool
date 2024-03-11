@@ -1,27 +1,32 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, splitVendorChunkPlugin, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import dns from 'dns';
 
 dns.setDefaultResultOrder('verbatim');
 
-const VIDISPINE_ENDPOINTS = ['/API/', '/APInoauth/', '/APIinit/', '/APIdoc/', '/UploadLicense/'];
-const VIDISPINE_URL = process.env.VITE_VIDISPINE_URL === '' ? undefined : process.env.VITE_VIDISPINE_URL;
-const proxyOptions = {
-  target: VIDISPINE_URL,
-  changeOrigin: true,
-  selfHandleResponse: false,
-  configure: (proxy) => {
-    proxy.on('proxyRes', (proxyRes) => {
-      // eslint-disable-next-line no-param-reassign
-      delete proxyRes.headers['www-authenticate'];
-    });
-  },
-};
+const setProxy = ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const VIDISPINE_ENDPOINTS = ['/API/', '/APInoauth/', '/APIinit/', '/APIdoc/', '/UploadLicense/'];
+  const VIDISPINE_URL = env.VITE_VIDISPINE_URL === '' ? undefined : env.VITE_VIDISPINE_URL;
 
-const proxy = VIDISPINE_URL
-  ? VIDISPINE_ENDPOINTS.reduce((a, c) => ({ ...a, [c]: proxyOptions }), {})
-  : undefined;
+  const proxyOptions = {
+    target: VIDISPINE_URL,
+    changeOrigin: true,
+    selfHandleResponse: false,
+    configure: (proxy) => {
+      proxy.on('proxyRes', (proxyRes) => {
+      // eslint-disable-next-line no-param-reassign
+        delete proxyRes.headers['www-authenticate'];
+      });
+    },
+  };
+
+  const proxy = VIDISPINE_URL
+    ? VIDISPINE_ENDPOINTS.reduce((a, c) => ({ ...a, [c]: proxyOptions }), {})
+    : undefined;
+  return proxy;
+};
 
 const base = process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL;
 
@@ -31,7 +36,7 @@ export default ({ mode }) => defineConfig({
     port: 3000,
     host: 'localhost',
     open: true,
-    proxy,
+    proxy: setProxy({ mode }),
 
   },
   plugins: [splitVendorChunkPlugin(), react()],

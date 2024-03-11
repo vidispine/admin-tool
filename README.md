@@ -24,12 +24,28 @@ An icon in the toolbar displays the data returned from the VidiCore API which ha
 npm install
 ```
 
-* Start with `VIDISPINE_URL` (default: `http://localhost:8080`)
+* Start the [vite dev server](https://vitejs.dev/guide/cli.html#dev-server)
 ```
-VIDISPINE_URL='https://example.myvidispine.com' npm run start
+npm run start
+```
+
+* (Optionally) Set the `VITE_VIDISPINE_URL` to configure the [proxy](https://vitejs.dev/config/server-options.html#server-proxy) to avoid configuring CORS.
+
+_MacOS, Linux_
+```bash
+VITE_VIDISPINE_URL='https://example.myvidispine.com' npm run start
+```
+
+_Windows_
+```cmd
+set VITE_VIDISPINE_URL='https://example.myvidispine.com'& npm run start
 ```
 
 * Open http://localhost:3000/ in a browser.
+
+### VSCode
+
+* Use the _Run and Debug_ console to launch the dev server and set the VidiCore URL. See [launch.json](.vscode/launch.json).
 
 ### Build
 
@@ -41,7 +57,7 @@ npm run build
 * Build the docker image with the `latest` tag.
 Note that only files/folders specified with `!` prefix in the `.dockerignore` will be included.
 ```
-npm run build-container
+npm run docker:build
 ```
 ## Docker
 
@@ -50,6 +66,7 @@ Docker Containers can be downloaded from Dockerhub https://hub.docker.com/reposi
 ### Run
 
 * Start the container with the latest image.
+  - Try changing the port from `-p 80:80` to `-p 8088:80` if running on Windows. 
 ```
 docker run \
   --name vidispine-admin-tool \
@@ -60,14 +77,14 @@ docker run \
   -e VIDISPINE_URL='http://my-vidispine-server:8080' \
   -p 80:80 \
   'vidispine/admin-tool:latest'
-```
+``` 
 
 #### Run Environment Variables
 
 * **VIDISPINE_URL**: The URL (including http/s and port) to access the Vidispine API.
   - Do not include a trailing `/` on the URL as it will break the Nginx proxy.
   - If running in Compose/Kubernetes, this should be the service name.
-  - If running on localhost either use `docker.for.mac.localhost`, `docker.for.win.localhost`, the IP address of the host on the docker network, or use `--net=host`.
+  - If running on localhost either use `host.docker.internal`, the IP address of the host on the docker network, or use `--net=host`.
 
 #### Ports
 

@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
+import clsx from 'clsx';
 
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
 import { capitalizeString, bytesToSize, fromNow } from '../../utils';
@@ -13,6 +14,7 @@ import UnstyledHashLink from './UnstyledHashLink';
 
 const styles = (theme) => ({
   overflowWrapAnywhere: { overflowWrap: 'anywhere' },
+  overflowBreakWord: { overflowWrap: 'break-word' },
   text: {
     ...theme.typography.subtitle2,
     color: theme.palette.text.primary,
@@ -42,16 +44,15 @@ function TextGridValue({
   isEdit = false,
   inputRef,
   error,
+  className: propsClassName,
   ...typographyProps
 }) {
   if (value === undefined || null) {
     return null;
   }
+  const className = clsx(classes.overflowWrapAnywhere, propsClassName);
   let valueComponent = (
-    <StyledTypography
-      className={classes.overflowWrapAnywhere}
-      {...typographyProps}
-    >
+    <StyledTypography className={className} {...typographyProps}>
       {capitalize ? capitalizeString(value) : value.toString()}
     </StyledTypography>
   );
@@ -66,7 +67,7 @@ function TextGridValue({
     case 'aspectratio':
       if (typeof value === 'object' && value.horizontal !== undefined) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             {`Horizontal:${value.horizontal} Vertical:${value.vertical}`}
           </StyledTypography>
         );
@@ -80,11 +81,17 @@ function TextGridValue({
           finishedMoment.diff(startMoment),
         );
         const durationHuman = durationMoment.humanize();
-        valueComponent = <StyledTypography>{durationHuman}</StyledTypography>;
+        valueComponent = (
+          <StyledTypography className={className}>
+            {durationHuman}
+          </StyledTypography>
+        );
       }
       break;
     case 'metadataFieldValue':
-      valueComponent = <StyledTypography>{value.value}</StyledTypography>;
+      valueComponent = (
+        <StyledTypography className={className}>{value.value}</StyledTypography>
+      );
       editComponent = (
         <form noValidate autoComplete="off" style={{ width: '100%' }}>
           <Input
@@ -104,21 +111,27 @@ function TextGridValue({
 
       break;
     case 'fromnow':
-      valueComponent = <StyledTypography>{fromNow(value)}</StyledTypography>;
+      valueComponent = (
+        <StyledTypography className={className}>
+          {fromNow(value)}
+        </StyledTypography>
+      );
       break;
     case 'timestring':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           {value ? moment(value).toString() : ''}
         </StyledTypography>
       );
       break;
     case 'timestamp':
-      valueComponent = <StyledTypography>{value}</StyledTypography>;
+      valueComponent = (
+        <StyledTypography className={className}>{value}</StyledTypography>
+      );
       break;
     case 'seconds':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           {moment.duration(value, 'seconds').humanize()}
         </StyledTypography>
       );
@@ -126,7 +139,7 @@ function TextGridValue({
     case 'rational':
       if (typeof value === 'object' && value.denominator !== undefined) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             {`${value.numerator}/${value.denominator}`}
           </StyledTypography>
         );
@@ -135,7 +148,7 @@ function TextGridValue({
     case 'resolution':
       if (typeof value === 'object' && value.width !== undefined) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             {`Width:${value.width} Height:${value.height}`}
           </StyledTypography>
         );
@@ -144,7 +157,7 @@ function TextGridValue({
     case 'timebase':
       if (typeof value === 'object' && value.denominator !== undefined) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             {`${value.denominator}/${value.numerator}`}
           </StyledTypography>
         );
@@ -153,7 +166,7 @@ function TextGridValue({
     case 'timecode':
       if (typeof value === 'object' && value.samples !== undefined) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             {`${value.samples}@${value.timeBase.denominator}/${value.timeBase.numerator}`}
           </StyledTypography>
         );
@@ -165,7 +178,11 @@ function TextGridValue({
           2,
         );
         valueComponent = (
-          <StyledTypography>{`${videoSamplerate} fps`}</StyledTypography>
+          <StyledTypography
+            className={className}
+          >
+            {`${videoSamplerate} fps`}
+          </StyledTypography>
         );
       }
       break;
@@ -175,59 +192,75 @@ function TextGridValue({
           2,
         );
         valueComponent = (
-          <StyledTypography>{`${videoSamplerate} fps`}</StyledTypography>
+          <StyledTypography
+            className={className}
+          >
+            {`${videoSamplerate} fps`}
+          </StyledTypography>
         );
       }
       break;
     case 'bitrate':
       valueComponent = (
-        <StyledTypography>{bitRateToSize(value)}</StyledTypography>
+        <StyledTypography className={className}>
+          {bitRateToSize(value)}
+        </StyledTypography>
       );
       break;
     case 'percent':
       valueComponent = (
-        <StyledTypography>{`${parseInt(value, 10) || 0}%`}</StyledTypography>
+        <StyledTypography className={className}>
+          {`${
+            parseInt(value, 10) || 0
+          }%`}
+        </StyledTypography>
       );
       break;
     case 'frequency':
-      valueComponent = <StyledTypography>{freqToSize(value)}</StyledTypography>;
+      valueComponent = (
+        <StyledTypography className={className}>
+          {freqToSize(value)}
+        </StyledTypography>
+      );
       break;
     case 'bytes':
       valueComponent = (
-        <StyledTypography>{bytesToSize(value)}</StyledTypography>
+        <StyledTypography className={className}>
+          {bytesToSize(value)}
+        </StyledTypography>
       );
       break;
     case 'link':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           {to ? <UnstyledLink to={to}>{value}</UnstyledLink> : value}
         </StyledTypography>
       );
       break;
     case 'username':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/user/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'group':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/group/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'shape-tag':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/shape-tag/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'metadata-field':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/metadata-field/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
@@ -235,7 +268,7 @@ function TextGridValue({
     case 'item':
     case 'itemId':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/item/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
@@ -244,7 +277,7 @@ function TextGridValue({
     case 'shape': {
       if (variantProps?.itemId) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             <UnstyledLink to={`/item/${variantProps.itemId}/shape/${value}/`}>
               {value}
             </UnstyledLink>
@@ -256,7 +289,7 @@ function TextGridValue({
     case 'componentId': {
       if (variantProps?.itemId && variantProps?.shapeId) {
         valueComponent = (
-          <StyledTypography>
+          <StyledTypography className={className}>
             <UnstyledHashLink
               to={`/item/${variantProps.itemId}/shape/${variantProps.shapeId}#${value}`}
             >
@@ -270,21 +303,21 @@ function TextGridValue({
     case 'collectionId':
     case 'collection':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/collection/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'library':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/library/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'documentMetadataName':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/document/${value}`}>{value}</UnstyledLink>
         </StyledTypography>
       );
@@ -298,28 +331,28 @@ function TextGridValue({
       break;
     case 'fileId':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/file/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'fileIdList':
       valueComponent = value.split(',').map((label) => (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/file/${label}/`}>{label}</UnstyledLink>
         </StyledTypography>
       ));
       break;
     case 'storageId':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/storage/${value}/`}>{value}</UnstyledLink>
         </StyledTypography>
       );
       break;
     case 'jobtype':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           <UnstyledLink to={`/task-definition/jobtype/${value}/`}>
             {value}
           </UnstyledLink>
@@ -328,7 +361,7 @@ function TextGridValue({
       break;
     case 'boolean':
       valueComponent = (
-        <StyledTypography>
+        <StyledTypography className={className}>
           {(value === 'true' || value === true) && 'True'}
           {(value === 'false' || value === false) && 'False'}
         </StyledTypography>
