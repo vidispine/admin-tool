@@ -4,20 +4,17 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import Delete from '@material-ui/icons/Delete';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { TextField, Select } from '../form';
 
 import UrlField from '../ui/UrlField';
-import TextButton from '../ui/TextButton';
 import BoolCheckbox from '../ui/BoolCheckbox';
-import { SimpleMetadataFieldArray } from '../ui/SimpleMetadataField';
 import ChipInput from '../ui/ChipInput';
 import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import FieldArray from '../ui/FieldArray';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import { SimpleMetadataType } from '../ui/FormType';
 
 const TranscoderConfigurationType = () => (
   <>
@@ -83,93 +80,56 @@ const TranscoderConfigurationType = () => (
   </>
 );
 
-const MediaLocationArray = ({ fields }) => (
-  <Grid container direction="column">
-    {fields.map((thisField, index) => (
-      <Grid
-        key={thisField}
-        container
-        direction="row"
-        wrap="nowrap"
-        spacing={16}
-      >
-        <Grid item sm={5}>
-          <Field
-            name={`${thisField}.name`}
-            component={TextField}
-            label="Media Location Name"
-            fullWidth
-          />
-        </Grid>
-        <Grid item sm={5}>
-          <Field
-            name={`${thisField}.storageMethod`}
-            component={ChipInput}
-            label="Media Location Storage Method"
-            simple
-            fullWidth
-          />
-        </Grid>
-        <Grid item sm={2}>
-          <IconButton onClick={() => fields.remove(index)}>
-            <Delete />
-          </IconButton>
-        </Grid>
-      </Grid>
-    ))}
-    <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
-      Add Media Location
-    </TextButton>
-  </Grid>
+const MediaLocation = () => (
+  <>
+    <Field
+      name="name"
+      component={TextField}
+      label="Media Location Name"
+      fullWidth
+    />
+    <Field
+      name="storageMethod"
+      component={ChipInput}
+      label="Media Location Storage Method"
+      simple
+      fullWidth
+    />
+  </>
 );
 
-const DirectAccessArray = ({ fields }) => (
-  <Grid container direction="column">
-    {fields.map((thisField, index) => (
-      <Grid
-        key={thisField}
-        container
-        direction="row"
-        wrap="nowrap"
-        spacing={16}
-      >
-        <Grid item sm={10}>
-          <Field
-            name={`${thisField}.filter`}
-            component={TextField}
-            label="Filter"
-            fullWidth
-          />
-          {/* <Field
-            name={`${thisField}.rewrite`}
-            component={TextField}
-            label="Rewrite"
-            fullWidth
-          />
-          <Field
-            name={`${thisField}.pattern`}
-            component={TextField}
-            label="Pattern"
-            fullWidth
-          />
-          <Field
-            name={`${thisField}.replacement`}
-            component={TextField}
-            label="Replacement"
-            fullWidth
-          /> */}
-        </Grid>
-        <Grid item sm={2}>
-          <IconButton onClick={() => fields.remove(index)}>
-            <Delete />
-          </IconButton>
-        </Grid>
-      </Grid>
-    ))}
-    <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
-      Add Direct Access
-    </TextButton>
-  </Grid>
+const TranscoderDirectAccessRewrite = () => (
+  <>
+    <Field
+      name="pattern"
+      component={TextField}
+      label="Pattern"
+      fullWidth
+    />
+    <Field
+      name="replacement"
+      component={TextField}
+      label="Replacement"
+      fullWidth
+    />
+
+  </>
+);
+
+const TranscoderDirectAccess = () => (
+  <>
+    <Field
+      name="filter"
+      component={TextField}
+      label="Filter"
+      fullWidth
+    />
+    <FieldTypeArray
+      name="rewrite"
+      label="Rewrite"
+      component={TranscoderDirectAccessRewrite}
+    />
+  </>
 );
 
 export const NetworkTypeForm = () => (
@@ -245,15 +205,11 @@ export const CerifyTypeForm = () => (
       fullWidth
       defaultValue="http://"
     />
-    <Field
-      name="cleanup"
-      component={TextField}
-      label="Cleanup"
-      fullWidth
-    />
-    <FieldArray
+    <Field name="cleanup" component={TextField} label="Cleanup" fullWidth />
+    <FieldTypeArray
       name="mediaLocation"
-      component={MediaLocationArray}
+      label="Media Location"
+      component={MediaLocation}
     />
   </>
 );
@@ -267,28 +223,15 @@ export const FinalCutServerTypeForm = () => (
       fullWidth
       defaultValue="http://"
     />
-    <Field
-      name="tag"
-      component={TextField}
-      label="Tag"
-      fullWidth
-    />
-    <Field
-      name="State"
-      component={TextField}
-      label="state"
-      fullWidth
-    />
+    <Field name="tag" component={TextField} label="Tag" fullWidth />
+    <Field name="State" component={TextField} label="state" fullWidth />
     <Field
       name="description"
       label="Description"
       component={TextField}
       fullWidth
     />
-    <FieldArray
-      name="metadata.field"
-      component={SimpleMetadataFieldArray}
-    />
+    <FormSection name="metadata" component={SimpleMetadataType} />
   </>
 );
 
@@ -373,10 +316,7 @@ export const MXFServerResourceTypeForm = () => (
       component={TextField}
       fullWidth
     />
-    <FieldArray
-      name="metadata.field"
-      component={SimpleMetadataFieldArray}
-    />
+    <FormSection name="metadata" component={SimpleMetadataType} />
   </>
 );
 
@@ -637,21 +577,12 @@ export const TranscoderTypeForm = () => (
         <MenuItem value="DIRECTORY">DIRECTORY</MenuItem>
       </Field>
     </FormControl>
-    <Field
-      label="Weight"
-      name="weight"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="maxJob"
-      label="Max Job"
-      component={TextField}
-      fullWidth
-    />
-    <FieldArray
+    <Field label="Weight" name="weight" component={TextField} fullWidth />
+    <Field name="maxJob" label="Max Job" component={TextField} fullWidth />
+    <FieldTypeArray
       name="directAccess"
-      component={DirectAccessArray}
+      label="Direct Access"
+      component={TranscoderDirectAccess}
     />
     <FormSection
       name="configuration"
