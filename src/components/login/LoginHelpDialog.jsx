@@ -50,31 +50,53 @@ const corsConfigurationDocumentJSON = `{
   ]
 }`;
 
-const curlCommand = `curl '{YOUR_VIDICORE_SERVER}/API/configuration/cors' \\
--uadmin -XPUT -H 'Content-Type: application/json' \\
---data-raw '{
-  "entry": [
+// const curlCommand = `curl '{YOUR_VIDICORE_SERVER}/API/configuration/cors' \\
+// -uadmin -XPUT -H 'Content-Type: application/json' \\
+// --data-raw '{
+//   "entry": [
+//     {
+//       "request": [
+//         {
+//           "origin": [
+//             "${window.location.origin}"
+//           ]
+//         }
+//       ],
+//       "response": {
+//         "allowOrigin": "${window.location.origin}",
+//         "allowMethods": [
+//           "OPTIONS,GET,HEAD,POST,PUT,DELETE"
+//         ],
+//         "allowHeaders": [
+//           "accept,content-type,authorization,index,size,runas"
+//         ],
+//         "allowMaxAge": 600
+//       }
+//     }
+//   ]
+// }'`;
+
+const curlCommand = `curl '{YOUR_VIDICORE_SERVER}/API/javascript/test' \\
+-uadmin -X POST -H 'content-type: application/javascript' -H 'Accept: application/json' \\
+--data-raw 'const cors = api.path('\\''configuration/cors'\\'').get();
+if (!Array.isArray(cors.entry)) cors.entry = [];
+cors.entry.push({
+  request: [
     {
-      "request": [
-        {
-          "origin": [
-            "${window.location.origin}"
-          ]
-        }
-      ],
-      "response": {
-        "allowOrigin": "${window.location.origin}",
-        "allowMethods": [
-          "OPTIONS,GET,HEAD,POST,PUT,DELETE"
-        ],
-        "allowHeaders": [
-          "accept,content-type,authorization,index,size,runas"
-        ],
-        "allowMaxAge": 600
-      }
-    }
-  ]
-}'`;
+      origin: ['\\''${window.location.origin}'\\''],
+    },
+  ],
+  response: {
+    allowOrigin: '\\''${window.location.origin}'\\'',
+    allowMethods: ['\\''OPTIONS,GET,HEAD,POST,PUT,DELETE'\\''],
+    allowHeaders: ['\\''accept,content-type,authorization,index,size,runas'\\''],
+    allowMaxAge: 600,
+  },
+});
+api.path('\\''configuration/cors'\\'').input(cors).put();
+api.path('\\''configuration/cors'\\'').get();
+'
+`;
 
 const XML_TAB = 'XML_TAB';
 const JSON_TAB = 'JSON_TAB';
@@ -85,7 +107,7 @@ function LoginHelpDialog({
   onClose,
   baseUrl,
 }) {
-  const [tab, setTab] = React.useState(XML_TAB);
+  const [tab, setTab] = React.useState(CURL_TAB);
   const onChangeTab = (event, newTab) => setTab(newTab);
   return (
     <Dialog

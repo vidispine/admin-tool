@@ -20,7 +20,7 @@ const goToOptions = [
     value: (entityId) => `/storage/${entityId}`, label: 'Storage', synonyms: ['storage'], siteId: true,
   },
   {
-    value: (entityId) => `/storage/file/${entityId}`, label: 'File', synonyms: ['file'], siteId: true,
+    value: (entityId) => `/file/${entityId}`, label: 'File', synonyms: ['file'], siteId: true,
   },
   {
     value: (entityId) => `/user/${entityId}`, label: 'User', synonyms: ['user'], siteId: false,
