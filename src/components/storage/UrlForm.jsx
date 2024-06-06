@@ -66,6 +66,13 @@ function S3Form({
       />
 
       <TextField
+        label="STS Region"
+        value={values.queryParams.stsRegion || ''}
+        onChange={onQueryParamsChange('stsRegion')}
+        fullWidth
+      />
+
+      {/* <TextField
         select
         fullWidth
         value={values.queryParams.signer || ''}
@@ -75,7 +82,7 @@ function S3Form({
         <MenuItem value="" />
         <MenuItem value="S3SignerType">S3 Signer</MenuItem>
         <MenuItem value="AWSS3V4SignerType">AWS S3 v4 Signer</MenuItem>
-      </TextField>
+      </TextField> */}
 
       <TextField
         select
@@ -87,6 +94,7 @@ function S3Form({
         <MenuItem value="standard">Standard</MenuItem>
         <MenuItem value="infrequent">Infrequent</MenuItem>
         <MenuItem value="reduced">Reduced</MenuItem>
+        <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
       </TextField>
 
       <TextField
@@ -103,15 +111,18 @@ function S3Form({
       />
 
       <TextField
-        select
-        fullWidth
-        value={values.queryParams.accelerate || 'false'}
-        onChange={onQueryParamsChange('accelerate')}
         label="Accelerate Transfer"
-      >
-        <MenuItem value="true">True</MenuItem>
-        <MenuItem value="false">False</MenuItem>
-      </TextField>
+        value={values.queryParams.accelerate || ''}
+        onChange={onQueryParamsChange('accelerate')}
+        fullWidth
+      />
+
+      <TextField
+        label="Bucket Owner Full Control"
+        value={values.queryParams.bucketOwnerFullControl || ''}
+        onChange={onQueryParamsChange('bucketOwnerFullControl')}
+        fullWidth
+      />
 
       <TextField
         select
@@ -125,7 +136,7 @@ function S3Form({
         <MenuItem value="Standard">Standard</MenuItem>
         <MenuItem value="Bulk">Bulk</MenuItem>
       </TextField>
-      <TextField
+      {/* <TextField
         select
         fullWidth
         value={values.queryParams.ssl || 'true'}
@@ -134,7 +145,7 @@ function S3Form({
       >
         <MenuItem value="true">True</MenuItem>
         <MenuItem value="false">False</MenuItem>
-      </TextField>
+      </TextField> */}
     </>
   );
 }
