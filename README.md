@@ -55,13 +55,13 @@ npm run build
 ```
 
 * Build the docker image with the `latest` tag.
-Note that only files/folders specified with `!` prefix in the `.dockerignore` will be included.
+Note that only files/folders specified with `!` prefix in the docker compose run -e DEBUG=1 web python console.py will be included.
 ```
 npm run docker:build
 ```
 ## Docker
 
-Docker Containers can be downloaded from Dockerhub https://hub.docker.com/repository/docker/vidispine/admin-tool
+Docker Containers can be downloaded from Dockerhub https://hub.docker.com/r/vidispine/admin-tool/tags
 
 ### Run
 
@@ -79,12 +79,24 @@ docker run \
   'vidispine/admin-tool:latest'
 ``` 
 
+* Alternatively, use `docker compose` with the linked [`docker-compose.yaml`](./docker-compose.yaml).
+```
+docker compose up -d \
+  --detach \
+  -e VIDISPINE_URL='http://my-vidispine-server:8080' \
+  -e ADMINTOOL_PORT=80 \
+  admintool
+```
+
 #### Run Environment Variables
 
 * **VIDISPINE_URL**: The URL (including http/s and port) to access the Vidispine API.
   - Do not include a trailing `/` on the URL as it will break the Nginx proxy.
   - If running in Compose/Kubernetes, this should be the service name.
   - If running on localhost either use `host.docker.internal`, the IP address of the host on the docker network, or use `--net=host`.
+* **NGINX_RESOLVER**: Nginx will proxy requests to an upstream VidiCore server, this will require a DNS address for the [resolver](https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) if using a hostname.
+  - Set this to `127.0.0.11` if using within Docker Compose.
+  - Set this to `169.254.169.253` if using in AWS ECS (or your [Route 53 Resolver](https://docs.aws.amazon.com/vpc/latest/userguide/AmazonDNS-concepts.html#AmazonDNS)).
 
 #### Ports
 
