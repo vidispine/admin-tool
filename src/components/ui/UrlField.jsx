@@ -157,7 +157,7 @@ const S3Form = ({
       onChange={onChange('queryParams.stsRegion')}
       fullWidth
     />
-    <TextField
+    {/* <TextField
       select
       fullWidth
       value={value.queryParams.signer || ''}
@@ -167,7 +167,7 @@ const S3Form = ({
       <MenuItem value="" />
       <MenuItem value="S3SignerType">S3 Signer</MenuItem>
       <MenuItem value="AWSS3V4SignerType">AWS S3 v4 Signer</MenuItem>
-    </TextField>
+    </TextField> */}
     <TextField
       select
       fullWidth
@@ -179,6 +179,7 @@ const S3Form = ({
       <MenuItem value="standard">Standard</MenuItem>
       <MenuItem value="infrequent">Infrequent</MenuItem>
       <MenuItem value="reduced">Reduced</MenuItem>
+      <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
     </TextField>
     <TextField
       label="SSE Algorithm"
@@ -193,27 +194,17 @@ const S3Form = ({
       fullWidth
     />
     <TextField
-      select
-      fullWidth
+      label="Accelerate Transfer"
       value={value.queryParams.accelerate || ''}
       onChange={onChange('queryParams.accelerate')}
-      label="Accelerate Transfer"
-    >
-      <MenuItem value="" />
-      <MenuItem value="true">True</MenuItem>
-      <MenuItem value="false">False</MenuItem>
-    </TextField>
-    <TextField
-      select
       fullWidth
+    />
+    <TextField
+      label="Bucket Owner Full Control"
       value={value.queryParams.bucketOwnerFullControl || ''}
       onChange={onChange('queryParams.bucketOwnerFullControl')}
-      label="Bucket Owner Full Control"
-    >
-      <MenuItem value="" />
-      <MenuItem value="true">True</MenuItem>
-      <MenuItem value="false">False</MenuItem>
-    </TextField>
+      fullWidth
+    />
     <TextField
       select
       fullWidth
@@ -226,17 +217,12 @@ const S3Form = ({
       <MenuItem value="Standard">Standard</MenuItem>
       <MenuItem value="Bulk">Bulk</MenuItem>
     </TextField>
-    <TextField
-      select
-      fullWidth
-      value={value.queryParams.ssl || 'true'}
-      onChange={onChange('queryParams.ssl')}
+    {/* <TextField
       label="Use SSL"
-    >
-      <MenuItem value="" />
-      <MenuItem value="true">True</MenuItem>
-      <MenuItem value="false">False</MenuItem>
-    </TextField>
+      value={value.queryParams.ssl || ''}
+      onChange={onChange('queryParams.ssl')}
+      fullWidth
+    /> */}
   </>
 );
 
