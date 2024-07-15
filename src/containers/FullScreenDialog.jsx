@@ -105,9 +105,13 @@ function FullScreenDialog({
               <ListLink to={routes.itemList()} primary="Items" />
               <ListLink to="/collection/" primary="Collections" />
               <ListLink to="/shape/" primary="Shapes" />
+              <ListLink to="/search/file/" primary="Files" />
               <ListLink to="/library/" primary="Libraries" />
               <ListLink to="/search/field-group/" primary="Field Groups" />
-              <ListLink to="/item/metadata-group/" primary="Item By Metadata Group" />
+              <ListLink
+                to="/item/metadata-group/"
+                primary="Item By Metadata Group"
+              />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>

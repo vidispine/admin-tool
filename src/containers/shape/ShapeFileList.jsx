@@ -2,8 +2,11 @@ import React from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
-import FileListCard from '../../components/file/FileListCard';
 import ShapeFileParams from '../../components/shape/ShapeFileParams';
+import FileListTable from '../../components/file/FileListTable';
+import withCard from '../../hoc/withCard';
+
+const FileListCard = withCard(FileListTable);
 
 class ShapeFileList extends React.PureComponent {
   constructor(props) {
