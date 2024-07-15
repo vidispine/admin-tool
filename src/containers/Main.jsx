@@ -104,6 +104,7 @@ import JobProblemList from './JobProblemList';
 import Component from './Component';
 import AnalyzePresetList from './AnalyzePresetList';
 import AnalyzePreset from './AnalyzePreset';
+import Swagger from './Swagger';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -203,6 +204,7 @@ function Main({
           <Route exact path="/shape-tag/" component={ShapeTagList} />
           <Route exact path="/shape-tag/:tagName/" component={ShapeTag} />
           <Route exact path="/version/" component={Version} />
+          <Route exact path="/swagger/" component={Swagger} />
           <Route exact path="/service/" component={Service} />
           <Route exact path="/jobtype/" component={JobTypeList} />
           <Route

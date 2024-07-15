@@ -211,6 +211,7 @@ function FullScreenDialog({
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Information">
+              <ListLink to="/swagger/" primary="Swagger" />
               <ListLink to="/version/" primary="Version" />
               <ListLink to="/selftest/" primary="Self Test" />
               <ListLink to="/log" primary="Audit Log" />

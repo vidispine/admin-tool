@@ -115,6 +115,7 @@ const linkOptions = [
   { value: '/stitch/', label: 'Stitch' },
   { value: '/deletion-lock/', label: 'Deletion Locks' },
   { value: '/analyze-preset/', label: 'Analyze Presets' },
+  { value: '/swagger/', label: 'Swagger' },
 ];
 
 const useOptionStyles = makeStyles({

@@ -30,13 +30,21 @@
     "react-select": "5.2.1",
     "redux": "4.1.2",
     "redux-form": "^8.3.10",
-    "stringify-object": "^5.0.0"
+    "stringify-object": "^5.0.0",
+    "swagger-ui-react": "5.17.14"
   },
   "resolutions": {
     "codemirror": "5.65.9",
     "eslint": "7.11.0",
     "axios": ">=0.27.2",
     "d3-color": ">=3.1.0"
+  },
+  "overrides": {
+    "swagger-ui-react": {
+      "react": "$react",
+      "react-dom": "$react-dom",
+      "react-redux": "^8"
+    }
   },
   "scripts": {
     "start": "vite",
