@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     '& .parameter__in': {
       color: `${theme.palette.text.primary}`,
     },
+    '& *[class^="parameter"]': {
+      color: `${theme.palette.text.secondary}`,
+    },
     '& *[class^="opblock"] p': {
       color: `${theme.palette.text.primary} !important`,
     },
@@ -48,7 +51,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
     '& .opblock .opblock-section-header h4 ': {
-      color: `${theme.palette.text.primary} !important`,
+      color: `${theme.palette.text.secondary} !important`,
+    },
+    '& .opblock-section-header': {
+      backgroundColor: `${theme.palette.action.hover} !important`,
     },
   },
   Filter: {
