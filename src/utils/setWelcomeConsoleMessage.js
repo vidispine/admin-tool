@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import * as VidiCore from '@vidispine/vdt-api';
+import * as VidiCoreApi from '@vidispine/vdt-api';
+import * as vdtjs from '@vidispine/vdt-js';
 
 const styles = `
     color:white;
@@ -12,14 +13,14 @@ const styles = `
 
 const setWelcomeConsoleMessage = () => {
   console.info(
-    '%c🎉🎉🎉 Welcome to the VidiCore admin-tool!  🎉🎉🎉\n👻👻👻    Try using the "VidiCore" object   👻👻👻\n🤖🤖🤖 https://vidispine.github.io/vdt-api/ 🤖🤖🤖',
+    '%c🎉🎉🎉    Welcome to the VidiCore admin-tool!    🎉🎉🎉\n👻👻👻     Try using the "VidiCore" object    👻👻👻\n🤖🤖🤖    https://vidispine.github.io/vdt-api/   🤖🤖🤖\n👻👻👻    Try using the "vdtjs" object   👻👻👻\n🤖🤖🤖 https://vidispine.github.io/vdt/dev/?path=/docs/vdt-js-overview--docs 🤖🤖🤖',
     styles,
   );
-  window.VidiCore = Object.keys(VidiCore).reduce((acc, cur) => {
-    const val = Object.keys(VidiCore[cur]).reduce((thisAcc, thisCur) => {
-      const thisVal = VidiCore[cur][thisCur];
+  window.VidiCore = Object.keys(VidiCoreApi).reduce((acc, cur) => {
+    const val = Object.keys(VidiCoreApi[cur]).reduce((thisAcc, thisCur) => {
+      const thisVal = VidiCoreApi[cur][thisCur];
       const thisFunc = (args) => thisVal(args).then((resp) => {
-      // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.log(resp.data);
         return resp;
       });
@@ -27,6 +28,7 @@ const setWelcomeConsoleMessage = () => {
     }, {});
     return { ...acc, [cur]: val };
   }, {});
+  window.vdtjs = vdtjs;
 };
 
 export default setWelcomeConsoleMessage;
