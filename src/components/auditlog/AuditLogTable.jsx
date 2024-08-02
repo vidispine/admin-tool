@@ -11,7 +11,7 @@ import AuditLogRow from './AuditLogRow';
 import TableActions from '../ui/TableActions';
 import TablePagination from '../ui/TablePagination';
 
-export default function FileListTable({
+export default function AuditLogTable({
   auditLogDocument,
   count = 0,
   page = 0,

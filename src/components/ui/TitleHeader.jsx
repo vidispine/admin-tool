@@ -39,6 +39,8 @@ function TitleHeader({
   onChangeAutoRefresh,
   autoRefreshLabel = 'Background Refresh',
   helpTo,
+  linkTo,
+  linkToTitle,
   codeModal,
   onOpen: openModal,
   createModal,
@@ -232,6 +234,13 @@ function TitleHeader({
       </IconButton>
     </Tooltip>
   );
+  const openLink = linkTo && (
+    <Tooltip title={linkToTitle || linkTo}>
+      <IconButton onClick={() => window.open(linkTo)}>
+        <Help />
+      </IconButton>
+    </Tooltip>
+  );
   const openRemove = removeModal && (
     <Tooltip title="Remove">
       <IconButton onClick={() => openModal({ modalName: removeModal })}>
@@ -277,6 +286,7 @@ function TitleHeader({
             {openDownload}
             {openRemove}
             {openHelp}
+            {openLink}
             {openAddAccess}
             {openExternalId}
             {openCodeComponent}
