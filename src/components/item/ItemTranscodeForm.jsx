@@ -17,6 +17,7 @@ import FieldTypeArray from '../ui/FieldTypeArray';
 import JobPriority from '../../const/JobPriority';
 import { KeyValuePairType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
+import { loadStorageOptions } from '../storage/StorageSelect';
 
 const queryParams = () => (
   <>
@@ -41,12 +42,7 @@ const queryParams = () => (
       </Field>
     </FormControl>
     <FormControlLabel
-      control={(
-        <Field
-          name="createThumbnails"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="createThumbnails" component={BoolCheckbox} />}
       label="Create Thumbnails"
     />
     <Field
@@ -56,11 +52,7 @@ const queryParams = () => (
       simple
       fullWidth
     />
-    <Field
-      name="destinationItem"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="destinationItem" component={TextField} fullWidth />
     <Field
       name="original"
       label="Reset Original"
@@ -75,11 +67,7 @@ const queryParams = () => (
       arrayHeader
       dense
     />
-    <Field
-      name="notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -88,39 +76,41 @@ const queryParams = () => (
       withHeader={false}
       dense
     />
-    <Field
-      name="thumbnailService"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="thumbnailService" component={TextField} fullWidth />
     <Field
       name="resourceId"
-      label="Transcoder ID"
+      label="Resource ID"
       component={TextField}
       fullWidth
     />
+    <Field
+      name="resourceTag"
+      label="Resource Tag"
+      component={TextField}
+      fullWidth
+    />
+    <Field
+      name="storageId"
+      label="Storage ID"
+      component={StatefulAsyncSelect}
+      loadOptions={loadStorageOptions}
+      cacheOptions
+      isClearable
+      fullWidth
+    />
+
     <FormControlLabel
-      control={(
-        <Field
-          name="overrideFastStart"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="overrideFastStart" component={BoolCheckbox} />}
       label="Override FastStart"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="requireFastStart"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="requireFastStart" component={BoolCheckbox} />}
       label="Require FastStart"
     />
-    <Field
-      name="fastStartLength"
-      component={TextField}
-      fullWidth
+    <Field name="fastStartLength" component={TextField} fullWidth />
+    <FormControlLabel
+      control={<Field name="holdJob" component={BoolCheckbox} />}
+      label="Hold Job"
     />
   </>
 );
