@@ -3,7 +3,13 @@ import { metadata as MetadataApi } from '@vidispine/vdt-api';
 import ItemMetadataChangeSetListCard from '../../components/item/ItemMetadataChangeSetListCard';
 import ItemMetadataChangeSetListParams from '../../components/item/ItemMetadataChangeSetListParams';
 
+import MetadataChangeSetDelete from '../../components/metadata/MetadataChangeSetDelete';
+import MetadataChangeSetTrim from '../../components/metadata/MetadataChangeSetTrim';
+
 import withSnackbar from '../../hoc/withSnackbar';
+
+const ITEM_METADATACHANGESET_DELETE_DIALOG = 'ITEM_METADATACHANGESET_DELETE_DIALOG';
+const ITEM_METADATACHANGESET_TRIM_DIALOG = 'ITEM_METADATACHANGESET_TRIM_DIALOG';
 
 class ItemMetadataChangeSetList extends React.PureComponent {
   constructor(props) {
@@ -67,9 +73,7 @@ class ItemMetadataChangeSetList extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ItemMetadataChangeSetListParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ metadataChangeSetDocument: response.data })}
@@ -78,8 +82,24 @@ class ItemMetadataChangeSetList extends React.PureComponent {
           <ItemMetadataChangeSetListCard
             itemId={itemId}
             metadataChangeSetDocument={metadataChangeSetDocument}
+            MetadataChangeSetMenuProps={{
+              removeModal: ITEM_METADATACHANGESET_DELETE_DIALOG,
+              trimModal: ITEM_METADATACHANGESET_TRIM_DIALOG,
+            }}
           />
         )}
+        <MetadataChangeSetDelete
+          dialogName={ITEM_METADATACHANGESET_DELETE_DIALOG}
+          entity="item"
+          entityId={itemId}
+          onSuccess={this.onRefresh}
+        />
+        <MetadataChangeSetTrim
+          dialogName={ITEM_METADATACHANGESET_TRIM_DIALOG}
+          entity="item"
+          entityId={itemId}
+          onSuccess={this.onRefresh}
+        />
       </>
     );
   }
