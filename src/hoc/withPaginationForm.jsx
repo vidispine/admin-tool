@@ -94,10 +94,15 @@ const withPaginationForm = (WrappedComponent) => class extends React.PureCompone
       firstField = 'queryParams.first',
       form,
     } = this.props;
-    let sortValue = [];
+    const sortString = sortField.startsWith('queryParams');
+    let sortValue = sortString ? undefined : [];
     if (orderBy) {
-      const order = `${orderDirection}ending`;
-      sortValue = [{ field: orderBy, order }];
+      if (sortString === false) {
+        const order = `${orderDirection}ending`;
+        sortValue = [{ field: orderBy, order }];
+      } else {
+        sortValue = `${orderBy} ${orderDirection}`;
+      }
     }
     const first = 1;
     changeForm(form, sortField, sortValue);
