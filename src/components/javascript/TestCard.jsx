@@ -1,12 +1,9 @@
 import React from 'react';
 import { compose } from 'redux';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Button from '@material-ui/core/Button';
 import Splitter, { SplitDirection, GutterTheme } from '@devbookhq/splitter';
 import { useTheme, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import PlayIcon from '@material-ui/icons/PlayArrow';
 import red from '@material-ui/core/colors/red';
 
 import withSnackbar from '../../hoc/withSnackbar';
@@ -18,10 +15,15 @@ import TestForm from './TestForm';
 import formatJSON from '../../utils/formatJSON';
 import CodeMirror from '../ui/CodeMirror';
 
-const javascriptDocument = `// https://apidoc.vidispine.com/latest/system/integration/javascript.html
+const javascriptDocument = `/* global api */
+const requestBody = {
+  sort: []
+};
 
-api.path('item')
-   .get();
+api.path('item/')
+  .queryParam('number', '10')
+  .input(requestBody)
+  .put();
 `;
 
 const styles = (theme) => ({
@@ -40,12 +42,15 @@ const styles = (theme) => ({
   },
   ResultContainer: {
     height: '100%',
-    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
   ResultTypography: {
     minHeight: 32,
   },
   CodeMirror: {
+    flexGrow: 1,
+    overflow: 'auto',
     '& .CodeMirror-gutters': {
       backgroundColor:
         ({ error }) => (error !== undefined ? red.A700 : 'unset'),
@@ -55,45 +60,36 @@ const styles = (theme) => ({
   },
 });
 
-export const TEST_FORM = 'TEST_FORM';
+const TEST_FORM = 'TEST_FORM';
 
 function TestCard({
   classes,
-  submitForm,
   openSnackBar,
   onSuccess,
   onFail,
   result,
   error,
   initialValues = { javascriptDocument },
+  form = TEST_FORM,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Script Success';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (errors, dispatch, submitError, props) => {
     const messageContent = 'Error Running Script';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(errors, dispatch, submitError, props); }
+    if (onFail) {
+      onFail(errors, dispatch, submitError, props);
+    }
   };
   const theme = useTheme();
   const gutterTheme = theme?.palette?.type === 'light' ? GutterTheme.Light : GutterTheme.Dark;
   return (
     <>
-      <CardHeader
-        title="Javascript Test"
-        action={(
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => submitForm(TEST_FORM)}
-            startIcon={<PlayIcon />}
-          >
-            RUN (ctrl-enter)
-          </Button>
-        )}
-      />
       <div className={classes.SplitterContainer}>
         <Splitter
           direction={SplitDirection.Horizontal}
@@ -112,7 +108,7 @@ function TestCard({
                 onSubmit={formActions.onTest}
                 onSubmitSuccess={onSubmitSuccess}
                 onSubmitFail={onSubmitFail}
-                form={TEST_FORM}
+                form={form}
                 className={classes.TestForm}
                 initialValues={initialValues}
               />
@@ -139,7 +135,10 @@ function TestCard({
                       lineWrapping: true,
                       lineNumbers: true,
                       foldGutter: true,
-                      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+                      gutters: [
+                        'CodeMirror-linenumbers',
+                        'CodeMirror-foldgutter',
+                      ],
                     }}
                   />
                 ) : null}
