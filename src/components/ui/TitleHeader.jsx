@@ -229,16 +229,24 @@ function TitleHeader({
   }
   const openHelp = helpTo && (
     <Tooltip title="API Guide">
-      <IconButton onClick={() => window.open(`${baseUrl}/APIdoc${helpTo}`)}>
-        <Help />
-      </IconButton>
+      <a
+        href={`https://apidoc.vidispine.com/latest${helpTo}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IconButton>
+          <Help />
+        </IconButton>
+      </a>
     </Tooltip>
   );
   const openLink = linkTo && (
     <Tooltip title={linkToTitle || linkTo}>
-      <IconButton onClick={() => window.open(linkTo)}>
-        <Help />
-      </IconButton>
+      <a href={linkTo} target="_blank" rel="noopener noreferrer">
+        <IconButton>
+          <Help />
+        </IconButton>
+      </a>
     </Tooltip>
   );
   const openRemove = removeModal && (
