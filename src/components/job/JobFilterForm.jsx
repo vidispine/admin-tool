@@ -54,37 +54,21 @@ const queryParams = () => (
     <Field
       name="starttime-from"
       component={TextField}
-      type="datetime-local"
-      InputLabelProps={{
-        shrink: true,
-      }}
       fullWidth
     />
     <Field
       name="starttime-to"
       component={TextField}
-      type="datetime-local"
-      InputLabelProps={{
-        shrink: true,
-      }}
       fullWidth
     />
     <Field
       name="finishtime-from"
       component={TextField}
-      type="datetime-local"
-      InputLabelProps={{
-        shrink: true,
-      }}
       fullWidth
     />
     <Field
       name="finishtime-to"
       component={TextField}
-      type="datetime-local"
-      InputLabelProps={{
-        shrink: true,
-      }}
       fullWidth
     />
     <FormControl fullWidth>

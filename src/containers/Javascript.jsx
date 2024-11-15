@@ -1,12 +1,20 @@
 import React from 'react';
+import { compose } from 'redux';
+import Button from '@material-ui/core/Button';
 
+import PlayIcon from '@material-ui/icons/PlayArrow';
 import TestCard from '../components/javascript/TestCard';
+import TitleHeader from '../components/ui/TitleHeader';
+import withFormActions from '../hoc/withFormActions';
 
-export default class Javascript extends React.PureComponent {
+const TEST_FORM = 'TEST_FORM';
+
+class Javascript extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);
     this.onFail = this.onFail.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
     this.state = {
       result: undefined,
       error: undefined,
@@ -29,20 +37,43 @@ export default class Javascript extends React.PureComponent {
     this.setState({ result: undefined, error });
   }
 
+  onRefresh() {
+    const { submitForm } = this.props;
+    submitForm(TEST_FORM);
+  }
+
   render() {
     const { location } = this.props;
     const { result, error } = this.state;
     const initialValues = location?.state?.initialValues;
     return (
       <>
+        <TitleHeader
+          title="Javascript Test"
+          helpTo="/system/integration/javascript.html"
+          actionComponent={(
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={this.onRefresh}
+              startIcon={<PlayIcon />}
+            >
+              RUN (ctrl-enter)
+            </Button>
+          )}
+        />
+
         <TestCard
           result={result}
           error={error}
           onSuccess={this.onSuccess}
           onFail={this.onFail}
           initialValues={initialValues}
+          form={TEST_FORM}
         />
       </>
     );
   }
 }
+
+export default compose(withFormActions)(Javascript);

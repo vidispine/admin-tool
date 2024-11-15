@@ -71,48 +71,67 @@ function TopAppBar({
   return (
     <AppBar elevation={0} classes={{ root: classes.root }} position="fixed">
       <Toolbar disableGutters variant="dense">
-        <IconButton onClick={toggleMainMenu} color="inherit">
-          <MenuIcon />
-        </IconButton>
-        <IconButton onClick={toggleHistory} color="inherit">
-          <HistoryIcon />
-        </IconButton>
+        <Tooltip title="Menu">
+          <IconButton onClick={toggleMainMenu} color="inherit">
+            <MenuIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="API History">
+          <IconButton onClick={toggleHistory} color="inherit">
+            <HistoryIcon />
+          </IconButton>
+        </Tooltip>
         <Typography variant="subtitle2" color="inherit">
           {baseUrl}
         </Typography>
         <Hidden xsDown>
-          <div style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center', display: 'flex',
-          }}
+          <div
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              display: 'flex',
+            }}
           >
             <div style={{ maxWidth: 540, width: '100%' }}>
               <NavSelect variant="outlined" />
             </div>
           </div>
         </Hidden>
-        {{
-          light: (
-            <Tooltip title="Light Theme">
-              <IconButton onClick={() => handleChangeThemeMode('dark')} color="inherit">
-                <Brightness7Icon />
-              </IconButton>
-            </Tooltip>
-          ),
-          dark: (
-            <Tooltip title="Dark Theme">
-              <IconButton onClick={() => handleChangeThemeMode('system')} color="inherit">
-                <Brightness4Icon />
-              </IconButton>
-            </Tooltip>
-          ),
-          system: (
-            <Tooltip title="Auto Theme">
-              <IconButton onClick={() => handleChangeThemeMode('light')} color="inherit">
-                <Brightness6Icon />
-              </IconButton>
-            </Tooltip>
-          ),
-        }[paletteType]}
+        {
+          {
+            light: (
+              <Tooltip title="Light Theme">
+                <IconButton
+                  onClick={() => handleChangeThemeMode('dark')}
+                  color="inherit"
+                >
+                  <Brightness7Icon />
+                </IconButton>
+              </Tooltip>
+            ),
+            dark: (
+              <Tooltip title="Dark Theme">
+                <IconButton
+                  onClick={() => handleChangeThemeMode('system')}
+                  color="inherit"
+                >
+                  <Brightness4Icon />
+                </IconButton>
+              </Tooltip>
+            ),
+            system: (
+              <Tooltip title="Auto Theme">
+                <IconButton
+                  onClick={() => handleChangeThemeMode('light')}
+                  color="inherit"
+                >
+                  <Brightness6Icon />
+                </IconButton>
+              </Tooltip>
+            ),
+          }[paletteType]
+        }
         <Tooltip title="GitHub">
           <GitHubButton />
         </Tooltip>

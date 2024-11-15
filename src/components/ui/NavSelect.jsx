@@ -53,6 +53,7 @@ const linkOptions = [
   { value: '/library/', label: 'Search Libraries' },
   { value: '/storage/', label: 'Storages' },
   { value: '/file/', label: 'Files' },
+  { value: '/search/file/', label: 'Search Files' },
   { value: '/storage-rule/', label: 'Storage Rules' },
   { value: '/import/?tab=IMPORTPLACEHOLDER_TAB', label: 'Create Item' },
   { value: '/import/?tab=IMPORTCOLLECTION_TAB', label: 'Create Collection' },
@@ -114,6 +115,7 @@ const linkOptions = [
   { value: '/stitch/', label: 'Stitch' },
   { value: '/deletion-lock/', label: 'Deletion Locks' },
   { value: '/analyze-preset/', label: 'Analyze Presets' },
+  { value: '/swagger/', label: 'Swagger' },
 ];
 
 const useOptionStyles = makeStyles({

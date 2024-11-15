@@ -39,6 +39,8 @@ function TitleHeader({
   onChangeAutoRefresh,
   autoRefreshLabel = 'Background Refresh',
   helpTo,
+  linkTo,
+  linkToTitle,
   codeModal,
   onOpen: openModal,
   createModal,
@@ -227,9 +229,24 @@ function TitleHeader({
   }
   const openHelp = helpTo && (
     <Tooltip title="API Guide">
-      <IconButton onClick={() => window.open(`${baseUrl}/APIdoc${helpTo}`)}>
-        <Help />
-      </IconButton>
+      <a
+        href={`https://apidoc.vidispine.com/latest${helpTo}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IconButton>
+          <Help />
+        </IconButton>
+      </a>
+    </Tooltip>
+  );
+  const openLink = linkTo && (
+    <Tooltip title={linkToTitle || linkTo}>
+      <a href={linkTo} target="_blank" rel="noopener noreferrer">
+        <IconButton>
+          <Help />
+        </IconButton>
+      </a>
     </Tooltip>
   );
   const openRemove = removeModal && (
@@ -277,6 +294,7 @@ function TitleHeader({
             {openDownload}
             {openRemove}
             {openHelp}
+            {openLink}
             {openAddAccess}
             {openExternalId}
             {openCodeComponent}

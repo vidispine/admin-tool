@@ -29,13 +29,13 @@ server {
         add_header "Pragma" "cache";
     }
 
-    location /static/ {
+    location ~ ^(/[^/]+)?/static/ {
         add_header "Cache-Control" "public";
         expires 30d;
   		add_header "Pragma" "cache";
     }
 
-    location /assets/ {
+    location ~ ^(/[^/]+)?/assets/ {
         add_header "Cache-Control" "public";
         expires 30d;
   		add_header "Pragma" "cache";

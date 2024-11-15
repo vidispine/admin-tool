@@ -52,6 +52,7 @@ import FieldGroup from './FieldGroup';
 import Import from './Import';
 import FileList from './FileList';
 import File from './File';
+import FileSearch from './FileSearch';
 import StorageRuleList from './StorageRuleList';
 import ErrorLog from './ErrorLog';
 import VxaList from './VxaList';
@@ -103,6 +104,7 @@ import JobProblemList from './JobProblemList';
 import Component from './Component';
 import AnalyzePresetList from './AnalyzePresetList';
 import AnalyzePreset from './AnalyzePreset';
+import Swagger from './Swagger';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -202,6 +204,7 @@ function Main({
           <Route exact path="/shape-tag/" component={ShapeTagList} />
           <Route exact path="/shape-tag/:tagName/" component={ShapeTag} />
           <Route exact path="/version/" component={Version} />
+          <Route exact path="/swagger/" component={Swagger} />
           <Route exact path="/service/" component={Service} />
           <Route exact path="/jobtype/" component={JobTypeList} />
           <Route
@@ -227,6 +230,7 @@ function Main({
           <Route path="/user/:userName/" component={User} />
           <Route exact path="/external-id/" component={ExternalIdNamespace} />
           <Route exact path="/search/" component={Search} />
+          <Route exact path="/search/file/" component={FileSearch} />
           <Route
             exact
             path="/search/field-group/"
