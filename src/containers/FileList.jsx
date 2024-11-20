@@ -76,7 +76,6 @@ class FileList extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    console.log({ params });
     if (params === undefined) return;
     const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
