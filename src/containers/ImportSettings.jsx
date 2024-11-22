@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { importsettings as api } from '@vidispine/vdt-api';
+import { importsettings as ImportSettingsApi } from '@vidispine/vdt-api';
 import ImportSettingsTitle from '../components/importsettings/ImportSettingsTitle';
 import ImportSettingsCard from '../components/importsettings/ImportSettingsCard';
 import ImportSettingsRemove from '../components/importsettings/ImportSettingsRemove';
@@ -28,15 +28,17 @@ class ImportSettings extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar, settingsId } = this.props;
-    api.getImportSettings({ settingsId })
-      .then((response) => response.json())
-      .then((importSettingsDocument) => this.setState({ importSettingsDocument }))
-      .catch(() => {
-        const messageContent = 'Error Loading Import Settings';
-        openSnackBar({ messageContent, messageColor: 'secondary' });
-      });
+    try {
+      const {
+        data: importSettingsDocument,
+      } = await ImportSettingsApi.getImportSettings({ settingsId });
+      this.setState({ importSettingsDocument });
+    } catch (error) {
+      const messageContent = 'Error Loading Import Settings';
+      openSnackBar({ messageContent, messageColor: 'secondary' });
+    }
   }
 
   onRemove({ settingsId }) {
@@ -46,13 +48,12 @@ class ImportSettings extends React.PureComponent {
       closeModal,
     } = this.props;
     try {
-      api.removeImportSettings({ settingsId })
-        .then(() => {
-          const messageContent = `Import Settings ${settingsId} Removed`;
-          openSnackBar({ messageContent });
-          history.push('/import/settings/');
-          closeModal();
-        });
+      ImportSettingsApi.removeImportSettings({ settingsId }).then(() => {
+        const messageContent = `Import Settings ${settingsId} Removed`;
+        openSnackBar({ messageContent });
+        history.push('/import/settings/');
+        closeModal();
+      });
     } catch (error) {
       const messageContent = 'Error Removing Import Settings';
       openSnackBar({ messageContent, messageColor: 'secondary' });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { quota as api } from '@vidispine/vdt-api';
+import { quota as QuotaApi } from '@vidispine/vdt-api';
 import QuotaTitle from '../components/quota/QuotaTitle';
 import QuotaRemove from '../components/quota/QuotaRemove';
 import QuotaDialog from '../components/quota/QuotaDialog';
@@ -31,16 +31,18 @@ class AccessControl extends React.Component {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar } = this.props;
     const { queryParams } = this.state;
-    api.listQuota({ queryParams })
-      .then((response) => response.json())
-      .then((quotaRuleListDocument) => this.setState({ quotaRuleListDocument }))
-      .catch(() => {
-        const messageContent = 'Error Loading Quota';
-        openSnackBar({ messageContent, messageColor: 'secondary' });
+    try {
+      const { data: quotaRuleListDocument } = await QuotaApi.listQuota({
+        queryParams,
       });
+      this.setState({ quotaRuleListDocument });
+    } catch (error) {
+      const messageContent = 'Error Loading Quota';
+      openSnackBar({ messageContent, messageColor: 'secondary' });
+    }
   }
 
   onFilter({ quotaRuleListDocument, queryParams }) {
@@ -53,7 +55,7 @@ class AccessControl extends React.Component {
       closeModal,
     } = this.props;
     return () => {
-      api.removeQuota({ ruleId })
+      QuotaApi.removeQuota({ ruleId })
         .then(() => {
           const messageContent = `Quota "${ruleId}" Removed`;
           openSnackBar({ messageContent });

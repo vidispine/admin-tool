@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { metadatafield as api } from '@vidispine/vdt-api';
+import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 import debounce from 'lodash.debounce';
 
 import Select from '../ui/Select';
@@ -38,45 +38,29 @@ const TRANSIENT_FIELDS = [
   { name: '__deletion_lock_expiry' },
 ];
 
-// eslint-disable-next-line no-underscore-dangle
-const _listMetadataField = debounce(api.listMetadataField, 500, { leading: true, trailing: false });
+const debouncedListMetadataField = debounce(
+  MetadataFieldApi.listMetadataField,
+  500,
+  { leading: true, trailing: false },
+);
 
-export const loadMetadataFieldOptions = (inputValue) => new Promise((resolve, reject) => {
-  _listMetadataField()
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((jsonDocument) => {
-      const { field = [] } = jsonDocument;
-      const fieldList = field.concat(TRANSIENT_FIELDS);
-      let filterFields = fieldList;
-      if (inputValue && inputValue !== '*') {
-        const inputValueLower = inputValue.toLowerCase();
-        filterFields = fieldList.filter((f) => f.name.toLowerCase().includes(inputValueLower));
-      }
-      const options = filterFields.map((f) => ({ label: f.name, value: f.name }));
-      resolve(options);
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
-
-// export const loadMetadataFieldOptions = debounce(
-//   _loadMetadataFieldOptions,
-//   500,
-//   { leading: true, trailing: false },
-// );
-
-const parse = (value) => {
-  if (value) {
-    return value.value;
+export const loadMetadataFieldOptions = async (inputValue) => {
+  const { data: fieldListType } = await debouncedListMetadataField();
+  const { field = [] } = fieldListType;
+  const fieldList = field.concat(TRANSIENT_FIELDS);
+  let filterFields = fieldList;
+  if (inputValue && inputValue !== '*') {
+    const inputValueLower = inputValue.toLowerCase();
+    filterFields = fieldList.filter((f) => f.name.toLowerCase().includes(inputValueLower));
   }
-  return undefined;
+  const options = filterFields.map((f) => ({
+    label: f.name,
+    value: f.name,
+  }));
+  return options;
 };
+
+const parse = (value) => value?.value;
 
 export default function MetadataFieldSelect(props) {
   return (

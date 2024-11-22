@@ -2,40 +2,26 @@ import React from 'react';
 import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
 
-import { projection as api } from '@vidispine/vdt-api';
+import { projection as ProjectionApi } from '@vidispine/vdt-api';
 import { StatefulAsyncSelect } from '../ui/Select';
 
-// eslint-disable-next-line no-underscore-dangle
-const _listProjection = debounce(api.listProjection, 500, { leading: true, trailing: false });
-
-export const loadProjectionOptions = (inputValue) => new Promise((resolve, reject) => {
-  _listProjection()
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((jsonDocument) => {
-      const { uri = [] } = jsonDocument;
-      let filterProj = uri;
-      if (inputValue && inputValue !== '*') {
-        filterProj = uri.filter((p) => p.toLowerCase().includes(inputValue.toLowerCase()));
-      }
-      const options = filterProj.map((p) => ({ label: p, value: p }));
-      resolve(options);
-    })
-    .catch((error) => {
-      reject(error);
-    });
+const debouncedListProjection = debounce(ProjectionApi.listProjection, 500, {
+  leading: true,
+  trailing: false,
 });
 
-const parseValue = (value) => {
-  if (value) {
-    return value.value;
+export const loadProjectionOptions = async (inputValue) => {
+  const { data: uriListType } = await debouncedListProjection();
+  const { uri = [] } = uriListType;
+  let filterProjection = uri;
+  if (inputValue && inputValue !== '*') {
+    filterProjection = uri.filter((p) => p.toLowerCase().includes(inputValue.toLowerCase()));
   }
-  return '';
+  const options = filterProjection.map((p) => ({ label: p, value: p }));
+  return options;
 };
+
+const parse = (value) => value?.value;
 
 export default function ProjectionSelect(props) {
   return (
@@ -44,7 +30,7 @@ export default function ProjectionSelect(props) {
       loadOptions={loadProjectionOptions}
       cacheOptions
       defaultOptions
-      parse={parseValue}
+      parse={parse}
       {...props}
     />
   );

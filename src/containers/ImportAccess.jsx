@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { access as api } from '@vidispine/vdt-api';
+import { access as AccessApi } from '@vidispine/vdt-api';
 import ImportAccessTitle from '../components/importaccess/ImportAccessTitle';
 import ImportAccessCard from '../components/importaccess/ImportAccessCard';
 import ImportAccessRemove from '../components/importaccess/ImportAccessRemove';
@@ -32,16 +32,18 @@ class ImportSettings extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar, userName } = this.props;
     const headers = { RunAs: userName };
-    api.getImportAccess({ headers })
-      .then((response) => response.json())
-      .then((importAccessControlListDocument) => this.setState({ importAccessControlListDocument }))
-      .catch(() => {
-        const messageContent = 'Error Loading Import Settings';
-        openSnackBar({ messageContent, messageColor: 'secondary' });
-      });
+    try {
+      const {
+        data: importAccessControlListDocument,
+      } = await AccessApi.getImportAccess({ headers });
+      this.setState({ importAccessControlListDocument });
+    } catch (error) {
+      const messageContent = 'Error Loading Import Settings';
+      openSnackBar({ messageContent, messageColor: 'secondary' });
+    }
   }
 
   onRemove(groupName) {
@@ -52,7 +54,7 @@ class ImportSettings extends React.PureComponent {
     } = this.props;
     const headers = { RunAs: userName };
     return () => {
-      api.removeImportAccessGroup({ groupName, headers })
+      AccessApi.removeImportAccessGroup({ groupName, headers })
         .then(() => {
           const messageContent = `Import Access "${groupName}" Removed`;
           openSnackBar({ messageContent });

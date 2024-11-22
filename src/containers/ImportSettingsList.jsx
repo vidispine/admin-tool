@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { importsettings as api } from '@vidispine/vdt-api';
+import { importsettings as ImportSettingsApi } from '@vidispine/vdt-api';
 import ImportSettingsListTitle from '../components/importsettings/ImportSettingsListTitle';
 import ImportSettingsListCard from '../components/importsettings/ImportSettingsListCard';
 import ImportSettingsDialog from '../components/importsettings/ImportSettingsDialog';
@@ -26,12 +26,11 @@ class ImportSettingsList extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listImportSettings()
-        .then((response) => response.json())
-        .then((uriListDocument) => this.setState({ uriListDocument }));
+      const { data: uriListDocument } = await ImportSettingsApi.listImportSettings();
+      this.setState({ uriListDocument });
     } catch (error) {
       const messageContent = 'Error Loading Import Settings';
       openSnackBar({ messageContent, messageColor: 'secondary' });
