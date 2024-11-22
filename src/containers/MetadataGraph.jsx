@@ -23,7 +23,6 @@ class MetadataGraph extends React.PureComponent {
 
   componentDidMount() {
     const { entityId, entity } = this.props;
-    console.log({ });
     try {
       MetadataApi.getEntityMetadataGraphDot({
         entity,

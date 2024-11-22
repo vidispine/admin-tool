@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { taskgroup as api } from '@vidispine/vdt-api';
+import { taskgroup as TaskGroupApi } from '@vidispine/vdt-api';
 import TaskGroupTitle from '../components/taskgroup/TaskGroupTitle';
 import TaskGroupCard from '../components/taskgroup/TaskGroupCard';
 import TaskGroupRemove from '../components/taskgroup/TaskGroupRemove';
@@ -28,15 +28,15 @@ class TaskGroup extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar, groupName } = this.props;
-    api.getTaskGroup({ groupName })
-      .then((response) => response.json())
-      .then((taskGroupDocument) => this.setState({ taskGroupDocument }))
-      .catch(() => {
-        const messageContent = 'Error Loading Task Group';
-        openSnackBar({ messageContent, messageColor: 'secondary' });
-      });
+    try {
+      const { data: taskGroupDocument } = await TaskGroupApi.getTaskGroup({ groupName });
+      this.setState({ taskGroupDocument });
+    } catch (error) {
+      const messageContent = 'Error Loading Task Group';
+      openSnackBar({ messageContent, messageColor: 'secondary' });
+    }
   }
 
   onRemove({ groupName }) {
@@ -46,13 +46,12 @@ class TaskGroup extends React.PureComponent {
       closeModal,
     } = this.props;
     try {
-      api.removeTaskGroup({ groupName })
-        .then(() => {
-          const messageContent = `Task Group ${groupName} Removed`;
-          openSnackBar({ messageContent });
-          history.push('/task-group/');
-          closeModal();
-        });
+      TaskGroupApi.removeTaskGroup({ groupName }).then(() => {
+        const messageContent = `Task Group ${groupName} Removed`;
+        openSnackBar({ messageContent });
+        history.push('/task-group/');
+        closeModal();
+      });
     } catch (error) {
       const messageContent = 'Error Removing Import Settings';
       openSnackBar({ messageContent, messageColor: 'secondary' });

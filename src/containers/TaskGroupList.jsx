@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { taskgroup as api } from '@vidispine/vdt-api';
+import { taskgroup as TaskGroupApi } from '@vidispine/vdt-api';
 import TaskGroupListTitle from '../components/taskgroup/TaskGroupListTitle';
 import TaskGroupListCard from '../components/taskgroup/TaskGroupListCard';
 import TaskGroupDialog from '../components/taskgroup/TaskGroupDialog';
@@ -26,12 +26,11 @@ class TaskGroupList extends React.PureComponent {
     this.onRefresh();
   }
 
-  onRefresh() {
+  async onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listTaskGroup()
-        .then((response) => response.json())
-        .then((taskGroupListDocument) => this.setState({ taskGroupListDocument }));
+      const { data: taskGroupListDocument } = await TaskGroupApi.listTaskGroup();
+      this.setState({ taskGroupListDocument });
     } catch (error) {
       const messageContent = 'Error Loading Task Groups';
       openSnackBar({ messageContent, messageColor: 'secondary' });

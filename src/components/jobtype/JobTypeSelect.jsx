@@ -1,37 +1,27 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import debounce from 'lodash.debounce';
 
-import { taskdefinition as api } from '@vidispine/vdt-api';
+import { taskdefinition as TaskDefinitionApi } from '@vidispine/vdt-api';
 import Select from '../ui/Select';
 
-export const loadJobTypeOptions = (inputValue) => new Promise((resolve, reject) => {
-  api.listJobType()
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
-    .then((jsonDocument) => {
-      const { uri = [] } = jsonDocument;
-      let filterFields = uri;
-      if (inputValue && inputValue !== '*') {
-        filterFields = uri.filter((f) => f.toLowerCase().includes(inputValue.toLowerCase()));
-      }
-      const options = filterFields.map((f) => ({ label: f, value: f }));
-      resolve(options);
-    })
-    .catch((error) => {
-      reject(error);
-    });
+const debouncedListJobType = debounce(TaskDefinitionApi.listJobType, 500, {
+  leading: true,
+  trailing: false,
 });
 
-const parse = (value) => {
-  if (value) {
-    return value.value;
+export const loadJobTypeOptions = async (inputValue) => {
+  const { data: uriListType } = await debouncedListJobType();
+  const { uri = [] } = uriListType;
+  let filterFields = uri;
+  if (inputValue && inputValue !== '*') {
+    filterFields = uri.filter((f) => f.toLowerCase().includes(inputValue.toLowerCase()));
   }
-  return undefined;
+  const options = filterFields.map((f) => ({ label: f, value: f }));
+  return options;
 };
+
+const parse = (value) => value?.value;
 
 export default function JobTypeSelect(props) {
   return (

@@ -186,7 +186,6 @@ class UnThemedStatefulAsyncSelec extends React.Component {
       this.handleInputChange(value); // fire when clearing value
     }
     this.setState({ valueOption });
-    // console.log('handleChange: value', value)
     onChange(value);
     if (dispatch) { // Prefer dispatch as more reliable
       dispatch(change(form, name, value));
