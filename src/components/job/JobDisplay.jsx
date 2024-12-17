@@ -6,13 +6,22 @@ import TypeSection from '../ui/TypeSection';
 import TypeArray from '../ui/TypeArray';
 import getJobDataVariant from '../../utils/getJobDataVariant';
 
+const JobTaskProgressTypeUnit = ({ value = {} }) => (
+  <>
+    <TextGrid title="percent" value={value.percent} hideNoValue />
+    <TextGrid title="bytes" value={value.bytes} hideNoValue />
+  </>
+);
+
 const JobTaskProgressType = ({ value = {} }) => (
-  <TextGrid
-    title={value.total}
-    value={value.unit}
-    hideNoValue
-    hover
-  />
+  <>
+    <TextGrid title="Total" value={value.total} hideNoValue hover />
+    <TypeSection
+      component={JobTaskProgressTypeUnit}
+      value={value.unit}
+      hideNoValue
+    />
+  </>
 );
 
 const JobTaskSubstepType = ({ value = {} }) => (
