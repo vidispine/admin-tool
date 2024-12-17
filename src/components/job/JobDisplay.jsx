@@ -6,6 +6,7 @@ import TypeSection from '../ui/TypeSection';
 import TypeArray from '../ui/TypeArray';
 import getJobDataVariant from '../../utils/getJobDataVariant';
 
+// eslint-disable-next-line no-unused-vars
 const JobTaskProgressTypeUnit = ({ value = {} }) => (
   <>
     <TextGrid title="percent" value={value.percent} hideNoValue />
@@ -15,12 +16,9 @@ const JobTaskProgressTypeUnit = ({ value = {} }) => (
 
 const JobTaskProgressType = ({ value = {} }) => (
   <>
-    <TextGrid title="Total" value={value.total} hideNoValue hover />
-    <TypeSection
-      component={JobTaskProgressTypeUnit}
-      value={value.unit}
-      hideNoValue
-    />
+    <TextGrid title="Value" value={value.value} hideNoValue />
+    <TextGrid title="Total" value={value.total} hideNoValue />
+    <TextGrid title="Unit" value={value.unit} hideNoValue />
   </>
 );
 
