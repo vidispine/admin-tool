@@ -150,6 +150,7 @@ function FullScreenDialog({
                 to="/import/?tab=IMPORTCOMPONENT_TAB"
                 primary="Component"
               />
+              <ListLink to="/import/?tab=IMPORTSIDECAR_TAB" primary="Sidecar" />
               <ListLink to="/import/settings/" primary="Settings" />
             </ListGroup>
           </Grid>

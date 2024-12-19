@@ -97,6 +97,11 @@ function ItemTitle({
                 <Typography color="inherit">Import Sidecar</Typography>
               </MenuItem>
             </UnstyledLink>
+            <UnstyledLink to={`/import?tab=IMPORTSIDECARRAW_TAB&itemId=${itemId}`}>
+              <MenuItem>
+                <Typography color="inherit">Upload Sidecar</Typography>
+              </MenuItem>
+            </UnstyledLink>
             {importImpModal ? (
               <MenuItem onClick={() => onOpen({ modalName: importImpModal })}>
                 <Typography color="inherit">Import IMF Package</Typography>

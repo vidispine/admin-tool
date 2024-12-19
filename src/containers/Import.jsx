@@ -12,6 +12,7 @@ import ImportShape from './import/ImportShape';
 import ImportCollection from './import/ImportCollection';
 import ImportShapeEssence from './import/ImportShapeEssence';
 import ImportSidecar from './import/ImportSidecar';
+import ImportSidecarRaw from './import/ImportSidecarRaw';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import DrawerListItem from '../components/ui/DrawerListItem';
 
@@ -25,18 +26,40 @@ const IMPORTSHAPE_TAB = 'IMPORTSHAPE_TAB';
 const IMPORTCOLLECTION_TAB = 'IMPORTCOLLECTION_TAB';
 const IMPORTSHAPEESSENCE_TAB = 'IMPORTSHAPEESSENCE_TAB';
 const IMPORTSIDECAR_TAB = 'IMPORTSIDECAR_TAB';
+const IMPORTSIDECARRAW_TAB = 'IMPORTSIDECARRAW_TAB';
 
 const TAB_TITLE = [
   { tab: IMPORTURI_TAB, listText: 'URI', component: ImportUri },
-  { tab: IMPORTPLACEHOLDER_TAB, listText: 'Placeholder Item', component: ImportPlaceholder },
-  { tab: IMPORTCOMPONENT_TAB, listText: 'Component', component: ImportComponent },
+  {
+    tab: IMPORTPLACEHOLDER_TAB,
+    listText: 'Placeholder Item',
+    component: ImportPlaceholder,
+  },
+  {
+    tab: IMPORTCOMPONENT_TAB,
+    listText: 'Component',
+    component: ImportComponent,
+  },
   { tab: IMPORTRAW_TAB, listText: 'Upload', component: ImportRaw },
   { tab: IMPORTFILE_TAB, listText: 'File', component: ImportFile },
-  { tab: IMPORTSHAPEPLACEHOLDER_TAB, listText: 'Placeholder Shape', component: ImportShapePlaceholder },
+  {
+    tab: IMPORTSHAPEPLACEHOLDER_TAB,
+    listText: 'Placeholder Shape',
+    component: ImportShapePlaceholder,
+  },
   { tab: IMPORTSHAPE_TAB, listText: 'Shape', component: ImportShape },
-  { tab: IMPORTCOLLECTION_TAB, listText: 'Collection', component: ImportCollection },
-  { tab: IMPORTSHAPEESSENCE_TAB, listText: 'Essence', component: ImportShapeEssence },
+  {
+    tab: IMPORTCOLLECTION_TAB,
+    listText: 'Collection',
+    component: ImportCollection,
+  },
+  {
+    tab: IMPORTSHAPEESSENCE_TAB,
+    listText: 'Essence',
+    component: ImportShapeEssence,
+  },
   { tab: IMPORTSIDECAR_TAB, listText: 'Sidecar', component: ImportSidecar },
+  { tab: IMPORTSIDECARRAW_TAB, listText: 'Sidecar Upload', component: ImportSidecarRaw },
 ];
 
 const listComponent = ({ onChangeTab, tabValue }) => (
