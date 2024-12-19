@@ -14,15 +14,19 @@ import BoolCheckbox from '../ui/BoolCheckbox';
 import JobPriority from '../../const/JobPriority';
 import { KeyValuePairType } from '../ui/FormType';
 import FieldTypeArray from '../ui/FieldTypeArray';
+import { StatefulAsyncSelect } from '../ui/Select';
+import { loadStorageOptions } from '../storage/StorageSelect';
+import UploadButton from '../ui/UploadButton';
 
 const queryParams = () => (
   <>
     <Field
-      name="sidecar"
-      label="FileId / URI"
+      name="fileExtension"
+      label="File Extension"
       component={TextField}
-      helperText="Either the id of the sidecar file or a URL for locating it"
+      helperText="Used to identify the sidecar media type. Example: srt"
       required
+      validate={[required]}
       fullWidth
     />
     <Field
@@ -37,6 +41,16 @@ const queryParams = () => (
       label="Component Import"
       helperText="Import sidecar file as a subtitle component."
     />
+    <Field
+      name="storageId"
+      label="Storage ID"
+      component={StatefulAsyncSelect}
+      loadOptions={loadStorageOptions}
+      cacheOptions
+      isClearable
+      fullWidth
+    />
+
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Field name="priority" component={Select}>
@@ -73,10 +87,18 @@ const queryParams = () => (
   </>
 );
 
-function ImportSidecarForm({ error, handleSubmit, itemId }) {
+function ImportSidecarRawForm({ error, handleSubmit, itemId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
+      <Field
+        name="upload"
+        label="Choose File"
+        component={UploadButton}
+        validate={[required]}
+        fullWidth
+      />
+
       {!itemId && (
         <Field
           name="itemId"
@@ -95,4 +117,4 @@ function ImportSidecarForm({ error, handleSubmit, itemId }) {
   );
 }
 
-export default reduxForm()(ImportSidecarForm);
+export default reduxForm()(ImportSidecarRawForm);

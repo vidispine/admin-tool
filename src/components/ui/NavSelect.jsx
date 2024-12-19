@@ -66,6 +66,8 @@ const linkOptions = [
   { value: '/import-imp/?tab=IMPORTIMP_URL_TAB', label: 'Import IMP URL' },
   { value: '/import-imp/?tab=IMPORTIMP_PATH_TAB', label: 'Import IMP Path' },
   { value: '/import-imp/?tab=IMPORTIMP_FILE_TAB', label: 'Import IMP File' },
+  { value: '/import-imp/?tab=IMPORTSIDECAR_TAB', label: 'Import Sidecar File' },
+  { value: '/import-imp/?tab=IMPORTSIDECARRAW_TAB', label: 'Upload Sidecar File' },
   { value: '/vxa/', label: 'VSA Server Agents' },
   { value: '/resource/transcoder/', label: 'Transcoders' },
   { value: '/resource/thumbnail/', label: 'Thumbnail Paths' },
