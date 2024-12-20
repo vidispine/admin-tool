@@ -42,22 +42,12 @@ function ImportSidecarRawWizard({
     <>
       <TitleHeader
         parentTitle="Import"
-        title="Essence"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTSIDECARRAW_FORM)}
-          >
-            Start
-          </Button>
-        )}
+        title="Sidecar Upload"
+        helpTo="/ref/item/import.html#post--import-sidecar-(item-id)-raw"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>Sidecar Upload</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -74,7 +64,7 @@ function ImportSidecarRawWizard({
               <AccordionActions>
                 <Button
                   color="primary"
-                  variant="text"
+                  variant="contained"
                   size="large"
                   onClick={() => submitForm(EDIT_IMPORTSIDECARRAW_FORM)}
                 >

@@ -10,7 +10,6 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportComponentForm from './ImportComponentForm';
-import ImportComponentAdvancedForm from './ImportComponentAdvancedForm';
 import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/import';
@@ -42,40 +41,28 @@ function ImportComponentWizard({
     if (onFail) { onFail(error, dispatch, props); }
   };
   const defaultValues = {
-    queryParams: {
-      'no-transcode': false,
-      createThumbnails: true,
-      overrideFastStart: true,
-      requireFastStart: true,
-      growing: false,
-      priority: 'MEDIUM',
-      importTag: ['original'],
-      allowReimport: false,
-      ...initialValues.queryParams,
+    component: initialValues?.component || 'container',
+    queryParams: initialValues?.queryParams || {},
+    itemId: initialValues?.itemId,
+    metadataDocument: {
+      timespan: [
+        {
+          start: '-INF',
+          end: '+INF',
+        },
+      ],
     },
-    component: 'container',
-    itemId: initialValues.itemId,
   };
   return (
     <>
       <TitleHeader
         parentTitle="Import"
         title="Component"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTCOMPONENT_FORM)}
-          >
-            Start
-          </Button>
-        )}
+        helpTo="/ref/item/import.html#import-to-a-placeholder-item"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>Component</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -88,12 +75,16 @@ function ImportComponentWizard({
                 />
               </CardContent>
               <AccordionActions>
+                <Button variant="text" color="primary" onClick={onNext}>
+                  Edit Metadata
+                </Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTCOMPONENT_FORM)}
                 >
-                  Next
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>
@@ -114,37 +105,14 @@ function ImportComponentWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
+                <Button onClick={onBack}>Back</Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTCOMPONENT_FORM)}
                 >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportComponentAdvancedForm
-                  onSubmit={formActions.onImportComponent}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTCOMPONENT_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>

@@ -5,9 +5,11 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
 import { TextField, Select } from '../form';
 import FormSection from '../ui/FormSection';
-
 import Field from '../ui/Field';
 import { required } from '../../utils/FieldValidation';
 import BoolCheckbox from '../ui/BoolCheckbox';
@@ -19,7 +21,16 @@ import { loadStorageOptions } from '../storage/StorageSelect';
 import UploadButton from '../ui/UploadButton';
 
 const queryParams = () => (
-  <>
+  <FormGroup>
+    <Field
+      name="storageId"
+      label="Storage ID"
+      component={StatefulAsyncSelect}
+      loadOptions={loadStorageOptions}
+      cacheOptions
+      isClearable
+      fullWidth
+    />
     <Field
       name="fileExtension"
       label="File Extension"
@@ -36,21 +47,30 @@ const queryParams = () => (
       helperText="Expected start time code of the content"
       fullWidth
     />
-    <FormControlLabel
-      control={<Field name="componentImport" component={BoolCheckbox} />}
-      label="Component Import"
-      helperText="Import sidecar file as a subtitle component."
-    />
+    <FormControl>
+      <FormControlLabel
+        control={<Field name="componentImport" component={BoolCheckbox} />}
+        label="Component Import"
+      />
+      <FormHelperText>
+        Import sidecar file as a subtitle component
+      </FormHelperText>
+    </FormControl>
     <Field
-      name="storageId"
-      label="Storage ID"
-      component={StatefulAsyncSelect}
-      loadOptions={loadStorageOptions}
-      cacheOptions
-      isClearable
+      name="notification"
+      label="Notification ID"
+      component={TextField}
+      helperText="The placeholder job notification to use for this job"
       fullWidth
     />
-
+    <FieldTypeArray
+      name="notificationData"
+      component={KeyValuePairType}
+      label="Notification Metadata"
+      arrayHeader
+      withHeader={false}
+      dense
+    />
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Field name="priority" component={Select}>
@@ -69,22 +89,15 @@ const queryParams = () => (
       arrayHeader
       dense
     />
-    <Field
-      name="notification"
-      label="Notification ID"
-      component={TextField}
-      helperText="The placeholder job notification to use for this job"
-      fullWidth
-    />
-    <FieldTypeArray
-      name="notificationData"
-      component={KeyValuePairType}
-      label="Notification Metadata"
-      arrayHeader
-      withHeader={false}
-      dense
-    />
-  </>
+    <FormControl>
+      <FormControlLabel
+        control={<Field name="holdJob" component={BoolCheckbox} />}
+        label="Hold Job"
+        fullWidth
+      />
+      <FormHelperText>Created job in a HOLD state</FormHelperText>
+    </FormControl>
+  </FormGroup>
 );
 
 function ImportSidecarRawForm({ error, handleSubmit, itemId }) {
@@ -109,7 +122,6 @@ function ImportSidecarRawForm({ error, handleSubmit, itemId }) {
       )}
       <FormSection
         name="queryParams"
-        label="queryParams"
         component={queryParams}
       />
       <button type="submit" hidden />

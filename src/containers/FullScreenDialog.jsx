@@ -126,31 +126,19 @@ function FullScreenDialog({
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Create">
-              <ListLink
-                to="/import/?tab=IMPORTPLACEHOLDER_TAB"
-                primary="Item"
-              />
-              <ListLink
-                to="/import/?tab=IMPORTCOLLECTION_TAB"
-                primary="Collection"
-              />
-              <ListLink
-                to="/import/?tab=IMPORTSHAPEPLACEHOLDER_TAB"
-                primary="Shape"
-              />
+              <ListLink to="/import/item/placeholder/" primary="Item" />
+              <ListLink to="/import/collection/" primary="Collection" />
+              <ListLink to="/import/item/shape/placeholder/" primary="Shape" />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Import">
-              <ListLink to="/import/?tab=IMPORTFILE_TAB" primary="File" />
-              <ListLink to="/import/?tab=IMPORTRAW_TAB" primary="Upload" />
-              <ListLink to="/import/?tab=IMPORTURI_TAB" primary="URIs" />
-              <ListLink to="/import/?tab=IMPORTSHAPE_TAB" primary="Shape" />
-              <ListLink
-                to="/import/?tab=IMPORTCOMPONENT_TAB"
-                primary="Component"
-              />
-              <ListLink to="/import/?tab=IMPORTSIDECAR_TAB" primary="Sidecar" />
+              <ListLink to="/import/file/" primary="File" />
+              <ListLink to="/import/item/upload/" primary="Upload" />
+              <ListLink to="/import/item/uri/" primary="URIs" />
+              <ListLink to="/import/item/shape/" primary="Shape" />
+              <ListLink to="/import/item/component/" primary="Component" />
+              <ListLink to="/import/sidecar/" primary="Sidecar" />
               <ListLink to="/import/settings/" primary="Settings" />
             </ListGroup>
           </Grid>

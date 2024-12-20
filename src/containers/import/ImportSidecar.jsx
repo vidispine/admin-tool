@@ -1,6 +1,9 @@
 import React from 'react';
-
-import ImportSidecarWizard, { EDIT_IMPORTSIDECAR_FORM } from '../../components/import/ImportSidecarWizard';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import ImportSidecarWizard, {
+  EDIT_IMPORTSIDECAR_FORM,
+} from '../../components/import/ImportSidecarWizard';
 import withFormActions from '../../hoc/withFormActions';
 
 class ImportSidecar extends React.PureComponent {
@@ -28,4 +31,4 @@ class ImportSidecar extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportSidecar);
+export default compose(withRouterProps, withFormActions)(ImportSidecar);

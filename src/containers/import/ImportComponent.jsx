@@ -1,6 +1,8 @@
 import React from 'react';
+import { compose } from 'redux';
 import ImportComponentWizard, { EDIT_IMPORTCOMPONENT_FORM } from '../../components/import/ImportComponentWizard';
 import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
 class ImportComponent extends React.PureComponent {
   componentDidMount() {
@@ -27,4 +29,4 @@ class ImportComponent extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportComponent);
+export default compose(withRouterProps, withFormActions)(ImportComponent);

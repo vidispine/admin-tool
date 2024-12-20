@@ -71,33 +71,41 @@ function ItemTitle({
       entityType="item"
       removeModal={removeModal}
       removeAllShapesModal={removeAllShapesModal}
-      breadcrumbList={Array.isArray(breadcrumbList) ? [{ title: 'Item', to: routes.itemList() }, { title: itemId, to: routes.item({ itemId }) }, ...breadcrumbList] : undefined}
+      breadcrumbList={
+        Array.isArray(breadcrumbList)
+          ? [
+            { title: 'Item', to: routes.itemList() },
+            { title: itemId, to: routes.item({ itemId }) },
+            ...breadcrumbList,
+          ]
+          : undefined
+      }
       actionComponent={(
         <>
           {createModal && (
-          <Tooltip title={createTooltip}>
-            <IconButton onClick={() => onOpen({ modalName: createModal })}>
-              <PlaylistAdd />
-            </IconButton>
-          </Tooltip>
+            <Tooltip title={createTooltip}>
+              <IconButton onClick={() => onOpen({ modalName: createModal })}>
+                <PlaylistAdd />
+              </IconButton>
+            </Tooltip>
           )}
           <Menu>
             <MenuItem>
-              <UnstyledLink to={`/import?tab=IMPORTCOMPONENT_TAB&itemId=${itemId}`}>
+              <UnstyledLink to={`/import/item/component/?itemId=${itemId}`}>
                 <Typography>Import Component</Typography>
               </UnstyledLink>
             </MenuItem>
             <MenuItem>
-              <UnstyledLink to={`/import?tab=IMPORTSHAPE_TAB&itemId=${itemId}`}>
+              <UnstyledLink to={`/import/item/shape/?itemId=${itemId}`}>
                 <Typography>Import Shape</Typography>
               </UnstyledLink>
             </MenuItem>
-            <UnstyledLink to={`/import?tab=IMPORTSIDECAR_TAB&itemId=${itemId}`}>
+            <UnstyledLink to={`/import/sidecar/?itemId=${itemId}`}>
               <MenuItem>
                 <Typography color="inherit">Import Sidecar</Typography>
               </MenuItem>
             </UnstyledLink>
-            <UnstyledLink to={`/import?tab=IMPORTSIDECARRAW_TAB&itemId=${itemId}`}>
+            <UnstyledLink to={`/import/sidecar/upload/?itemId=${itemId}`}>
               <MenuItem>
                 <Typography color="inherit">Upload Sidecar</Typography>
               </MenuItem>
@@ -112,12 +120,18 @@ function ItemTitle({
                 <Typography color="inherit">Create Shape</Typography>
               </MenuItem>
             ) : null}
-            <UnstyledLink to={`/import?tab=IMPORTSHAPEPLACEHOLDER_TAB&itemId=${itemId}`}>
+            <UnstyledLink
+              to={`/import/item/shape/placeholder/?itemId=${itemId}`}
+            >
               <MenuItem>
-                <Typography color="inherit">Create Shape Placeholder</Typography>
+                <Typography color="inherit">
+                  Create Shape Placeholder
+                </Typography>
               </MenuItem>
             </UnstyledLink>
-            <MenuItem onClick={() => onOpen({ modalName: addToCollectionModal })}>
+            <MenuItem
+              onClick={() => onOpen({ modalName: addToCollectionModal })}
+            >
               <Typography>Add To Collection</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: relationModal })}>
@@ -148,7 +162,9 @@ function ItemTitle({
               <Typography color="secondary">Delete Item</Typography>
             </MenuItem>
             {removeAllShapesModal ? (
-              <MenuItem onClick={() => onOpen({ modalName: removeAllShapesModal })}>
+              <MenuItem
+                onClick={() => onOpen({ modalName: removeAllShapesModal })}
+              >
                 <Typography color="secondary">Delete All Shapes</Typography>
               </MenuItem>
             ) : null}

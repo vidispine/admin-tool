@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
 import ImportSidecarRawWizard, {
   EDIT_IMPORTSIDECARRAW_FORM,
 } from '../../components/import/ImportSidecarRawWizard';
@@ -29,4 +30,4 @@ class ImportSidecarRaw extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportSidecarRaw);
+export default compose(withRouterProps, withFormActions)(ImportSidecarRaw);

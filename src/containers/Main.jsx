@@ -254,7 +254,7 @@ function Main({
           <Route exact path="/metadata-field/" component={MetadataFieldList} />
           <Route exact path="/field-group/" component={FieldGroupList} />
           <Route exact path="/field-group/:groupName" component={FieldGroup} />
-          <Route exact path="/import" component={Import} />
+          <Route path="/import/" component={Import} />
           <Route exact path="/import-imp" component={ImportImp} />
           <Route exact path="/file/" component={FileList} />
           <Route path="/file/:fileId/" component={File} />

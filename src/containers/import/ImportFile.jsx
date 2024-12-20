@@ -1,6 +1,10 @@
 import React from 'react';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
-import ImportFileWizard, { EDIT_IMPORTFILE_FORM } from '../../components/import/ImportFileWizard';
+import ImportFileWizard, {
+  EDIT_IMPORTFILE_FORM,
+} from '../../components/import/ImportFileWizard';
 
 class ImportFile extends React.PureComponent {
   componentDidMount() {
@@ -26,4 +30,4 @@ class ImportFile extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportFile);
+export default compose(withRouterProps, withFormActions)(ImportFile);

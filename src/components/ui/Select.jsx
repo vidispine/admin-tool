@@ -75,6 +75,7 @@ const stylesOverride = {
   }),
   placeholder: (base) => ({
     ...base,
+    paddingLeft: 4,
     fontSize: '16px',
     lineHeight: 1,
   }),
