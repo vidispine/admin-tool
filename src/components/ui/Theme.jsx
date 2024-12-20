@@ -70,10 +70,24 @@ export default function ThemeProvider({ children }) {
             color: red,
           },
         },
+        WAMuiChipInput: {
+          root: {
+            marginBottom: (props) => (props.helperText ? 20 : undefined),
+          },
+        },
+        MuiFormHelperText: {
+          root: {
+            fontStyle: 'italic',
+            marginBottom: 8,
+          },
+        },
       },
       props: {
         MuiTextField: {
           InputLabelProps: { shrink: true },
+        },
+        MuiInputLabel: {
+          shrink: true,
         },
         MuiPaper: {
           square: true,
@@ -111,6 +125,11 @@ export default function ThemeProvider({ children }) {
         },
         MuiAccordionSummary: {
           expandIcon: <ExpandMoreIcon />,
+        },
+        WAMuiChipInput: {
+          InputLabelProps: {
+            shrink: true,
+          },
         },
       },
       palette: {

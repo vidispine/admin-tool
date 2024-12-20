@@ -11,7 +11,6 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 
 import SquareCard from '../ui/SquareCard';
 import ImportShapeEssenceForm from './ImportShapeEssenceForm';
-import ImportShapeEssenceAdvancedForm from './ImportShapeEssenceAdvancedForm';
 import * as formActions from '../../formactions/shape';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
@@ -25,8 +24,6 @@ function ImportShapeEssenceWizard({
   onSuccess,
   onFail,
   submitForm,
-  onNext,
-  onBack,
   activeStep,
   openSnackBar,
   itemId,
@@ -46,21 +43,11 @@ function ImportShapeEssenceWizard({
       <TitleHeader
         parentTitle="Import"
         title="Essence"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTSHAPEESSENCE_FORM)}
-          >
-            Start
-          </Button>
-        )}
+        helpTo="/ref/item/shape.html#import-an-essence-version-using-a-uri-or-an-existing-file"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>Essence</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -76,34 +63,12 @@ function ImportShapeEssenceWizard({
               </CardContent>
               <AccordionActions>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTSHAPEESSENCE_FORM)}
                 >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportShapeEssenceAdvancedForm
-                  onSubmit={formActions.onCreateShapeEssenceImport}
-                  initialValues={initialValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTSHAPEESSENCE_FORM}
-                  destroyOnUnmount={false}
-                  itemId={itemId}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>

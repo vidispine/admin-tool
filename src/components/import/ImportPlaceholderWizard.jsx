@@ -10,7 +10,6 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportPlaceholderForm from './ImportPlaceholderForm';
-import ImportPlaceholderAdvancedForm from './ImportPlaceholderAdvancedForm';
 import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/import';
@@ -60,21 +59,11 @@ function ImportPlaceholderWizard({
       <TitleHeader
         parentTitle="Import"
         title="Placeholder Item"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTPLACEHOLDER_FORM)}
-          >
-            Create
-          </Button>
-        )}
+        helpTo="/ref/item/import.html#create-a-placeholder-item"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>Placeholder Item</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -88,12 +77,16 @@ function ImportPlaceholderWizard({
                 />
               </CardContent>
               <AccordionActions>
+                <Button variant="text" color="primary" onClick={onNext}>
+                  Edit Metadata
+                </Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTPLACEHOLDER_FORM)}
                 >
-                  Next
+                  Create
                 </Button>
               </AccordionActions>
             </SquareCard>
@@ -114,37 +107,14 @@ function ImportPlaceholderWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
+                <Button onClick={onBack}>Back</Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTPLACEHOLDER_FORM)}
                 >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportPlaceholderAdvancedForm
-                  onSubmit={formActions.onImportPlaceholder}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTPLACEHOLDER_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                  Create
                 </Button>
               </AccordionActions>
             </SquareCard>

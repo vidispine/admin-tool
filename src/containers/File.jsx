@@ -34,7 +34,7 @@ const listComponentRoute = (props) => (
     {TAB_TITLE.map(({ path, listText, exact }) => (
       <ListItemLink
         key={path}
-        secondary={listText}
+        primary={listText}
         to={generatePath(path, props)}
         exact={exact}
         dense

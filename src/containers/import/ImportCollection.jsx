@@ -1,6 +1,9 @@
 import React from 'react';
-
-import ImportCollectionWizard, { EDIT_COLLECTION_FORM } from '../../components/import/ImportCollectionWizard';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import ImportCollectionWizard, {
+  EDIT_COLLECTION_FORM,
+} from '../../components/import/ImportCollectionWizard';
 import withFormActions from '../../hoc/withFormActions';
 
 class ImportCollection extends React.PureComponent {
@@ -24,4 +27,4 @@ class ImportCollection extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportCollection);
+export default compose(withRouterProps, withFormActions)(ImportCollection);

@@ -12,6 +12,16 @@ import FormSection from '../ui/FormSection';
 const queryParams = () => (
   <>
     <Field
+      name="tag"
+      label="Shape Tag"
+      component={StatefulAsyncSelect}
+      loadOptions={loadShapeTagOptions}
+      cacheOptions
+      isClearable
+      fullWidth
+      isMulti
+    />
+    <Field
       name="container"
       label="Container"
       component={TextField}
@@ -20,19 +30,19 @@ const queryParams = () => (
       helperText="Total Container Files"
     />
     <Field
-      name="video"
-      label="Video"
-      component={TextField}
-      type="number"
-      helperText="Total Video Files"
-      fullWidth
-    />
-    <Field
       name="audio"
       label="Audio"
       component={TextField}
       helperText="Total Audio Files"
       type="number"
+      fullWidth
+    />
+    <Field
+      name="video"
+      label="Video"
+      component={TextField}
+      type="number"
+      helperText="Total Video Files"
       fullWidth
     />
     <Field
@@ -44,14 +54,12 @@ const queryParams = () => (
       helperText="Total Binary Files"
     />
     <Field
-      name="tag"
-      label="Shape Tag"
-      component={StatefulAsyncSelect}
-      loadOptions={loadShapeTagOptions}
-      cacheOptions
-      isClearable
+      name="subtitle"
+      label="Subtitle"
+      component={TextField}
+      type="number"
       fullWidth
-      isMulti
+      helperText="Total Subtitle Files"
     />
     <Field
       name="frameDuration"
@@ -78,13 +86,10 @@ function ImportShapePlaceholderForm({
         required
         fullWidth
       />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <FormSection
         name="simpleMetadataDocument"
-        label="Metadata"
+        label="Simple Metadata"
         component={SimpleMetadataType}
       />
       <button type="submit" hidden />

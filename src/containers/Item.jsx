@@ -224,7 +224,7 @@ const listComponentRoute = ({ itemId }) => (
     {TAB_TITLE.map(({ path, listText, exact }) => (
       <ListItemLink
         key={path}
-        secondary={listText}
+        primary={listText}
         to={generatePath(path, { itemId })}
         dense
         style={{ paddingLeft: 8 }}

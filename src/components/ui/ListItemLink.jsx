@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function ListItemLink(props) {
   const {
-    icon = true, primary, secondary, to, exact, ...listItemProps
+    icon = false, primary, secondary, to, exact, ...listItemProps
   } = props;
   const avatarText = (primary && primary[0]) || (secondary && secondary[0]);
 

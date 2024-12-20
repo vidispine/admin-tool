@@ -1,6 +1,10 @@
 import React from 'react';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
-import ImportRawWizard, { EDIT_IMPORTRAW_FORM } from '../../components/import/ImportRawWizard';
+import ImportRawWizard, {
+  EDIT_IMPORTRAW_FORM,
+} from '../../components/import/ImportRawWizard';
 
 class ImportRaw extends React.PureComponent {
   componentDidMount() {
@@ -23,4 +27,4 @@ class ImportRaw extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportRaw);
+export default compose(withRouterProps, withFormActions)(ImportRaw);

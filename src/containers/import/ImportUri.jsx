@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
 import ImportUriWizard, { EDIT_IMPORTURI_FORM } from '../../components/import/ImportUriWizard';
 
@@ -23,4 +25,4 @@ class ImportUri extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportUri);
+export default compose(withRouterProps, withFormActions)(ImportUri);
