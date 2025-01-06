@@ -36,7 +36,7 @@ function TextGridCode({
       codeMode = 'xml';
       break;
     case 'application/ld+json':
-      codeValue = '';
+      codeValue = formatJSON(value, 2, true) || '';
       codeMode = 'application/ld+json';
       break;
     default:
