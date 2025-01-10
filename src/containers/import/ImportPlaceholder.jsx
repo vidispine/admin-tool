@@ -1,6 +1,10 @@
 import React from 'react';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
-import ImportPlaceholderWizard, { EDIT_IMPORTPLACEHOLDER_FORM } from '../../components/import/ImportPlaceholderWizard';
+import ImportPlaceholderWizard, {
+  EDIT_IMPORTPLACEHOLDER_FORM,
+} from '../../components/import/ImportPlaceholderWizard';
 
 class ImportPlaceholder extends React.PureComponent {
   componentDidMount() {
@@ -23,4 +27,4 @@ class ImportPlaceholder extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportPlaceholder);
+export default compose(withRouterProps, withFormActions)(ImportPlaceholder);

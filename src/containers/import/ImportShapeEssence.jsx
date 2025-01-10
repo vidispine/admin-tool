@@ -1,6 +1,9 @@
 import React from 'react';
-
-import ImportShapeEssenceWizard, { EDIT_IMPORTSHAPEESSENCE_FORM } from '../../components/import/ImportShapeEssenceWizard';
+import { compose } from 'redux';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import ImportShapeEssenceWizard, {
+  EDIT_IMPORTSHAPEESSENCE_FORM,
+} from '../../components/import/ImportShapeEssenceWizard';
 import withFormActions from '../../hoc/withFormActions';
 
 class ImportShapeEssence extends React.PureComponent {
@@ -24,4 +27,4 @@ class ImportShapeEssence extends React.PureComponent {
   }
 }
 
-export default withFormActions(ImportShapeEssence);
+export default compose(withRouterProps, withFormActions)(ImportShapeEssence);

@@ -42,21 +42,11 @@ function ImportCollectionWizard({
       <TitleHeader
         parentTitle="Import"
         title="Collection"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_COLLECTION_FORM)}
-          >
-            Create
-          </Button>
-        )}
+        helpTo="/ref/collection.html#create-a-collection"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>Collection</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -69,19 +59,23 @@ function ImportCollectionWizard({
                 />
               </CardContent>
               <AccordionActions>
+                <Button variant="text" color="primary" onClick={onNext}>
+                  Edit Collection Document
+                </Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_COLLECTION_FORM)}
                 >
-                  Next
+                  Create
                 </Button>
               </AccordionActions>
             </SquareCard>
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>Document</StepLabel>
+          <StepLabel>Collection Document</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -94,8 +88,14 @@ function ImportCollectionWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                <Button onClick={onBack}>Back</Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_COLLECTION_FORM)}
+                >
+                  Create
                 </Button>
               </AccordionActions>
             </SquareCard>

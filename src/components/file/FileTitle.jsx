@@ -40,7 +40,11 @@ function FileTitle({
   return (
     <TitleHeader
       helpTo="/ref/storage/file.html"
-      breadcrumbList={[{ title: 'File', to: routes.fileList() }, { title: fileId, to: routes.file({ fileId }) }, ...breadcrumbList]}
+      breadcrumbList={[
+        { title: 'File', to: routes.fileList() },
+        { title: fileId, to: routes.file({ fileId }) },
+        ...breadcrumbList,
+      ]}
       iconList={(
         <>
           {fileDocument && (
@@ -52,29 +56,33 @@ function FileTitle({
                   <Typography color="inherit">Change State</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: uriModal })}>
-                  <Typography color="inherit">Generate Temporary URI</Typography>
+                  <Typography color="inherit">
+                    Generate Temporary URI
+                  </Typography>
                 </MenuItem>
-                <UnstyledLink to={`/import?tab=IMPORTFILE_TAB&fileId=${fileId}`}>
+                <UnstyledLink to={`/import/file/?fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import As Item</Typography>
                   </MenuItem>
                 </UnstyledLink>
                 <MenuItem>
-                  <UnstyledLink to={`/import?tab=IMPORTSHAPE_TAB&fileId=${fileId}`}>
+                  <UnstyledLink to={`/import/item/shape/?fileId=${fileId}`}>
                     <Typography>Import As Shape</Typography>
                   </UnstyledLink>
                 </MenuItem>
-                <UnstyledLink to={`/import?tab=IMPORTCOMPONENT_TAB&fileId=${fileId}`}>
+                <UnstyledLink to={`/import/item/component/?fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import To Component</Typography>
                   </MenuItem>
                 </UnstyledLink>
-                <UnstyledLink to={`/import?tab=IMPORTSIDECAR_TAB&fileId=${fileId}`}>
+                <UnstyledLink to={`/import/sidecar/?fileId=${fileId}`}>
                   <MenuItem>
                     <Typography color="inherit">Import As Sidecar</Typography>
                   </MenuItem>
                 </UnstyledLink>
-                <UnstyledLink to={`/import-imp/?tab=IMPORTIMP_FILE_TAB&fileId=${fileId}`}>
+                <UnstyledLink
+                  to={`/import-imp/?tab=IMPORTIMP_FILE_TAB&fileId=${fileId}`}
+                >
                   <MenuItem>
                     <Typography color="inherit">Import As IMP</Typography>
                   </MenuItem>
@@ -82,7 +90,9 @@ function FileTitle({
                 <MenuItem onClick={() => onOpen({ modalName: analyzeModal })}>
                   <Typography color="inherit">Shape Deduction</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => onOpen({ modalName: impAnalyzeModal })}>
+                <MenuItem
+                  onClick={() => onOpen({ modalName: impAnalyzeModal })}
+                >
                   <Typography color="inherit">IMP Deduction</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: moveModal })}>
@@ -102,7 +112,9 @@ function FileTitle({
                   abandonModal={abandonModal}
                   onOpen={onOpen}
                 />
-                <MenuItem onClick={() => onOpen({ modalName: removeEntityModal })}>
+                <MenuItem
+                  onClick={() => onOpen({ modalName: removeEntityModal })}
+                >
                   <Typography color="secondary">Remove Entity</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => onOpen({ modalName: deleteModal })}>
@@ -111,7 +123,6 @@ function FileTitle({
               </Menu>
             </>
           )}
-
         </>
       )}
       {...props}

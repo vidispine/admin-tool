@@ -10,16 +10,16 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import SquareCard from '../ui/SquareCard';
-import ImportSidecarForm from './ImportSidecarForm';
+import ImportSidecarRawForm from './ImportSidecarRawForm';
 import * as formActions from '../../formactions/import';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
 import withStepper from '../../hoc/withStepper';
 import TitleHeader from '../ui/TitleHeader';
 
-export const EDIT_IMPORTSIDECAR_FORM = 'EDIT_IMPORTSIDECAR_FORM';
+export const EDIT_IMPORTSIDECARRAW_FORM = 'EDIT_IMPORTSIDECARRAW_FORM';
 
-function ImportSidecarWizard({
+function ImportSidecarRawWizard({
   initialValues,
   onSuccess,
   onFail,
@@ -42,8 +42,8 @@ function ImportSidecarWizard({
     <>
       <TitleHeader
         parentTitle="Import"
-        title="Sidecar"
-        helpTo="/ref/item/import.html#post--import-sidecar-(item-id)"
+        title="Sidecar Upload"
+        helpTo="/ref/item/import.html#post--import-sidecar-(item-id)-raw"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
@@ -51,12 +51,12 @@ function ImportSidecarWizard({
           <StepContent>
             <SquareCard>
               <CardContent>
-                <ImportSidecarForm
-                  onSubmit={formActions.onImportSidecar}
+                <ImportSidecarRawForm
+                  onSubmit={formActions.onImportSidecarRaw}
                   initialValues={initialValues}
                   onSubmitSuccess={onSubmitSuccess}
                   onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTSIDECAR_FORM}
+                  form={EDIT_IMPORTSIDECARRAW_FORM}
                   destroyOnUnmount={false}
                   itemId={itemId}
                 />
@@ -66,7 +66,7 @@ function ImportSidecarWizard({
                   color="primary"
                   variant="contained"
                   size="large"
-                  onClick={() => submitForm(EDIT_IMPORTSIDECAR_FORM)}
+                  onClick={() => submitForm(EDIT_IMPORTSIDECARRAW_FORM)}
                 >
                   Start
                 </Button>
@@ -79,4 +79,8 @@ function ImportSidecarWizard({
   );
 }
 
-export default compose(withStepper, withUI, withFormActions)(ImportSidecarWizard);
+export default compose(
+  withStepper,
+  withUI,
+  withFormActions,
+)(ImportSidecarRawWizard);

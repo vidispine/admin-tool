@@ -10,7 +10,6 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportFileForm from './ImportFileForm';
-import ImportFileAdvancedForm from './ImportFileAdvancedForm';
 import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/file';
@@ -41,39 +40,17 @@ function ImportFileWizard({
     openSnackBar({ messageContent, messageColor: 'secondary' });
     if (onFail) { onFail(error, dispatch, props); }
   };
-  const defaultValues = {
-    queryParams: {
-      'no-transcode': false,
-      createThumbnails: true,
-      overrideFastStart: true,
-      requireFastStart: true,
-      growing: false,
-      priority: 'MEDIUM',
-      importTag: ['original'],
-    },
-    metadataDocument: {},
-    ...initialValues,
-  };
+  const defaultValues = { ...initialValues };
   return (
     <>
       <TitleHeader
         parentTitle="Import"
         title="File"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTFILE_FORM)}
-          >
-            Start
-          </Button>
-        )}
+        helpTo="/ref/storage/file.html#import-a-file"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>File</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -87,12 +64,16 @@ function ImportFileWizard({
                 />
               </CardContent>
               <AccordionActions>
+                <Button variant="text" onClick={onNext}>
+                  Edit Metadata
+                </Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTFILE_FORM)}
                 >
-                  Next
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>
@@ -113,37 +94,14 @@ function ImportFileWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
+                <Button onClick={onBack}>Back</Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTFILE_FORM)}
                 >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportFileAdvancedForm
-                  onSubmit={formActions.onFileImport}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTFILE_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>

@@ -36,7 +36,7 @@ const listComponentRoute = ({ taskDefinitionType }) => (
     {TAB_TITLE.map(({ path, listText, exact }) => (
       <ListItemLink
         key={path}
-        secondary={listText}
+        primary={listText}
         to={generatePath(path, { taskDefinitionType })}
         dense
         style={{ paddingLeft: 8 }}

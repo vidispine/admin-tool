@@ -77,7 +77,7 @@ const listComponentRoute = ({ itemId, shapeId }) => (
     {TAB_TITLE.map(({ path, listText, exact }) => (
       <ListItemLink
         key={path}
-        secondary={listText}
+        primary={listText}
         to={generatePath(path, { itemId, shapeId })}
         dense
         style={{ paddingLeft: 8 }}

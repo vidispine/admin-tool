@@ -7,11 +7,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-const drawerWidth = 200;
-
 const styles = (theme) => ({
   drawer: {
-    width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
@@ -19,22 +16,23 @@ const styles = (theme) => ({
     marginTop: 54,
   },
   drawerOpen: {
-    width: drawerWidth,
+    width: theme.spacing(25),
+    paddingRight: theme.spacing(1),
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
+    width: theme.spacing(18),
+    paddingRight: theme.spacing(1),
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(6),
-    },
+  },
+  paperAnchorDockedLeft: {
+    borderRight: 'none',
   },
 });
 
@@ -77,8 +75,9 @@ class DrawerContainer extends React.PureComponent {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open,
             }),
+            paperAnchorDockedLeft: classes.paperAnchorDockedLeft,
           }}
-          open={open}
+          open
         >
           <ListItem
             button
@@ -86,7 +85,9 @@ class DrawerContainer extends React.PureComponent {
             disableRipple
             disableGutters
           >
-            <ListItemIcon>{open ? <ChevronLeftIcon /> : <ChevronRightIcon />}</ListItemIcon>
+            <ListItemIcon>
+              {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </ListItemIcon>
           </ListItem>
           <ListComponent {...props} />
         </Drawer>

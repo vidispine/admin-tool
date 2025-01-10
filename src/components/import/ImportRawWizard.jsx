@@ -11,7 +11,6 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportRawForm from './ImportRawForm';
-import ImportRawAdvancedForm from './ImportRawAdvancedForm';
 import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/import';
@@ -34,21 +33,23 @@ function ImportRawWizard({
   openSnackBar,
   isFormSubmitting,
 }) {
-  const transferId = (
-    Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  const transferId = React.useMemo(
+    () => Math.random().toString(36).substring(2, 15)
+      + Math.random().toString(36).substring(2, 15),
+    [],
   );
   const defaultValues = {
     queryParams: {
-      'no-transcode': false,
-      createThumbnails: true,
-      overrideFastStart: true,
-      requireFastStart: true,
-      growing: false,
-      priority: 'MEDIUM',
-      importTag: ['original'],
       transferId,
     },
-    metadataDocument: {},
+    metadataDocument: {
+      timespan: [
+        {
+          start: '-INF',
+          end: '+INF',
+        },
+      ],
+    },
     ...initialValues,
   };
   const onSubmitSuccess = (response, dispatch, props) => {
@@ -66,36 +67,11 @@ function ImportRawWizard({
       <TitleHeader
         parentTitle="Import"
         title="Upload"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <div style={{ position: 'relative' }}>
-            <Button
-              color="primary"
-              variant="text"
-              size="large"
-              onClick={() => submitForm(EDIT_IMPORTRAW_FORM)}
-              disabled={isFormSubmitting}
-            >
-              Start
-            </Button>
-            {isFormSubmitting && (
-              <CircularProgress
-                size={24}
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  marginTop: -12,
-                  marginLeft: -12,
-                }}
-              />
-            )}
-          </div>
-        )}
+        helpTo="/ref/item/import.html#import-using-a-passkey"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>File</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -109,13 +85,32 @@ function ImportRawWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={onNext}
-                >
-                  Next
+                <Button variant="text" onClick={onNext}>
+                  Edit Metadata
                 </Button>
+                <div style={{ position: 'relative' }}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    onClick={() => submitForm(EDIT_IMPORTRAW_FORM)}
+                    disabled={isFormSubmitting}
+                  >
+                    Start
+                  </Button>
+                  {isFormSubmitting && (
+                    <CircularProgress
+                      size={24}
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        marginTop: -12,
+                        marginLeft: -12,
+                      }}
+                    />
+                  )}
+                </div>
               </AccordionActions>
             </SquareCard>
           </StepContent>
@@ -135,38 +130,30 @@ function ImportRawWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={onNext}
-                >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportRawAdvancedForm
-                  onSubmit={formActions.onImportRawNoAuth}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTRAW_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
+                <Button onClick={onBack}>Back</Button>
+                <div style={{ position: 'relative' }}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    onClick={() => submitForm(EDIT_IMPORTRAW_FORM)}
+                    disabled={isFormSubmitting}
+                  >
+                    Start
+                  </Button>
+                  {isFormSubmitting && (
+                    <CircularProgress
+                      size={24}
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        marginTop: -12,
+                        marginLeft: -12,
+                      }}
+                    />
+                  )}
+                </div>
               </AccordionActions>
             </SquareCard>
           </StepContent>

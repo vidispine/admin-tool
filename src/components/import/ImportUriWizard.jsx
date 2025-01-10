@@ -10,7 +10,6 @@ import StepContent from '@material-ui/core/StepContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 
 import ImportUriForm from './ImportUriForm';
-import ImportUriAdvancedForm from './ImportUriAdvancedForm';
 import MetadataForm from '../metadata/MetadataForm';
 import SquareCard from '../ui/SquareCard';
 import * as formActions from '../../formactions/import';
@@ -32,16 +31,15 @@ function ImportUriWizard({
   openSnackBar,
 }) {
   const defaultValues = {
-    queryParams: {
-      'no-transcode': false,
-      createThumbnails: true,
-      overrideFastStart: true,
-      requireFastStart: true,
-      growing: false,
-      priority: 'MEDIUM',
-      importTag: ['original'],
+    queryParams: {},
+    metadataDocument: {
+      timespan: [
+        {
+          start: '-INF',
+          end: '+INF',
+        },
+      ],
     },
-    metadataDocument: {},
     ...initialValues,
   };
   const onSubmitSuccess = (response, dispatch, props) => {
@@ -59,21 +57,11 @@ function ImportUriWizard({
       <TitleHeader
         parentTitle="Import"
         title="URI"
-        style={{ paddingTop: 10, paddingBottom: 10 }}
-        actionComponent={(
-          <Button
-            color="primary"
-            variant="text"
-            size="large"
-            onClick={() => submitForm(EDIT_IMPORTURI_FORM)}
-          >
-            Start
-          </Button>
-        )}
+        helpTo="/ref/item/import.html#import-using-a-uri"
       />
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>URI</StepLabel>
+          <StepLabel>Params</StepLabel>
           <StepContent>
             <SquareCard>
               <CardContent>
@@ -87,12 +75,16 @@ function ImportUriWizard({
                 />
               </CardContent>
               <AccordionActions>
+                <Button variant="text" onClick={onNext}>
+                  Edit Metadata
+                </Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTURI_FORM)}
                 >
-                  Next
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>
@@ -113,37 +105,14 @@ function ImportUriWizard({
                 />
               </CardContent>
               <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
-                </Button>
+                <Button onClick={onBack}>Back</Button>
                 <Button
-                  variant="text"
                   color="primary"
-                  onClick={onNext}
+                  variant="contained"
+                  size="large"
+                  onClick={() => submitForm(EDIT_IMPORTURI_FORM)}
                 >
-                  Next
-                </Button>
-              </AccordionActions>
-            </SquareCard>
-          </StepContent>
-        </Step>
-        <Step>
-          <StepLabel>Advanced</StepLabel>
-          <StepContent>
-            <SquareCard>
-              <CardContent>
-                <ImportUriAdvancedForm
-                  onSubmit={formActions.onImportUri}
-                  initialValues={defaultValues}
-                  onSubmitSuccess={onSubmitSuccess}
-                  onSubmitFail={onSubmitFail}
-                  form={EDIT_IMPORTURI_FORM}
-                  destroyOnUnmount={false}
-                />
-              </CardContent>
-              <AccordionActions>
-                <Button onClick={onBack}>
-                  Back
+                  Start
                 </Button>
               </AccordionActions>
             </SquareCard>
