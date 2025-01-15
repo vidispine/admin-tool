@@ -15,6 +15,8 @@ export default {
   component: (params) => generatePath('/item/:itemId/shape/:shapeId/component/:componentId/', params),
   itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
   itemBulkyMetadataList: (params) => generatePath('/item/:itemId/bulky-metadata/', params),
+  itemSequenceList: (params) => generatePath('/item/:itemId/sequence/', params),
+  itemSequence: (params) => generatePath('/item/:itemId/sequence/:format/', params),
   fileList: (params) => generatePath('/file/', params),
   file: (params) => generatePath('/file/:fileId', params),
 };

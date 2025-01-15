@@ -15,7 +15,6 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { utils as api } from '@vidispine/vdt-api';
 
 import ExternalIdLink from '../externalid/ExternalIdLink';
 import withUI from '../../hoc/withUI';
@@ -53,7 +52,6 @@ function TitleHeader({
   addAccessControl,
   style = {},
 }) {
-  const baseUrl = api.defaultClient.defaults.baseURL || '';
   const breadcrumb = (
     <Grid
       container
@@ -250,7 +248,7 @@ function TitleHeader({
     </Tooltip>
   );
   const openRemove = removeModal && (
-    <Tooltip title="Remove">
+    <Tooltip title="Delete">
       <IconButton onClick={() => openModal({ modalName: removeModal })}>
         <DeleteForever />
       </IconButton>
