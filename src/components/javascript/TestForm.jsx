@@ -18,7 +18,7 @@ function TestForm({
           mode: 'javascript',
           lineWrapping: true,
           lineNumbers: true,
-          lint: { esversion: 10 },
+          lint: { esversion: 11 },
           highlightLines: true,
           gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
           matchBrackets: true,
