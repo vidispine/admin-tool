@@ -12,11 +12,16 @@ export default {
   shapeList: (params) => generatePath('/item/:itemId/shape/', params),
   shape: (params) => generatePath('/item/:itemId/shape/:shapeId', params),
   componentList: (params) => generatePath('/item/:itemId/shape/:shapeId/component/', params),
-  component: (params) => generatePath('/item/:itemId/shape/:shapeId/component/:componentId/', params),
+  component: (params) => generatePath(
+    '/item/:itemId/shape/:shapeId/component/:componentId/',
+    params,
+  ),
   itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
   itemBulkyMetadataList: (params) => generatePath('/item/:itemId/bulky-metadata/', params),
   itemSequenceList: (params) => generatePath('/item/:itemId/sequence/', params),
   itemSequence: (params) => generatePath('/item/:itemId/sequence/:format/', params),
   fileList: (params) => generatePath('/file/', params),
   file: (params) => generatePath('/file/:fileId', params),
+  secretList: (params) => generatePath('/secret/', params),
+  secret: (params) => generatePath('/secret/:alias', params),
 };
