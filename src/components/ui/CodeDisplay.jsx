@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactJson from 'react-json-view';
 import CodeMirror from './CodeMirror';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 import formatXML from '../../utils/formatXML';
 
@@ -73,4 +74,4 @@ function CodeDisplay({ code, variant = 'json' }) {
   return <CodeComponent code={code} />;
 }
 
-export default CodeDisplay;
+export default withErrorBoundary(CodeDisplay);

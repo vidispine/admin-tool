@@ -124,6 +124,7 @@ const linkOptions = [
   { value: '/deletion-lock/', label: 'Deletion Locks' },
   { value: '/analyze-preset/', label: 'Analyze Presets' },
   { value: '/swagger/', label: 'Swagger' },
+  { value: '/secret/', label: 'Secret' },
 ];
 
 const useOptionStyles = makeStyles({

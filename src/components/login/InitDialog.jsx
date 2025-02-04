@@ -1,18 +1,17 @@
 import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import { compose } from 'redux';
 import { noauth as api } from '@vidispine/vdt-api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Dialog from '@material-ui/core/Dialog';
-import { withSnackbarNoRouter } from '../../hoc/withSnackbar';
 import DialogContent from '../ui/DialogContent';
+import { withModalNoRouter } from '../../hoc/withModal';
 
 function InitDialog({
-  open = false,
+  open,
   onClose,
   onSuccess,
   onError,
@@ -68,4 +67,4 @@ function InitDialog({
   );
 }
 
-export default compose(withSnackbarNoRouter)(InitDialog);
+export default withModalNoRouter(InitDialog);

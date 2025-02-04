@@ -16,6 +16,9 @@ export default function VxaListTable({
       <TableHead>
         <TableRow>
           <TableCell>UUID</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Version</TableCell>
+          <TableCell>Status</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

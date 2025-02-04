@@ -225,6 +225,7 @@ function FullScreenDialog({
               <ListLink to="/configuration/path-alias/" primary="Path Alias" />
               <ListLink to="/external-id/" primary="External Identifiers" />
               <ListLink to="/configuration/" primary="All Configuration" />
+              <ListLink to="/secret/" primary="Secrets" />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>

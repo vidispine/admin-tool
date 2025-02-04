@@ -7,6 +7,7 @@ import startCase from 'lodash.startcase';
 import CodeMirror from './CodeMirror';
 import formatXML from '../../utils/formatXML';
 import formatJSON from '../../utils/formatJSON';
+import withErrorBoundary from '../../hoc/withErrorBoundary';
 
 function TextGridCode({
   title,
@@ -86,4 +87,4 @@ function TextGridCode({
   );
 }
 
-export default TextGridCode;
+export default withErrorBoundary(TextGridCode);

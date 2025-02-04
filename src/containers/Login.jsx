@@ -23,7 +23,7 @@ import GitHubButton from '../components/ui/GitHubButton';
 import { APP_LOGO } from '../const/logos';
 import { getVidispineUrlFromPath } from '../const';
 
-const INIT_DIALOG = 'INIT_DIALOG';
+const INIT_MODAL = 'INIT_MODAL';
 const HELP_DIALOG = 'HELP_DIALOG';
 
 const { VITE_VERSION } = import.meta.env;
@@ -77,7 +77,7 @@ class Login extends React.PureComponent {
             });
           }
           if (initTest) {
-            onOpen({ modalName: INIT_DIALOG });
+            onOpen({ modalName: INIT_MODAL });
           }
         })
         .catch((error) => this.onRefreshError(error));
@@ -148,13 +148,13 @@ class Login extends React.PureComponent {
       <ThemeProvider theme={theme}>
         <Grid container>
           <Grid item sm={4}>
-            <Card elevation={0} square style={{ height: "100vh" }}>
+            <Card elevation={0} square style={{ height: '100vh' }}>
               <Grid
                 container
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                style={{ height: "100%" }}
+                style={{ height: '100%' }}
               >
                 <Grid item>
                   <Grid
@@ -185,10 +185,10 @@ class Login extends React.PureComponent {
               <AppBar
                 color="inherit"
                 style={{
-                  top: "auto",
+                  top: 'auto',
                   bottom: 0,
-                  backgroundColor: "black",
-                  color: "white",
+                  backgroundColor: 'black',
+                  color: 'white',
                 }}
                 square
                 elevation={0}
@@ -226,31 +226,29 @@ class Login extends React.PureComponent {
             sm={8}
             style={{
               background:
-                "linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)",
+                'linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)',
             }}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
           >
-              <APP_LOGO
-                alt="VidiCore Admin Tool"
-                style={{
-                  height: "inherit",
-                  width: "25vw",
-                  minWidth: "100px",
-                  backgroundColor: "#fff",
-                }}
-              />
+            <APP_LOGO
+              alt="VidiCore Admin Tool"
+              style={{
+                height: 'inherit',
+                width: '25vw',
+                minWidth: '100px',
+                backgroundColor: '#fff',
+              }}
+            />
           </Grid>
         </Grid>
         <InitDialog
-          dialogName={INIT_DIALOG}
+          dialogName={INIT_MODAL}
           onSuccess={this.onRefresh}
           loadingInit={loadingInit}
-          setLoadingInit={(newState) =>
-            this.setState({ loadingInit: newState })
-          }
+          setLoadingInit={(newState) => this.setState({ loadingInit: newState })}
         />
         <LoginHelpDialog dialogName={HELP_DIALOG} baseUrl={baseUrl} />
       </ThemeProvider>
