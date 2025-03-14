@@ -8,17 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Cache node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          cache: 'npm'
       - name: Configure npm
         run: npm config set script-shell bash
       - name: Set up QEMU
@@ -29,8 +22,7 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
         shell: bash
       - name: Install app dependencies
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
         shell: bash
       - name: Build the Docker image
         run: PUBLIC_URL=/admin-tool npm run docker:buildx:push
