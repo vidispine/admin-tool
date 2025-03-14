@@ -23,7 +23,7 @@ class ImportFile extends React.PureComponent {
     return (
       <ImportFileWizard
         onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        initialValues={{ fileId }}
+        initialValues={{ fileId, metadataDocument: {} }}
         {...props}
       />
     );
