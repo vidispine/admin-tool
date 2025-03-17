@@ -13,6 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 const stylesOverride = {
   container: (base, state) => ({
     ...base,
+    fontSize: state?.selectProps?.typography?.htmlFontSize,
     color: state.isDisabled
       ? state.selectProps.palette.text.disabled
       : 'inherit',
@@ -76,19 +77,12 @@ const stylesOverride = {
   placeholder: (base) => ({
     ...base,
     paddingLeft: 4,
-    fontSize: '16px',
     lineHeight: 1,
   }),
-  singleValue: (base, state) => {
-    const { palette } = state.selectProps;
-    const backgroundColor = palette.type === 'light' ? palette.grey[300] : palette.grey[700];
-    return {
-      ...base,
-      borderRadius: 32 / 2,
-      height: 32,
-      backgroundColor,
-    };
-  },
+  singleValue: (base) => ({
+    ...base,
+    height: 32,
+  }),
   singleValueLabel: (base, state) => {
     const { palette } = state.selectProps;
     const backgroundColor = palette.type === 'light' ? palette.grey[300] : palette.grey[700];
@@ -96,6 +90,8 @@ const stylesOverride = {
     return {
       ...base,
       color,
+      paddingTop: 0,
+      paddingBottom: 0,
       paddingLeft: 8,
       paddingRight: 8,
     };
@@ -119,7 +115,6 @@ const stylesOverride = {
     const color = palette.getContrastText(backgroundColor);
     return {
       ...base,
-      fontSize: state.theme.typography.pxToRem(13),
       paddingLeft: 8,
       paddingRight: 8,
       color,
@@ -210,6 +205,7 @@ export default function WrappedAsyncSelect({
       getOptionValue={(option) => option[optionValueKey]}
       value={value ? value[optionValueKey] : ''}
       palette={palette}
+      typography={typography}
       theme={theme}
     />
   );
@@ -318,7 +314,7 @@ class UnThemedStatefulAsyncSelect extends React.Component {
       components = {},
       ...props
     } = this.props;
-    const { palette } = theme;
+    const { palette, typography } = theme;
     const {
       optionLabelKey = 'label',
       optionValueKey = 'value',
@@ -351,7 +347,10 @@ class UnThemedStatefulAsyncSelect extends React.Component {
           {...props}
           {...input}
           components={{
-            MultiValueRemove, ClearIndicator, DropdownIndicator, ...components,
+            MultiValueRemove,
+            ClearIndicator,
+            DropdownIndicator,
+            ...components,
           }}
           id={input.name}
           styles={stylesOverride}
@@ -366,6 +365,7 @@ class UnThemedStatefulAsyncSelect extends React.Component {
           onFocus={() => true}
           isDisabled={isDisabled}
           palette={palette}
+          typography={typography}
           theme={this.theme}
         />
       </>
@@ -409,6 +409,7 @@ export function WrappedSelect({
         ...components,
       }}
       palette={palette}
+      typography={typography}
       styles={stylesOverride}
       placeholder={props.label}
       theme={theme}
@@ -450,6 +451,7 @@ export function WrappedSelectCreatable({
         ...components,
       }}
       palette={palette}
+      typography={typography}
       styles={stylesOverride}
       placeholder={props.label}
       theme={theme}
