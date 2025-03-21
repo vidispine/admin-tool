@@ -55,7 +55,7 @@ function LoginForm({
   error,
   handleSubmit,
   onTestUrl,
-  useProxy,
+  useDevProxy,
 }) {
   return (
     <form onSubmit={handleSubmit}>
@@ -72,7 +72,7 @@ function LoginForm({
         variant="outlined"
         margin="dense"
         useStartCase={false}
-        disabled={useProxy}
+        disabled={useDevProxy}
       />
       <FormSection
         name="headers"

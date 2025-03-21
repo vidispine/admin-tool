@@ -18,6 +18,7 @@ import {
   getVidispineUrlFromWindow,
   getVidispineUrlFromEnv,
   getVidispineUrlFromPath,
+  getContainerProxyFromWindow,
   setCookiePath,
   APP_BASENAME,
 } from '../const';
@@ -40,14 +41,20 @@ class Auth extends React.Component {
     this.windowVidispineUrl = getVidispineUrlFromWindow();
     this.envVidispineUrl = getVidispineUrlFromEnv();
     this.pathVidispineUrl = getVidispineUrlFromPath();
+    this.useContainerProxy = getContainerProxyFromWindow();
     const baseUrl = this.pathVidispineUrl
       || this.windowVidispineUrl
       || this.envVidispineUrl
       || this.cookieVidispineUrl;
-    this.useProxy = baseUrl !== undefined && (baseUrl === this.windowVidispineUrl
-    || baseUrl === this.envVidispineUrl); // assume it is running in a container
-
+    this.useDevProxy = this.useContainerProxy === undefined
+    && baseUrl !== undefined
+    && (baseUrl === this.windowVidispineUrl || baseUrl === this.envVidispineUrl);
     this.basename = getBasename(baseUrl);
+    const atBasename = window.location.pathname.startsWith(APP_BASENAME);
+    if (atBasename === false) {
+      window.history.pushState({}, '', APP_BASENAME);
+      window.location.reload();
+    }
     const { cookies } = this.props;
     const token = cookies.get(AUTH_TOKEN, { path: this.basename });
     const userName = cookies.get(AUTH_USERNAME, { path: this.basename });
@@ -62,9 +69,16 @@ class Auth extends React.Component {
       window.history.pushState({}, '', newPath);
       window.location.reload();
     }
-    if (baseUrl && baseUrl !== 'undefined') {
-      api.defaultClient.defaults.baseURL = this.useProxy ? window.location.origin : baseUrl;
+
+    if (this.useContainerProxy) {
+      api.defaultClient.defaults.headers['X-Proxy-URL'] = baseUrl;
+      api.defaultClient.defaults.baseURL = window.location.origin;
+    } else if (baseUrl && baseUrl !== 'undefined') {
+      api.defaultClient.defaults.baseURL = this.useDevProxy
+        ? window.location.origin
+        : baseUrl;
     }
+
     if (token && token !== 'undefined') {
       api.defaultClient.defaults.headers.Authorization = `token ${token}`;
       this.setResponseInterceptor();
@@ -141,9 +155,17 @@ class Auth extends React.Component {
     const { cookies } = this.props;
     cookies.set(AUTH_VIDISPINE_SERVER_URL, baseUrl, { path: APP_BASENAME });
     if (this.windowVidispineUrl !== baseUrl) {
-      this.useProxy = false;
+      this.useDevProxy = false;
     }
-    api.defaultClient.defaults.baseURL = this.useProxy ? window.location.origin : baseUrl;
+    if (this.useContainerProxy) {
+      api.defaultClient.defaults.headers['X-Proxy-URL'] = baseUrl;
+      api.defaultClient.defaults.baseURL = window.location.origin;
+    } else {
+      api.defaultClient.defaults.baseURL = this.useDevProxy
+        ? window.location.origin
+        : baseUrl;
+    }
+
     this.setState({ baseUrl });
   }
 
@@ -193,35 +215,35 @@ class Auth extends React.Component {
       baseUrl,
     } = this.state;
     const { loginComponent: Login, appComponent: App, ...props } = this.props;
-    return (
-      token ? (
-        <App
-          userName={runAs || userName}
-          baseUrl={baseUrl}
-          unsetResponseInterceptor={this.unsetResponseInterceptor}
-          unsetUserName={this.unsetUserName}
-          unsetToken={this.unsetToken}
-          unsetRunAs={this.unsetRunAs}
-          useProxy={this.useProxy}
-          {...props}
-        />
-      ) : (
-        <Login
-          userName={userName}
-          runAs={runAs}
-          baseUrl={baseUrl}
-          setUserName={this.setUserName}
-          setToken={this.setToken}
-          setBaseUrl={this.setBaseUrl}
-          setRunAs={this.setRunAs}
-          setResponseInterceptor={this.setResponseInterceptor}
-          unsetUserName={this.unsetUserName}
-          unsetToken={this.unsetToken}
-          unsetRunAs={this.unsetRunAs}
-          useProxy={this.useProxy}
-          {...props}
-        />
-      )
+    return token ? (
+      <App
+        userName={runAs || userName}
+        baseUrl={baseUrl}
+        unsetResponseInterceptor={this.unsetResponseInterceptor}
+        unsetUserName={this.unsetUserName}
+        unsetToken={this.unsetToken}
+        unsetRunAs={this.unsetRunAs}
+        useDevProxy={this.useDevProxy}
+        useContainerProxy={this.useContainerProxy}
+        {...props}
+      />
+    ) : (
+      <Login
+        userName={userName}
+        runAs={runAs}
+        baseUrl={baseUrl}
+        setUserName={this.setUserName}
+        setToken={this.setToken}
+        setBaseUrl={this.setBaseUrl}
+        setRunAs={this.setRunAs}
+        setResponseInterceptor={this.setResponseInterceptor}
+        unsetUserName={this.unsetUserName}
+        unsetToken={this.unsetToken}
+        unsetRunAs={this.unsetRunAs}
+        useDevProxy={this.useDevProxy}
+        useContainerProxy={this.useContainerProxy}
+        {...props}
+      />
     );
   }
 }

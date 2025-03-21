@@ -52,14 +52,20 @@ class Login extends React.PureComponent {
   }
 
   async onRefresh() {
-    const { onOpen, useProxy } = this.props;
+    const { onOpen, useDevProxy, useContainerProxy } = this.props;
     this.setState({ selfTestDocument: undefined });
     await this.setState({ loading: true });
+    let baseURL = useDevProxy ? window.location.origin : this.props.baseUrl;
+    if (useContainerProxy) baseURL = window.location.origin;
     try {
-      api.listSelfTest({
-        noAuth: true,
-        baseURL: useProxy ? window.location.origin : this.props.baseUrl,
-      })
+      api
+        .listSelfTest({
+          noAuth: true,
+          baseURL,
+          headers: useContainerProxy
+            ? { 'X-Proxy-URL': this.props.baseUrl }
+            : {},
+        })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
           const { status, test: testList = [] } = selfTestDocument;
@@ -116,6 +122,7 @@ class Login extends React.PureComponent {
       setToken,
       setRunAs,
       setResponseInterceptor,
+      setBaseUrl,
     } = this.props;
     if (runAs) {
       setRunAs(runAs, baseUrl);
@@ -123,6 +130,7 @@ class Login extends React.PureComponent {
     setResponseInterceptor();
     setUserName(newUserName, baseUrl);
     setToken(token, baseUrl);
+    setBaseUrl(baseUrl);
   }
 
   onTestUrl(baseUrl) {
@@ -136,7 +144,7 @@ class Login extends React.PureComponent {
       selfTestDocument, loading, loadingInit,
     } = this.state;
     const {
-      userName, baseUrl, onOpen, useProxy,
+      userName, baseUrl, onOpen, useDevProxy,
     } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
@@ -178,7 +186,7 @@ class Login extends React.PureComponent {
                     onSuccess={this.onSuccess}
                     onTestUrl={this.onTestUrl}
                     status={status}
-                    useProxy={useProxy}
+                    useDevProxy={useDevProxy}
                   />
                 </Grid>
               </Grid>

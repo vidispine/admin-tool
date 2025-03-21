@@ -16,7 +16,15 @@ server {
     set $vsurl "${VIDISPINE_URL}";
 
     location ~ ^/(API|APInoauth|APIinit|APIdoc)/.* {
-        proxy_pass   $vsurl;
+        set $target_url $http_x_proxy_url;
+        if ($target_url ~* ^https?://) {
+            proxy_pass $target_url;
+        }
+
+        if ($target_url = "") {
+            proxy_pass   $vsurl;
+        }
+
         proxy_hide_header WWW-Authenticate;
         proxy_request_buffering off;
         proxy_http_version 1.1;

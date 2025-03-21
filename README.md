@@ -79,6 +79,19 @@ docker run \
   'vidispine/admin-tool:latest'
 ``` 
 
+* Alternatively, start the container without specifying a VidiCore server.
+```
+docker run \
+  --name vidispine-admin-tool \
+  --detach \
+  --tty \
+  --interactive \
+  --rm \
+  -e CONTAINER_PROXY='true' \
+  -p 80:80 \
+  'vidispine/admin-tool:latest'
+``` 
+
 * Alternatively, use `docker compose` with the linked [`docker-compose.yaml`](./docker-compose.yaml).
 ```
 docker compose up -d \
@@ -97,6 +110,7 @@ docker compose up -d \
 * **NGINX_RESOLVER**: Nginx will proxy requests to an upstream VidiCore server, this will require a DNS address for the [resolver](https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) if using a hostname.
   - Set this to `127.0.0.11` if using within Docker Compose.
   - Set this to `169.254.169.253` if using in AWS ECS (or your [Route 53 Resolver](https://docs.aws.amazon.com/vpc/latest/userguide/AmazonDNS-concepts.html#AmazonDNS)).
+* **CONTAINER_PROXY**: Sets the `X-Proxy-URL` header on frontend requests and proxy via Nginx.
 
 #### Ports
 
