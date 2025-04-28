@@ -16,6 +16,14 @@ const headers = () => (
       margin="dense"
     />
     <Field
+      name="bearer"
+      label="JWT Bearer"
+      component={TextField}
+      fullWidth
+      variant="outlined"
+      margin="dense"
+    />
+    <Field
       name="runAs"
       label="Login As User"
       component={TextField}

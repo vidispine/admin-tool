@@ -9,8 +9,9 @@ import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
 
 const hasTokenOrValue = (value, { secretKey, headers = {} }) => (
-  (headers.token || secretKey) ? undefined : required(value)
-);
+  headers.token
+  || headers.bearer
+  || secretKey ? undefined : required(value));
 
 const headers = () => (
   <>
@@ -74,14 +75,8 @@ function LoginForm({
         useStartCase={false}
         disabled={useDevProxy}
       />
-      <FormSection
-        name="headers"
-        component={headers}
-      />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="headers" component={headers} />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

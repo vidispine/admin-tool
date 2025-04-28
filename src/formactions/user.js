@@ -88,22 +88,34 @@ export function onGetUserToken(form, dispatch, props) {
     headers = {}, queryParams, baseUrl, accessKey, secretKey,
   } = form;
   const { status } = props;
-  const { runAs, token, ...headerProps } = headers;
+  const {
+    runAs, token, bearer, ...headerProps
+  } = headers;
   if (accessKey && secretKey) {
     headerProps.username = accessKey;
     headerProps.password = secretKey;
   }
+  if (bearer) {
+    headerProps.authorization = bearer.startsWith('Bearer ')
+      ? bearer
+      : `'Bearer ${bearer}`;
+  }
   if (token) {
     return onWhoAmI(form, dispatch, props);
   }
+  const baseURL = baseUrl.replace(/\/+$/, '');
   const userName = props.userName || form.userName || headers.username;
   return UserApi.getUserToken({
     username: userName,
     queryParams,
     headers: headerProps,
+    baseURL,
   })
     .then((response) => ({
-      ...response, userName, runAs, baseUrl,
+      ...response,
+      userName,
+      runAs,
+      baseURL,
     }))
     .catch((error) => {
       let errorMessage = error.message;
