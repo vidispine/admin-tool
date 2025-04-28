@@ -65,6 +65,11 @@ Docker Containers can be downloaded from Dockerhub https://hub.docker.com/r/vidi
 
 ### Run
 
+* Pull the latest image
+```
+docker image pull vidispine/admin-tool:latest
+```
+
 * Start the container with the latest image.
   - Try changing the port from `-p 80:80` to `-p 8088:80` if running on Windows. 
 ```
@@ -75,6 +80,19 @@ docker run \
   --interactive \
   --rm \
   -e VIDISPINE_URL='http://my-vidispine-server:8080' \
+  -p 80:80 \
+  'vidispine/admin-tool:latest'
+``` 
+
+* Alternatively, start the container without specifying a VidiCore server.
+```
+docker run \
+  --name vidispine-admin-tool \
+  --detach \
+  --tty \
+  --interactive \
+  --rm \
+  -e CONTAINER_PROXY='true' \
   -p 80:80 \
   'vidispine/admin-tool:latest'
 ``` 
@@ -97,6 +115,7 @@ docker compose up -d \
 * **NGINX_RESOLVER**: Nginx will proxy requests to an upstream VidiCore server, this will require a DNS address for the [resolver](https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver) if using a hostname.
   - Set this to `127.0.0.11` if using within Docker Compose.
   - Set this to `169.254.169.253` if using in AWS ECS (or your [Route 53 Resolver](https://docs.aws.amazon.com/vpc/latest/userguide/AmazonDNS-concepts.html#AmazonDNS)).
+* **CONTAINER_PROXY**: Sets the `X-Proxy-URL` header on frontend requests and proxy via Nginx.
 
 #### Ports
 

@@ -6,11 +6,11 @@ TO-DO
 3. ~~Deletion lock notifications~~
 4. ~~Deletion locks on files~~
 5. ~~Deletion locks on libraries~~
-6. Search users
+6. ~~Search users~~
 7. User graph
 8. Search groups
 9. Traverse groups
-10. ACL graph
+10. ~~ACL graph~~
 11. Collection items
 12. Create an item list job for the collection
 13. Add entity to collection with additional params (before, reference)
@@ -31,7 +31,7 @@ TO-DO
 28. Create item list job
 29. List all libraries containing item
 30. Item locks
-31. Item sequences
+31. ~~Item sequences~~
 32. Item loudness
 33. Item waveform
 34. Item highlights

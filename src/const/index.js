@@ -31,6 +31,7 @@ export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') =>
 };
 export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') => (import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined);
 export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
+export const getContainerProxyFromWindow = (windowKey = 'CONTAINER_PROXY') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
 export const getVidispineUrlFromPath = () => {
   const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '').replace(/^\/+/, '');
   if (pathnameWithoutBasename === undefined) return undefined;
@@ -54,7 +55,11 @@ export const getVidispineUrlFromSessionStorage = (storageKey = 'VIDISPINE_URL') 
 export const setCookiePath = (vidispineUrl) => {
   const baseName = APP_BASENAME.replace(/^\/+/, '');
   const encodedVidispineUrl = encodeURIComponent(vidispineUrl);
-  return [baseName, encodedVidispineUrl, ''].join('/');
+  return `${
+    baseName !== '' && !baseName.startsWith('/') ? '/' : ''
+  }${baseName}/${encodedVidispineUrl}${
+    encodedVidispineUrl.endsWith('/') ? '' : '/'
+  }`;
 };
 
 export const NOTIFICATION_ENTITY = [
@@ -68,19 +73,3 @@ export const NOTIFICATION_ENTITY = [
   'document',
   'deletion-lock',
 ];
-
-// const cookieVidispineUrl = getVidispineUrlFromCookie();
-// const windowVidispineUrl = getVidispineUrlFromWindow();
-// const envVidispineUrl = getVidispineUrlFromEnv();
-// const pathVidispineUrl = getVidispineUrlFromPath();
-// const localStorageVidispineUrl = getVidispineUrlFromLocalStorage();
-// const sessionStorageVidispineUrl = getVidispineUrlFromSessionStorage();
-
-// console.log({
-//   windowVidispineUrl,
-//   envVidispineUrl,
-//   pathVidispineUrl,
-//   cookieVidispineUrl,
-//   localStorageVidispineUrl,
-//   sessionStorageVidispineUrl,
-// });

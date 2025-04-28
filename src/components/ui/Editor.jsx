@@ -59,14 +59,13 @@ class Editor extends React.PureComponent {
             <Grid container direction="row-reverse" alignItems="center">
               <Grid item>
                 {iconList}
-                { FormComponent
-                && (
-                <FormControlLabel
-                  control={<Switch color="primary" />}
-                  label="Edit"
-                  checked={isEditing}
-                  onChange={this.toggleEdit}
-                />
+                {FormComponent && (
+                  <FormControlLabel
+                    control={<Switch color="primary" />}
+                    label="Edit"
+                    checked={isEditing}
+                    onChange={this.toggleEdit}
+                  />
                 )}
               </Grid>
             </Grid>
@@ -74,8 +73,7 @@ class Editor extends React.PureComponent {
         />
         <CardContent>
           {isEditing
-            ? FormComponent
-            && (
+            ? FormComponent && (
             <FormComponent
               form={formName}
               initialValues={initialValues}
@@ -85,35 +83,26 @@ class Editor extends React.PureComponent {
               {...formProps}
             />
             )
-            : DisplayComponent
-            && (
-            <DisplayComponent
-              {...displayProps}
-            />
-            )}
+            : DisplayComponent && <DisplayComponent {...displayProps} />}
         </CardContent>
-        {isEditing
-          && FormComponent
-          && (
+        {isEditing && FormComponent && (
           <>
             <Divider />
             <AccordionActions>
-              <Button
-                size="small"
-                onClick={this.toggleEdit}
-              >
+              <Button onClick={this.toggleEdit}>
                 Cancel
               </Button>
               <Button
                 onClick={() => submitForm(formName)}
-                size="small"
+                variant="contained"
+                size="large"
                 color="primary"
               >
                 Save
               </Button>
             </AccordionActions>
           </>
-          )}
+        )}
       </>
     );
   }

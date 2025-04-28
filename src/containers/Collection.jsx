@@ -218,14 +218,25 @@ class Collection extends React.PureComponent {
         titleChip={collectionName}
         actionComponent={(
           <Menu>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}>
+            <MenuItem
+              onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}
+            >
               <Typography>Add Entity</Typography>
             </MenuItem>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
+            <MenuItem
+              onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}
+            >
               <Typography>Rename</Typography>
             </MenuItem>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}>
+            <MenuItem
+              onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}
+            >
               <Typography>Map To Folder</Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={() => onOpen({ modalName: COLLECTION_REMOVE_DIALOG })}
+            >
+              <Typography color="secondary">Delete Collection</Typography>
             </MenuItem>
           </Menu>
         )}

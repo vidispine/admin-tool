@@ -5,6 +5,7 @@ import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
 import withTabs from '../hoc/withTabs';
 import { withRouterProps } from '../hoc/withRouterProps';
+import routes from '../const/routes';
 
 import ItemMetadata from './item/ItemMetadata';
 import ItemCollection from './item/ItemCollection';
@@ -21,6 +22,8 @@ import ItemBulkyMetadata from './item/ItemBulkyMetadata';
 import ItemVersion from './item/ItemVersion';
 import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
 import ItemSpritesheet from './item/ItemSpritesheet';
+import ItemSequenceList from './item/ItemSequenceList';
+import ItemSequence from './item/ItemSequence';
 import AccessGraph from './AccessGraph';
 import MetadataGraph from './MetadataGraph';
 import NotificationEntityList from './NotificationEntityList';
@@ -40,6 +43,7 @@ import ItemExport from '../components/item/ItemExport';
 import ItemImpExport from '../components/item/ItemImpExport';
 import ItemImpImport from '../components/item/ItemImpImport';
 import ItemShapeCreate from '../components/item/ItemShapeCreate';
+import ItemSequenceCreate from '../components/item/ItemSequenceCreate';
 import ItemAnalyze from '../components/item/ItemAnalyze';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
 import JobCreate from '../components/job/JobCreate';
@@ -69,6 +73,7 @@ const NOTIFICATION_TAB = 'NOTIFICATION_TAB';
 const ITEM_SPRITESHEET_TAB = 'ITEM_SPRITESHEET_TAB';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
 const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
+const ITEM_SEQUENCE_TAB = 'ITEM_SEQUENCE_TAB';
 
 const ITEM_REMOVE_DIALOG = 'ITEM_REMOVE_DIALOG';
 const ITEM_TRANSCODE_DIALOG = 'ITEM_TRANSCODE_DIALOG';
@@ -84,6 +89,7 @@ const ITEM_ACCESSCONTROL_ADD_DIALOG = 'ITEM_ACCESSCONTROL_ADD_DIALOG';
 const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
 const ITEM_ANALYZE_DIALOG = 'ITEM_ANALYZE_DIALOG';
+const ITEM_SEQUENCE_CREATE_DIALOG = 'ITEM_SEQUENCE_CREATE_DIALOG';
 
 const TAB_TITLE = [
   {
@@ -217,6 +223,13 @@ const TAB_TITLE = [
     entityType: 'item',
     exact: true,
   },
+  {
+    tab: ITEM_SEQUENCE_TAB,
+    listText: 'Sequence',
+    component: ItemSequenceList,
+    path: '/item/:itemId/sequence/',
+    exact: true,
+  },
 ];
 
 const listComponentRoute = ({ itemId }) => (
@@ -241,6 +254,12 @@ const mainComponentRoute = (props) => (
       exact
       path="/item/:itemId/bulky-metadata/:bulkyMetadataKey"
       render={() => <ItemBulkyMetadata {...props} title="Bulky Metadata" />}
+      {...props}
+    />
+    <Route
+      exact
+      path="/item/:itemId/sequence/:format"
+      render={() => <ItemSequence {...props} title="Sequence" />}
       {...props}
     />
     <Route
@@ -314,6 +333,7 @@ class Item extends React.PureComponent {
         importImpModal={ITEM_IMPIMPORT_DIALOG}
         createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
         analyzeModal={ITEM_ANALYZE_DIALOG}
+        createSequenceModal={ITEM_SEQUENCE_CREATE_DIALOG}
         {...props}
       />
     );
@@ -383,6 +403,16 @@ class Item extends React.PureComponent {
         <ItemShapeCreate
           dialogName={ITEM_SHAPE_CREATE_DIALOG}
           onSuccess={(response) => history.push(`/item/${itemId}/shape/${response.data.id}/`)}
+          itemId={itemId}
+        />
+        <ItemSequenceCreate
+          dialogName={ITEM_SEQUENCE_CREATE_DIALOG}
+          onSuccess={
+            (_response, _dispatch, props) => history.push(routes.itemSequence({
+              itemId,
+              format: props.values.format,
+            }))
+          }
           itemId={itemId}
         />
         <CollectionEntityAdd

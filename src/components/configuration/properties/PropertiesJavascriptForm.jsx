@@ -9,21 +9,27 @@ import CodeField from '../../ui/CodeField';
 
 const ConfigurationPropertyType = () => (
   <>
-    <Field
-      name="key"
-      label="Key"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="key" label="Key" component={TextField} fullWidth />
     <Field
       name="value"
       label="Value"
       component={CodeField}
       options={{
         theme: 'material',
-        mode: 'application/json',
+        mode: 'javascript',
         lineWrapping: true,
         lineNumbers: true,
+        lint: { esversion: 11 },
+        highlightLines: true,
+        gutters: [
+          'CodeMirror-lint-markers',
+          'CodeMirror-linenumbers',
+          'CodeMirror-foldgutter',
+        ],
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        foldGutter: true,
+        autofocus: true,
       }}
     />
   </>

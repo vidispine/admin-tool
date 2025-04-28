@@ -57,6 +57,7 @@ function ItemTitle({
   importImpModal,
   breadcrumbList,
   createShapeModal,
+  createSequenceModal,
   analyzeModal,
   ...props
 }) {
@@ -70,7 +71,6 @@ function ItemTitle({
       entityId={itemId}
       entityType="item"
       removeModal={removeModal}
-      removeAllShapesModal={removeAllShapesModal}
       breadcrumbList={
         Array.isArray(breadcrumbList)
           ? [
@@ -151,6 +151,11 @@ function ItemTitle({
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: posterModal })}>
               <Typography>Create Poster</Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={() => onOpen({ modalName: createSequenceModal })}
+            >
+              <Typography>Create Sequence</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
               <Typography>Export</Typography>

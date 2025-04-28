@@ -49,6 +49,8 @@ export default function getJobDataVariant(key) {
       return 'xml';
     case 'cognitive':
       return 'xml';
+    case 'fabricXML':
+      return 'xml';
     case 'originalShapeIdsStruct':
       return 'json';
     case 'filePathMap':

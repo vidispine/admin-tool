@@ -105,6 +105,8 @@ import Component from './Component';
 import AnalyzePresetList from './AnalyzePresetList';
 import AnalyzePreset from './AnalyzePreset';
 import Swagger from './Swagger';
+import SecretList from './SecretList';
+import Secret from './Secret';
 
 import TopAppBar from './TopAppBar';
 import FullScreenDialog from './FullScreenDialog';
@@ -282,12 +284,16 @@ function Main({
           />
           <Route
             exact
-            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/`}
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join(
+              '|',
+            )})/`}
             component={NotificationList}
           />
           <Route
             exact
-            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join('|')})/:notificationId`}
+            path={`/notification/:entityType(${NOTIFICATION_ENTITY.join(
+              '|',
+            )})/:notificationId`}
             component={Notification}
           />
           <Route
@@ -365,6 +371,8 @@ function Main({
             path="/analyze-preset/:preset/"
             component={AnalyzePreset}
           />
+          <Route exact path="/secret/:alias/" component={Secret} />
+          <Route exact path="/secret/" component={SecretList} />
           <Redirect exact from="/" push to="/job" />
           <Route path="*" component={NotFound} />
         </Switch>
