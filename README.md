@@ -65,6 +65,11 @@ Docker Containers can be downloaded from Dockerhub https://hub.docker.com/r/vidi
 
 ### Run
 
+* Pull the latest image
+```
+docker image pull vidispine/admin-tool:latest
+```
+
 * Start the container with the latest image.
   - Try changing the port from `-p 80:80` to `-p 8088:80` if running on Windows. 
 ```
