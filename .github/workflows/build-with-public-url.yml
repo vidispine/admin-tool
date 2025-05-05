@@ -27,7 +27,7 @@ jobs:
         env:
           PUBLIC_URL: ${{ github.event.inputs.public_url }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: admin-tool_${{ steps.artifact-vars.outputs.sha_short }}_${{ steps.artifact-vars.outputs.encoded_url }}
           path: build
