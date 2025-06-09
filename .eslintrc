@@ -1,9 +1,10 @@
 {
   "extends": "airbnb",
   "parserOptions": {
-    "ecmaVersion": 2021
+    "ecmaVersion": 2024
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": [2, { "skipUndeclared": true }],
     "camelcase": [0, {"properties": "never"}],
