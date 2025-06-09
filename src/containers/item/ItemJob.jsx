@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { job as api } from '@vidispine/vdt-api';
 import JobListCard from '../../components/job/JobListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemJob extends React.PureComponent {
+class ItemJob extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

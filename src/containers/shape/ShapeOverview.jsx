@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
@@ -24,7 +24,7 @@ const SHAPE_COMPONENT_MOVE_SHAPE_DIALOG = 'SHAPE_COMPONENT_MOVE_SHAPE_DIALOG';
 const SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG = 'SHAPE_COMPONENT_ASSOCIATE_FILE_DIALOG';
 const SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG = 'SHAPE_COMPONENT_UNASSOCIATE_FILE_DIALOG';
 
-class ShapeOverview extends React.PureComponent {
+class ShapeOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

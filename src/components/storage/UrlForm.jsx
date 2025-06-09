@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -480,7 +480,7 @@ function FileForm({
   );
 }
 
-export default class UrlForm extends React.PureComponent {
+export default class UrlForm extends PureComponent {
   static renderUrl(props) {
     const { path, protocol } = props;
     if (protocol === UNIVERSAL_SCHEME) {

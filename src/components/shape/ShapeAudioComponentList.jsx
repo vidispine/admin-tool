@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShapeAudioComponentCard from './ShapeAudioComponentCard';
 
 export default function ShapeAudioComponentList({ shapeDocument = {}, ...props }) {

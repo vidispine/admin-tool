@@ -1,6 +1,6 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
-const withHover = (WrappedComponent) => class extends React.PureComponent {
+const withHover = (WrappedComponent) => (class extends PureComponent {
   constructor(props) {
     super(props);
     this.handleMouseOver = this.handleMouseOver.bind(this);
@@ -30,6 +30,6 @@ const withHover = (WrappedComponent) => class extends React.PureComponent {
       />
     );
   }
-};
+});
 
 export default withHover;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';

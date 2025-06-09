@@ -1,4 +1,3 @@
-import React from 'react';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';

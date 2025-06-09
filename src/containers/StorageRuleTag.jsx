@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { storagerule as api } from '@vidispine/vdt-api';
 import StorageRuleTagCard from '../components/storagerule/StorageRuleTagCard';
@@ -7,7 +7,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const STORAGERULE_DIALOG = 'STORAGERULE_DIALOG';
 
-class StorageRuleTag extends React.PureComponent {
+class StorageRuleTag extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

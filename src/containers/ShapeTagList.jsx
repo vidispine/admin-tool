@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { shapetag as api } from '@vidispine/vdt-api';
@@ -12,7 +12,7 @@ import * as actions from '../actions';
 const SHAPETAG_LIST_CODE_MODAL = 'SHAPETAG_LIST_CODE_MODAL';
 const SHAPETAG_CREATE_MODAL = 'SHAPETAG_CREATE_MODAL';
 
-class ShapeTagList extends React.PureComponent {
+class ShapeTagList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SelfTestCard from './SelfTestCard';
 
 export default function SelfTestListCard({

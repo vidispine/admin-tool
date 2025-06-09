@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import ImportShapeEssenceWizard, {
@@ -6,7 +6,7 @@ import ImportShapeEssenceWizard, {
 } from '../../components/import/ImportShapeEssenceWizard';
 import withFormActions from '../../hoc/withFormActions';
 
-class ImportShapeEssence extends React.PureComponent {
+class ImportShapeEssence extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | Import | Essence';
   }

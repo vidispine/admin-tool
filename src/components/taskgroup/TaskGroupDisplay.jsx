@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Divider from '@material-ui/core/Divider';
 
 import TextGrid from '../ui/TextGrid';
@@ -13,7 +13,7 @@ export const TaskGroupType = ({ group }) => (
       && (
       <>
         {group.job.map((job) => (
-          <React.Fragment
+          <Fragment
             key={job.type}
           >
             <Divider />
@@ -21,7 +21,7 @@ export const TaskGroupType = ({ group }) => (
             <TextGrid title="Job Priority" variant="list" value={job.priority} />
             <TextGrid title="Job User" variant="list" value={job.user} />
             <TextGrid title="Job Group" variant="list" value={job.group} />
-          </React.Fragment>
+          </Fragment>
         ))}
         <Divider />
       </>
@@ -30,10 +30,10 @@ export const TaskGroupType = ({ group }) => (
       && (
       <>
         {group.transcoder.map((transcoder) => (
-          <React.Fragment key={transcoder.id}>
+          <Fragment key={transcoder.id}>
             <Divider />
             <TextGrid title="Transcoder" value={transcoder.id} />
-          </React.Fragment>
+          </Fragment>
         ))}
         <Divider />
       </>

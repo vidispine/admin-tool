@@ -1,9 +1,9 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import ImportImpUrlWizard, { EDIT_IMPORTIMPURL_FORM } from '../../components/imf/ImportImpUrlWizard';
 import withFormActions from '../../hoc/withFormActions';
 
-class ImportImpUrl extends React.PureComponent {
+class ImportImpUrl extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | IMF | Import URL';
   }

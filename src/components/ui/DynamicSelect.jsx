@@ -1,9 +1,9 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import update from 'immutability-helper';
 
-export default class DynamicSelect extends React.PureComponent {
+export default class DynamicSelect extends PureComponent {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);

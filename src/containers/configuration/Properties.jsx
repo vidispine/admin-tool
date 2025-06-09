@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import PropertiesCard from '../../components/configuration/properties/PropertiesCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const CONFIGURATIONPROPERTIES_CREATE_MODAL = 'CONFIGURATIONPROPERTIES_CREATE_MODAL';
 
-class Properties extends React.PureComponent {
+class Properties extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

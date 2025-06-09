@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import CodeIcon from '@material-ui/icons/Code';
@@ -98,10 +98,10 @@ function TitleHeader({
           );
         }
         return (
-          <React.Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
+          <Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
             {textComponent}
             {spacerComponent}
-          </React.Fragment>
+          </Fragment>
         );
       }) : (
         <>

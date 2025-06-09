@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import AuditLogTitle from '../components/auditlog/AuditLogTitle';
@@ -9,7 +9,7 @@ import withFormSelectors from '../hoc/withFormSelectors';
 
 const AUDITLOG_FILTER_FORM = 'AUDITLOG_FILTER_FORM';
 
-class AuditLog extends React.PureComponent {
+class AuditLog extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

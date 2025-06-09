@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import * as formActions from '../../formactions/deletionlock';
 import * as actions from '../../actions';

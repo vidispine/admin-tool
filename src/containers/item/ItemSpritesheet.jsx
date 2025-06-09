@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { item as ItemApi, debug as DebugApi, utils as VidiCoreApi } from '@vidispine/vdt-api';
 
 import ItemThumbnailSpritesheetParams from '../../components/item/ItemThumbnailSpritesheetParams';
@@ -10,7 +10,7 @@ import withFormActions from '../../hoc/withFormActions';
 
 const ITEM_THUMBNAILSPRITESHEET_FORM = 'ITEM_THUMBNAILSPRITESHEET_FORM';
 
-class ItemSpritesheet extends React.PureComponent {
+class ItemSpritesheet extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

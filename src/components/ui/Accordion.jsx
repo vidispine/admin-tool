@@ -1,4 +1,3 @@
-import React from 'react';
 import MUIAccordion from '@material-ui/core/Accordion';
 
 function Accordion(props) {

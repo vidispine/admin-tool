@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { documentmetadata as api } from '@vidispine/vdt-api';
 import TitleHeader from '../components/ui/TitleHeader';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const DOCUMENT_CREATE_DIALOG = 'DOCUMENT_CREATE_DIALOG';
 
-class DocumentMetadataList extends React.PureComponent {
+class DocumentMetadataList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

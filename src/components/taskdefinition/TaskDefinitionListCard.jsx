@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TaskDefinitionCard from './TaskDefinitionCard';
 import CardList from '../ui/CardList';
 

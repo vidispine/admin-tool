@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MetadataCollectionTable from '../collection/MetadataCollectionTable';
 
 export default function ItemCollectionTable({ metadataListDocument, ...props }) {

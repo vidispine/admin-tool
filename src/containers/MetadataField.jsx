@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import List from '@material-ui/core/List';
 import { compose } from 'redux';
 
@@ -36,7 +36,7 @@ const listComponent = ({ onChangeTab, tabValue }) => (
 
 const METADATAFIELD_REMOVE_MODAL = 'METADATAFIELD_REMOVE_MODAL';
 
-class MetadataField extends React.PureComponent {
+class MetadataField extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
@@ -11,7 +11,7 @@ const mapDispatchToProps = {
 const withDialogProps = (WrappedComponent) => connect(
   null,
   mapDispatchToProps,
-)(class extends React.PureComponent {
+)(class extends PureComponent {
   constructor(props) {
     super(props);
     this.onOpen = this.onOpen.bind(this);

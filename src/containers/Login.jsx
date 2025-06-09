@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { selftest as api } from '@vidispine/vdt-api';
 
@@ -29,7 +29,7 @@ const HELP_DIALOG = 'HELP_DIALOG';
 const { VITE_VERSION } = import.meta.env;
 const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'light' } });
 
-class Login extends React.PureComponent {
+class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

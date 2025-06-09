@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,7 +21,7 @@ export default function UriListTable({
   ...props
 }) {
   const { hits: count = 0 } = uriListDocument;
-  const uriList = React.useMemo(() => {
+  const uriList = useMemo(() => {
     if (!Array.isArray(uriListDocument?.uri)) return [];
     if (sort === true) return uriListDocument.uri.sort();
     if (typeof sort === 'function') return uriListDocument.uri.sort(sort);

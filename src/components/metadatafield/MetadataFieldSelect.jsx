@@ -1,4 +1,3 @@
-import React from 'react';
 import { Field } from 'redux-form';
 import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 import debounce from 'lodash.debounce';

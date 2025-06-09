@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { exportlocation as api } from '@vidispine/vdt-api';
 import ExportLocationListCard from '../components/exportlocation/ExportLocationListCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const EXPORTLOCATION_CREATE_MODAL = 'EXPORTLOCATION_CREATE_MODAL';
 
-class ExportLocationList extends React.PureComponent {
+class ExportLocationList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

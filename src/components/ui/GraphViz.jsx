@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useEffect, useMemo } from 'react';
 import { graphviz } from 'd3-graphviz';
 import { withStyles } from '@material-ui/core/styles';

@@ -1,11 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import LibraryContentParams, { LIBRARY_CONTENT_PARAMS_FORM } from '../../components/library/LibraryContentParams';
 import ItemListContent from '../../components/item/ItemListContent';
 import withFormActions from '../../hoc/withFormActions';
 import withFormSelectors from '../../hoc/withFormSelectors';
 
-class LibraryList extends React.PureComponent {
+class LibraryList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

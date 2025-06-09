@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { notification as api } from '@vidispine/vdt-api';
 
@@ -11,7 +11,7 @@ import TitleHeader from '../components/ui/TitleHeader';
 
 const NOTIFICATION_REMOVE_DIALOG = 'NOTIFICATION_REMOVE_DIALOG';
 
-class NotificationEntity extends React.PureComponent {
+class NotificationEntity extends PureComponent {
   constructor(props) {
     super(props);
     this.onSetTitle = this.onSetTitle.bind(this);

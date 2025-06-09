@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 
 import TextGrid from '../ui/TextGrid';
 
@@ -42,12 +42,12 @@ const CerifyType = ({ cerify }) => (
     <TextGrid title="Cleanup" value={cerify.cleanup} />
     {cerify.mediaLocation
       && cerify.mediaLocation.map((mediaLocation, index) => (
-        <React.Fragment
+        <Fragment
           key={index} // eslint-disable-line react/no-array-index-key
         >
           <TextGrid title="Media Location Name" value={mediaLocation.name} />
           <TextGrid title="Media Location Storage Method" variant="list" value={mediaLocation.storageMethod} />
-        </React.Fragment>
+        </Fragment>
       ))}
   </>
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { metadata as MetadataApi } from '@vidispine/vdt-api';
 import { compose } from 'redux';
 
@@ -9,7 +9,7 @@ import MetadataGraphDisplay from '../components/metadata/MetadataGraphDisplay';
 
 const METADATA_GRAPH_FORM = 'METADATA_GRAPH_FORM';
 
-class MetadataGraph extends React.PureComponent {
+class MetadataGraph extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

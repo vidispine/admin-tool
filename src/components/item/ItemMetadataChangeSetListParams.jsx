@@ -1,4 +1,3 @@
-import React from 'react';
 import MetadataChangeSetListParams from '../metadata/MetadataChangeSetListParams';
 import * as formActions from '../../formactions/item';
 

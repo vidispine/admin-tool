@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import ReactJson from 'react-json-view';
 import { utils as api } from '@vidispine/vdt-api';
@@ -54,7 +54,7 @@ const styles = (theme) => ({
   },
 });
 
-class HistoryDialog extends React.PureComponent {
+class HistoryDialog extends PureComponent {
   constructor(props) {
     super(props);
     this.onRequest = this.onRequest.bind(this);

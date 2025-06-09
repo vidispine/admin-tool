@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import TitleHeader from '../components/ui/TitleHeader';
@@ -16,7 +16,7 @@ const ShapeListTableCard = compose(
   withPaginationForm,
 )(ShapeListTable);
 
-class ShapeSearch extends React.PureComponent {
+class ShapeSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

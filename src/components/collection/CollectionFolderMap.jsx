@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { compose } from 'redux';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -43,8 +43,8 @@ function CollectionFolderMap({
   collectionId,
   form = COLLECTION_FOLDERMAPUPDATE_FORM,
 }) {
-  const [isFolderMapped, setIsFolderMapped] = React.useState(null);
-  React.useEffect(() => {
+  const [isFolderMapped, setIsFolderMapped] = useState(null);
+  useEffect(() => {
     if (open === false || collectionId === undefined) return;
     CollectionApi.getCollectionMetadata({ collectionId, queryParams: { field: '__folder_mapped', interval: 'generic' } })
       .then(({ data: metadataDocument }) => {

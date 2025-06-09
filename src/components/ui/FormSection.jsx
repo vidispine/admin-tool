@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { FormSection } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -39,7 +39,7 @@ const WrappedFormSection = ({
   initialDisplay = true,
   ...props
 }) => {
-  const [isDisplayed, setIsDisplayed] = React.useState(initialDisplay);
+  const [isDisplayed, setIsDisplayed] = useState(initialDisplay);
   const toggleText = isDisplayed === true ? 'Hide' : 'Show';
   return (
     <div>

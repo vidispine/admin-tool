@@ -1,4 +1,3 @@
-import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import ViewHeadline from '@material-ui/icons/ViewHeadline';
 import ViewModule from '@material-ui/icons/ViewModule';

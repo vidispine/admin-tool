@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo, useCallback, Component } from 'react';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import CreatableSelect from 'react-select/creatable';
 import Async from 'react-select/async';
@@ -165,14 +165,14 @@ export default function WrappedAsyncSelect({
     optionValueKey = 'value',
     creatable = true,
   } = props;
-  const AsyncSelect = React.useMemo(() => (creatable ? AsyncCreatableSelect : Async), [creatable]);
-  const parse = React.useCallback((v) => {
+  const AsyncSelect = useMemo(() => (creatable ? AsyncCreatableSelect : Async), [creatable]);
+  const parse = useCallback((v) => {
     if (v) {
       return v.value;
     }
     return undefined;
   }, []);
-  const theme = React.useCallback(
+  const theme = useCallback(
     (selectTheme) => ({
       ...selectTheme,
       borderRadius: 0,
@@ -211,7 +211,7 @@ export default function WrappedAsyncSelect({
   );
 }
 
-class UnThemedStatefulAsyncSelect extends React.Component {
+class UnThemedStatefulAsyncSelect extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -382,7 +382,7 @@ export function WrappedSelect({
   ...props
 }) {
   const { palette, typography } = useTheme();
-  const theme = React.useCallback(
+  const theme = useCallback(
     (selectTheme) => ({
       ...selectTheme,
       borderRadius: 0,
@@ -424,7 +424,7 @@ export function WrappedSelectCreatable({
   ...props
 }) {
   const { palette, typography } = useTheme();
-  const theme = React.useCallback(
+  const theme = useCallback(
     (selectTheme) => ({
       ...selectTheme,
       borderRadius: 0,

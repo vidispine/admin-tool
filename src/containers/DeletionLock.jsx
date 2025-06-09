@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { deletionlock as api } from '@vidispine/vdt-api';
 import DeletionLockTitle from '../components/deletionlock/DeletionLockTitle';
@@ -10,7 +10,7 @@ import withUI from '../hoc/withUI';
 
 const DELETIONLOCK_REMOVE_DIALOG = 'DELETIONLOCK_REMOVE_DIALOG';
 
-class DeletionLock extends React.PureComponent {
+class DeletionLock extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

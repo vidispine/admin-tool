@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { externalid as api } from '@vidispine/vdt-api';
 import ExternalIdNamespaceTitle from '../components/externalid/ExternalIdNamespaceTitle';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const EXTERNALID_NAMESPACE_CREATE_MODAL = 'EXTERNALID_NAMESPACE_CREATE_MODAL';
 
-class ExternalIdNamespace extends React.PureComponent {
+class ExternalIdNamespace extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

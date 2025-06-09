@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { component as ComponentApi } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
 import ComponentOverviewComponent from '../../components/component/ComponentOverview';
 
-class ComponentOverview extends React.PureComponent {
+class ComponentOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

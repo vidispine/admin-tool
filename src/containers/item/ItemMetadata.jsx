@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { item as ItemApi } from '@vidispine/vdt-api';
 import ItemMetadataListCard from '../../components/item/ItemMetadataListCard';
 import ItemMetadataDisplayParams from '../../components/item/ItemMetadataDisplayParams';
@@ -6,7 +6,7 @@ import TimeRepresentation from '../../components/ui/TimeRepresentation';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemMetadata extends React.PureComponent {
+class ItemMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { importsettings as ImportSettingsApi } from '@vidispine/vdt-api';
@@ -12,7 +12,7 @@ import * as actions from '../actions';
 const IMPORTSETTINGSLIST_CODE_MODAL = 'IMPORTSETTINGSLIST_CODE_MODAL';
 const IMPORTSETTINGS_CREATE_MODAL = 'IMPORTSETTINGS_CREATE_MODAL';
 
-class ImportSettingsList extends React.PureComponent {
+class ImportSettingsList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

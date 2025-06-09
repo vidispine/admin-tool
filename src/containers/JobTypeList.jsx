@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { taskdefinition as api } from '@vidispine/vdt-api';
 import JobTypeDialog from '../components/jobtype/JobTypeDialog';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const JOBTYPE_CREATE_MODAL = 'JOBTYPE_CREATE_MODAL';
 
-class JobTypeList extends React.PureComponent {
+class JobTypeList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

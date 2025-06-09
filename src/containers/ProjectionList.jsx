@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { projection as api } from '@vidispine/vdt-api';
 import ProjectionCreateOutgoing from '../components/projection/ProjectionCreateOutgoing';
@@ -11,7 +11,7 @@ import withSnackbar from '../hoc/withSnackbar';
 const PROJECTION_OUTGOING_CREATE_MODAL = 'PROJECTION_OUTGOING_CREATE_MODAL';
 const PROJECTION_INCOMING_CREATE_MODAL = 'PROJECTION_INCOMING_CREATE_MODAL';
 
-class ProjectionList extends React.PureComponent {
+class ProjectionList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
@@ -72,7 +72,7 @@ const JSON_TAB = 'JSON_TAB';
 const XML_TAB = 'XML_TAB';
 const EDIT_WIZARD_FORM = 'EDIT_WIZARD_FORM';
 
-class WizardForm extends React.PureComponent {
+class WizardForm extends PureComponent {
   constructor(props) {
     super(props);
     this.onBack = this.onBack.bind(this);

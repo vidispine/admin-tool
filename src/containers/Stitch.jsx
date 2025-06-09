@@ -1,9 +1,9 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import TitleHeader from '../components/ui/TitleHeader';
 import StitchCard from '../components/stitch/StitchCard';
 
-export default class Stitch extends React.PureComponent {
+export default class Stitch extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

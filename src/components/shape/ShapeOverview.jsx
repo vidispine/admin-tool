@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CardList from '../ui/CardList';
 import ShapeCard from './ShapeCard';
 import ShapeContainerComponentCard from './ShapeContainerComponentCard';

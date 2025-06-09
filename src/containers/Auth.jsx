@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { withCookies } from 'react-cookie';
 import { noauth as NoAuthApi, utils as api } from '@vidispine/vdt-api';
 import { compose } from 'redux';
@@ -23,7 +23,7 @@ import {
   APP_BASENAME,
 } from '../const';
 
-class Auth extends React.Component {
+class Auth extends Component {
   constructor(props) {
     super(props);
     this.setUserName = this.setUserName.bind(this);

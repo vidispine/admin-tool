@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { projection as api } from '@vidispine/vdt-api';
 import TitleHeader from '../components/ui/TitleHeader';
@@ -10,7 +10,7 @@ import formatXML from '../utils/formatXML';
 
 const PROJECTION_REMOVE_MODAL = 'PROJECTION_REMOVE_MODAL';
 
-class Projection extends React.PureComponent {
+class Projection extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

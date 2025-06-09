@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShapeSubtitleComponentCard from './ShapeSubtitleComponentCard';
 
 export default function ShapeSubtitleComponentList({ shapeDocument = {}, ...props }) {

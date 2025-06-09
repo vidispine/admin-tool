@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
@@ -10,7 +10,7 @@ import routes from '../../const/routes';
 
 const BULKYMETADATA_DOWNLOAD_DIALOG = 'BULKYMETADATA_DOWNLOAD_DIALOG';
 
-class ItemBulkyMetadata extends React.PureComponent {
+class ItemBulkyMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

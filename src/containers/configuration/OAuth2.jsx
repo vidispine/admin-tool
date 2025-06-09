@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { configuration as api } from '@vidispine/vdt-api';
 
 import AuthCard from '../../components/configuration/auth/AuthCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const AUTH_REMOVE_DIALOG = 'AUTH_REMOVE_DIALOG';
 
-class OAuth2 extends React.PureComponent {
+class OAuth2 extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

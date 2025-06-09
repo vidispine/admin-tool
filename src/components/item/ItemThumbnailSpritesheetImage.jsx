@@ -1,4 +1,3 @@
-import React from 'react';
 import ImgExpandButton from '../ui/ImgExpandButton';
 
 const spritesheetPathToUrl = ({ thumbnailSpriteSheetDocument, baseUrl }) => {

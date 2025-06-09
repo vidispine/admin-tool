@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';

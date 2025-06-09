@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import {
   reduxForm, Field, FormSection, FieldArray,
@@ -99,7 +99,7 @@ const DataArray = ({ fields }) => (
 const JobArray = ({ fields }) => (
   <>
     {fields.map((thisField, index) => (
-      <React.Fragment key={thisField}>
+      <Fragment key={thisField}>
         <Grid
           key={thisField}
           container
@@ -151,7 +151,7 @@ const JobArray = ({ fields }) => (
           name={`${thisField}.data`}
           component={DataArray}
         />
-      </React.Fragment>
+      </Fragment>
     ))}
     <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
       Add Job

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import withFormActions from '../hoc/withFormActions';
@@ -13,7 +13,7 @@ import UserListParams, {
 
 const USER_CREATE_MODAL = 'USER_CREATE_MODAL';
 
-class UserList extends React.PureComponent {
+class UserList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

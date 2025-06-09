@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 import { withModalNoRouter } from '../../hoc/withModal';
 import routes from '../../const/routes';

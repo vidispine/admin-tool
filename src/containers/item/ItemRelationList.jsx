@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { item as itemApi } from '@vidispine/vdt-api';
 
@@ -11,7 +11,7 @@ import withUI from '../../hoc/withUI';
 
 const ITEM_RELATION_REMOVE_MODAL = 'ITEM_RELATION_REMOVE_MODAL';
 
-class ItemRelation extends React.PureComponent {
+class ItemRelation extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

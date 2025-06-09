@@ -1,4 +1,3 @@
-import React from 'react';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import GridListTileBar from '@material-ui/core/GridListTileBar';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShapeDescriptorComponentCard from './ShapeDescriptorComponentCard';
 
 export default function ShapeDescriptorComponentList({ shapeDocument = {}, ...props }) {

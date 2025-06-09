@@ -1,4 +1,3 @@
-import React from 'react';
 import startCase from 'lodash.startcase';
 
 import TitleHeader from '../ui/TitleHeader';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext, useReducer, useEffect, useMemo, useContext, useCallback } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -11,7 +11,7 @@ import '@fontsource/open-sans/600.css';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/open-sans/800.css';
 
-export const DispatchContext = React.createContext(() => {
+export const DispatchContext = createContext(() => {
   throw new Error('Forgot to wrap component in `ThemeProvider`');
 });
 
@@ -34,7 +34,7 @@ export const fontFamily = [
 export default function ThemeProvider({ children }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredMode = prefersDarkMode ? 'dark' : 'light';
-  const [themeOptions, dispatch] = React.useReducer((state, action) => {
+  const [themeOptions, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'CHANGE':
         return {
@@ -46,14 +46,14 @@ export default function ThemeProvider({ children }) {
     }
   }, {});
   const { paletteType = preferredMode } = themeOptions;
-  React.useEffect(() => {
+  useEffect(() => {
     const nextPaletteType = getCookie('paletteType') || preferredMode;
     dispatch({
       type: 'CHANGE',
       payload: { paletteType: nextPaletteType },
     });
   }, [preferredMode]);
-  const theme = React.useMemo(
+  const theme = useMemo(
     () => createTheme({
       overrides: {
         MuiAccordion: {
@@ -187,6 +187,6 @@ export default function ThemeProvider({ children }) {
 }
 
 export function useChangeTheme() {
-  const dispatch = React.useContext(DispatchContext);
-  return React.useCallback((options) => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
+  const dispatch = useContext(DispatchContext);
+  return useCallback((options) => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
 }

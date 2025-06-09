@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as formActions from '../../formactions/analyzepreset';
 import AnalyzePresetDisplay from './AnalyzePresetDisplay';
 import AnalyzePresetForm from './AnalyzePresetForm';

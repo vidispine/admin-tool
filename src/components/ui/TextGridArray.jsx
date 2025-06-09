@@ -1,4 +1,3 @@
-import React from 'react';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 import TextGrid from './TextGrid';
 

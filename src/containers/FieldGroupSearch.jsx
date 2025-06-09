@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import TitleHeader from '../components/ui/TitleHeader';
@@ -16,7 +16,7 @@ const FieldGroupSearchListTableCard = compose(
   withPaginationForm,
 )(FieldGroupSearchListTable);
 
-class FieldGroupSearch extends React.PureComponent {
+class FieldGroupSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

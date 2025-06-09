@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { compose } from 'redux';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -36,7 +36,7 @@ const styles = (theme) => ({
   },
 });
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
+const Transition = forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 
 function FullScreenDialog({
   classes,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { vxa as api } from '@vidispine/vdt-api';
 import VxaListCard from '../components/vxa/VxaListCard';
@@ -11,7 +11,7 @@ import withUI from '../hoc/withUI';
 const VXA_CREATE_MODAL = 'VXA_CREATE_MODAL';
 const VXA_CONFIG_MODAL = 'VXA_CONFIG_MODAL';
 
-class VxaList extends React.PureComponent {
+class VxaList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

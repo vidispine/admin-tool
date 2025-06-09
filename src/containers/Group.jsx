@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { group as api } from '@vidispine/vdt-api';
 import GroupTitle from '../components/group/GroupTitle';
@@ -13,7 +13,7 @@ import withUI from '../hoc/withUI';
 
 const GROUP_REMOVE_DIALOG = 'GROUP_REMOVE_DIALOG';
 
-class Group extends React.PureComponent {
+class Group extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

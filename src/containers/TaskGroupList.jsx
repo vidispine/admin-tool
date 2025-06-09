@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { taskgroup as TaskGroupApi } from '@vidispine/vdt-api';
@@ -12,7 +12,7 @@ import * as actions from '../actions';
 const TASKGROUPLIST_CODE_MODAL = 'TASKGROUPLIST_CODE_MODAL';
 const TASKGROUPLIST_CREATE_MODAL = 'TASKGROUPLIST_CREATE_MODAL';
 
-class TaskGroupList extends React.PureComponent {
+class TaskGroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

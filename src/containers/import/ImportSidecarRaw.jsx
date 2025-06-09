@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import ImportSidecarRawWizard, {
@@ -6,7 +6,7 @@ import ImportSidecarRawWizard, {
 } from '../../components/import/ImportSidecarRawWizard';
 import withFormActions from '../../hoc/withFormActions';
 
-class ImportSidecarRaw extends React.PureComponent {
+class ImportSidecarRaw extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | Import | Sidecar Upload';
   }

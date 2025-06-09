@@ -1,4 +1,3 @@
-import React from 'react';
 import GridList from '@material-ui/core/GridList';
 
 import ItemGridListTile from './ItemGridListTile';

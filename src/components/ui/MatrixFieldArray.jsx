@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormSection, FieldArray } from 'redux-form';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';

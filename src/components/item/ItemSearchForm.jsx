@@ -1,4 +1,3 @@
-import React from 'react';
 import { reduxForm } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

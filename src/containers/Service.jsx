@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { service as api } from '@vidispine/vdt-api';
 import ServiceTitle from '../components/service/ServiceTitle';
@@ -6,7 +6,7 @@ import ServiceListCard from '../components/service/ServiceListCard';
 
 import withSnackbar from '../hoc/withSnackbar';
 
-class Service extends React.PureComponent {
+class Service extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

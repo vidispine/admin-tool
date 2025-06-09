@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShapeBinaryComponentCard from './ShapeBinaryComponentCard';
 
 export default function ShapeBinaryComponentList({ shapeDocument = {}, ...props }) {

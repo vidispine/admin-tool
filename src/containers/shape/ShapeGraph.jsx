@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
 import GraphViz from '../../components/ui/GraphViz';
 
-class ShapeGraph extends React.PureComponent {
+class ShapeGraph extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

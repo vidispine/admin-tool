@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import MetricsCard from '../../components/configuration/metrics/MetricsCard';
@@ -6,7 +6,7 @@ import MetricsCard from '../../components/configuration/metrics/MetricsCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class Metrics extends React.PureComponent {
+class Metrics extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

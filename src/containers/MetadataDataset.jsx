@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatadataset as api } from '@vidispine/vdt-api';
 
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const METADATADATASET_REMOVE_MODAL = 'METADATADATASET_REMOVE_MODAL';
 
-class MetadataDataset extends React.PureComponent {
+class MetadataDataset extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

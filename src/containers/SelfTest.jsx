@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { selftest as api } from '@vidispine/vdt-api';
 import SelfTestTitle from '../components/selftest/SelfTestTitle';
@@ -6,7 +6,7 @@ import SelfTestListCard from '../components/selftest/SelfTestListCard';
 
 import withSnackbar from '../hoc/withSnackbar';
 
-class SelfTest extends React.PureComponent {
+class SelfTest extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

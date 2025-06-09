@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ServiceListServiceCard from './ServiceListServiceCard';
 import ServiceDisable from './ServiceDisable';
 import ServiceEnable from './ServiceEnable';

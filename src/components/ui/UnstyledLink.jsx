@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -6,7 +6,7 @@ const style = {
   color: 'inherit',
 };
 
-const UnstyledLink = React.forwardRef((props, ref) => (
+const UnstyledLink = forwardRef((props, ref) => (
   <Link ref={ref} style={style} {...props} onClick={(e) => e.stopPropagation()} />
 ));
 

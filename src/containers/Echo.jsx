@@ -1,9 +1,9 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import EchoCard from '../components/debug/EchoCard';
 
-class Echo extends React.PureComponent {
+class Echo extends PureComponent {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);

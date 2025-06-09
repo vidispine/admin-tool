@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { components as SelectComponents } from 'react-select';
 import { makeStyles } from '@material-ui/core/styles';
@@ -191,8 +191,8 @@ const Option = (props) => {
 
 export default function NavSelect({ onChange: propsOnChange, ...props }) {
   const history = useHistory();
-  const fuzzyRef = React.useRef();
-  const isValidNewOption = React.useCallback((inputValue) => {
+  const fuzzyRef = useRef();
+  const isValidNewOption = useCallback((inputValue) => {
     try {
       const scoreList = optionListToScore(inputValue, goToOptions, 0.5);
       const closestOption = scoreList?.[0]?.option;
@@ -206,7 +206,7 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       return false;
     }
   }, []);
-  const formatCreateLabel = React.useCallback(((inputValue) => {
+  const formatCreateLabel = useCallback(((inputValue) => {
     const label = fuzzyRef?.current?.label;
     if (label) {
       let [, ...entityId] = inputValue.split(' ');
@@ -223,7 +223,7 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
     return 'Keep typing....';
   }), []);
 
-  const onCreateOption = React.useCallback(() => {
+  const onCreateOption = useCallback(() => {
     if (fuzzyRef?.current?.entityId && fuzzyRef?.current?.value) {
       const { entityId, value } = fuzzyRef.current;
       if (typeof value === 'function') history.push(value(entityId));
@@ -231,7 +231,7 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
     }
     fuzzyRef.current = undefined;
   }, []);
-  const onChange = React.useCallback((e) => {
+  const onChange = useCallback((e) => {
     if (propsOnChange) propsOnChange(e);
     history.push(e.value);
   }, [history, propsOnChange]);

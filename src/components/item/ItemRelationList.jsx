@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ItemRelationEditor from './ItemRelationEditor';
 
 export default function ItemRelationList({ itemRelationListDocument, openRemove, onRefresh }) {

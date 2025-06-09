@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
@@ -24,7 +24,7 @@ function FileUri({
   fileDocument,
 }) {
   if (fileDocument === undefined) { return null; }
-  const [uriListDocument, setUriListDocument] = React.useState();
+  const [uriListDocument, setUriListDocument] = useState();
   const { id: fileId } = fileDocument;
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'URI Generated';

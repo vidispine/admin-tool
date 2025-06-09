@@ -1,4 +1,3 @@
-import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import IconButton from '@material-ui/core/IconButton';

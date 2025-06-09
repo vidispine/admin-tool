@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import GroupListTitle from '../components/group/GroupListTitle';
@@ -12,7 +12,7 @@ import withUI from '../hoc/withUI';
 
 const GROUP_CREATE_MODAL = 'GROUP_CREATE_MODAL';
 
-class GroupList extends React.PureComponent {
+class GroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

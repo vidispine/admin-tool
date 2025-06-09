@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { access as AccessApi } from '@vidispine/vdt-api';
 
 import withFormActions from '../hoc/withFormActions';
@@ -7,7 +7,7 @@ import AccessGraphDisplay from '../components/access/AccessGraphDisplay';
 
 const ACCESS_GRAPH_FORM = 'ACCESS_GRAPH_FORM';
 
-class AccessGraph extends React.PureComponent {
+class AccessGraph extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

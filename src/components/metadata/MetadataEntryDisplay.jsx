@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TypeSection from '../ui/TypeSection';
 import { MetadataGroupValueType, MetadataFieldValueType } from './MetadataDisplay';
 import TextGrid from '../ui/TextGrid';

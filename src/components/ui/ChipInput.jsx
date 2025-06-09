@@ -1,4 +1,3 @@
-import React from 'react';
 import ChipInput from 'material-ui-chip-input';
 import update from 'immutability-helper';
 import { withStyles } from '@material-ui/core/styles';

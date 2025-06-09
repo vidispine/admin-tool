@@ -1,4 +1,3 @@
-import React from 'react';
 import { compose } from 'redux';
 import { thumbnail as ThumbnailApi } from '@vidispine/vdt-api';
 

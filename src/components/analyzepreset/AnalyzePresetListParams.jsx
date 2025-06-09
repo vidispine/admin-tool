@@ -1,4 +1,3 @@
-import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';

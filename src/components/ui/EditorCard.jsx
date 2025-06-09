@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -146,7 +146,7 @@ const EditorCard = ({
   onSave,
   ...props
 }) => {
-  const [isEditing, setIsEditing] = React.useState(initialState);
+  const [isEditing, setIsEditing] = useState(initialState);
   const toggleEdit = () => setIsEditing(!isEditing);
   return (
     <CardComponent {...cardProps} {...props}>

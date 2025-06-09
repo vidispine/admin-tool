@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SimpleMetadataEditor from './SimpleMetadataEditor';
 import SimpleMetadataDisplay from './SimpleMetadataDisplay';
 

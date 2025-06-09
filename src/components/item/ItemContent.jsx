@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ItemMetadataCard from './ItemMetadataCard';
 import ShapeOverviewList from '../shape/ShapeOverviewList';
 import UriListCard from '../ui/UriListCard';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { analyzepreset as AnalyzePresetApi } from '@vidispine/vdt-api';
 
@@ -10,7 +10,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const ANALYZEPRESET_REMOVE_MODAL = 'ANALYZEPRESET_REMOVE_MODAL';
 
-class AnalyzePreset extends React.PureComponent {
+class AnalyzePreset extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

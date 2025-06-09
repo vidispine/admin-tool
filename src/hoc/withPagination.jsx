@@ -1,6 +1,6 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
-const withPagination = (WrappedComponent) => class extends React.PureComponent {
+const withPagination = (WrappedComponent) => (class extends PureComponent {
   constructor(props) {
     super(props);
     this.onChangeRowsPerPage = this.onChangeRowsPerPage.bind(this);
@@ -79,6 +79,6 @@ const withPagination = (WrappedComponent) => class extends React.PureComponent {
       />
     );
   }
-};
+});
 
 export default withPagination;

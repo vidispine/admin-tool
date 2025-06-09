@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TextGrid from './TextGrid';
 import TypeArray from './TypeArray';
 import TypeSection from './TypeSection';

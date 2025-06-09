@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { file as api } from '@vidispine/vdt-api';
 
 import FileCard from '../../components/file/FileCard';
@@ -30,7 +30,7 @@ const FILE_HASH_DIALOG = 'FILE_HASH_DIALOG';
 const FILE_URI_DIALOG = 'FILE_URI_DIALOG';
 const FILE_PARAMS_FORM = 'FILE_PARAMS_FORM';
 
-class FileOverview extends React.PureComponent {
+class FileOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

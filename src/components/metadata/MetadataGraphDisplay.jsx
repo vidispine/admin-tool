@@ -1,4 +1,3 @@
-import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import GraphViz from '../ui/GraphViz';
 import ImgExpandButton from '../ui/ImgExpandButton';

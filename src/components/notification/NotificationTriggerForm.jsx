@@ -1,4 +1,3 @@
-import React from 'react';
 import { reduxForm, Field, FormSection } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

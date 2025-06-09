@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
 import NotificationCard from '../components/notification/NotificationCard';
@@ -9,7 +9,7 @@ import TitleHeader from '../components/ui/TitleHeader';
 
 const NOTIFICATION_REMOVE_DIALOG = 'NOTIFICATION_REMOVE_DIALOG';
 
-class Notification extends React.PureComponent {
+class Notification extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

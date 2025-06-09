@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
 
@@ -285,7 +285,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class Item extends React.PureComponent {
+class Item extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

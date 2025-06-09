@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import { secret as SecretApi } from '@vidispine/vdt-api';
@@ -12,7 +12,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const SECRET_CREATE_MODAL = 'SECRET_CREATE_MODAL';
 
-class SecretList extends React.PureComponent {
+class SecretList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

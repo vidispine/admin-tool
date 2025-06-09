@@ -1,4 +1,3 @@
-import React from 'react';
 import MetadataDisplayParams from '../metadata/MetadataDisplayParams';
 import * as formActions from '../../formactions/collection';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { resource as api } from '@vidispine/vdt-api';
@@ -10,7 +10,7 @@ import * as actions from '../actions';
 
 const RESOURCETYPELIST_CODE_MODAL = 'RESOURCETYPELIST_CODE_MODAL';
 
-class ResourceTypeList extends React.PureComponent {
+class ResourceTypeList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

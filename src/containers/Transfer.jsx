@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import TransferTitle from '../components/transfer/TransferTitle';
 import TransferFilterCard from '../components/transfer/TransferFilterCard';
@@ -7,7 +7,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const TRANSFER_FILTER_FORM = 'TRANSFER_FILTER_FORM';
 
-class Transfer extends React.PureComponent {
+class Transfer extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

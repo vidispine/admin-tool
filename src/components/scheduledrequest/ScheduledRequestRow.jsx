@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';

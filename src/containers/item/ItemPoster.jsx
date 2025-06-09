@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
 import ItemPosterGrid from '../../components/item/ItemPosterGrid';
 import ItemThumbnailDeleteDialog, {
@@ -7,7 +7,7 @@ import ItemThumbnailDeleteDialog, {
 
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemPoster extends React.PureComponent {
+class ItemPoster extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

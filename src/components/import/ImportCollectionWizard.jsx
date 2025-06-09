@@ -1,4 +1,3 @@
-import React from 'react';
 import { compose } from 'redux';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';

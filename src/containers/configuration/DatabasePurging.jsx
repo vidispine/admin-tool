@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
 import DatabasePurgingCard from '../../components/configuration/databasepurging/DatabasePurgingCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const DATABASEPURGING_REMOVE_DIALOG = 'DATABASEPURGING_REMOVE_DIALOG';
 
-class DatabasePurging extends React.PureComponent {
+class DatabasePurging extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

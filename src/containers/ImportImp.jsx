@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import List from '@material-ui/core/List';
 
 import withTabs from '../hoc/withTabs';
@@ -33,7 +33,7 @@ const listComponent = ({ onChangeTab, tabValue }) => (
   </List>
 );
 
-class ImportImp extends React.PureComponent {
+class ImportImp extends PureComponent {
   render() {
     const { tabValue, onChangeTab, ...tabProps } = this.props;
     const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];

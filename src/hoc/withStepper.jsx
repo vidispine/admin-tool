@@ -1,6 +1,6 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
-const withStepper = (WrappedComponent) => class extends React.PureComponent {
+const withStepper = (WrappedComponent) => (class extends PureComponent {
   constructor(props) {
     super(props);
     this.onBack = this.onBack.bind(this);
@@ -37,6 +37,6 @@ const withStepper = (WrappedComponent) => class extends React.PureComponent {
       />
     );
   }
-};
+});
 
 export default withStepper;

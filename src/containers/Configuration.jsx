@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import TitleHeader from '../components/ui/TitleHeader';
@@ -6,7 +6,7 @@ import UriListCard from '../components/ui/UriListCard';
 
 import withUI from '../hoc/withUI';
 
-class Configuration extends React.PureComponent {
+class Configuration extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

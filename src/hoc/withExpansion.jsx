@@ -1,6 +1,6 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
-const withExpansion = (WrappedComponent) => class extends React.PureComponent {
+const withExpansion = (WrappedComponent) => (class extends PureComponent {
   constructor(props) {
     super(props);
     this.onChangeExpansion = this.onChangeExpansion.bind(this);
@@ -24,6 +24,6 @@ const withExpansion = (WrappedComponent) => class extends React.PureComponent {
       />
     );
   }
-};
+});
 
 export default withExpansion;

@@ -1,11 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import withSnackbar from '../../hoc/withSnackbar';
 import TitleHeader from '../../components/ui/TitleHeader';
 import PathAliasCard from '../../components/configuration/pathalias/PathAliasCard';
 
-class PathAlias extends React.PureComponent {
+class PathAlias extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

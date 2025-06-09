@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { secret as SecretApi } from '@vidispine/vdt-api';
 
@@ -17,7 +17,7 @@ const SECRET_REMOVE_DIALOG = 'SECRET_REMOVE_DIALOG';
 const SECRET_VALUE_REMOVE_DIALOG = 'SECRET_VALUE_REMOVE_DIALOG';
 const SECRET_VALUE_UPDATE_DIALOG = 'SECRET_VALUE_UPDATE_DIALOG';
 
-class Secret extends React.PureComponent {
+class Secret extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

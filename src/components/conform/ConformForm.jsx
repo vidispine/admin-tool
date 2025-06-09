@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   reduxForm, Field, FieldArray, FormSection,
 } from 'redux-form';

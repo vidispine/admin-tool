@@ -1,4 +1,3 @@
-import React from 'react';
 import startCase from 'lodash.startcase';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';

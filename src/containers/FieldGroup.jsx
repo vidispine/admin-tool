@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
 
@@ -10,7 +10,7 @@ import SimpleMetadataCard from '../components/ui/SimpleMetadataCard';
 
 const FIELDGROUP_REMOVE_MODAL = 'FIELDGROUP_REMOVE_MODAL';
 
-class FieldGroup extends React.PureComponent {
+class FieldGroup extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

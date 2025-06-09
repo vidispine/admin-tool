@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { HashLink } from './HashLink';
 
 const style = {
@@ -6,7 +6,7 @@ const style = {
   color: 'inherit',
 };
 
-const UnstyledHashLink = React.forwardRef((props, ref) => (
+const UnstyledHashLink = forwardRef((props, ref) => (
   <HashLink ref={ref} style={style} {...props} onClick={(e) => e.stopPropagation()} />
 ));
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { compose } from 'redux';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -33,7 +33,7 @@ function ImportRawWizard({
   openSnackBar,
   isFormSubmitting,
 }) {
-  const transferId = React.useMemo(
+  const transferId = useMemo(
     () => Math.random().toString(36).substring(2, 15)
       + Math.random().toString(36).substring(2, 15),
     [],

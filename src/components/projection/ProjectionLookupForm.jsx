@@ -1,4 +1,3 @@
-import React from 'react';
 import { reduxForm } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';

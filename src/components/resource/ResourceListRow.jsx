@@ -1,4 +1,3 @@
-import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRowLink from '../ui/TableRowLink';
 import { OnlineIcon, OfflineIcon } from '../ui/StatusIcon';

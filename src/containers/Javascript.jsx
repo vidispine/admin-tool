@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
 
@@ -9,7 +9,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const TEST_FORM = 'TEST_FORM';
 
-class Javascript extends React.PureComponent {
+class Javascript extends PureComponent {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);

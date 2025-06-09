@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { documentmetadata as api } from '@vidispine/vdt-api';
 import TitleHeader from '../components/ui/TitleHeader';
 import DocumentMetadataCard from '../components/documentmetadata/DocumentMetadataCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const DOCUMENT_REMOVE_DIALOG = 'DOCUMENT_REMOVE_DIALOG';
 
-class DocumentMetadata extends React.PureComponent {
+class DocumentMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

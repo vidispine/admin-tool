@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { access as AccessApi } from '@vidispine/vdt-api';
@@ -14,7 +14,7 @@ const IMPORTACCESS_CODE_MODAL = 'IMPORTACCESS_CODE_MODAL';
 const IMPORTACCESS_REMOVE_MODAL = 'IMPORTACCESS_REMOVE_MODAL';
 const IMPORTACCESS_EDIT_MODAL = 'IMPORTACCESS_EDIT_MODAL';
 
-class ImportSettings extends React.PureComponent {
+class ImportSettings extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import JobFilter from '../components/job/JobFilter';
@@ -12,7 +12,7 @@ import withFormSelectors from '../hoc/withFormSelectors';
 const JOB_FILTER_FORM = 'JOB_FILTER_FORM';
 const JOB_CREATE_DIALOG = 'JOB_CREATE_DIALOG';
 
-class JobList extends React.PureComponent {
+class JobList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

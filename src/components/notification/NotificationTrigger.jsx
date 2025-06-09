@@ -1,4 +1,3 @@
-import React from 'react';
 import TextGrid from '../ui/TextGrid';
 
 export function getJobAction(job = {}) {

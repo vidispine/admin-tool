@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 import capitalizeString from '../../utils/capitalizeString';
 

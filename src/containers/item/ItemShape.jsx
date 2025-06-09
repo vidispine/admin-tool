@@ -1,11 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 import UriListCard from '../../components/ui/UriListCard';
 import ShapeListParams from '../../components/shape/ShapeListParams';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemShape extends React.PureComponent {
+class ItemShape extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

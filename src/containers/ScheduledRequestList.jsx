@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import ScheduledRequestTitle from '../components/scheduledrequest/ScheduledRequestTitle';
 import ScheduledRequestFilterCard from '../components/scheduledrequest/ScheduledRequestFilterCard';
@@ -12,9 +12,9 @@ const SCHEDULED_REMOVEALL = 'SCHEDULED_REMOVEALL';
 export default withFormActions(({ submitForm }) => {
   document.title = 'VidiCore Admin | Scheduled Requests';
   const onRefresh = () => { submitForm(SCHEDULED_FILTER_FORM); };
-  const [scheduledRequestListDocument, setScheduledRequestListDocument] = React.useState();
+  const [scheduledRequestListDocument, setScheduledRequestListDocument] = useState();
   const onSuccess = ({ data }) => setScheduledRequestListDocument(data);
-  React.useEffect(onRefresh, []);
+  useEffect(onRefresh, []);
   return (
     <>
       <ScheduledRequestTitle

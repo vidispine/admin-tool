@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatafield as api } from '@vidispine/vdt-api';
 
@@ -6,7 +6,7 @@ import MetadataFieldCard from '../../components/metadatafield/MetadataFieldCard'
 import withSnackbar from '../../hoc/withSnackbar';
 import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
 
-class MetadataFieldOverview extends React.PureComponent {
+class MetadataFieldOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

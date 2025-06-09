@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { file as api } from '@vidispine/vdt-api';
 
 import withUI from '../../hoc/withUI';
 import FileShapeOverview from '../../components/file/FileShapeOverview';
 
-class FileOverview extends React.PureComponent {
+class FileOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

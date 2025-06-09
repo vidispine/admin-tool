@@ -1,4 +1,3 @@
-import React from 'react';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Button from '@material-ui/core/Button';
 

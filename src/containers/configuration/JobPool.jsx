@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import JobPoolCard from '../../components/configuration/jobpool/JobPoolCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const JOBPOOL_REMOVE_DIALOG = 'JOBPOOL_REMOVE_DIALOG';
 
-class JobPool extends React.PureComponent {
+class JobPool extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

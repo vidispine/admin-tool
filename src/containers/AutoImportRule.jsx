@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { autoimport as api } from '@vidispine/vdt-api';
 import AutoImportRuleTitle from '../components/autoimport/AutoImportRuleTitle';
@@ -8,7 +8,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const AUTOIMPORTRULE_REMOVE_MODAL = 'AUTOIMPORTRULE_REMOVE_MODAL';
 
-class AutoImportRule extends React.PureComponent {
+class AutoImportRule extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

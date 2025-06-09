@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
@@ -6,7 +6,7 @@ import ImportFileWizard, {
   EDIT_IMPORTFILE_FORM,
 } from '../../components/import/ImportFileWizard';
 
-class ImportFile extends React.PureComponent {
+class ImportFile extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | Import | File';
   }

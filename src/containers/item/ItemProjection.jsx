@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { item as api } from '@vidispine/vdt-api';
 import ItemProjectionCard from '../../components/item/ItemProjectionCard';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemProjection extends React.PureComponent {
+class ItemProjection extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

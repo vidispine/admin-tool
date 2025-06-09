@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SimpleMetadataEditor from '../ui/SimpleMetadataEditor';
 
 export default function StorageMetadataEditor({

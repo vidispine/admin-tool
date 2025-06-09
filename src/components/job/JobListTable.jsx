@@ -1,4 +1,3 @@
-import React from 'react';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import Table from '../ui/Table';

@@ -1,4 +1,3 @@
-import React from 'react';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';

@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import React from 'react';
+import { forwardRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 let hashFragment = '';
@@ -113,7 +113,7 @@ function hashLinkScroll(timeout) {
 }
 
 export function genericHashLink(As) {
-  return React.forwardRef((props, ref) => {
+  return forwardRef((props, ref) => {
     let linkHash = '';
     if (typeof props.to === 'string' && props.to.includes('#')) {
       linkHash = `#${props.to.split('#').slice(1).join('#')}`;

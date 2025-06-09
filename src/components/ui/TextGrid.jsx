@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -77,10 +77,10 @@ function TextGrid({
   to,
   onEdit,
 }) {
-  const inputRef = React.useRef();
-  const [isEdit, setIsEdit] = React.useState(false);
-  const [hasError, setHasError] = React.useState(false);
-  const onEditCallback = React.useCallback(
+  const inputRef = useRef();
+  const [isEdit, setIsEdit] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const onEditCallback = useCallback(
     async () => {
       if (!onEdit || !inputRef) return;
       const newValue = inputRef.current.value;
@@ -99,7 +99,7 @@ function TextGrid({
     setIsEdit(false);
     setHasError(false);
   };
-  React.useEffect(() => { // set input focus when toggling edit
+  useEffect(() => { // set input focus when toggling edit
     if (isEdit && inputRef) {
       inputRef.current.focus();
     }
@@ -112,7 +112,7 @@ function TextGrid({
 
   const onTextClick = disableOnClick ? (event) => event.stopPropagation() : onClick;
 
-  const [isValueHidden, setIsValueHidden] = React.useState(initialHideValue);
+  const [isValueHidden, setIsValueHidden] = useState(initialHideValue);
   const toggleHideValue = () => setIsValueHidden((prevState) => !prevState);
 
   if (hideNoValue) {

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import { useState } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -107,7 +107,7 @@ function LoginHelpDialog({
   onClose,
   baseUrl,
 }) {
-  const [tab, setTab] = React.useState(CURL_TAB);
+  const [tab, setTab] = useState(CURL_TAB);
   const onChangeTab = (event, newTab) => setTab(newTab);
   return (
     <Dialog

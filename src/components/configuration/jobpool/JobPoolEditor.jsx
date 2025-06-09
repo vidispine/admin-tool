@@ -1,4 +1,3 @@
-import React from 'react';
 import * as formActions from '../../../formactions/configuration';
 import Editor from '../../ui/Editor';
 import JobPoolForm from './JobPoolForm';

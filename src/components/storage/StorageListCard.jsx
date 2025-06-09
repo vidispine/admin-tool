@@ -1,5 +1,3 @@
-import React from 'react';
-
 import StorageListStorageCard from './StorageListStorageCard';
 
 export default function StorageListCard({ storageListDocument }) {

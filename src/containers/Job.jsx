@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { job as JobApi } from '@vidispine/vdt-api';
 import JobTitle from '../components/job/JobTitle';
@@ -16,7 +16,7 @@ const JOB_DUPLICATE_DIALOG = 'JOB_DUPLICATE_DIALOG';
 const JOB_ABORT_DIALOG = 'JOB_ABORT_DIALOG';
 const JOB_REMOVE_DIALOG = 'JOB_REMOVE_DIALOG';
 
-class Job extends React.PureComponent {
+class Job extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

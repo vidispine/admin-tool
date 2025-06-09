@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShapeVideoComponentCard from './ShapeVideoComponentCard';
 
 export default function ShapeVideoComponentList({ shapeDocument = {}, ...props }) {

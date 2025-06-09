@@ -1,4 +1,3 @@
-import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 // import { ReactComponent as headerLogo } from '../../assets/header-logo.svg';
 

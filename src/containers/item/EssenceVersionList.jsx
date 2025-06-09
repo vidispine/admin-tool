@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { shape as api } from '@vidispine/vdt-api';
 
@@ -6,7 +6,7 @@ import EssenceVersionListCard from '../../components/item/EssenceVersionListCard
 import withSnackbar from '../../hoc/withSnackbar';
 import { withRouterProps } from '../../hoc/withRouterProps';
 
-class EssenceVersionList extends React.PureComponent {
+class EssenceVersionList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import {
   reduxForm, Field, FormSection, FieldArray,
@@ -24,7 +24,7 @@ const AccessControlType = ({ fields }) => (
   <>
     <InputLabel>Access Control</InputLabel>
     {fields.map((thisField, index) => (
-      <React.Fragment
+      <Fragment
         key={thisField}
       >
         <Grid
@@ -131,7 +131,7 @@ const AccessControlType = ({ fields }) => (
           </Grid>
         </Grid>
         <Divider />
-      </React.Fragment>
+      </Fragment>
     ))}
     <Grid item>
       <TextButton onClick={() => fields.push()} color="primary">

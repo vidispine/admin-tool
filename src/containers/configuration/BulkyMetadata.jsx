@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import BulkyMetadataCard from '../../components/configuration/bulkymetadata/BulkyMetadataCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const BULKYMETADATACONFIGURATION_REMOVE_MODAL = 'BULKYMETADATACONFIGURATION_REMOVE_MODAL';
 
-class BulkyMetadata extends React.PureComponent {
+class BulkyMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

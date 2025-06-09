@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -17,7 +17,7 @@ import * as actions from '../../actions';
 
 const EDIT_TASKGROUP_FORM = 'EDIT_TASKGROUP_FORM';
 
-class ImportSettingsEditor extends React.PureComponent {
+class ImportSettingsEditor extends PureComponent {
   constructor(props) {
     super(props);
     this.toggleEdit = this.toggleEdit.bind(this);

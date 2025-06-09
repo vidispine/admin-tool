@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { storage as api } from '@vidispine/vdt-api';
@@ -18,7 +18,7 @@ const STORAGE_TYPE_DIALOG = 'STORAGE_TYPE_DIALOG';
 const STORAGE_EVACUATE_DIALOG = 'STORAGE_EVACUATE_DIALOG';
 const STORAGE_EVACUATE_CANCEL_DIALOG = 'STORAGE_EVACUATE_CANCEL_DIALOG';
 
-class Storage extends React.PureComponent {
+class Storage extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

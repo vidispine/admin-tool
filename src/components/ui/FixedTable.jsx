@@ -1,4 +1,3 @@
-import React from 'react';
 import MUITable from '@material-ui/core/Table';
 import { withStyles } from '@material-ui/core/styles';
 

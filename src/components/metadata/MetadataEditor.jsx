@@ -1,4 +1,3 @@
-import React from 'react';
 import Editor from '../ui/Editor';
 import MetadataForm from './MetadataForm';
 import MetadataDisplay from './MetadataDisplay';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { storagegroup as api } from '@vidispine/vdt-api';
@@ -14,7 +14,7 @@ const STORAGEGROUP_CODE_MODAL = 'STORAGEGROUP_CODE_MODAL';
 const STORAGEGROUP_REMOVE_MODAL = 'STORAGEGROUP_REMOVE_MODAL';
 const STORAGEGROUP_STORAGE_ADD_MODAL = 'STORAGEGROUP_STORAGE_ADD_MODAL';
 
-class StorageGroup extends React.PureComponent {
+class StorageGroup extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { access as api } from '@vidispine/vdt-api';
 import { compose } from 'redux';
 
@@ -10,7 +10,7 @@ import withUI from '../hoc/withUI';
 
 const ACCESSCONTROL_REMOVE_MODAL = 'ACCESSCONTROL_REMOVE_MODAL';
 
-class AccessControl extends React.PureComponent {
+class AccessControl extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

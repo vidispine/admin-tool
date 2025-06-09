@@ -1,4 +1,3 @@
-import React from 'react';
 import startCase from 'lodash.startcase';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';

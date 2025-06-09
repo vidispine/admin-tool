@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 
@@ -19,7 +19,7 @@ const CollectionListTableCard = compose(
   withPaginationForm,
 )(CollectionListTable);
 
-class CollectionSearch extends React.PureComponent {
+class CollectionSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

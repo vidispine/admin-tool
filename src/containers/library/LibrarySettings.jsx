@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { library as api } from '@vidispine/vdt-api';
 import LibrarySettingsCard from '../../components/library/LibrarySettingsCard';
 
 import withSnackbar from '../../hoc/withSnackbar';
 
-class LibrarySettings extends React.PureComponent {
+class LibrarySettings extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

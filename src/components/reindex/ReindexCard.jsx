@@ -1,4 +1,3 @@
-import React from 'react';
 import startCase from 'lodash.startcase';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';

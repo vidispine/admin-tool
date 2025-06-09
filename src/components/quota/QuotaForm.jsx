@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import {
   reduxForm, Field, FormSection, FieldArray,
@@ -18,7 +18,7 @@ import GroupSelect from '../group/GroupSelect';
 const ResourceArray = ({ fields }) => (
   <>
     {fields.map((thisField, index) => (
-      <React.Fragment key={thisField}>
+      <Fragment key={thisField}>
         <Grid
           key={thisField}
           container
@@ -48,7 +48,7 @@ const ResourceArray = ({ fields }) => (
             </IconButton>
           </Grid>
         </Grid>
-      </React.Fragment>
+      </Fragment>
     ))}
     <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
       Add Resource

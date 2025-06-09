@@ -1,4 +1,3 @@
-import React from 'react';
 import MUITableCell from '@material-ui/core/TableCell';
 
 function TableCell({

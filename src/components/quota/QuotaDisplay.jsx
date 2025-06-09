@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -24,7 +24,7 @@ export const QuotaRuleType = ({ rule }) => (
       && (
       <>
         {rule.resource.map((resource) => (
-          <React.Fragment
+          <Fragment
             key={resource.name}
           >
             <Divider />
@@ -33,7 +33,7 @@ export const QuotaRuleType = ({ rule }) => (
             <TextGrid title="Resource Usage" value={resource.usage} />
             <LinearProgress variant="determinate" value={(resource.usage / resource.limit) * 100} />
 
-          </React.Fragment>
+          </Fragment>
         ))}
         <Divider />
       </>

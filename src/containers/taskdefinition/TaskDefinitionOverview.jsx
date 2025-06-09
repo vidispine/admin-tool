@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { taskdefinition as api } from '@vidispine/vdt-api';
 import TaskDefinitionListCard from '../../components/taskdefinition/TaskDefinitionListCard';
@@ -8,7 +8,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const TASKDEFINITION_DIALOG = 'TASKDEFINITION_DIALOG';
 
-class TaskDefinition extends React.PureComponent {
+class TaskDefinition extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

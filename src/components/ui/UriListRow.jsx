@@ -1,4 +1,3 @@
-import React from 'react';
 import startCase from 'lodash.startcase';
 import TableCell from '@material-ui/core/TableCell';
 

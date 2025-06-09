@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import TitleHeader from '../components/ui/TitleHeader';
@@ -10,7 +10,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const ANALYZEPRESET_CREATE_MODAL = 'ANALYZEPRESET_CREATE_MODAL';
 
-class AnalyzePresetList extends React.PureComponent {
+class AnalyzePresetList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

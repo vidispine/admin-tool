@@ -1,8 +1,8 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-export default class StatefulSelect extends React.PureComponent {
+export default class StatefulSelect extends PureComponent {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);

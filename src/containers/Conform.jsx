@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 
@@ -9,7 +9,7 @@ import * as actions from '../actions';
 
 const CONFORM_CODE_MODAL = 'CONFORM_CODE_MODAL';
 
-class Conform extends React.PureComponent {
+class Conform extends PureComponent {
   render() {
     const {
       modalName,

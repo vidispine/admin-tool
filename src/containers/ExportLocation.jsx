@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import update from 'immutability-helper';
 
 import { exportlocation as api } from '@vidispine/vdt-api';
@@ -11,7 +11,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const EXPORTLOCATION_REMOVE_MODAL = 'EXPORTLOCATION_REMOVE_MODAL';
 
-class ExportLocation extends React.PureComponent {
+class ExportLocation extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

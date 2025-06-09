@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
 import TitleHeader from '../components/ui/TitleHeader';
@@ -12,7 +12,7 @@ import withUI from '../hoc/withUI';
 
 const NOTIFICATION_CREATE_DIALOG = 'NOTIFICATION_CREATE_DIALOG';
 
-class NotificationResourceList extends React.PureComponent {
+class NotificationResourceList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

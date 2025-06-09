@@ -1,8 +1,8 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import GitHubIcon from './GitHubIcon';
 
-const GitHubButton = React.forwardRef((props, ref) => (
+const GitHubButton = forwardRef((props, ref) => (
   <IconButton
     color="inherit"
     href="https://github.com/vidispine/admin-tool"

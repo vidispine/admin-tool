@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 const withErrorBoundary = (WrappedComponent) => (
-  class extends React.Component {
+  class extends Component {
     constructor(props) {
       super(props);
       this.state = { hasError: null };

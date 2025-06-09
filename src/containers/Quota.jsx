@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { quota as QuotaApi } from '@vidispine/vdt-api';
@@ -15,7 +15,7 @@ const QUOTA_CODE_MODAL = 'QUOTA_CODE_MODAL';
 const QUOTA_REMOVE_MODAL = 'QUOTA_REMOVE_MODAL';
 const QUOTA_CREATE_MODAL = 'QUOTA_CREATE_MODAL';
 
-class AccessControl extends React.Component {
+class AccessControl extends Component {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

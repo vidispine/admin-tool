@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import Typography from '@material-ui/core/Typography';

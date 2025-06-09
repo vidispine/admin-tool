@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 
@@ -14,7 +14,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const ITEM_SEARCH_FORM = 'ITEM_SEARCH_FORM';
 
-class ItemSearch extends React.PureComponent {
+class ItemSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

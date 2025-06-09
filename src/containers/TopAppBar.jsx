@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -52,7 +52,7 @@ function TopAppBar({
   baseUrl,
 }) {
   const changeTheme = useChangeTheme();
-  const [paletteType, setPaletteType] = React.useState(getCookie('paletteType') || 'system');
+  const [paletteType, setPaletteType] = useState(getCookie('paletteType') || 'system');
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredMode = prefersDarkMode ? 'dark' : 'light';
 

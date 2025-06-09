@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';

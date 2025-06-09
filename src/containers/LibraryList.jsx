@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import TitleHeader from '../components/ui/TitleHeader';
 import UriListCard from '../components/ui/UriListCard';
@@ -11,7 +11,7 @@ import withFormSelectors from '../hoc/withFormSelectors';
 
 const LIBRARY_CREATE_DIALOG = 'LIBRARY_CREATE_DIALOG';
 
-class LibraryList extends React.PureComponent {
+class LibraryList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

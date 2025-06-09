@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { user as api } from '@vidispine/vdt-api';
 
 import UserKeyCard from '../../components/user/UserKeyCard';
@@ -8,7 +8,7 @@ import withUI from '../../hoc/withUI';
 
 const USERKEY_CREATE_MODAL = 'USERKEY_CREATE_MODAL';
 
-class UserKey extends React.PureComponent {
+class UserKey extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

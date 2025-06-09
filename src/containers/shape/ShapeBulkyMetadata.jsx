@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { generatePath } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import BulkyMetadataDownloadDialog from '../../components/bulkymetadata/BulkyMet
 
 const BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG = 'BULKYMETADATA_SHAPE_DOWNLOAD_DIALOG';
 
-class ShapeBulkyMetadata extends React.PureComponent {
+class ShapeBulkyMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

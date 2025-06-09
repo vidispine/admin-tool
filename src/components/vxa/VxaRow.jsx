@@ -1,5 +1,3 @@
-import React from 'react';
-
 import UnstyledLink from '../ui/UnstyledLink';
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRow';

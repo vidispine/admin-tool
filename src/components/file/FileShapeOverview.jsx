@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CardList from '../ui/CardList';
 import ShapeContainerComponentCard from '../shape/ShapeContainerComponentCard';
 import ShapeVideoComponentList from '../shape/ShapeVideoComponentList';

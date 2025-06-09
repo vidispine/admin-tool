@@ -1,4 +1,3 @@
-import React from 'react';
 import MetadataEditor from '../metadata/MetadataEditor';
 import * as formActions from '../../formactions/item';
 

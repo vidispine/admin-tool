@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import List from '@material-ui/core/List';
 import { compose } from 'redux';
 import { Route, Switch, generatePath } from 'react-router-dom';
@@ -60,7 +60,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class File extends React.PureComponent {
+class File extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

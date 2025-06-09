@@ -1,4 +1,3 @@
-import React from 'react';
 import LinkIcon from '@material-ui/icons/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';

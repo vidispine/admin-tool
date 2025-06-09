@@ -1,4 +1,3 @@
-import React from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import ReactCodeMirror from 'react-codemirror';

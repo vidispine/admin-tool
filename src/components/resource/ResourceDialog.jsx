@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import startCase from 'lodash.startcase';
 import Dialog from '@material-ui/core/Dialog';

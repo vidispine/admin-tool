@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { sequence as SequenceApi } from '@vidispine/vdt-api';
 import ItemSequenceListCard from '../../components/item/ItemSequenceListCard';
 
@@ -6,7 +6,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const ITEM_SEQUENCE_CREATE_DIALOG = 'ITEM_SEQUENCE_CREATE_DIALOG';
 
-class ItemSequenceList extends React.PureComponent {
+class ItemSequenceList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

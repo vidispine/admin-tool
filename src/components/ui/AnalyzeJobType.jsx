@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { TextField } from '../form';
 import ChipInput from './ChipInput';
 import FormSection from './FormSection';

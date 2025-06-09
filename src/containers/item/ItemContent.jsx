@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import ItemContentParams, { ITEM_PARAMS_FORM } from '../../components/item/ItemContentParams';
 import ItemContentDisplay from '../../components/item/ItemContent';
 
 import withFormActions from '../../hoc/withFormActions';
 
-class ItemContent extends React.PureComponent {
+class ItemContent extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

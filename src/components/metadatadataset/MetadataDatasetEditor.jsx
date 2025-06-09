@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as formActions from '../../formactions/metadatadataset';
 
 import Editor from '../ui/Editor';

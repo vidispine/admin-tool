@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import { collection as api } from '@vidispine/vdt-api';
@@ -13,7 +13,7 @@ import withCard from '../../hoc/withCard';
 const CollectionContentCard = withCard(CollectionContentTable);
 const CollectionMetadataCard = withCard(CollectionMetadataEditor);
 
-class CollectionContent extends React.PureComponent {
+class CollectionContent extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

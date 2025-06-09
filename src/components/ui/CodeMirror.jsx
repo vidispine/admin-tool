@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ReactCodeMirror from 'react-codemirror';
@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-class CodeMirror extends React.Component {
+class CodeMirror extends Component {
   constructor(props) {
     super(props);
     this.cmRef = this.cmRef.bind(this);

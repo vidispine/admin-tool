@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
 import FieldGroupListCard from '../components/fieldgroup/FieldGroupListCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const FIELDGROUPLIST_CREATE_MODAL = 'FIELDGROUPLIST_CREATE_MODAL';
 
-class FieldGroupList extends React.PureComponent {
+class FieldGroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

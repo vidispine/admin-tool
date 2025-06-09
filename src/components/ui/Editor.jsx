@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 
@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
 
-class Editor extends React.PureComponent {
+class Editor extends PureComponent {
   constructor(props) {
     super(props);
     this.toggleEdit = this.toggleEdit.bind(this);

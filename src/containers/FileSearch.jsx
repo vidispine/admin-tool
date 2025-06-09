@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import TitleHeader from '../components/ui/TitleHeader';
@@ -13,7 +13,7 @@ import withPaginationForm from '../hoc/withPaginationForm';
 const FILE_SEARCH_FORM = 'FILE_SEARCH_FORM';
 const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
 
-class FileSearch extends React.PureComponent {
+class FileSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

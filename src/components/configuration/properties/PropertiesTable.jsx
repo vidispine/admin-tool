@@ -1,5 +1,3 @@
-import React from 'react';
-
 import FixedTable from '../../ui/FixedTable';
 import TableBody from '../../ui/TableBody';
 import TableCell from '../../ui/TableCell';

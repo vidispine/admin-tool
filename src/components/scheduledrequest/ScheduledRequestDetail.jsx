@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import { scheduledrequest as api } from '@vidispine/vdt-api';
 import TextGrid from '../ui/TextGrid';
@@ -13,7 +13,7 @@ export default function ScheduledRequestDetail({
     response = {},
   } = scheduledRequestType;
   const { contentType } = response;
-  const [responseBody, setResponseBody] = React.useState();
+  const [responseBody, setResponseBody] = useState();
   const onGetScheduledRequestResponse = () => {
     if (!response.hasBody) return;
     api.getScheduledRequestResponse({ requestId })
@@ -23,7 +23,7 @@ export default function ScheduledRequestDetail({
         openSnackBar({ messageContent, messageColor: 'secondary' });
       });
   };
-  React.useEffect(onGetScheduledRequestResponse, []);
+  useEffect(onGetScheduledRequestResponse, []);
   return (
     <>
       <TextGrid title="URI" value={request.uri} hover />

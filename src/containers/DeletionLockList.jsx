@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import DeletionLockListTitle from '../components/deletionlock/DeletionLockListTitle';
@@ -11,7 +11,7 @@ import withFormSelectors from '../hoc/withFormSelectors';
 const DELETIONLOCKLIST_FILTER_FORM = 'DELETIONLOCKLIST_FILTER_FORM';
 const DELETIONLOCK_CREATE_MODAL = 'DELETIONLOCK_CREATE_MODAL';
 
-class DeletionLockList extends React.PureComponent {
+class DeletionLockList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

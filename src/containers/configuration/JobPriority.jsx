@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
 import JobPriorityCard from '../../components/configuration/jobpriority/JobPriorityCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../../hoc/withSnackbar';
 
 const JOBPRIORITY_REMOVE_DIALOG = 'JOBPRIORITY_REMOVE_DIALOG';
 
-class JobPriority extends React.PureComponent {
+class JobPriority extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

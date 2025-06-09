@@ -1,4 +1,3 @@
-import React from 'react';
 import Editor from '../ui/Editor';
 import LibrarySettingsForm from './LibrarySettingsForm';
 import LibrarySettingsDisplay from './LibrarySettingsDisplay';

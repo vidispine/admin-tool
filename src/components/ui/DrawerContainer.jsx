@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -36,7 +36,7 @@ const styles = (theme) => ({
   },
 });
 
-class DrawerContainer extends React.PureComponent {
+class DrawerContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);

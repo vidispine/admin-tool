@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 import Check from '@material-ui/icons/Check';
 

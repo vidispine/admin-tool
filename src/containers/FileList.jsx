@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 
 import FileListTitle from '../components/file/FileListTitle';
@@ -16,7 +16,7 @@ const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
 const FILE_FILTER_FORM = 'FILE_FILTER_FORM';
 const FILE_ENTITY_DIALOG = 'FILE_ENTITY_DIALOG';
 
-class FileList extends React.PureComponent {
+class FileList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

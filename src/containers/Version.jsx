@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { version as api } from '@vidispine/vdt-api';
 import VersionCard from '../components/version/VersionCard';
@@ -8,7 +8,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const VERSION_UPDATE_MODAL = 'VERSION_UPDATE_MODAL';
 
-class Version extends React.PureComponent {
+class Version extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

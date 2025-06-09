@@ -1,11 +1,11 @@
-import React from 'react';
+import { Children, isValidElement, cloneElement, PureComponent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MUIMenu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export { MenuItem };
-export default class Menu extends React.PureComponent {
+export default class Menu extends PureComponent {
   constructor(props) {
     super(props);
     this.openMenu = this.openMenu.bind(this);
@@ -25,9 +25,9 @@ export default class Menu extends React.PureComponent {
   }
 
   renderChildren() {
-    return React.Children.map(this.props.children, (child) => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(child, {
+    return Children.map(this.props.children, (child) => {
+      if (isValidElement(child)) {
+        return cloneElement(child, {
           onClick: (...args) => {
             if (child.props.onClick) { child.props.onClick(...args); }
             this.closeMenu();

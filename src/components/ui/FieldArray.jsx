@@ -1,4 +1,3 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { FieldArray as RXFieldArray, Field } from 'redux-form';
 import Delete from '@material-ui/icons/Delete';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -165,7 +165,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class Collection extends React.PureComponent {
+class Collection extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

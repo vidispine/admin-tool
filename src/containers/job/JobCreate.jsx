@@ -1,4 +1,3 @@
-import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';

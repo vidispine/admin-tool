@@ -1,4 +1,3 @@
-import React from 'react';
 import { Checkbox } from '../form';
 
 const BoolCheckbox = (p) => (

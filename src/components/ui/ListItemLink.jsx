@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo, forwardRef } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,8 +12,8 @@ export default function ListItemLink(props) {
   } = props;
   const avatarText = (primary && primary[0]) || (secondary && secondary[0]);
 
-  const renderLink = React.useMemo(
-    () => React.forwardRef((itemProps, ref) => (
+  const renderLink = useMemo(
+    () => forwardRef((itemProps, ref) => (
       <NavLink to={to} exact={exact} ref={ref} {...itemProps} />
     )),
     [to, exact],

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { user as api } from '@vidispine/vdt-api';
 import UserCard from '../../components/user/UserCard';
 import UserGroupCard from '../../components/user/UserGroupCard';
@@ -13,7 +13,7 @@ const USER_REALNAME_DIALOG = 'USER_REALNAME_DIALOG';
 const USER_ALIAS_ADD_DIALOG = 'USER_ALIAS_ADD_DIALOG';
 const USER_ALIAS_REMOVE_DIALOG = 'USER_ALIAS_REMOVE_DIALOG';
 
-class User extends React.PureComponent {
+class User extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

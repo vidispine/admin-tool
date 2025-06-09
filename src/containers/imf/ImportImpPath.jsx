@@ -1,9 +1,9 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import ImportImpPathWizard, { EDIT_IMPORTIMPPATH_FORM } from '../../components/imf/ImportImpPathWizard';
 import withFormActions from '../../hoc/withFormActions';
 
-class ImportImpPath extends React.PureComponent {
+class ImportImpPath extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | IMF | Import Path';
   }

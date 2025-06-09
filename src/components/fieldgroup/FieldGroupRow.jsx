@@ -1,4 +1,3 @@
-import React from 'react';
 import Check from '@material-ui/icons/Check';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';

@@ -1,4 +1,3 @@
-import React from 'react';
 import * as formActions from '../../formactions/documentmetadata';
 import Editor from '../ui/Editor';
 import DocumentMetadataForm from './DocumentMetadataForm';

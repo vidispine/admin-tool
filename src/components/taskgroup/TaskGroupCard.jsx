@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SquareCard from '../ui/SquareCard';
 import TaskGroupEditor from './TaskGroupEditor';
 import SimpleMetadataGrid from '../ui/SimpleMetadataGrid';

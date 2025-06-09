@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
 import UriListCard from '../../components/ui/UriListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ComponentBulkyMetadataList extends React.PureComponent {
+class ComponentBulkyMetadataList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

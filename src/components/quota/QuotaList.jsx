@@ -1,5 +1,3 @@
-import React from 'react';
-
 import QuotaCard from './QuotaCard';
 
 export default function AccessControlListCard({

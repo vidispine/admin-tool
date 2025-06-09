@@ -1,4 +1,3 @@
-import React from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

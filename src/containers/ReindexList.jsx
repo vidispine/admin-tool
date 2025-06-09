@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { reindex as api } from '@vidispine/vdt-api';
 import ReindexCard from '../components/reindex/ReindexCard';
@@ -15,7 +15,7 @@ const INDEX_NAMES = [
   'thumbnail',
 ];
 
-class ReindexList extends React.PureComponent {
+class ReindexList extends PureComponent {
   constructor(props) {
     super(props);
     this.onAutoRefresh = this.onAutoRefresh.bind(this);

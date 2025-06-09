@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatadataset as api } from '@vidispine/vdt-api';
 import MetadataDatasetListCard from '../components/metadatadataset/MetadataDatasetListCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const METADATADATASETLIST_CREATE_MODAL = 'METADATADATASETLIST_CREATE_MODAL';
 
-class MetadataDatasetList extends React.PureComponent {
+class MetadataDatasetList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

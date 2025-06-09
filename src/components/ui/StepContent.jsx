@@ -1,4 +1,3 @@
-import React from 'react';
 import MUIStepContent from '@material-ui/core/StepContent';
 import { withStyles } from '@material-ui/core/styles';
 

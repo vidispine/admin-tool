@@ -1,4 +1,3 @@
-import React from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';

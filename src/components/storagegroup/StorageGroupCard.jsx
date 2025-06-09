@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SquareCard from '../ui/SquareCard';
 import StorageGroupStorageCard from './StorageGroupStorageCard';
 import SimpleMetadataGrid from '../ui/SimpleMetadataGrid';

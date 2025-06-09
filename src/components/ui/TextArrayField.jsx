@@ -1,4 +1,3 @@
-import React from 'react';
 import { Field } from 'redux-form';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';

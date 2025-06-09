@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadata as api } from '@vidispine/vdt-api';
 import withSnackbar from '../hoc/withSnackbar';
@@ -9,7 +9,7 @@ import TitleHeader from '../components/ui/TitleHeader';
 
 const MetadataEntryDisplayCard = withCard(MetadataEntryDisplay);
 
-class Metadata extends React.PureComponent {
+class Metadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

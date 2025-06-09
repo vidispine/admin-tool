@@ -1,11 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { errorlog as api } from '@vidispine/vdt-api';
 import ErrorLogTitle from '../components/errorlog/ErrorLogTitle';
 import ErrorLogCard from '../components/errorlog/ErrorLogCard';
 import withSnackbar from '../hoc/withSnackbar';
 
-class ErrorLog extends React.PureComponent {
+class ErrorLog extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

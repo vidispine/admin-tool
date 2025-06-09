@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { sequence as SequenceApi } from '@vidispine/vdt-api';
 
@@ -11,7 +11,7 @@ import TitleMenu from '../../components/ui/TitleMenu';
 
 const ITEM_SEQUENCE_REMOVE_DIALOG = 'ITEM_SEQUENCE_REMOVE_DIALOG';
 
-class ItemSequence extends React.PureComponent {
+class ItemSequence extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

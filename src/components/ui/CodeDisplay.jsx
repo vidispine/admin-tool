@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactJson from 'react-json-view';
 import CodeMirror from './CodeMirror';
 import withErrorBoundary from '../../hoc/withErrorBoundary';

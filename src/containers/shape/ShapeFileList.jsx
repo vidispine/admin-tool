@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { shape as api } from '@vidispine/vdt-api';
 
 import withSnackbar from '../../hoc/withSnackbar';
@@ -8,7 +8,7 @@ import withCard from '../../hoc/withCard';
 
 const FileListCard = withCard(FileListTable);
 
-class ShapeFileList extends React.PureComponent {
+class ShapeFileList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

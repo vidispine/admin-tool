@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
 import CorsCard from '../../components/configuration/cors/CorsCard';
@@ -6,7 +6,7 @@ import CorsCard from '../../components/configuration/cors/CorsCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class Cors extends React.PureComponent {
+class Cors extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

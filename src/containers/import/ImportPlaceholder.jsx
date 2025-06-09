@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import { withRouterProps } from '../../hoc/withRouterProps';
 import withFormActions from '../../hoc/withFormActions';
@@ -6,7 +6,7 @@ import ImportPlaceholderWizard, {
   EDIT_IMPORTPLACEHOLDER_FORM,
 } from '../../components/import/ImportPlaceholderWizard';
 
-class ImportPlaceholder extends React.PureComponent {
+class ImportPlaceholder extends PureComponent {
   componentDidMount() {
     document.title = 'VidiCore Admin | Import | Placeholder';
   }

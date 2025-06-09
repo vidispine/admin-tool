@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -73,9 +73,9 @@ function Wizard({
   openSnackBar,
   submitForm,
 }) {
-  const [versionDocument, setVersionDocument] = React.useState();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [stepsCompleted, setStepsCompleted] = React.useState([]);
+  const [versionDocument, setVersionDocument] = useState();
+  const [activeStep, setActiveStep] = useState(0);
+  const [stepsCompleted, setStepsCompleted] = useState([]);
   const onRefreshVersion = () => {
     try {
       versionApi.getVersion()
@@ -85,8 +85,8 @@ function Wizard({
       openSnackBar({ messageContent, messageColor: 'secondary' });
     }
   };
-  React.useEffect(onRefreshVersion, []);
-  React.useEffect(() => { document.title = 'VidiCore Admin | Wizard'; }, []);
+  useEffect(onRefreshVersion, []);
+  useEffect(() => { document.title = 'VidiCore Admin | Wizard'; }, []);
 
   const onBack = () => {
     if (activeStep !== 0) setActiveStep(activeStep - 1);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import startCase from 'lodash.startcase';
 
@@ -13,7 +13,7 @@ import * as actions from '../actions';
 const RESOURCELIST_CODE_MODAL = 'RESOURCELIST_CODE_MODAL';
 const RESOURCE_CREATE_MODAL = 'RESOURCE_CREATE_MODAL';
 
-class ResourceList extends React.PureComponent {
+class ResourceList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

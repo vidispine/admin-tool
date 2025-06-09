@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TextGrid from '../ui/TextGrid';
 import bytesToSize from '../../utils/bytesToSize';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -21,7 +21,7 @@ const URIComponentTextField = ({ onChange, value, ...props }) => (
   />
 );
 
-class DynamicSelect extends React.PureComponent {
+class DynamicSelect extends PureComponent {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 
@@ -14,7 +14,7 @@ import withFormActions from '../hoc/withFormActions';
 
 const ITEM_METADATAGROUPSEARCH_FORM = 'ITEM_METADATAGROUPSEARCH_FORM';
 
-class ItemMetadataGroupSearch extends React.PureComponent {
+class ItemMetadataGroupSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { vxa as api } from '@vidispine/vdt-api';
 import VxaTitle from '../components/vxa/VxaTitle';
@@ -9,7 +9,7 @@ import withUI from '../hoc/withUI';
 
 const REMOVE_AGENT_DIALOG = 'REMOVE_AGENT_DIALOG';
 
-class Vxa extends React.PureComponent {
+class Vxa extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

@@ -1,4 +1,3 @@
-import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';

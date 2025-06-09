@@ -1,10 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import AccessControlMergedList from '../components/access/AccessControlMergedList';
 import AccessControlMergedParams, { ACCESS_MERGED_PARAMS_FORM } from '../components/access/AccessControlMergedParams';
 import withFormActions from '../hoc/withFormActions';
 
-class AccessControlMerged extends React.PureComponent {
+class AccessControlMerged extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

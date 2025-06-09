@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { storage as api } from '@vidispine/vdt-api';
@@ -12,7 +12,7 @@ import * as actions from '../actions';
 const STORAGEMETHOD_CODE_MODAL = 'STORAGEMETHOD_CODE_MODAL';
 const STORAGEMETHOD_REMOVE_MODAL = 'STORAGEMETHOD_REMOVE_MODAL';
 
-class StorageMethod extends React.PureComponent {
+class StorageMethod extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

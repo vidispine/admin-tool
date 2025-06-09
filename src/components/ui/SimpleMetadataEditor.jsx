@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -28,7 +28,7 @@ const styles = () => ({
   CardHeaderTypography: {},
 });
 
-class SimpleMetadataEditor extends React.PureComponent {
+class SimpleMetadataEditor extends PureComponent {
   constructor(props) {
     super(props);
     this.toggleEdit = this.toggleEdit.bind(this);

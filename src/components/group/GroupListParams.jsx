@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as formActions from '../../formactions/group';
 import FormWrapper from '../ui/FormWrapper';
 import GroupListParamsForm from './GroupListParamsForm';

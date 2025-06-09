@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatafield as api } from '@vidispine/vdt-api';
 import MetadataFieldListCard from '../components/metadatafield/MetadataFieldListCard';
@@ -9,7 +9,7 @@ import withSnackbar from '../hoc/withSnackbar';
 
 const METADATAFIELDLIST_CREATE_MODAL = 'METADATAFIELDLIST_CREATE_MODAL';
 
-class MetadataFieldList extends React.PureComponent {
+class MetadataFieldList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
