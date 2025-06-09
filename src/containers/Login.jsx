@@ -20,8 +20,8 @@ import InitDialog from '../components/login/InitDialog';
 import LoginHelpDialog from '../components/login/LoginHelpDialog';
 import GitHubButton from '../components/ui/GitHubButton';
 
-import { APP_LOGO } from '../const/logos';
 import { getVidispineUrlFromPath } from '../const';
+import VidispineAltIcon from '../components/ui/VidispineAltIcon';
 
 const INIT_MODAL = 'INIT_MODAL';
 const HELP_DIALOG = 'HELP_DIALOG';
@@ -234,20 +234,19 @@ class Login extends React.PureComponent {
             sm={8}
             style={{
               background:
-                'linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)',
+                'linear-gradient(rgba(22, 9, 31, 1), rgba(22, 9, 31, 1))',
             }}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
           >
-            <APP_LOGO
+            <VidispineAltIcon
               alt="VidiCore Admin Tool"
               style={{
                 height: 'inherit',
                 width: '25vw',
                 minWidth: '100px',
-                backgroundColor: '#fff',
               }}
             />
           </Grid>

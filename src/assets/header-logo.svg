@@ -1,1 +1,17 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.64 76.21"><defs><style>.cls-1{fill:#7c74bd;}.cls-2{fill:#6dc3c5;}.cls-3{fill:#0068a9;}.cls-4{fill:#44a8aa;fill-rule:evenodd;}</style></defs><title>Vidispine-icon-RGB</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1-2"><rect class="cls-1" width="21.3" height="21.35"/><rect class="cls-2" x="55.27" y="0.01" width="21.36" height="21.35"/><rect class="cls-3" y="27.19" width="21.3" height="21.35"/><path class="cls-4" d="M55.27,48.54A21.36,21.36,0,0,0,76.64,27.19H55.27Z"/><rect class="cls-3" y="54.86" width="21.3" height="21.35"/><path class="cls-4" d="M27.61,76.21A21.35,21.35,0,0,0,49,54.86H27.61Z"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 747.77 839.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0" y1="419.95" x2="747.77" y2="419.95" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c4198b"/>
+      <stop offset=".34" stop-color="#ef4066"/>
+      <stop offset=".71" stop-color="#f68b1f"/>
+      <stop offset=".99" stop-color="#ffe300"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M192.89,835.33c-1.8,2.9-2.86,4.58-2.86,4.58,182.5-84.01,267.11-105.29,288.23-123.53,11.25-9.72,17.67-22.73,24.63-35.55,25.49-46.91,50.58-94.03,75.87-141.05l165.21-307.15c6.53-12.14,4.52-27.09-4.98-37.08L562.32,9.91c-16.27-17.09-44.82-11.2-52.99,10.93l-192.13,519.88h0c-28.57,77.31-57.14,154.63-85.72,231.94-8.21,22.21-19.81,50.91-38.59,62.67ZM248.33,635.62c-13.78,39.77-27.2,79.69-41.33,119.33-6.03,16.91-12.18,39.24-30.67,46.37-50.01,19.3-72.54-70.95-80.93-102.72C63.6,578.22,31.8,457.84,0,337.46c-.03-7.13,6.32-13.05,13.81-11.91l212.9,32.27c4.05.61,7.5,3.22,9.17,6.96,7.88,17.59,32.26,71.76,60.52,132.03-16.03,46.27-32.05,92.54-48.08,138.81Z"/>
+</svg>
