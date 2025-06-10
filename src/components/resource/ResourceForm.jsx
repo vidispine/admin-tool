@@ -218,6 +218,7 @@ export function VidinetServiceTypeForm() {
       <Field name="url" component={UrlField} label="URL" fullWidth defaultValue="vidinet://" />
       <Field name="name" label="Name" component={TextField} fullWidth />
       <Field name="endpoint" label="Endpoint" component={TextField} fullWidth />
+      <Field name="type" label="Type" component={TextField} fullWidth />
       <Field name="scheme" label="Scheme" component={ChipInput} simple fullWidth />
     </>
   );
@@ -233,6 +234,9 @@ export function EidrTypeForm() {
       <Field name="password" label="Password" component={TextField} fullWidth />
     </>
   );
+}
+export function CallbackLocationResourceTypeForm() {
+  return <Field name="uri" component={TextField} label="URI" fullWidth />;
 }
 
 export function TranscoderTypeForm() {
@@ -312,6 +316,8 @@ function ResourceTypeForm({ resourceType }) {
       return <FormSection name="vidinet" component={VidinetServiceTypeForm} />;
     case 'eidr':
       return <FormSection name="eidr" component={EidrTypeForm} />;
+    case 'callback':
+      return <FormSection name="callback" component={CallbackLocationResourceTypeForm} />;
     default:
       return null;
   }

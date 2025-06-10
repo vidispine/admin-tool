@@ -84,8 +84,9 @@ function CloudConvertHeader() {
 function VidinetServiceRow() {
   return (
     <>
-      <TableCell>Url</TableCell>
       <TableCell>Name</TableCell>
+      <TableCell>Type</TableCell>
+      <TableCell>Url</TableCell>
       <TableCell>Endpoint</TableCell>
       <TableCell>State</TableCell>
     </>
@@ -109,6 +110,10 @@ function ThumbnailServiceHeader() {
       <TableCell>Status</TableCell>
     </>
   );
+}
+
+function CallbackHeader() {
+  return <TableCell>URL</TableCell>;
 }
 
 function ResourceHeader({ resourceType }) {
@@ -137,6 +142,8 @@ function ResourceHeader({ resourceType }) {
       return <VidinetServiceRow />;
     case 'eidr':
       return <EidrHeader />;
+    case 'callback':
+      return <CallbackHeader />;
     default:
       return <TableCell />;
   }

@@ -90,8 +90,9 @@ function CloudConvertRow({ resource }) {
 function VidinetServiceRow({ resource }) {
   return (
     <>
-      <TableCell>{resource.url}</TableCell>
       <TableCell>{resource.name}</TableCell>
+      <TableCell>{resource.type}</TableCell>
+      <TableCell>{resource.url}</TableCell>
       <TableCell>{resource.endpoint}</TableCell>
       <TableCell>{resource.state}</TableCell>
     </>
@@ -106,6 +107,9 @@ function EidrRow({ resource }) {
       <TableCell>{resource.userId}</TableCell>
     </>
   );
+}
+function CallbackRow({ resource }) {
+  return <TableCell>{resource.uri}</TableCell>;
 }
 
 function ResourceRow({ resource, resourceType }) {
@@ -137,6 +141,8 @@ function ResourceRow({ resource, resourceType }) {
       return <VidinetServiceRow resource={resource[resourceType]} resourceType={resourceType} />;
     case 'eidr':
       return <EidrRow resource={resource[resourceType]} resourceType={resourceType} />;
+    case 'callback':
+      return <CallbackRow resource={resource[resourceType]} resourceType={resourceType} />;
     default:
       return <TableCell />;
   }

@@ -195,6 +195,7 @@ function VidinetServiceType({ vidinet }) {
       <TextGrid title="URL" value={vidinet.url} />
       <TextGrid title="Name" value={vidinet.name} />
       <TextGrid title="Endpoint" value={vidinet.endpoint} />
+      <TextGrid title="Type" value={vidinet.type} />
       <TextGrid title="State" value={vidinet.state} />
       <TextGrid title="Scheme" variant="list" value={vidinet.scheme} />
     </>
@@ -211,6 +212,10 @@ function EidrType({ eidr }) {
       <TextGrid title="Password" value={eidr.password} />
     </>
   );
+}
+
+function CallbackLocationResourceType({ callback }) {
+  return <TextGrid title="URI" value={callback.uri} />;
 }
 
 function ResourceType({ resourceType, resourceDocument }) {
@@ -239,6 +244,8 @@ function ResourceType({ resourceType, resourceDocument }) {
       return <VidinetServiceType vidinet={resourceDocument.vidinet} />;
     case 'eidr':
       return <EidrType eidr={resourceDocument.eidr} />;
+    case 'callback':
+      return <CallbackLocationResourceType eidr={resourceDocument.callback} />;
     default:
       return null;
   }
