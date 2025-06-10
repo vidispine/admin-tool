@@ -5,15 +5,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { shapetag as api } from '@vidispine/vdt-api';
 
-export default function ShapeTagRemove({
-  closeModal,
-  isOpen,
-  tagName,
-  history,
-  openSnackBar,
-}) {
+export default function ShapeTagRemove({ closeModal, isOpen, tagName, history, openSnackBar }) {
   const onRemove = () => {
-    api.removeShapeTag({ tagName })
+    api
+      .removeShapeTag({ tagName })
       .then(() => {
         const messageContent = `Shape Tag ${tagName} Removed`;
         openSnackBar({ messageContent });
@@ -27,19 +22,12 @@ export default function ShapeTagRemove({
   };
   return (
     <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Shape Tag "${tagName}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Shape Tag "${tagName}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

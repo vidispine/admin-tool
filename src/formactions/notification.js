@@ -12,12 +12,13 @@ export function onUpdatePlaceholder(form, dispatch, props) {
     const notificationId = props.notificationId || form.notificationId;
     const { notificationDocument } = form;
     const path = `/API/notification/${notificationId}`;
-    return api.updateNotification({
-      notificationId,
-      entityType: 'placeholder',
-      notificationDocument,
-      path,
-    })
+    return api
+      .updateNotification({
+        notificationId,
+        entityType: 'placeholder',
+        notificationDocument,
+        path,
+      })
       .catch((error) => {
         let errorMessage = error.message;
         if (error.response) errorMessage = parseErrorResponse(error);
@@ -35,23 +36,25 @@ export function onUpdate(form, dispatch, props) {
     const entityId = props.entityId || form.entityId;
     const { notificationDocument } = form;
     if (entityId !== undefined) {
-      return api.updateNotificationEntity({
-        notificationId,
-        entityType,
-        entityId,
-        notificationDocument,
-      })
+      return api
+        .updateNotificationEntity({
+          notificationId,
+          entityType,
+          entityId,
+          notificationDocument,
+        })
         .catch((error) => {
           let errorMessage = error.message;
           if (error.response) errorMessage = parseErrorResponse(error);
           throw new SubmissionError({ _error: errorMessage });
         });
     }
-    return api.updateNotification({
-      notificationId,
-      entityType,
-      notificationDocument,
-    })
+    return api
+      .updateNotification({
+        notificationId,
+        entityType,
+        notificationDocument,
+      })
       .catch((error) => {
         let errorMessage = error.message;
         if (error.response) errorMessage = parseErrorResponse(error);
@@ -66,11 +69,12 @@ export function onCreatePlaceholder(form) {
   try {
     const { notificationDocument } = form;
     const path = '/API/notification';
-    return api.createNotification({
-      entityType: 'placeholder',
-      notificationDocument,
-      path,
-    })
+    return api
+      .createNotification({
+        entityType: 'placeholder',
+        notificationDocument,
+        path,
+      })
       .then((response) => ({ ...response }))
       .catch((error) => {
         let errorMessage = error.message;
@@ -88,11 +92,12 @@ export function onCreate(form, dispatch, props) {
     const entityType = props.entityType || Object.keys(notificationDocument.trigger)[0];
     const entityId = props.entityId || form.entityId;
     if (entityId !== undefined) {
-      return api.createNotificationEntity({
-        entityId,
-        entityType,
-        notificationDocument,
-      })
+      return api
+        .createNotificationEntity({
+          entityId,
+          entityType,
+          notificationDocument,
+        })
         .then((response) => ({ ...response, entityType, entityId }))
         .catch((error) => {
           let errorMessage = error.message;
@@ -100,10 +105,11 @@ export function onCreate(form, dispatch, props) {
           throw new SubmissionError({ _error: errorMessage });
         });
     }
-    return api.createNotification({
-      entityType,
-      notificationDocument,
-    })
+    return api
+      .createNotification({
+        entityType,
+        notificationDocument,
+      })
       .then((response) => ({ ...response, entityType }))
       .catch((error) => {
         let errorMessage = error.message;

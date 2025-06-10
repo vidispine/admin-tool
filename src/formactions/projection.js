@@ -5,10 +5,11 @@ import { projection as api } from '@vidispine/vdt-api';
 export function onUpdateOutgoing(form, dispatch, props) {
   const { projectionId } = props;
   const { projectionDocument } = form;
-  return api.updateProjectionOutgoing({
-    projectionId,
-    projectionDocument,
-  })
+  return api
+    .updateProjectionOutgoing({
+      projectionId,
+      projectionDocument,
+    })
     .then(() => ({ projectionDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -22,10 +23,11 @@ export function onUpdateOutgoing(form, dispatch, props) {
 export function onUpdateIncoming(form, dispatch, props) {
   const { projectionId } = props;
   const { projectionDocument } = form;
-  return api.updateProjectionIncoming({
-    projectionId,
-    projectionDocument,
-  })
+  return api
+    .updateProjectionIncoming({
+      projectionId,
+      projectionDocument,
+    })
     .then(() => ({ projectionDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -38,10 +40,11 @@ export function onUpdateIncoming(form, dispatch, props) {
 
 export function onCreateOutgoing(form) {
   const { projectionDocument, projectionId } = form;
-  return api.updateProjectionOutgoing({
-    projectionId,
-    projectionDocument,
-  })
+  return api
+    .updateProjectionOutgoing({
+      projectionId,
+      projectionDocument,
+    })
     .then(() => ({ projectionId, projectionDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -54,10 +57,11 @@ export function onCreateOutgoing(form) {
 
 export function onCreateIncoming(form) {
   const { projectionDocument, projectionId } = form;
-  return api.updateProjectionIncoming({
-    projectionId,
-    projectionDocument,
-  })
+  return api
+    .updateProjectionIncoming({
+      projectionId,
+      projectionDocument,
+    })
     .then(() => ({ projectionDocument, projectionId }))
     .catch((error) => {
       let errorMessage = error.message;

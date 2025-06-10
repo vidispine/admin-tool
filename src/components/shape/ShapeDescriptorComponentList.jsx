@@ -5,13 +5,11 @@ export default function ShapeDescriptorComponentList({ shapeDocument = {}, ...pr
   if (descriptorComponentList === undefined || !Array.isArray(descriptorComponentList)) {
     return null;
   }
-  return (
-    descriptorComponentList.map((descriptorComponent) => (
-      <ShapeDescriptorComponentCard
-        key={descriptorComponent.id}
-        descriptorComponent={descriptorComponent}
-        {...props}
-      />
-    ))
-  );
+  return descriptorComponentList.map((descriptorComponent) => (
+    <ShapeDescriptorComponentCard
+      key={descriptorComponent.id}
+      descriptorComponent={descriptorComponent}
+      {...props}
+    />
+  ));
 }

@@ -4,6 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { metadata as MetadataApi } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
 function MetadataChangeSetTrim({

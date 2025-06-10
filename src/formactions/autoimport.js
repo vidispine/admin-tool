@@ -5,10 +5,11 @@ import { autoimport as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { autoImportRuleDocument } = form;
   const storageId = props.storageId || autoImportRuleDocument.storage;
-  return api.updateAutoImport({
-    storageId,
-    autoImportRuleDocument,
-  })
+  return api
+    .updateAutoImport({
+      storageId,
+      autoImportRuleDocument,
+    })
     .then(() => ({ autoImportRuleDocument }))
     .catch((error) => {
       let errorMessage = error.message;

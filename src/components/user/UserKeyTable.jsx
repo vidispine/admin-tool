@@ -4,20 +4,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import UserKeyRow from './UserKeyRow';
-import UserKeyRemove from './UserKeyRemove';
 import withDialogProps from '../../hoc/withDialogProps';
+
+import UserKeyRemove from './UserKeyRemove';
+import UserKeyRow from './UserKeyRow';
 
 const REMOVE_USERKEY_DIALOG = 'REMOVE_USERKEY_DIALOG';
 
-function UserKeyTable({
-  accessKeyListDocument,
-  onRemoveSuccess,
-  userName,
-  dialogProps,
-  onOpen,
-}) {
-  if (!accessKeyListDocument) { return null; }
+function UserKeyTable({ accessKeyListDocument, onRemoveSuccess, userName, dialogProps, onOpen }) {
+  if (!accessKeyListDocument) {
+    return null;
+  }
   const { key: accessKeyList = [] } = accessKeyListDocument;
   return (
     <>

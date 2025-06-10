@@ -1,27 +1,27 @@
 import { PureComponent } from 'react';
-import { compose } from 'redux';
-import { selftest as api } from '@vidispine/vdt-api';
 
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { compose } from 'redux';
 
+import { selftest as api } from '@vidispine/vdt-api';
+
+import InitDialog from '../components/login/InitDialog';
+import LoginCard from '../components/login/Login';
+import LoginHelpDialog from '../components/login/LoginHelpDialog';
+import SelfTestStatus from '../components/selftest/SelfTestStatus';
+import GitHubButton from '../components/ui/GitHubButton';
+import VidispineAltIcon from '../components/ui/VidispineAltIcon';
+import { getVidispineUrlFromPath } from '../const';
 import { withModalNoRouter } from '../hoc/withModal';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
-import SelfTestStatus from '../components/selftest/SelfTestStatus';
-import LoginCard from '../components/login/Login';
-import InitDialog from '../components/login/InitDialog';
-import LoginHelpDialog from '../components/login/LoginHelpDialog';
-import GitHubButton from '../components/ui/GitHubButton';
-
-import { getVidispineUrlFromPath } from '../const';
-import VidispineAltIcon from '../components/ui/VidispineAltIcon';
 
 const INIT_MODAL = 'INIT_MODAL';
 const HELP_DIALOG = 'HELP_DIALOG';
@@ -52,19 +52,17 @@ class Login extends PureComponent {
   }
 
   async onRefresh() {
-    const { onOpen, useDevProxy, useContainerProxy } = this.props;
+    const { onOpen, useDevProxy, useContainerProxy, baseUrl } = this.props;
     this.setState({ selfTestDocument: undefined });
     await this.setState({ loading: true });
-    let baseURL = useDevProxy ? window.location.origin : this.props.baseUrl;
+    let baseURL = useDevProxy ? window.location.origin : baseUrl;
     if (useContainerProxy) baseURL = window.location.origin;
     try {
       api
         .listSelfTest({
           noAuth: true,
           baseURL,
-          headers: useContainerProxy
-            ? { 'X-Proxy-URL': this.props.baseUrl }
-            : {},
+          headers: useContainerProxy ? { 'X-Proxy-URL': baseUrl } : {},
         })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
@@ -99,31 +97,27 @@ class Login extends PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess({
-    data: token, userName: newUserName, runAs, baseUrl,
-  }) {
+  onSuccess({ data: token, userName: newUserName, runAs, baseUrl }) {
     if (baseUrl) {
       const encodedBaseUrl = encodeURIComponent(baseUrl);
       const encodedPathBaseUrl = getVidispineUrlFromPath()
-        ? encodeURIComponent(getVidispineUrlFromPath()) : undefined;
+        ? encodeURIComponent(getVidispineUrlFromPath())
+        : undefined;
       const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
       if (!pathname.includes(encodedBaseUrl)) {
         let newPath;
         if (encodedPathBaseUrl && pathname.includes(encodedPathBaseUrl)) {
           newPath = pathname.replace(encodedPathBaseUrl, encodedBaseUrl);
         } else {
-          newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+          newPath =
+            pathname === '/'
+              ? [encodedBaseUrl, '/'].join('')
+              : [pathname, encodedBaseUrl, ''].join('/');
         }
         window.history.pushState({}, '', newPath);
       }
     }
-    const {
-      setUserName,
-      setToken,
-      setRunAs,
-      setResponseInterceptor,
-      setBaseUrl,
-    } = this.props;
+    const { setUserName, setToken, setRunAs, setResponseInterceptor, setBaseUrl } = this.props;
     if (runAs) {
       setRunAs(runAs, baseUrl);
     }
@@ -140,12 +134,8 @@ class Login extends PureComponent {
   }
 
   render() {
-    const {
-      selfTestDocument, loading, loadingInit,
-    } = this.state;
-    const {
-      userName, baseUrl, onOpen, useDevProxy,
-    } = this.props;
+    const { selfTestDocument, loading, loadingInit } = this.state;
+    const { userName, baseUrl, onOpen, useDevProxy } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
       queryParams: { autoRefresh: true, seconds: 604800 },
@@ -233,8 +223,7 @@ class Login extends PureComponent {
             item
             sm={8}
             style={{
-              background:
-                'linear-gradient(rgba(22, 9, 31, 1), rgba(22, 9, 31, 1))',
+              background: 'linear-gradient(rgba(22, 9, 31, 1), rgba(22, 9, 31, 1))',
             }}
             container
             direction="column"

@@ -1,19 +1,18 @@
 import * as formActions from '../../../formactions/configuration';
-import Editor from '../../ui/Editor';
-import LogReportForm from './LogReportForm';
-import LogReportDisplay from './LogReportDisplay';
 import withSnackbar from '../../../hoc/withSnackbar';
+import Editor from '../../ui/Editor';
 
-function LogReportEditor({
-  logReportConfigurationDocument,
-  openSnackBar,
-  onSuccess,
-}) {
+import LogReportDisplay from './LogReportDisplay';
+import LogReportForm from './LogReportForm';
+
+function LogReportEditor({ logReportConfigurationDocument, openSnackBar, onSuccess }) {
   const EDIT_LOGREPORT_FORM = 'EDIT_LOGREPORT_FORM';
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'LogReport Configuration Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating LogReport Configuration';

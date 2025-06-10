@@ -4,22 +4,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { service as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function ServiceEnable({
-  open,
-  onClose,
-  openSnackBar,
-  serviceName,
-  onSuccess,
-}) {
+function ServiceEnable({ open, onClose, openSnackBar, serviceName, onSuccess }) {
   const onRemove = () => {
-    api.enableService({ serviceName })
+    api
+      .enableService({ serviceName })
       .then(() => {
         const messageContent = `Service ${serviceName} Enabled`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Enabling Service';
@@ -28,19 +26,12 @@ function ServiceEnable({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Enable Service "${serviceName}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Enable Service "${serviceName}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="primary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="primary" autoFocus>
           Enable
         </Button>
       </DialogActions>

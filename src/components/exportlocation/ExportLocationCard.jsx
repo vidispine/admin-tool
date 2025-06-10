@@ -1,14 +1,11 @@
 import SquareCard from '../ui/SquareCard';
+
 import ExportLocationEditor from './ExportLocationEditor';
 
 export default function FieldGroupCard(props) {
   return (
-    <>
-      <SquareCard>
-        <ExportLocationEditor
-          {...props}
-        />
-      </SquareCard>
-    </>
+    <SquareCard>
+      <ExportLocationEditor {...props} />
+    </SquareCard>
   );
 }

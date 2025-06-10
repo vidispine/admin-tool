@@ -1,9 +1,6 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function AutoImportRuleTitle({
-  storageId,
-  ...props
-}) {
+export default function AutoImportRuleTitle({ storageId, ...props }) {
   return (
     <TitleHeader
       title={storageId}

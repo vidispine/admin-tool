@@ -3,24 +3,34 @@ import Grid from '@material-ui/core/Grid';
 import TextGrid from '../ui/TextGrid';
 import TypeSection from '../ui/TypeSection';
 
-const TaskDefinitionDependency = ({ value = {} }) => (
-  <>
-    <TextGrid title="step" value={value.step} hover hideNoValue />
-    <TextGrid title="previous" value={value.previous} hover variant="boolean" />
-    <TextGrid title="allPrevious" value={value.allPrevious} hover variant="boolean" />
-  </>
-);
+function TaskDefinitionDependency({ value = {} }) {
+  return (
+    <>
+      <TextGrid title="step" value={value.step} hover hideNoValue />
+      <TextGrid title="previous" value={value.previous} hover variant="boolean" />
+      <TextGrid title="allPrevious" value={value.allPrevious} hover variant="boolean" />
+    </>
+  );
+}
 
-export default function TaskDefinitionDisplay({
-  taskDefinitionDocument,
-}) {
+export default function TaskDefinitionDisplay({ taskDefinitionDocument }) {
   return (
     <>
       <Grid container>
         <Grid item sm={6} xs={12}>
           <TextGrid title="ID" value={taskDefinitionDocument.id} hover hideNoValue />
-          <TextGrid title="Cleanup" value={taskDefinitionDocument.cleanup} hover variant="boolean" />
-          <TextGrid title="Critical" value={taskDefinitionDocument.critical} hover variant="boolean" />
+          <TextGrid
+            title="Cleanup"
+            value={taskDefinitionDocument.cleanup}
+            hover
+            variant="boolean"
+          />
+          <TextGrid
+            title="Critical"
+            value={taskDefinitionDocument.critical}
+            hover
+            variant="boolean"
+          />
           <TextGrid title="Extra Data" value={taskDefinitionDocument.extradata} hover hideNoValue />
           <TextGrid title="Flags" value={taskDefinitionDocument.flags} hover hideNoValue />
         </Grid>

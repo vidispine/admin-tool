@@ -1,11 +1,13 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { shape as api } from '@vidispine/vdt-api';
 
 import EssenceVersionCard from '../../components/item/EssenceVersionCard';
-import withSnackbar from '../../hoc/withSnackbar';
-import { withRouterProps } from '../../hoc/withRouterProps';
 import routes from '../../const/routes';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import withSnackbar from '../../hoc/withSnackbar';
 
 class EssenceVersion extends PureComponent {
   constructor(props) {
@@ -37,7 +39,8 @@ class EssenceVersion extends PureComponent {
 
   onFetch({ itemId, versionId }) {
     try {
-      api.getShapeEssence({ itemId, versionId })
+      api
+        .getShapeEssence({ itemId, versionId })
         .then((response) => this.setState({ essenceVersionDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -67,12 +70,13 @@ class EssenceVersion extends PureComponent {
             codeModal="EssenceVersionDocument"
             onRefresh={this.onRefresh}
             versionId={versionId}
-            breadcrumbList={[{ title: 'Version', to: routes.itemVersionList({ itemId }) }, { title: versionId }]}
+            breadcrumbList={[
+              { title: 'Version', to: routes.itemVersionList({ itemId }) },
+              { title: versionId },
+            ]}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {essenceVersionDocument && (
           <EssenceVersionCard
             essenceVersionDocument={essenceVersionDocument}

@@ -1,13 +1,14 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { storage as api } from '@vidispine/vdt-api';
-import StorageListTitle from '../components/storage/StorageListTitle';
-import StorageListCard from '../components/storage/StorageListCard';
-import StorageDialog from '../components/storage/StorageDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import StorageDialog from '../components/storage/StorageDialog';
+import StorageListCard from '../components/storage/StorageListCard';
+import StorageListTitle from '../components/storage/StorageListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const STORAGE_LIST_CODE_MODAL = 'STORAGE_LIST_CODE_MODAL';
 const STORAGE_CREATE_MODAL = 'STORAGE_CREATE_MODAL';
@@ -29,8 +30,7 @@ class StorageList extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listStorage()
-        .then((response) => this.setState({ storageListDocument: response.data }));
+      api.listStorage().then((response) => this.setState({ storageListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Storage List';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -38,15 +38,8 @@ class StorageList extends PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      history,
-    } = this.props;
-    const {
-      storageListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, history } = this.props;
+    const { storageListDocument } = this.state;
     return (
       <>
         <StorageListTitle
@@ -54,20 +47,15 @@ class StorageList extends PureComponent {
           openCreate={() => openModal({ modalName: STORAGE_CREATE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        { storageListDocument
-        && (
-        <StorageListCard
-          storageListDocument={storageListDocument}
-        />
-        )}
+        {storageListDocument && <StorageListCard storageListDocument={storageListDocument} />}
         <CodeModal
-          isOpen={(modalName === STORAGE_LIST_CODE_MODAL)}
+          isOpen={modalName === STORAGE_LIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={storageListDocument}
           title="StorageListDocument"
         />
         <StorageDialog
-          isOpen={(modalName === STORAGE_CREATE_MODAL)}
+          isOpen={modalName === STORAGE_CREATE_MODAL}
           closeModal={closeModal}
           history={history}
         />
@@ -77,7 +65,9 @@ class StorageList extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

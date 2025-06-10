@@ -1,28 +1,24 @@
-import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
-import GroupTable from './GroupTable';
-import GroupParentDialog from './GroupParentDialog';
 import withModal from '../../hoc/withModal';
+
+import GroupParentDialog from './GroupParentDialog';
+import GroupTable from './GroupTable';
 
 const ADD_GROUP_PARENT = 'ADD_GROUP_PARENT';
 
-function GroupParentEditor({
-  groupName,
-  onSuccess,
-  groupDocument,
-  onOpen,
-}) {
+function GroupParentEditor({ groupName, onSuccess, groupDocument, onOpen }) {
   return (
     <>
       <CardHeader
         disableTypography
         title={<Typography variant="subtitle1">Parent Groups</Typography>}
-        action={(
+        action={
           <Grid container direction="row-reverse" alignItems="center">
             <Grid item>
               <Tooltip title="Add">
@@ -32,7 +28,7 @@ function GroupParentEditor({
               </Tooltip>
             </Grid>
           </Grid>
-        )}
+        }
       />
       <GroupTable
         groupListDocument={groupDocument.parentGroupList}

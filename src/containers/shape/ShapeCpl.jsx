@@ -1,8 +1,9 @@
 import { PureComponent } from 'react';
+
 import { shape as api } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
 import CodeMirror from '../../components/ui/CodeMirror';
+import withSnackbar from '../../hoc/withSnackbar';
 import formatXML from '../../utils/formatXML';
 
 class ShapeCpl extends PureComponent {
@@ -35,10 +36,11 @@ class ShapeCpl extends PureComponent {
 
   onFetch(itemId, shapeId) {
     try {
-      api.getShapeCpl({
-        itemId,
-        shapeId,
-      })
+      api
+        .getShapeCpl({
+          itemId,
+          shapeId,
+        })
         .then((response) => {
           this.setState({ cpl: response.data });
         })
@@ -55,33 +57,25 @@ class ShapeCpl extends PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-    } = this.props;
+    const { titleComponent: TitleComponent } = this.props;
     const { cpl } = this.state;
     return (
       <>
-        {TitleComponent && (
-          <TitleComponent
-            onRefresh={this.onRefresh}
-            breadcumbList={['CPL']}
+        {TitleComponent && <TitleComponent onRefresh={this.onRefresh} breadcumbList={['CPL']} />}
+        {cpl && (
+          <CodeMirror
+            value={formatXML(cpl) || ''}
+            options={{
+              readOnly: true,
+              theme: 'material',
+              mode: 'xml',
+              lineWrapping: true,
+              lineNumbers: true,
+              foldGutter: true,
+              gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+            }}
           />
         )}
-        {cpl && (
-        <CodeMirror
-          value={formatXML(cpl) || ''}
-          options={{
-            readOnly: true,
-            theme: 'material',
-            mode: 'xml',
-            lineWrapping: true,
-            lineNumbers: true,
-            foldGutter: true,
-            gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-          }}
-        />
-        )}
-
       </>
     );
   }

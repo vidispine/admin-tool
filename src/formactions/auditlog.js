@@ -4,10 +4,11 @@ import { auditlog as api } from '@vidispine/vdt-api';
 
 export function onAuditList(form) {
   const { queryParams } = form;
-  return api.listAuditLog({
-    path: '/API/log/', // path broken in vdt-api@0.13.0
-    queryParams,
-  })
+  return api
+    .listAuditLog({
+      path: '/API/log/', // path broken in vdt-api@0.13.0
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

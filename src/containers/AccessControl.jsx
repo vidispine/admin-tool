@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
-import { access as api } from '@vidispine/vdt-api';
+
 import { compose } from 'redux';
 
 import AccessControlList from '../components/access/AccessControlList';
-import AccessControlRemove from '../components/access/AccessControlRemove';
 import AccessControlParams, { ACCESS_PARAMS_FORM } from '../components/access/AccessControlParams';
+import AccessControlRemove from '../components/access/AccessControlRemove';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 

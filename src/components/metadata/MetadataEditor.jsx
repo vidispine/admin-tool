@@ -1,8 +1,9 @@
-import Editor from '../ui/Editor';
-import MetadataForm from './MetadataForm';
-import MetadataDisplay from './MetadataDisplay';
 import withSnackbar from '../../hoc/withSnackbar';
 import metadataDocumentToForm from '../../utils/metadataDocumentToForm';
+import Editor from '../ui/Editor';
+
+import MetadataDisplay from './MetadataDisplay';
+import MetadataForm from './MetadataForm';
 
 function MetadataEditor({
   metadataDocument,
@@ -19,12 +20,16 @@ function MetadataEditor({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Metadata Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Metadata';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   const initialMetadataDocument = metadataDocumentToForm(metadataDocument);
   return (

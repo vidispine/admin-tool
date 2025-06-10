@@ -1,12 +1,11 @@
 import SquareCard from '../../ui/SquareCard';
+
 import MetricsEditor from './MetricsEditor';
 
 export default function MetricsCard(props) {
   return (
     <SquareCard>
-      <MetricsEditor
-        {...props}
-      />
+      <MetricsEditor {...props} />
     </SquareCard>
   );
 }

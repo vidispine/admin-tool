@@ -1,36 +1,22 @@
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import { TextField } from '../form';
 
+import { TextField } from '../form';
+import Field from '../ui/Field';
 import FormSection from '../ui/FormSection';
 import InitialDisabledTextField from '../ui/InitialDisabledTextField';
-import Field from '../ui/Field';
 
-const ExternalIdentifierNamespaceType = () => (
-  <>
-    <Field
-      name="name"
-      component={InitialDisabledTextField}
-      fullWidth
-    />
-    <Field
-      name="pattern"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="priority"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-  </>
-);
+function ExternalIdentifierNamespaceType() {
+  return (
+    <>
+      <Field name="name" component={InitialDisabledTextField} fullWidth />
+      <Field name="pattern" component={TextField} fullWidth />
+      <Field name="priority" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
 
-function ExternalIdNamespaceForm({
-  error,
-  handleSubmit,
-}) {
+function ExternalIdNamespaceForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}

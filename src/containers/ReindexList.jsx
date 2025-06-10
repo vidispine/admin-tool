@@ -1,19 +1,13 @@
 import { PureComponent } from 'react';
 
 import { reindex as api } from '@vidispine/vdt-api';
+
 import ReindexCard from '../components/reindex/ReindexCard';
-
 import TitleHeader from '../components/ui/TitleHeader';
-import withSnackbar from '../hoc/withSnackbar';
 import { RUNNING_STATES } from '../const/ReindexStates';
+import withSnackbar from '../hoc/withSnackbar';
 
-const INDEX_NAMES = [
-  'item',
-  'collection',
-  'acl',
-  'file',
-  'thumbnail',
-];
+const INDEX_NAMES = ['item', 'collection', 'acl', 'file', 'thumbnail'];
 
 class ReindexList extends PureComponent {
   constructor(props) {
@@ -56,7 +50,7 @@ class ReindexList extends PureComponent {
     const isRunning = INDEX_NAMES.find((indexName) => {
       const { [indexName]: reindexRequestDocument = {} } = this.state;
       const { status } = reindexRequestDocument;
-      return (RUNNING_STATES.includes(status));
+      return RUNNING_STATES.includes(status);
     });
     if (isRunning === undefined) {
       clearInterval(this.timer);
@@ -68,7 +62,8 @@ class ReindexList extends PureComponent {
 
   onFetch(indexName) {
     try {
-      api.getReindex({ indexName })
+      api
+        .getReindex({ indexName })
         .then((response) => this.setState({ [indexName]: response.data }))
         .catch((error) => {
           if (!error.response) {
@@ -96,8 +91,7 @@ class ReindexList extends PureComponent {
           code={this.state}
           codeModal="All reindexRequestDocument"
         />
-        {
-        INDEX_NAMES.map((indexName) => (
+        {INDEX_NAMES.map((indexName) => (
           <ReindexCard
             key={indexName}
             indexName={indexName}
@@ -110,8 +104,7 @@ class ReindexList extends PureComponent {
               }
             }}
           />
-        ))
-        }
+        ))}
       </>
     );
   }

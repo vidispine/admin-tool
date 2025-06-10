@@ -1,16 +1,13 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import ScheduledRequestFilter from './ScheduledRequestFilter';
 
-export default ({
-  ...props
-}) => (
+export default ({ ...props }) => (
   <SquareCard>
     <CardContent>
-      <ScheduledRequestFilter
-        {...props}
-      />
+      <ScheduledRequestFilter {...props} />
     </CardContent>
   </SquareCard>
 );

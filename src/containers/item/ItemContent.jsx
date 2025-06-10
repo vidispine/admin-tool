@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
-import ItemContentParams, { ITEM_PARAMS_FORM } from '../../components/item/ItemContentParams';
-import ItemContentDisplay from '../../components/item/ItemContent';
 
+import ItemContentDisplay from '../../components/item/ItemContent';
+import ItemContentParams, { ITEM_PARAMS_FORM } from '../../components/item/ItemContentParams';
 import withFormActions from '../../hoc/withFormActions';
 
 class ItemContent extends PureComponent {
@@ -48,19 +48,12 @@ class ItemContent extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ItemContentParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ itemDocument: response.data })}
         />
-        {itemDocument && (
-          <ItemContentDisplay
-            itemId={itemId}
-            itemDocument={itemDocument}
-          />
-        )}
+        {itemDocument && <ItemContentDisplay itemId={itemId} itemDocument={itemDocument} />}
       </>
     );
   }

@@ -1,11 +1,8 @@
 import SquareCard from '../ui/SquareCard';
+
 import AutoImportRuleEditor from './AutoImportRuleEditor';
 
-export default function AutoImportRuleCard({
-  storageId,
-  autoImportRuleDocument,
-  onRefresh,
-}) {
+export default function AutoImportRuleCard({ storageId, autoImportRuleDocument, onRefresh }) {
   return (
     <SquareCard>
       <AutoImportRuleEditor

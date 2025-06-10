@@ -6,10 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import NotificationListRow from './NotificationListRow';
 
-export default function NotificationListTable({
-  notificationList = [],
-  entityType,
-}) {
+export default function NotificationListTable({ notificationList = [], entityType }) {
   return (
     <Table>
       <TableHead>

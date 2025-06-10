@@ -1,15 +1,16 @@
 import { Component } from 'react';
+
 import { connect } from 'react-redux';
 
 import { quota as QuotaApi } from '@vidispine/vdt-api';
-import QuotaTitle from '../components/quota/QuotaTitle';
-import QuotaRemove from '../components/quota/QuotaRemove';
-import QuotaDialog from '../components/quota/QuotaDialog';
-import QuotaList from '../components/quota/QuotaList';
-import QuotaFilter from '../components/quota/QuotaFilter';
 
-import CodeModal from '../components/ui/CodeModal';
 import * as actions from '../actions';
+import QuotaDialog from '../components/quota/QuotaDialog';
+import QuotaFilter from '../components/quota/QuotaFilter';
+import QuotaList from '../components/quota/QuotaList';
+import QuotaRemove from '../components/quota/QuotaRemove';
+import QuotaTitle from '../components/quota/QuotaTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const QUOTA_CODE_MODAL = 'QUOTA_CODE_MODAL';
 const QUOTA_REMOVE_MODAL = 'QUOTA_REMOVE_MODAL';
@@ -50,10 +51,7 @@ class AccessControl extends Component {
   }
 
   onRemove(ruleId) {
-    const {
-      openSnackBar,
-      closeModal,
-    } = this.props;
+    const { openSnackBar, closeModal } = this.props;
     return () => {
       QuotaApi.removeQuota({ ruleId })
         .then(() => {
@@ -78,15 +76,8 @@ class AccessControl extends Component {
   }
 
   render() {
-    const {
-      quotaRuleListDocument,
-      currentRuleId,
-    } = this.state;
-    const {
-      closeModal,
-      modalName,
-      openModal,
-    } = this.props;
+    const { quotaRuleListDocument, currentRuleId } = this.state;
+    const { closeModal, modalName, openModal } = this.props;
     return (
       <>
         <QuotaTitle
@@ -94,31 +85,27 @@ class AccessControl extends Component {
           openCreate={() => openModal({ modalName: QUOTA_CREATE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        <QuotaFilter
-          onFilter={this.onFilter}
-          onRefresh={this.onRefresh}
-        />
+        <QuotaFilter onFilter={this.onFilter} onRefresh={this.onRefresh} />
         <QuotaList
           quotaRuleListDocument={quotaRuleListDocument}
           onRefresh={this.onRefresh}
           openRemove={this.openRemove}
         />
-        { currentRuleId
-          && (
+        {currentRuleId && (
           <QuotaRemove
-            isOpen={(modalName === QUOTA_REMOVE_MODAL)}
+            isOpen={modalName === QUOTA_REMOVE_MODAL}
             closeModal={closeModal}
             onRemove={this.onRemove}
             ruleId={currentRuleId}
           />
-          )}
+        )}
         <QuotaDialog
-          isOpen={(modalName === QUOTA_CREATE_MODAL)}
+          isOpen={modalName === QUOTA_CREATE_MODAL}
           closeModal={closeModal}
           onRefresh={this.onRefresh}
         />
         <CodeModal
-          isOpen={(modalName === QUOTA_CODE_MODAL)}
+          isOpen={modalName === QUOTA_CODE_MODAL}
           toggleDialogue={closeModal}
           code={quotaRuleListDocument}
           title="QuotaRuleListDocument"
@@ -129,7 +116,9 @@ class AccessControl extends Component {
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

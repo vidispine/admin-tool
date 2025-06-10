@@ -1,14 +1,9 @@
-import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import TitleHeader from '../ui/TitleHeader';
 
-export default function ShapeTagTitle({
-  openCode,
-  onRefresh,
-  tagName,
-  openRemove,
-}) {
+export default function ShapeTagTitle({ openCode, onRefresh, tagName, openRemove }) {
   return (
     <TitleHeader
       title={tagName}
@@ -16,11 +11,11 @@ export default function ShapeTagTitle({
       parentTo="/shape-tag/"
       openCode={openCode}
       onRefresh={onRefresh}
-      actionComponent={(
+      actionComponent={
         <IconButton onClick={openRemove}>
           <DeleteForever />
         </IconButton>
-      )}
+      }
     />
   );
 }

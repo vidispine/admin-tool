@@ -1,12 +1,13 @@
 import { PureComponent } from 'react';
+
 import { user as api } from '@vidispine/vdt-api';
-import UserCard from '../../components/user/UserCard';
-import UserGroupCard from '../../components/user/UserGroupCard';
+
 import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
-import UserRealName from '../../components/user/UserRealName';
 import UserAliasAddDialog from '../../components/user/UserAliasAddDialog';
 import UserAliasRemoveDialog from '../../components/user/UserAliasRemoveDialog';
-
+import UserCard from '../../components/user/UserCard';
+import UserGroupCard from '../../components/user/UserGroupCard';
+import UserRealName from '../../components/user/UserRealName';
 import withUI from '../../hoc/withUI';
 
 const USER_REALNAME_DIALOG = 'USER_REALNAME_DIALOG';
@@ -74,11 +75,7 @@ class User extends PureComponent {
   }
 
   render() {
-    const {
-      userName,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { userName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { userDocument, alias } = this.state;
     return (
       <>
@@ -94,10 +91,7 @@ class User extends PureComponent {
         {TabComponent && <TabComponent />}
         {userDocument && (
           <>
-            <UserCard
-              userDocument={userDocument}
-              onDeleteAlias={this.onDeleteAlias}
-            />
+            <UserCard userDocument={userDocument} onDeleteAlias={this.onDeleteAlias} />
             <SimpleMetadataCard
               simpleMetadataDocument={userDocument.metadata}
               onSuccess={this.onRefresh}

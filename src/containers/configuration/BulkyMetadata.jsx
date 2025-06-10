@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
+
 import BulkyMetadataCard from '../../components/configuration/bulkymetadata/BulkyMetadataCard';
 import BulkyMetadataRemove from '../../components/configuration/bulkymetadata/BulkyMetadataRemove';
-
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -26,7 +26,8 @@ class BulkyMetadata extends PureComponent {
 
   onRefresh() {
     try {
-      api.getBulkyMetadataConfiguration()
+      api
+        .getBulkyMetadataConfiguration()
         .then((response) => this.setState({ bulkyMetadataConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -53,9 +54,8 @@ class BulkyMetadata extends PureComponent {
           code={bulkyMetadataConfigurationDocument}
           codeModal="BulkyMetadataConfigurationDocument"
           removeModal={BULKYMETADATACONFIGURATION_REMOVE_MODAL}
-
         />
-        { bulkyMetadataConfigurationDocument && (
+        {bulkyMetadataConfigurationDocument && (
           <BulkyMetadataCard
             bulkyMetadataConfigurationDocument={bulkyMetadataConfigurationDocument}
             onSuccess={this.onRefresh}
@@ -65,7 +65,6 @@ class BulkyMetadata extends PureComponent {
           dialogName={BULKYMETADATACONFIGURATION_REMOVE_MODAL}
           onSuccess={this.onRefresh}
         />
-
       </>
     );
   }

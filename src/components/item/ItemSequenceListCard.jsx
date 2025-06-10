@@ -18,10 +18,7 @@ function ItemSequenceListCard({ title, sequenceListDocument, ...props }) {
         />
       )}
       <CardContent>
-        <ItemSequenceListTable
-          sequenceListDocument={sequenceListDocument}
-          {...props}
-        />
+        <ItemSequenceListTable sequenceListDocument={sequenceListDocument} {...props} />
       </CardContent>
     </Card>
   );

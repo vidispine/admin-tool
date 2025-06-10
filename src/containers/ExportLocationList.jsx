@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { exportlocation as api } from '@vidispine/vdt-api';
-import ExportLocationListCard from '../components/exportlocation/ExportLocationListCard';
-import ExportLocationDialog from '../components/exportlocation/ExportLocationDialog';
-import ExportLocationListTitle from '../components/exportlocation/ExportLocationListTitle';
 
+import ExportLocationDialog from '../components/exportlocation/ExportLocationDialog';
+import ExportLocationListCard from '../components/exportlocation/ExportLocationListCard';
+import ExportLocationListTitle from '../components/exportlocation/ExportLocationListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const EXPORTLOCATION_CREATE_MODAL = 'EXPORTLOCATION_CREATE_MODAL';
@@ -26,7 +26,8 @@ class ExportLocationList extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listExportLocation()
+      api
+        .listExportLocation()
         .then((response) => this.setState({ exportLocationListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Export Location List';
@@ -44,16 +45,13 @@ class ExportLocationList extends PureComponent {
           code={exportLocationListDocument}
           codeModal="ExportLocationListDocument"
         />
-        {exportLocationListDocument
-        && (
-        <ExportLocationListCard
-          exportLocationListDocument={exportLocationListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {exportLocationListDocument && (
+          <ExportLocationListCard
+            exportLocationListDocument={exportLocationListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
-        <ExportLocationDialog
-          dialogName={EXPORTLOCATION_CREATE_MODAL}
-        />
+        <ExportLocationDialog dialogName={EXPORTLOCATION_CREATE_MODAL} />
       </>
     );
   }

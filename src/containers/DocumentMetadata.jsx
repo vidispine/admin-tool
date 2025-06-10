@@ -1,10 +1,11 @@
 import { PureComponent } from 'react';
-import { documentmetadata as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import DocumentMetadataCard from '../components/documentmetadata/DocumentMetadataCard';
-import DocumentMetadataRemove from '../components/documentmetadata/DocumentMetadataRemove';
-import DocumentMetadataDisplayParams from '../components/documentmetadata/DocumentMetadataDisplayParams';
 
+import { documentmetadata as api } from '@vidispine/vdt-api';
+
+import DocumentMetadataCard from '../components/documentmetadata/DocumentMetadataCard';
+import DocumentMetadataDisplayParams from '../components/documentmetadata/DocumentMetadataDisplayParams';
+import DocumentMetadataRemove from '../components/documentmetadata/DocumentMetadataRemove';
+import TitleHeader from '../components/ui/TitleHeader';
 import withSnackbar from '../hoc/withSnackbar';
 
 const DOCUMENT_REMOVE_DIALOG = 'DOCUMENT_REMOVE_DIALOG';
@@ -28,7 +29,8 @@ class DocumentMetadata extends PureComponent {
   onRefresh() {
     const { documentMetadataName } = this.props;
     try {
-      api.getDocumentMetadata({ documentMetadataName })
+      api
+        .getDocumentMetadata({ documentMetadataName })
         .then((response) => this.setState({ metadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {

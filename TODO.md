@@ -1,5 +1,4 @@
-TO-DO
-===
+# TO-DO
 
 1. ~~Placeholder notifications not associated with entities~~
 2. Notifications on specific entities.
@@ -48,33 +47,33 @@ TO-DO
 45. Reindex libraries
 46. Auto-projection rules
 47. Bulky metadata editing
-49. Global metadata
-50. Search document metadata
-51. Document metadata changesets
-52. Modify entity metadata changesets
-53. Entity Metadata Graph
-54. Metadata locks
-55. Metadata field enumaration values
-56. Terse schema
-57. Metadata field ACLs
-58. Metadata migrations
-59. Metadata schema
-60. Item export subtitles
-61. Specify timezone on requests
-62. Projects
-63. Search by metadata group
-64. Secrets
-65. Test shape-tag script
-66. Auto-import rules per storage
-67. Upload file to storage
-68. Import file from path
-69. Reindex single file
-70. Import/export storage definition
-71. Shape filename rules
-72. Shape storage rules
-73. Shape-tag storage rules
-74. Transfer logs
-75. Vidinet cost estimate
-76. Extract logs
-77. Resource tags
-78. Export templates
+48. Global metadata
+49. Search document metadata
+50. Document metadata changesets
+51. Modify entity metadata changesets
+52. Entity Metadata Graph
+53. Metadata locks
+54. Metadata field enumaration values
+55. Terse schema
+56. Metadata field ACLs
+57. Metadata migrations
+58. Metadata schema
+59. Item export subtitles
+60. Specify timezone on requests
+61. Projects
+62. Search by metadata group
+63. Secrets
+64. Test shape-tag script
+65. Auto-import rules per storage
+66. Upload file to storage
+67. Import file from path
+68. Reindex single file
+69. Import/export storage definition
+70. Shape filename rules
+71. Shape storage rules
+72. Shape-tag storage rules
+73. Transfer logs
+74. Vidinet cost estimate
+75. Extract logs
+76. Resource tags
+77. Export templates

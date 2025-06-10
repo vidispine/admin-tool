@@ -1,17 +1,19 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { secret as SecretApi } from '@vidispine/vdt-api';
 
-import { withRouterProps } from '../hoc/withRouterProps';
-import routes from '../const/routes';
-import withSnackbar from '../hoc/withSnackbar';
-import withDialogProps from '../hoc/withDialogProps';
-import SecretRemove from '../components/secret/SecretRemove';
-import SecretValueUpdate from '../components/secret/SecretValueUpdate';
-import SecretValueRemove from '../components/secret/SecretValueRemove';
 import SecretCard from '../components/secret/SecretCard';
-import TitleMenu from '../components/ui/TitleMenu';
+import SecretRemove from '../components/secret/SecretRemove';
+import SecretValueRemove from '../components/secret/SecretValueRemove';
+import SecretValueUpdate from '../components/secret/SecretValueUpdate';
 import TitleHeader from '../components/ui/TitleHeader';
+import TitleMenu from '../components/ui/TitleMenu';
+import routes from '../const/routes';
+import withDialogProps from '../hoc/withDialogProps';
+import { withRouterProps } from '../hoc/withRouterProps';
+import withSnackbar from '../hoc/withSnackbar';
 
 const SECRET_REMOVE_DIALOG = 'SECRET_REMOVE_DIALOG';
 const SECRET_VALUE_REMOVE_DIALOG = 'SECRET_VALUE_REMOVE_DIALOG';
@@ -61,9 +63,7 @@ class Secret extends PureComponent {
   }
 
   render() {
-    const {
-      alias, history, onOpen, dialogProps,
-    } = this.props;
+    const { alias, history, onOpen, dialogProps } = this.props;
     const secretKey = dialogProps?.secretKey;
     const { secretDocument } = this.state;
     return (
@@ -83,7 +83,7 @@ class Secret extends PureComponent {
               title: alias,
             },
           ]}
-          actionComponent={(
+          actionComponent={
             <TitleMenu
               menuItems={[
                 {
@@ -93,7 +93,7 @@ class Secret extends PureComponent {
                 },
               ]}
             />
-          )}
+          }
           addAccessControl={null}
           entityId={null}
         />

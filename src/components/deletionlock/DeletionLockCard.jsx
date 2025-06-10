@@ -1,14 +1,11 @@
 import SquareCard from '../ui/SquareCard';
+
 import DeletionLockEditor from './DeletionLockEditor';
 
 export default function DeletionLockCard(props) {
   return (
-    <>
-      <SquareCard>
-        <DeletionLockEditor
-          {...props}
-        />
-      </SquareCard>
-    </>
+    <SquareCard>
+      <DeletionLockEditor {...props} />
+    </SquareCard>
   );
 }

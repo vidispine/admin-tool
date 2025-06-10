@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
+
 import { utils as api } from '@vidispine/vdt-api';
 
 const styles = ({ palette }) => ({

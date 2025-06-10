@@ -1,8 +1,8 @@
 import { PureComponent } from 'react';
 
-import TransferTitle from '../components/transfer/TransferTitle';
-import TransferFilterCard from '../components/transfer/TransferFilterCard';
 import TransferCard from '../components/transfer/TransferCard';
+import TransferFilterCard from '../components/transfer/TransferFilterCard';
+import TransferTitle from '../components/transfer/TransferTitle';
 import withFormActions from '../hoc/withFormActions';
 
 const TRANSFER_FILTER_FORM = 'TRANSFER_FILTER_FORM';
@@ -40,16 +40,9 @@ class Transfer extends PureComponent {
           codeModal="TransferListDocument"
           onRefresh={this.onRefresh}
         />
-        <TransferFilterCard
-          form={TRANSFER_FILTER_FORM}
-          onSuccess={this.onSuccess}
-        />
-        {transferListDocument
-        && (
-        <TransferCard
-          transferListDocument={transferListDocument}
-          onSuccess={this.onRefresh}
-        />
+        <TransferFilterCard form={TRANSFER_FILTER_FORM} onSuccess={this.onSuccess} />
+        {transferListDocument && (
+          <TransferCard transferListDocument={transferListDocument} onSuccess={this.onRefresh} />
         )}
       </>
     );

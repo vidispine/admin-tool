@@ -1,11 +1,11 @@
 import { PureComponent } from 'react';
 
 import { projection as api } from '@vidispine/vdt-api';
-import ProjectionCreateOutgoing from '../components/projection/ProjectionCreateOutgoing';
+
 import ProjectionCreateIncoming from '../components/projection/ProjectionCreateIncoming';
+import ProjectionCreateOutgoing from '../components/projection/ProjectionCreateOutgoing';
 import ProjectionListTitle from '../components/projection/ProjectionListTitle';
 import UriListCard from '../components/ui/UriListCard';
-
 import withSnackbar from '../hoc/withSnackbar';
 
 const PROJECTION_OUTGOING_CREATE_MODAL = 'PROJECTION_OUTGOING_CREATE_MODAL';
@@ -27,7 +27,8 @@ class ProjectionList extends PureComponent {
 
   onRefresh() {
     try {
-      api.listProjection()
+      api
+        .listProjection()
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {

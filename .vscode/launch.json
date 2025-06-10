@@ -7,11 +7,13 @@
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "env": { "VITE_VIDISPINE_URL": "${input:vidicoreUrl}"},
+      "env": {
+        "VITE_VIDISPINE_URL": "${input:vidicoreUrl}"
+      },
       "stopOnEntry": true
     }
   ],
-    "inputs": [
+  "inputs": [
     {
       "id": "vidicoreUrl",
       "type": "promptString",

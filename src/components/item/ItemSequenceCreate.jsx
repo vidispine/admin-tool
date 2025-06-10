@@ -1,16 +1,16 @@
-import { compose } from 'redux';
-
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import { compose } from 'redux';
 
 import * as formActions from '../../formactions/sequence';
-import ItemSequenceForm from './ItemSequenceForm';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+
+import ItemSequenceForm from './ItemSequenceForm';
 
 const ITEM_SEQUENCE_CREATE_FORM = 'ITEM_SEQUENCE_CREATE_FORM';
 
@@ -59,11 +59,7 @@ function ItemSequenceCreate({
         <Button color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => submitForm(form)}
-        >
+        <Button variant="contained" color="primary" onClick={() => submitForm(form)}>
           Create
         </Button>
       </DialogActions>

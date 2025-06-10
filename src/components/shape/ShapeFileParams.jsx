@@ -1,16 +1,17 @@
-import { compose } from 'redux';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
 import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import { compose } from 'redux';
 
 import * as formActions from '../../formactions/shape';
-import ShapeFileParamsForm from './ShapeFileParamsForm';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
+
+import ShapeFileParamsForm from './ShapeFileParamsForm';
 
 function ShapeFileParams({
   onClose,
@@ -24,7 +25,9 @@ function ShapeFileParams({
   shapeId,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Requesting File';
@@ -52,17 +55,10 @@ function ShapeFileParams({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(form)}
-        >
+        <Button size="small" onClick={() => resetForm(form)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(form)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(form)}>
           Update
         </Button>
       </AccordionActions>

@@ -1,11 +1,11 @@
 import { PureComponent } from 'react';
 
 import { deletionlock as api } from '@vidispine/vdt-api';
-import DeletionLockTitle from '../components/deletionlock/DeletionLockTitle';
+
 import DeletionLockCard from '../components/deletionlock/DeletionLockCard';
 import DeletionLockRemove from '../components/deletionlock/DeletionLockRemove';
+import DeletionLockTitle from '../components/deletionlock/DeletionLockTitle';
 import SimpleMetadataCard from '../components/ui/SimpleMetadataCard';
-
 import withUI from '../hoc/withUI';
 
 const DELETIONLOCK_REMOVE_DIALOG = 'DELETIONLOCK_REMOVE_DIALOG';
@@ -34,7 +34,8 @@ class DeletionLock extends PureComponent {
 
   onFetch(lockId) {
     try {
-      api.getDeletionLock({ lockId })
+      api
+        .getDeletionLock({ lockId })
         .then(({ data }) => this.setState({ deletionLockDocument: data }))
         .catch((error) => this.onFetchError(error));
     } catch (error) {
@@ -50,12 +51,7 @@ class DeletionLock extends PureComponent {
 
   render() {
     const { deletionLockDocument } = this.state;
-    const {
-      lockId,
-      history,
-      entityId,
-      entityType,
-    } = this.props;
+    const { lockId, history, entityId, entityType } = this.props;
     return (
       <>
         <DeletionLockTitle

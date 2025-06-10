@@ -1,5 +1,7 @@
 import { SubmissionError } from 'redux-form';
+
 import { user as UserApi } from '@vidispine/vdt-api';
+
 import withSubmissionError from './withSubmissionError';
 
 export const onCreate = withSubmissionError((form) => {
@@ -7,8 +9,7 @@ export const onCreate = withSubmissionError((form) => {
   return UserApi.createUser({
     userDocument,
     queryParams,
-  })
-    .then(() => ({ data: userDocument }));
+  }).then(() => ({ data: userDocument }));
 });
 
 export const onDisable = withSubmissionError((form, dispatch, props) => {
@@ -78,27 +79,22 @@ function onWhoAmI(form, dispatch, props) {
           errorMessage = statusText;
         }
       }
-      if (status === 'ok' && errorMessage === 'Network Error') throw new SubmissionError({ _error: 'Incorrect Token' });
+      if (status === 'ok' && errorMessage === 'Network Error')
+        throw new SubmissionError({ _error: 'Incorrect Token' });
       throw new SubmissionError({ _error: errorMessage });
     });
 }
 
 export function onGetUserToken(form, dispatch, props) {
-  const {
-    headers = {}, queryParams, baseUrl, accessKey, secretKey,
-  } = form;
+  const { headers = {}, queryParams, baseUrl, accessKey, secretKey } = form;
   const { status } = props;
-  const {
-    runAs, token, bearer, ...headerProps
-  } = headers;
+  const { runAs, token, bearer, ...headerProps } = headers;
   if (accessKey && secretKey) {
     headerProps.username = accessKey;
     headerProps.password = secretKey;
   }
   if (bearer) {
-    headerProps.authorization = bearer.startsWith('Bearer ')
-      ? bearer
-      : `'Bearer ${bearer}`;
+    headerProps.authorization = bearer.startsWith('Bearer ') ? bearer : `'Bearer ${bearer}`;
   }
   if (token) {
     return onWhoAmI(form, dispatch, props);
@@ -127,7 +123,8 @@ export function onGetUserToken(form, dispatch, props) {
           errorMessage = errorMessage || statusText;
         }
       }
-      if (status === 'ok' && errorMessage === 'Network Error') throw new SubmissionError({ _error: 'Incorrect Credentials' });
+      if (status === 'ok' && errorMessage === 'Network Error')
+        throw new SubmissionError({ _error: 'Incorrect Credentials' });
       throw new SubmissionError({ _error: errorMessage });
     });
 }

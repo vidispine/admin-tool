@@ -1,29 +1,24 @@
 import Chip from '@material-ui/core/Chip';
-import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
-import TitleHeader from '../ui/TitleHeader';
-import { OfflineIcon } from '../ui/StatusIcon';
 import withModal from '../../hoc/withModal';
 import Menu, { MenuItem } from '../ui/Menu';
+import { OfflineIcon } from '../ui/StatusIcon';
+import TitleHeader from '../ui/TitleHeader';
 
-const UserStatus = ({ userDocument }) => {
-  if (userDocument === undefined) { return null; }
+function UserStatus({ userDocument }) {
+  if (userDocument === undefined) {
+    return null;
+  }
   const { disabled } = userDocument;
   if (disabled === true) {
-    return (
-      <Chip
-        avatar={
-          <OfflineIcon />
-        }
-        label="Disabled"
-      />
-    );
+    return <Chip avatar={<OfflineIcon />} label="Disabled" />;
   }
   return null;
-};
+}
 
 function UserTitle({
   userName,
@@ -45,7 +40,7 @@ function UserTitle({
       title={userName}
       parentTitle="User"
       parentTo="/user/"
-      iconList={(
+      iconList={
         <>
           <Tooltip title="Access Keys">
             <IconButton onClick={() => history.push(`/user/${userName}/key`)}>
@@ -55,9 +50,9 @@ function UserTitle({
           <UserStatus userDocument={userDocument} />
           <Menu>
             {userName !== 'admin' && (
-            <MenuItem onClick={() => onOpen({ modalName: userNameModal })}>
-              <Typography>Change Username</Typography>
-            </MenuItem>
+              <MenuItem onClick={() => onOpen({ modalName: userNameModal })}>
+                <Typography>Change Username</Typography>
+              </MenuItem>
             )}
             <MenuItem onClick={() => onOpen({ modalName: passwordModal })}>
               <Typography>Change Password</Typography>
@@ -83,7 +78,7 @@ function UserTitle({
             )}
           </Menu>
         </>
-      )}
+      }
       {...props}
     />
   );

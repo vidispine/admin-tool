@@ -1,13 +1,5 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function AutoImportRuleListTitle({
-  ...props
-}) {
-  return (
-    <TitleHeader
-      title="Auto Import Rule"
-      helpTo="/storage/auto-import.html"
-      {...props}
-    />
-  );
+export default function AutoImportRuleListTitle({ ...props }) {
+  return <TitleHeader title="Auto Import Rule" helpTo="/storage/auto-import.html" {...props} />;
 }

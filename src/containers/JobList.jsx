@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
+import JobCreate from '../components/job/JobCreate';
 import JobFilter from '../components/job/JobFilter';
 import JobListCard from '../components/job/JobListCard';
-import JobCreate from '../components/job/JobCreate';
-
 import TitleHeader from '../components/ui/TitleHeader';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
@@ -110,15 +110,8 @@ class JobList extends PureComponent {
   }
 
   render() {
-    const {
-      jobListDocument,
-      count,
-      page,
-      rowsPerPage,
-      orderBy,
-      orderDirection,
-      autoRefresh,
-    } = this.state;
+    const { jobListDocument, count, page, rowsPerPage, orderBy, orderDirection, autoRefresh } =
+      this.state;
     const { history } = this.props;
     return (
       <>
@@ -132,10 +125,7 @@ class JobList extends PureComponent {
           autoRefresh={autoRefresh}
           onChangeAutoRefresh={this.onChangeAutoRefresh}
         />
-        <JobFilter
-          form={JOB_FILTER_FORM}
-          onSuccess={this.onSuccess}
-        />
+        <JobFilter form={JOB_FILTER_FORM} onSuccess={this.onSuccess} />
         <JobListCard
           jobListDocument={jobListDocument}
           count={count}

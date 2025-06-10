@@ -1,19 +1,17 @@
-import { reduxForm, Field, FieldArray } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import { TextField, Select } from '../form';
+import MenuItem from '@material-ui/core/MenuItem';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 
+import { TextField, Select } from '../form';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import ChipInput from '../ui/ChipInput';
-import SimpleMetadataField from '../ui/SimpleMetadataField';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import { KeyValuePairType } from '../ui/FormType';
+import SimpleMetadataField from '../ui/SimpleMetadataField';
 
-function ConformParamsForm({
-  handleSubmit,
-}) {
+function ConformParamsForm({ handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <Field
@@ -32,38 +30,17 @@ function ConformParamsForm({
           <MenuItem value="LOWEST">LOWEST</MenuItem>
         </Field>
       </FormControl>
-      <Field
-        name="queryParams.tag"
-        label="Shape Tag"
-        component={ChipInput}
-        simple
-        fullWidth
-      />
+      <Field name="queryParams.tag" label="Shape Tag" component={ChipInput} simple fullWidth />
       <FormControlLabel
-        control={(
-          <Field
-            name="queryParams.conformMetadata"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="queryParams.conformMetadata" component={BoolCheckbox} />}
         label="Conform Metadata"
       />
       <FormControlLabel
-        control={(
-          <Field
-            name="queryParams.createThumbnails"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="queryParams.createThumbnails" component={BoolCheckbox} />}
         label="Create Thumbnails"
       />
       <FormControlLabel
-        control={(
-          <Field
-            name="queryParams.createPosters"
-            component={BoolCheckbox}
-          />
-        )}
+        control={<Field name="queryParams.createPosters" component={BoolCheckbox} />}
         label="Create Posters"
       />
       <Field
@@ -78,12 +55,7 @@ function ConformParamsForm({
         component={TextField}
         fullWidth
       />
-      <Field
-        name="queryParams.resourceId"
-        label="Transcoder ID"
-        component={TextField}
-        fullWidth
-      />
+      <Field name="queryParams.resourceId" label="Transcoder ID" component={TextField} fullWidth />
       <Field
         name="queryParams.sourceTag"
         label="Source Tags"

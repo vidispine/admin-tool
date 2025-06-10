@@ -5,10 +5,11 @@ import { transfer as api } from '@vidispine/vdt-api';
 export function onUpdateTransferPriority(form, dispatch, props) {
   const transferId = props.transferId || form.transferId;
   const { queryParams } = form;
-  return api.updateTransferPriority({
-    transferId,
-    queryParams,
-  })
+  return api
+    .updateTransferPriority({
+      transferId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -20,9 +21,10 @@ export function onUpdateTransferPriority(form, dispatch, props) {
 
 export function onTransferList(form) {
   const { queryParams } = form;
-  return api.listTransfer({
-    queryParams,
-  })
+  return api
+    .listTransfer({
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

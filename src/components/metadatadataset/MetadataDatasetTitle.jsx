@@ -5,9 +5,9 @@ export default function MetadataDatasetTitle(props) {
     <TitleHeader
       parentTitle="Metadata Dataset"
       parentTo="/metadata-dataset/"
-      title={props.datasetId}
+      title={props?.datasetId}
       helpTo="/ref/metadata/dataset-ref.html"
-      entityId={props.datasetId}
+      entityId={props?.datasetId}
       entityType="metadata-dataset"
       {...props}
     />

@@ -1,17 +1,14 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import MetadataFieldListTable from './MetadataFieldListTable';
 
-export default function MetadataFieldListCard({
-  ...props
-}) {
+export default function MetadataFieldListCard({ ...props }) {
   return (
     <SquareCard>
       <CardContent>
-        <MetadataFieldListTable
-          {...props}
-        />
+        <MetadataFieldListTable {...props} />
       </CardContent>
     </SquareCard>
   );

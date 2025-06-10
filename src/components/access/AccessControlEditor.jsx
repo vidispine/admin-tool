@@ -1,5 +1,5 @@
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 
@@ -22,10 +22,7 @@ export default function AccessControlEditor({
   }
   return (
     <>
-      <CardHeader
-        subheader={accessControlDocument.id}
-        action={actionComponent}
-      />
+      <CardHeader subheader={accessControlDocument.id} action={actionComponent} />
       <CardContent>
         <AccessControlDisplay
           accessControlDocument={accessControlDocument}

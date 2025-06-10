@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 
 import { job as api } from '@vidispine/vdt-api';
+
 import JobListCard from '../../components/job/JobListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -64,9 +65,10 @@ class ItemJob extends PureComponent {
       ],
     };
     try {
-      api.listJob({
-        queryParams,
-      })
+      api
+        .listJob({
+          queryParams,
+        })
         .then((response) => this.onSuccess(response))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -121,19 +123,8 @@ class ItemJob extends PureComponent {
   }
 
   render() {
-    const {
-      jobListDocument,
-      count,
-      page,
-      rowsPerPage,
-      orderBy,
-      orderDirection,
-    } = this.state;
-    const {
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      title,
-    } = this.props;
+    const { jobListDocument, count, page, rowsPerPage, orderBy, orderDirection } = this.state;
+    const { titleComponent: TitleComponent, tabComponent: TabComponent, title } = this.props;
     return (
       <>
         {TitleComponent && (
@@ -144,9 +135,7 @@ class ItemJob extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <JobListCard
           jobListDocument={jobListDocument}
           count={count}

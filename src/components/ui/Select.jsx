@@ -1,22 +1,21 @@
 import { useMemo, useCallback, Component } from 'react';
-import AsyncCreatableSelect from 'react-select/async-creatable';
-import CreatableSelect from 'react-select/creatable';
-import Async from 'react-select/async';
-import Select, { components as SelectComponents } from 'react-select';
-import { change } from 'redux-form';
-import { useTheme, withTheme, alpha } from '@material-ui/core/styles';
+
 import InputLabel from '@material-ui/core/InputLabel';
+import { useTheme, withTheme, alpha } from '@material-ui/core/styles';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ClearIcon from '@material-ui/icons/Clear';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import Select, { components as SelectComponents } from 'react-select';
+import Async from 'react-select/async';
+import AsyncCreatableSelect from 'react-select/async-creatable';
+import CreatableSelect from 'react-select/creatable';
+import { change } from 'redux-form';
 
 const stylesOverride = {
   container: (base, state) => ({
     ...base,
     fontSize: state?.selectProps?.typography?.htmlFontSize,
-    color: state.isDisabled
-      ? state.selectProps.palette.text.disabled
-      : 'inherit',
+    color: state.isDisabled ? state.selectProps.palette.text.disabled : 'inherit',
   }),
   valueContainer: (base) => ({
     ...base,
@@ -26,18 +25,13 @@ const stylesOverride = {
     ...base,
     backgroundColor: state.selectProps.palette.selected,
     borderRadius: '0',
-    borderWidth:
-      state.selectProps.variant === 'outlined'
-        ? '1px 1px 1px 1px'
-        : '0 0 1px 0',
+    borderWidth: state.selectProps.variant === 'outlined' ? '1px 1px 1px 1px' : '0 0 1px 0',
     boxShadow: 'none',
     borderColor:
       state.selectProps.palette.type === 'light'
         ? 'rgba(0, 0, 0, 0.42)'
         : 'rgba(255, 255, 255, 0.7)',
-    color: state.isDisabled
-      ? state.selectProps.palette.text.disabled
-      : 'inherit',
+    color: state.isDisabled ? state.selectProps.palette.text.disabled : 'inherit',
   }),
   dropdownIndicator: (base) => ({
     ...base,
@@ -54,9 +48,7 @@ const stylesOverride = {
   }),
   input: (base, state) => ({
     ...base,
-    color: state.isDisabled
-      ? state.selectProps.palette.text.disabled
-      : 'inherit',
+    color: state.isDisabled ? state.selectProps.palette.text.disabled : 'inherit',
     visibility: state.isDisabled ? 'visible' : undefined,
   }),
   menu: (base, state) => ({
@@ -135,36 +127,33 @@ const stylesOverride = {
   },
 };
 
-const MultiValueRemove = (props) => (
-  <SelectComponents.MultiValueRemove {...props}>
-    <CancelIcon />
-  </SelectComponents.MultiValueRemove>
-);
+function MultiValueRemove(props) {
+  return (
+    <SelectComponents.MultiValueRemove {...props}>
+      <CancelIcon />
+    </SelectComponents.MultiValueRemove>
+  );
+}
 
-const ClearIndicator = (props) => (
-  <SelectComponents.ClearIndicator {...props}>
-    <ClearIcon />
-  </SelectComponents.ClearIndicator>
-);
-const DropdownIndicator = (props) => (
-  <SelectComponents.DropdownIndicator {...props}>
-    <ArrowDropDownIcon />
-  </SelectComponents.DropdownIndicator>
-);
+function ClearIndicator(props) {
+  return (
+    <SelectComponents.ClearIndicator {...props}>
+      <ClearIcon />
+    </SelectComponents.ClearIndicator>
+  );
+}
+function DropdownIndicator(props) {
+  return (
+    <SelectComponents.DropdownIndicator {...props}>
+      <ArrowDropDownIcon />
+    </SelectComponents.DropdownIndicator>
+  );
+}
 
-export default function WrappedAsyncSelect({
-  input,
-  meta,
-  components = {},
-  ...props
-}) {
+export default function WrappedAsyncSelect({ input, meta, components = {}, ...props }) {
   const { palette, typography } = useTheme();
   const { value } = input;
-  const {
-    optionLabelKey = 'label',
-    optionValueKey = 'value',
-    creatable = true,
-  } = props;
+  const { optionLabelKey = 'label', optionValueKey = 'value', creatable = true } = props;
   const AsyncSelect = useMemo(() => (creatable ? AsyncCreatableSelect : Async), [creatable]);
   const parse = useCallback((v) => {
     if (v) {
@@ -218,12 +207,10 @@ class UnThemedStatefulAsyncSelect extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.theme = this.theme.bind(this);
-    const { input: { value } } = this.props;
     const {
-      optionLabelKey = 'label',
-      optionValueKey = 'value',
-      isMulti,
-    } = props;
+      input: { value },
+    } = this.props;
+    const { optionLabelKey = 'label', optionValueKey = 'value', isMulti } = props;
     let valueOption;
     let inputValue;
     if (isMulti && value) {
@@ -270,7 +257,8 @@ class UnThemedStatefulAsyncSelect extends Component {
     }
     this.setState({ valueOption });
     onChange(value);
-    if (dispatch) { // Prefer dispatch as more reliable
+    if (dispatch) {
+      // Prefer dispatch as more reliable
       dispatch(change(form, name, value));
     } else {
       onChange(value);
@@ -278,7 +266,8 @@ class UnThemedStatefulAsyncSelect extends Component {
   }
 
   handleInputChange(inputValue) {
-    if (this.props.isMulti) {
+    const { isMulti } = this.props;
+    if (isMulti) {
       if (inputValue.length === 0) {
         this.setState({ inputValue: undefined }); // errors if set to empty array
         return;
@@ -307,13 +296,7 @@ class UnThemedStatefulAsyncSelect extends Component {
   }
 
   render() {
-    const {
-      input,
-      meta,
-      theme,
-      components = {},
-      ...props
-    } = this.props;
+    const { input, meta, theme, components = {}, ...props } = this.props;
     const { palette, typography } = theme;
     const {
       optionLabelKey = 'label',
@@ -330,7 +313,7 @@ class UnThemedStatefulAsyncSelect extends Component {
     const { valueOption, inputValue } = this.state;
     let isDisabled = isDisabledProp;
     if (disableInitial) {
-      isDisabled = (meta.initial !== undefined && meta.initial !== '');
+      isDisabled = meta.initial !== undefined && meta.initial !== '';
     }
     let ThisSelect = Select;
     if (loadOptions) {
@@ -375,12 +358,7 @@ class UnThemedStatefulAsyncSelect extends Component {
 
 export const StatefulAsyncSelect = withTheme(UnThemedStatefulAsyncSelect);
 
-export function WrappedSelect({
-  input,
-  meta,
-  components = {},
-  ...props
-}) {
+export function WrappedSelect({ input, meta, components = {}, ...props }) {
   const { palette, typography } = useTheme();
   const theme = useCallback(
     (selectTheme) => ({
@@ -417,12 +395,7 @@ export function WrappedSelect({
   );
 }
 
-export function WrappedSelectCreatable({
-  input,
-  meta,
-  components = {},
-  ...props
-}) {
+export function WrappedSelectCreatable({ input, meta, components = {}, ...props }) {
   const { palette, typography } = useTheme();
   const theme = useCallback(
     (selectTheme) => ({

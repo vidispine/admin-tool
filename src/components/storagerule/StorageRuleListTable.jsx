@@ -1,20 +1,16 @@
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
-import StorageRuleRow from './StorageRuleRow';
+
 import StorageRuleRemove from './StorageRuleRemove';
-import withDialogProps from '../../hoc/withDialogProps';
+import StorageRuleRow from './StorageRuleRow';
 
 const REMOVE_STORAGERULE_DIALOG = 'REMOVE_STORAGERULE_DIALOG';
 
-function StorageRuleListTable({
-  storageRulesDocument,
-  onRefresh,
-  dialogProps,
-  onOpen,
-}) {
+function StorageRuleListTable({ storageRulesDocument, onRefresh, dialogProps, onOpen }) {
   const { tag: storageRuleList = [] } = storageRulesDocument;
   return (
     <>

@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
-import { item as ItemApi } from '@vidispine/vdt-api';
-import ItemMetadataListCard from '../../components/item/ItemMetadataListCard';
-import ItemMetadataDisplayParams from '../../components/item/ItemMetadataDisplayParams';
-import TimeRepresentation from '../../components/ui/TimeRepresentation';
 
+import { item as ItemApi } from '@vidispine/vdt-api';
+
+import ItemMetadataDisplayParams from '../../components/item/ItemMetadataDisplayParams';
+import ItemMetadataListCard from '../../components/item/ItemMetadataListCard';
+import TimeRepresentation from '../../components/ui/TimeRepresentation';
 import withSnackbar from '../../hoc/withSnackbar';
 
 class ItemMetadata extends PureComponent {

@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
+
 import { configuration as api } from '@vidispine/vdt-api';
 
 import AuthCard from '../../components/configuration/auth/AuthCard';
 import AuthRemove from '../../components/configuration/auth/AuthRemove';
-
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -26,7 +26,8 @@ class OAuth2 extends PureComponent {
 
   onRefresh() {
     try {
-      api.getAuthConfiguration()
+      api
+        .getAuthConfiguration()
         .then((response) => this.setState({ oAuth2ConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -54,16 +55,13 @@ class OAuth2 extends PureComponent {
           codeModal="OAuth2ConfigurationDocument"
           removeModal={AUTH_REMOVE_DIALOG}
         />
-        { oAuth2ConfigurationDocument && (
+        {oAuth2ConfigurationDocument && (
           <AuthCard
             oAuth2ConfigurationDocument={oAuth2ConfigurationDocument}
             onSuccess={this.onRefresh}
           />
         )}
-        <AuthRemove
-          dialogName={AUTH_REMOVE_DIALOG}
-          onSuccess={this.onRefresh}
-        />
+        <AuthRemove dialogName={AUTH_REMOVE_DIALOG} onSuccess={this.onRefresh} />
       </>
     );
   }

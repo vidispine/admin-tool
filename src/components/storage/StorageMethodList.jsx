@@ -1,7 +1,7 @@
-import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
 import StorageMethodListTable from './StorageMethodListTable';
@@ -20,9 +20,7 @@ export default function StorageMethodList({ storageDocument, openMethodCreate })
         action={action}
       />
       <CardContent>
-        <StorageMethodListTable
-          storageDocument={storageDocument}
-        />
+        <StorageMethodListTable storageDocument={storageDocument} />
       </CardContent>
     </>
   );

@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import StorageRow from './StorageRow';
 
-export default function StorageListTable({
-  storageListDocument = {},
-}) {
+export default function StorageListTable({ storageListDocument = {} }) {
   const { storage: storageList = [] } = storageListDocument;
   return (
     <Table>
@@ -19,10 +17,7 @@ export default function StorageListTable({
       </TableHead>
       <TableBody>
         {storageList.map((storageDocument) => (
-          <StorageRow
-            key={storageDocument.id}
-            storageDocument={storageDocument}
-          />
+          <StorageRow key={storageDocument.id} storageDocument={storageDocument} />
         ))}
       </TableBody>
     </Table>

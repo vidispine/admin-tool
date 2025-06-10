@@ -1,16 +1,13 @@
-import Typography from '@material-ui/core/Typography';
-import { reduxForm, Field } from 'redux-form';
+import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import { Select } from '../form';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm, Field } from 'redux-form';
 
 import FileStates from '../../const/FileStates';
+import { Select } from '../form';
 
-function FileStateForm({
-  error,
-  handleSubmit,
-}) {
+function FileStateForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}

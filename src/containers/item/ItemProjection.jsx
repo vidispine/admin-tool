@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import { item as api } from '@vidispine/vdt-api';
-import ItemProjectionCard from '../../components/item/ItemProjectionCard';
 
+import { item as api } from '@vidispine/vdt-api';
+
+import ItemProjectionCard from '../../components/item/ItemProjectionCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
 class ItemProjection extends PureComponent {
@@ -36,11 +37,12 @@ class ItemProjection extends PureComponent {
     const headers = { accept: 'application/xml' };
     const queryParams = { projection: 'default' };
     try {
-      api.getItemMetadata({
-        itemId,
-        headers,
-        queryParams,
-      })
+      api
+        .getItemMetadata({
+          itemId,
+          headers,
+          queryParams,
+        })
         .then((response) => this.setState({ outgoingProjectionDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -72,9 +74,7 @@ class ItemProjection extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {outgoingProjectionDocument && (
           <ItemProjectionCard
             itemId={itemId}

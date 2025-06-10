@@ -1,14 +1,11 @@
 import SquareCard from '../ui/SquareCard';
+
 import StorageRuleTagEditor from './StorageRuleTagEditor';
 
 export default function StorageRuleTagCard(props) {
   return (
-    <>
-      <SquareCard>
-        <StorageRuleTagEditor
-          {...props}
-        />
-      </SquareCard>
-    </>
+    <SquareCard>
+      <StorageRuleTagEditor {...props} />
+    </SquareCard>
   );
 }

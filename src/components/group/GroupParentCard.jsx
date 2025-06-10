@@ -1,17 +1,14 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import GroupParentEditor from './GroupParentEditor';
 
-export default function GroupParentCard({
-  ...props
-}) {
+export default function GroupParentCard({ ...props }) {
   return (
     <SquareCard>
       <CardContent>
-        <GroupParentEditor
-          {...props}
-        />
+        <GroupParentEditor {...props} />
       </CardContent>
     </SquareCard>
   );

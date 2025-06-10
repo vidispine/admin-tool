@@ -1,51 +1,75 @@
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import { TextField, Select } from '../form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
+import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
+import { TextField, Select } from '../form';
+import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
 import { StatefulAsyncSelect } from '../ui/Select';
-import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
-import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
 
-const MetadataValueType = () => (
-  <Grid container spacing={8}>
-    <Grid item sm={10}>
-      <Field
-        name="value"
-        component={TextField}
-        fullWidth
-      />
+function MetadataValueType() {
+  return (
+    <Grid container spacing={8}>
+      <Grid item sm={10}>
+        <Field name="value" component={TextField} fullWidth />
+      </Grid>
+      <Grid item sm={2}>
+        <FormControl fullWidth>
+          <InputLabel htmlFor="mode">Mode</InputLabel>
+          <Field name="mode" component={Select}>
+            <MenuItem value="add">Add</MenuItem>
+            <MenuItem value="remove">Remove</MenuItem>
+          </Field>
+        </FormControl>
+      </Grid>
     </Grid>
-    <Grid item sm={2}>
-      <FormControl fullWidth>
-        <InputLabel htmlFor="mode">Mode</InputLabel>
-        <Field name="mode" component={Select}>
-          <MenuItem value="add">
-            Add
-          </MenuItem>
-          <MenuItem value="remove">
-            Remove
-          </MenuItem>
-        </Field>
-      </FormControl>
-    </Grid>
-  </Grid>
-);
+  );
+}
 
-const MetadataFieldValueType = () => (
-  <Grid container spacing={8}>
-    <Grid item sm={6}>
+function MetadataFieldValueType() {
+  return (
+    <Grid container spacing={8}>
+      <Grid item sm={6}>
+        <Field
+          name="name"
+          label="Field Name"
+          component={StatefulAsyncSelect}
+          loadOptions={loadMetadataFieldOptions}
+          cacheOptions
+          isClearable
+          required
+          fullWidth
+          disableInitial
+          creatable
+        />
+      </Grid>
+      <Grid item sm={6}>
+        <FieldTypeArray
+          name="value"
+          label="value"
+          withHeader={false}
+          direction="row"
+          component={MetadataValueType}
+        />
+      </Grid>
+    </Grid>
+  );
+}
+
+function MetadataGroupValueType() {
+  return (
+    <>
       <Field
         name="name"
-        label="Field Name"
+        label="Group Name"
         component={StatefulAsyncSelect}
-        loadOptions={loadMetadataFieldOptions}
+        loadOptions={loadFieldGroupOptions}
         cacheOptions
         isClearable
         required
@@ -53,91 +77,59 @@ const MetadataFieldValueType = () => (
         disableInitial
         creatable
       />
-    </Grid>
-    <Grid item sm={6}>
       <FieldTypeArray
-        name="value"
-        label="value"
+        name="field"
+        label="field"
         withHeader={false}
-        direction="row"
-        component={MetadataValueType}
+        arrayHeader
+        removeLabel
+        component={MetadataFieldValueType}
       />
-    </Grid>
-  </Grid>
-);
+      <FieldTypeArray
+        name="group"
+        label="group"
+        withHeader={false}
+        arrayHeader
+        removeLabel
+        component={MetadataGroupValueType}
+      />
+    </>
+  );
+}
 
-const MetadataGroupValueType = () => (
-  <>
-    <Field
-      name="name"
-      label="Group Name"
-      component={StatefulAsyncSelect}
-      loadOptions={loadFieldGroupOptions}
-      cacheOptions
-      isClearable
-      required
-      fullWidth
-      disableInitial
-      creatable
-    />
-    <FieldTypeArray
-      name="field"
-      label="field"
-      withHeader={false}
-      arrayHeader
-      removeLabel
-      component={MetadataFieldValueType}
-    />
-    <FieldTypeArray
-      name="group"
-      label="group"
-      withHeader={false}
-      arrayHeader
-      removeLabel
-      component={MetadataGroupValueType}
-    />
-  </>
-);
-
-const MetadataTimespanType = () => (
-  <>
-    <Grid container spacing={8}>
-      <Grid item sm={6}>
-        <Field
-          name="start"
-          component={TextField}
-          fullWidth
-        />
+function MetadataTimespanType() {
+  return (
+    <>
+      <Grid container spacing={8}>
+        <Grid item sm={6}>
+          <Field name="start" component={TextField} fullWidth />
+        </Grid>
+        <Grid item sm={6}>
+          <Field name="end" component={TextField} fullWidth />
+        </Grid>
       </Grid>
-      <Grid item sm={6}>
-        <Field
-          name="end"
-          component={TextField}
-          fullWidth
-        />
-      </Grid>
-    </Grid>
-    <FieldTypeArray
-      name="field"
-      label="field"
-      withHeader={false}
-      arrayHeader
-      removeLabel
-      component={MetadataFieldValueType}
-    />
-    <FieldTypeArray
-      name="group"
-      label="group"
-      withHeader={false}
-      arrayHeader
-      removeLabel
-      component={MetadataGroupValueType}
-    />
-  </>
-);
+      <FieldTypeArray
+        name="field"
+        label="field"
+        withHeader={false}
+        arrayHeader
+        removeLabel
+        component={MetadataFieldValueType}
+      />
+      <FieldTypeArray
+        name="group"
+        label="group"
+        withHeader={false}
+        arrayHeader
+        removeLabel
+        component={MetadataGroupValueType}
+      />
+    </>
+  );
+}
 
-export const MetadataType = () => (
-  <>
+export function MetadataType() {
+  return (
     <FieldTypeArray
       name="timespan"
       label="timespan"
@@ -147,20 +139,14 @@ export const MetadataType = () => (
       removeLabel
       component={MetadataTimespanType}
     />
-  </>
-);
+  );
+}
 
-function MetadataForm({
-  error,
-  handleSubmit,
-}) {
+function MetadataForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="metadataDocument"
-        component={MetadataType}
-      />
+      <FormSection name="metadataDocument" component={MetadataType} />
       <button type="submit" hidden />
     </form>
   );

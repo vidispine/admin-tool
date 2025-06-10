@@ -1,11 +1,13 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
+import LibraryCreate from '../components/library/LibraryCreate';
+import LibraryListParams, {
+  LIBRARY_LIST_PARAMS_FORM,
+} from '../components/library/LibraryListParams';
 import TitleHeader from '../components/ui/TitleHeader';
 import UriListCard from '../components/ui/UriListCard';
-
-import LibraryListParams, { LIBRARY_LIST_PARAMS_FORM } from '../components/library/LibraryListParams';
-import LibraryCreate from '../components/library/LibraryCreate';
-
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
 
@@ -56,14 +58,8 @@ class LibraryList extends PureComponent {
   }
 
   render() {
-    const {
-      uriListDocument,
-      page,
-      rowsPerPage,
-    } = this.state;
-    const {
-      history,
-    } = this.props;
+    const { uriListDocument, page, rowsPerPage } = this.state;
+    const { history } = this.props;
     return (
       <>
         <TitleHeader

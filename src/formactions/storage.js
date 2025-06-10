@@ -4,9 +4,10 @@ import { storage as api } from '@vidispine/vdt-api';
 
 export function onCreate(form) {
   const { storageDocument } = form;
-  return api.createStorage({
-    storageDocument,
-  })
+  return api
+    .createStorage({
+      storageDocument,
+    })
     .then((response) => ({ storageDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -20,10 +21,11 @@ export function onCreate(form) {
 export function onUpdate(form, dispatch, props) {
   const { storageDocument } = form;
   const storageId = props.storageId || storageDocument.storageId;
-  return api.modifyStorage({
-    storageId,
-    storageDocument,
-  })
+  return api
+    .modifyStorage({
+      storageId,
+      storageDocument,
+    })
     .then((response) => ({ storageDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -46,11 +48,12 @@ export function onMethodUpdate(form, dispatch, props) {
     bandwidth: method.bandwidth,
     type: method.type,
   };
-  return api.modifyStorageMethod({
-    storageId,
-    storageMethodId,
-    queryParams,
-  })
+  return api
+    .modifyStorageMethod({
+      storageId,
+      storageMethodId,
+      queryParams,
+    })
     .then((response) => ({ storageMethodDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -72,10 +75,11 @@ export function onMethodCreate(form, dispatch, props) {
     bandwidth: method.bandwidth,
     type: method.type,
   };
-  return api.createStorageMethod({
-    storageId,
-    queryParams,
-  })
+  return api
+    .createStorageMethod({
+      storageId,
+      queryParams,
+    })
     .then((response) => ({ storageMethodDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -89,10 +93,11 @@ export function onMethodCreate(form, dispatch, props) {
 export function onUpdateStorageType(form, dispatch, props) {
   const { type: storageType } = form;
   const storageId = props.storageId || form.storageId;
-  return api.updateStorageType({
-    storageId,
-    storageType,
-  })
+  return api
+    .updateStorageType({
+      storageId,
+      storageType,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

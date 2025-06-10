@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Tooltip from '@material-ui/core/Tooltip';
-import Hidden from '@material-ui/core/Hidden';
 
+import AppBar from '@material-ui/core/AppBar';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import HistoryIcon from '@material-ui/icons/History';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness6Icon from '@material-ui/icons/Brightness6';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import HistoryIcon from '@material-ui/icons/History';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import Menu, { MenuItem } from '../components/ui/Menu';
-import UnstyledLink from '../components/ui/UnstyledLink';
-import LoadingProgress from '../components/ui/LoadingProgress';
-import { useChangeTheme } from '../components/ui/Theme';
-import NavSelect from '../components/ui/NavSelect';
 import GitHubButton from '../components/ui/GitHubButton';
+import LoadingProgress from '../components/ui/LoadingProgress';
+import Menu, { MenuItem } from '../components/ui/Menu';
+import NavSelect from '../components/ui/NavSelect';
+import { useChangeTheme } from '../components/ui/Theme';
+import UnstyledLink from '../components/ui/UnstyledLink';
 import VidispineButton from '../components/ui/VidispineButton';
 import getCookie from '../utils/getCookie';
 
@@ -37,20 +37,15 @@ const styles = (theme) => ({
   VidispineButton: {
     width: 24,
     height: 24,
-    backgroundColor: { light: 'rgb(255, 255, 255)', dark: 'rgb(240, 246, 252)' }[theme.palette.type],
+    backgroundColor: { light: 'rgb(255, 255, 255)', dark: 'rgb(240, 246, 252)' }[
+      theme.palette.type
+    ],
     padding: 2,
     borderRadius: 20,
   },
 });
 
-function TopAppBar({
-  toggleMainMenu,
-  toggleHistory,
-  classes,
-  onLogout,
-  userName,
-  baseUrl,
-}) {
+function TopAppBar({ toggleMainMenu, toggleHistory, classes, onLogout, userName, baseUrl }) {
   const changeTheme = useChangeTheme();
   const [paletteType, setPaletteType] = useState(getCookie('paletteType') || 'system');
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -102,30 +97,21 @@ function TopAppBar({
           {
             light: (
               <Tooltip title="Light Theme">
-                <IconButton
-                  onClick={() => handleChangeThemeMode('dark')}
-                  color="inherit"
-                >
+                <IconButton onClick={() => handleChangeThemeMode('dark')} color="inherit">
                   <Brightness7Icon />
                 </IconButton>
               </Tooltip>
             ),
             dark: (
               <Tooltip title="Dark Theme">
-                <IconButton
-                  onClick={() => handleChangeThemeMode('system')}
-                  color="inherit"
-                >
+                <IconButton onClick={() => handleChangeThemeMode('system')} color="inherit">
                   <Brightness4Icon />
                 </IconButton>
               </Tooltip>
             ),
             system: (
               <Tooltip title="Auto Theme">
-                <IconButton
-                  onClick={() => handleChangeThemeMode('light')}
-                  color="inherit"
-                >
+                <IconButton onClick={() => handleChangeThemeMode('light')} color="inherit">
                   <Brightness6Icon />
                 </IconButton>
               </Tooltip>

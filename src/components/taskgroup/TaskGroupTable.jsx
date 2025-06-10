@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import TaskGroupRow from './TaskGroupRow';
 
-export default function TaskGroupTable({
-  taskGroupListDocument = {},
-}) {
+export default function TaskGroupTable({ taskGroupListDocument = {} }) {
   const { group: groupList = [] } = taskGroupListDocument;
   return (
     <Table>
@@ -20,10 +18,7 @@ export default function TaskGroupTable({
       </TableHead>
       <TableBody>
         {groupList.map((group) => (
-          <TaskGroupRow
-            key={group.name}
-            group={group}
-          />
+          <TaskGroupRow key={group.name} group={group} />
         ))}
       </TableBody>
     </Table>

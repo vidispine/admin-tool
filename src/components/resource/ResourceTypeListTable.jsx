@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import ResourceTypeListRow from './ResourceTypeListRow';
 
-export default function ResourceTypeListTable({
-  resourceTypeListDocument = {},
-}) {
+export default function ResourceTypeListTable({ resourceTypeListDocument = {} }) {
   const { resourcetype: resourceTypeList = [] } = resourceTypeListDocument;
   return (
     <Table>
@@ -19,10 +17,7 @@ export default function ResourceTypeListTable({
       </TableHead>
       <TableBody>
         {resourceTypeList.map((resourceType) => (
-          <ResourceTypeListRow
-            key={resourceType.type}
-            resourceType={resourceType.type}
-          />
+          <ResourceTypeListRow key={resourceType.type} resourceType={resourceType.type} />
         ))}
       </TableBody>
     </Table>

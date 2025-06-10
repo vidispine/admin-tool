@@ -1,17 +1,14 @@
 import SquareCard from '../ui/SquareCard';
-import FieldGroupEditor from './FieldGroupEditor';
-import {
-  FieldGroupBasicForm,
-  FieldGroupSchemaForm,
-  FieldGroupAccessForm,
-} from './FieldGroupForm';
+
+import FieldGroupChildEditor from './FieldGroupChildEditor';
 import {
   FieldGroupBasicDisplay,
   FieldGroupSchemaDisplay,
   FieldGroupAccessDisplay,
 } from './FieldGroupDisplay';
-import FieldGroupChildEditor from './FieldGroupChildEditor';
+import FieldGroupEditor from './FieldGroupEditor';
 import FieldGroupFieldEditor from './FieldGroupFieldEditor';
+import { FieldGroupBasicForm, FieldGroupSchemaForm, FieldGroupAccessForm } from './FieldGroupForm';
 
 export default function FieldGroupCard(props) {
   return (
@@ -33,14 +30,10 @@ export default function FieldGroupCard(props) {
         />
       </SquareCard>
       <SquareCard>
-        <FieldGroupFieldEditor
-          {...props}
-        />
+        <FieldGroupFieldEditor {...props} />
       </SquareCard>
       <SquareCard>
-        <FieldGroupChildEditor
-          {...props}
-        />
+        <FieldGroupChildEditor {...props} />
       </SquareCard>
       <SquareCard>
         <FieldGroupEditor

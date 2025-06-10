@@ -4,17 +4,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { autoimport as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function AutoImportRuleRemove({
-  open,
-  onClose,
-  storageId,
-  history,
-  openSnackBar,
-}) {
+function AutoImportRuleRemove({ open, onClose, storageId, history, openSnackBar }) {
   const onRemove = () => {
-    api.removeAutoImport({ storageId })
+    api
+      .removeAutoImport({ storageId })
       .then(() => {
         const messageContent = `Auto Import Rule ${storageId} Removed`;
         openSnackBar({ messageContent });
@@ -28,19 +24,12 @@ function AutoImportRuleRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Auto Import Rule From "${storageId}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Auto Import Rule From "${storageId}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

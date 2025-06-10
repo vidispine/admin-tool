@@ -4,25 +4,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { job as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function JobRemove({
-  open,
-  onClose,
-  openSnackBar,
-  jobDocument,
-  onSuccess,
-}) {
-  if (jobDocument === undefined) { return null; }
+function JobRemove({ open, onClose, openSnackBar, jobDocument, onSuccess }) {
+  if (jobDocument === undefined) {
+    return null;
+  }
   const { jobId } = jobDocument;
   const onRemove = () => {
     const queryParams = { id: jobId };
-    api.deleteJob({ queryParams })
+    api
+      .deleteJob({ queryParams })
       .then(() => {
         const messageContent = `Job ${jobId} Removed`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing Job';
@@ -31,19 +31,12 @@ function JobRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Job ${jobId}?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Job ${jobId}?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

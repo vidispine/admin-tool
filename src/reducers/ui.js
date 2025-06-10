@@ -30,7 +30,7 @@ function setSnackBar(state, action) {
   return { ...state, snackBar };
 }
 
-export default function uiReducer(state = initialState, action) {
+export default function uiReducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOADING_RECEIVE:
       return { ...state, isLoading: action.isLoading };

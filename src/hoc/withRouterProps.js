@@ -9,9 +9,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export const withRouterProps = (WrappedComponent) => connect(
-  mapStateToProps,
-  null,
-)(withRouter(WrappedComponent));
+export const withRouterProps = (WrappedComponent) =>
+  connect(mapStateToProps, null)(withRouter(WrappedComponent));
 
 export default withRouterProps;

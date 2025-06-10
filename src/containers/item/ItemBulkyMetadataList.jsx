@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
 import UriListCard from '../../components/ui/UriListCard';
@@ -66,9 +67,7 @@ class ItemBulkyMetadataList extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {uriListDocument && (
           <UriListCard
             uriListDocument={uriListDocument}

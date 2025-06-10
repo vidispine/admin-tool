@@ -1,15 +1,15 @@
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { TextField } from '../form';
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { required } from '../../utils/FieldValidation';
+import { TextField } from '../form';
+import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
 import CodeField from '../ui/CodeField';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -23,38 +23,18 @@ const queryParams = () => (
       fullWidth
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="updateItemMetadata"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="updateItemMetadata" component={BoolCheckbox} />}
       label="Update Item Metadata"
     />
-
   </>
 );
 
-function ItemShapeCreateForm({
-  error,
-  handleSubmit,
-  itemId,
-}) {
+function ItemShapeCreateForm({ error, handleSubmit, itemId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      {!itemId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      {!itemId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      <FormSection name="queryParams" component={queryParams} />
       <Field
         name="shapeDocument"
         component={CodeField}

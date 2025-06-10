@@ -1,15 +1,16 @@
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'redux';
 
-import Dialog from '@material-ui/core/Dialog';
 import * as formActions from '../../formactions/group';
-import { GroupChildForm } from './GroupForm';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
 import DialogContent from '../ui/DialogContent';
+
+import { GroupChildForm } from './GroupForm';
 
 const GROUP_CHILD_FORM = 'GROUP_CHILD_FORM';
 
@@ -25,7 +26,9 @@ function GroupChildDialog({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Groups Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = () => {
@@ -51,11 +54,7 @@ function GroupChildDialog({
         <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(GROUP_CHILD_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(GROUP_CHILD_FORM)}>
           Save
         </Button>
       </DialogActions>

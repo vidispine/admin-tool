@@ -1,10 +1,12 @@
 import { SubmissionError } from 'redux-form';
+
 import { configuration as api } from '@vidispine/vdt-api';
 
 import * as actions from '../actions';
 
 export function onSubmit(form) {
-  return api.updatePathAliasConfiguration({ pathAliasConfigurationDocument: form })
+  return api
+    .updatePathAliasConfiguration({ pathAliasConfigurationDocument: form })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -23,7 +25,8 @@ export function onSubmitFail(errors, dispatch) {
 export function onSubmitSuccess(response, dispatch) {
   const { receivePathAlias } = actions.pathalias;
   const { openSnackBar } = actions.ui;
-  api.getPathAliasConfiguration()
+  api
+    .getPathAliasConfiguration()
     .then((r) => r.json())
     .then((pathAliasConfigurationDocument) => {
       dispatch(receivePathAlias({ pathAliasConfigurationDocument }));

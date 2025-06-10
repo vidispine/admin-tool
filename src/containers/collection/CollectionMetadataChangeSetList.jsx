@@ -1,10 +1,11 @@
 import { PureComponent } from 'react';
+
 import { metadata as MetadataApi } from '@vidispine/vdt-api';
+
 import CollectionMetadataChangeSetListCard from '../../components/collection/CollectionMetadataChangeSetListCard';
 import CollectionMetadataChangeSetListParams from '../../components/collection/CollectionMetadataChangeSetListParams';
 import MetadataChangeSetDelete from '../../components/metadata/MetadataChangeSetDelete';
 import MetadataChangeSetTrim from '../../components/metadata/MetadataChangeSetTrim';
-
 import withSnackbar from '../../hoc/withSnackbar';
 
 const COLLECTION_METADATACHANGESET_DELETE_DIALOG = 'COLLECTION_METADATACHANGESET_DELETE_DIALOG';

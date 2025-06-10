@@ -1,25 +1,19 @@
+import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 import { compose } from 'redux';
 
 import JobCreateForm from '../../components/job/JobCreateForm';
 import SquareCard from '../../components/ui/SquareCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import * as formActions from '../../formactions/job';
-
-import withSnackbar from '../../hoc/withSnackbar';
 import withFormActions from '../../hoc/withFormActions';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const JOB_CREATE_FORM = 'JOB_CREATE_FORM';
 
-function JobCreate({
-  openSnackBar,
-  submitForm,
-  initialValues,
-  history,
-}) {
+function JobCreate({ openSnackBar, submitForm, initialValues, history }) {
   const onSubmitSuccess = (response) => {
     const messageContent = 'Job Started';
     openSnackBar({ messageContent });
@@ -31,10 +25,7 @@ function JobCreate({
   };
   return (
     <>
-      <TitleHeader
-        title="Start Job"
-        helpTo="/ref/job.html"
-      />
+      <TitleHeader title="Start Job" helpTo="/ref/job.html" />
       <SquareCard>
         <CardContent>
           <JobCreateForm
@@ -47,11 +38,7 @@ function JobCreate({
         </CardContent>
         <Divider />
         <DialogActions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => submitForm(JOB_CREATE_FORM)}
-          >
+          <Button size="small" color="primary" onClick={() => submitForm(JOB_CREATE_FORM)}>
             Start
           </Button>
         </DialogActions>

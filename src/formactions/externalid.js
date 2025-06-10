@@ -5,10 +5,11 @@ import { externalid as api } from '@vidispine/vdt-api';
 export function onUpdateNamespace(form, dispatch, props) {
   const { externalIdentifierNamespaceDocument } = form;
   const idName = props.idName || externalIdentifierNamespaceDocument.name;
-  return api.updateExternalIdNamespace({
-    idName,
-    externalIdentifierNamespaceDocument,
-  })
+  return api
+    .updateExternalIdNamespace({
+      idName,
+      externalIdentifierNamespaceDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -22,11 +23,12 @@ export function onCreate(form, dispatch, props) {
   const { externalId } = form;
   const entityType = props.entityType || form.entityType;
   const entityId = props.entityId || form.entityId;
-  return api.createExternalId({
-    externalId,
-    entityId,
-    entityType,
-  })
+  return api
+    .createExternalId({
+      externalId,
+      entityId,
+      entityType,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

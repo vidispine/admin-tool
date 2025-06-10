@@ -11,18 +11,13 @@ const spritesheetPathToUrl = ({ thumbnailSpriteSheetDocument, baseUrl }) => {
   return imgUrl;
 };
 
-function ItemThumbnailSpritesheetImage({
-  thumbnailSpriteSheetDocument,
-  baseUrl,
-}) {
+function ItemThumbnailSpritesheetImage({ thumbnailSpriteSheetDocument, baseUrl }) {
   const imgSrc = spritesheetPathToUrl({
     thumbnailSpriteSheetDocument,
     baseUrl,
   });
   if (imgSrc === undefined) return null;
-  return (
-    <ImgExpandButton src={imgSrc} />
-  );
+  return <ImgExpandButton src={imgSrc} />;
 }
 
 export default ItemThumbnailSpritesheetImage;

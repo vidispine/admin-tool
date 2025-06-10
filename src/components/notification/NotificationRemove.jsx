@@ -4,6 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { notification as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
 function NotificationRemove({
@@ -17,12 +18,15 @@ function NotificationRemove({
 }) {
   const onRemovePlaceholder = () => {
     const path = `/API/notification/${notificationId}`;
-    api.removeNotification({ notificationId, entityType: 'placeholder', path })
+    api
+      .removeNotification({ notificationId, entityType: 'placeholder', path })
       .then(() => {
         const messageContent = `Notification ${notificationId} Removed`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing Notification';
@@ -30,12 +34,15 @@ function NotificationRemove({
       });
   };
   const onRemoveResource = () => {
-    api.removeNotification({ notificationId, entityType })
+    api
+      .removeNotification({ notificationId, entityType })
       .then(() => {
         const messageContent = `Notification ${notificationId} Removed`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing Notification';
@@ -43,12 +50,15 @@ function NotificationRemove({
       });
   };
   const onRemoveEntity = () => {
-    api.removeNotificationEntity({ notificationId, entityType, entityId })
+    api
+      .removeNotificationEntity({ notificationId, entityType, entityId })
       .then(() => {
         const messageContent = `Notification ${notificationId} Removed`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing Notification';
@@ -60,19 +70,12 @@ function NotificationRemove({
   else if (entityType) onRemove = onRemoveResource;
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Notification ${notificationId}?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Notification ${notificationId}?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

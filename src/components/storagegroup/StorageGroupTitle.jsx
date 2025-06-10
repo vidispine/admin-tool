@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography';
 
-import TitleHeader from '../ui/TitleHeader';
 import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
 
 export default function StorageGroupTitle({
   groupName,
@@ -17,7 +17,7 @@ export default function StorageGroupTitle({
       title={groupName}
       onRefresh={onRefresh}
       openCode={openCode}
-      actionComponent={(
+      actionComponent={
         <Menu>
           <MenuItem onClick={openAddStorage}>
             <Typography>Add Storage</Typography>
@@ -26,7 +26,7 @@ export default function StorageGroupTitle({
             <Typography color="error">Remove Storage Group</Typography>
           </MenuItem>
         </Menu>
-      )}
+      }
     />
   );
 }

@@ -1,12 +1,11 @@
 import SquareCard from '../../ui/SquareCard';
+
 import FtpPoolEditor from './FtpPoolEditor';
 
 export default function FtpPoolCard(props) {
   return (
     <SquareCard>
-      <FtpPoolEditor
-        {...props}
-      />
+      <FtpPoolEditor {...props} />
     </SquareCard>
   );
 }

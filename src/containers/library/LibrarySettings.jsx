@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import { library as api } from '@vidispine/vdt-api';
-import LibrarySettingsCard from '../../components/library/LibrarySettingsCard';
 
+import { library as api } from '@vidispine/vdt-api';
+
+import LibrarySettingsCard from '../../components/library/LibrarySettingsCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
 class LibrarySettings extends PureComponent {
@@ -34,7 +35,8 @@ class LibrarySettings extends PureComponent {
 
   onFetch(libraryId) {
     try {
-      api.getLibrarySettings({ libraryId })
+      api
+        .getLibrarySettings({ libraryId })
         .then((response) => this.setState({ librarySettingsDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -49,11 +51,7 @@ class LibrarySettings extends PureComponent {
   }
 
   render() {
-    const {
-      libraryId,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { libraryId, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { librarySettingsDocument } = this.state;
     return (
       <>
@@ -64,9 +62,7 @@ class LibrarySettings extends PureComponent {
             onRefresh={this.onRefresh}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {librarySettingsDocument && (
           <LibrarySettingsCard
             libraryId={libraryId}

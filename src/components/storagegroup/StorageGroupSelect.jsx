@@ -1,7 +1,8 @@
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { storage as StorageApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
 const debouncedListStorage = debounce(StorageApi.listStorage, 500, {
@@ -14,8 +15,9 @@ export const loadStorageGroupOptions = async (inputValue) => {
   const { group: groupList = [] } = storageGroupListType;
   let filterStorageGroup = groupList.map((s) => s.name);
   if (inputValue && inputValue !== '*') {
-    filterStorageGroup = filterStorageGroup
-      .filter((f) => f.toLowerCase().includes(inputValue.toLowerCase()));
+    filterStorageGroup = filterStorageGroup.filter((f) =>
+      f.toLowerCase().includes(inputValue.toLowerCase()),
+    );
   }
   const options = filterStorageGroup.map((f) => ({ label: f, value: f }));
   return options;

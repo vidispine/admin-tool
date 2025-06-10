@@ -1,8 +1,9 @@
 import { Component } from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import ReactCodeMirror from 'react-codemirror';
 import CodeMirrorInstance from 'codemirror';
+import ReactCodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
 
@@ -38,17 +39,17 @@ class CodeMirror extends Component {
   }
 
   render() {
-    const { value, classes } = this.props;
-    if (this.jsonRef) { this.jsonRef.codeMirror.setValue(value); }
+    const { value, classes, className } = this.props;
+    if (this.jsonRef) {
+      this.jsonRef.codeMirror.setValue(value);
+    }
     return (
-      <>
-        <ReactCodeMirror
-          codeMirrorInstance={CodeMirrorInstance}
-          ref={this.cmRef}
-          {...this.props}
-          className={clsx([this.props.className, classes.CodeMirror])}
-        />
-      </>
+      <ReactCodeMirror
+        codeMirrorInstance={CodeMirrorInstance}
+        ref={this.cmRef}
+        {...this.props}
+        className={clsx([className, classes.CodeMirror])}
+      />
     );
   }
 }

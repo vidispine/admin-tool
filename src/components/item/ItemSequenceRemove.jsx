@@ -4,17 +4,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { sequence as SequenceApi } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function ItemSequenceRemove({
-  open,
-  itemId,
-  format,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  onError,
-}) {
+function ItemSequenceRemove({ open, itemId, format, onClose, openSnackBar, onSuccess, onError }) {
   const onRemove = async () => {
     try {
       await SequenceApi.removeItemSequence({ itemId, format });

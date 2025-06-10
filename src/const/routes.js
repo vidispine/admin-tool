@@ -12,10 +12,8 @@ export default {
   shapeList: (params) => generatePath('/item/:itemId/shape/', params),
   shape: (params) => generatePath('/item/:itemId/shape/:shapeId', params),
   componentList: (params) => generatePath('/item/:itemId/shape/:shapeId/component/', params),
-  component: (params) => generatePath(
-    '/item/:itemId/shape/:shapeId/component/:componentId/',
-    params,
-  ),
+  component: (params) =>
+    generatePath('/item/:itemId/shape/:shapeId/component/:componentId/', params),
   itemVersionList: (params) => generatePath('/item/:itemId/version/', params),
   itemBulkyMetadataList: (params) => generatePath('/item/:itemId/bulky-metadata/', params),
   itemSequenceList: (params) => generatePath('/item/:itemId/sequence/', params),

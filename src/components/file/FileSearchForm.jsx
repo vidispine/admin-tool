@@ -1,8 +1,8 @@
-import { reduxForm } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import FormSection from '../ui/FormSection';
 import { ItemSearchType } from '../item/ItemSearchForm';
+import FormSection from '../ui/FormSection';
 
 function FileSearchForm({ error, handleSubmit }) {
   return (

@@ -1,10 +1,6 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function TaskGroupListTitle({
-  openCode,
-  openCreate,
-  onRefresh,
-}) {
+export default function TaskGroupListTitle({ openCode, openCreate, onRefresh }) {
   return (
     <TitleHeader
       title="Task Group"

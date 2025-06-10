@@ -1,19 +1,19 @@
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField, Select } from '../form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import FormSection from '../ui/FormSection';
+import JobPriority from '../../const/JobPriority';
+import { TextField, Select } from '../form';
+import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
-import { loadStorageOptions } from '../storage/StorageSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import JobPriority from '../../const/JobPriority';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -24,11 +24,7 @@ const queryParams = () => (
         <MenuItem value="true">Move</MenuItem>
       </Field>
     </FormControl>
-    <Field
-      name="filename"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="filename" component={TextField} fullWidth />
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Field name="priority" component={Select}>
@@ -40,36 +36,13 @@ const queryParams = () => (
       </Field>
     </FormControl>
     <FormControlLabel
-      control={(
-        <Field
-          name="useOriginalFilename"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="useOriginalFilename" component={BoolCheckbox} />}
       label="Use Original Filename"
     />
-    <Field
-      name="timeRequirement"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="limitRate"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <FieldTypeArray
-      name="jobmetadata"
-      label="Job Metadata"
-      component={KeyValuePairType}
-    />
-    <Field
-      name="notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="timeRequirement" component={TextField} type="number" fullWidth />
+    <Field name="limitRate" component={TextField} type="number" fullWidth />
+    <FieldTypeArray name="jobmetadata" label="Job Metadata" component={KeyValuePairType} />
+    <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       label="Notification Data"
@@ -78,10 +51,7 @@ const queryParams = () => (
   </>
 );
 
-function FileMoveForm({
-  error,
-  handleSubmit,
-}) {
+function FileMoveForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -94,10 +64,7 @@ function FileMoveForm({
         required
         fullWidth
       />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

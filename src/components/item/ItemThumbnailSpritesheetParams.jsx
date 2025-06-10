@@ -1,17 +1,17 @@
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import ItemThumbnailSpritesheetParamsForm from './ItemThumbnailSpritesheetParamsForm';
+import * as formActions from '../../formactions/item';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import * as formActions from '../../formactions/item';
+
+import ItemThumbnailSpritesheetParamsForm from './ItemThumbnailSpritesheetParamsForm';
 
 export const ITEM_THUMBNAILSPRITESHEET_PARAMS_FORM = 'ITEM_THUMBNAILSPRITESHEET_PARAMS_FORM';
 
@@ -68,7 +68,4 @@ function ItemThumbnailSpritesheetParams({
   );
 }
 
-export default compose(
-  withSnackbar,
-  withFormActions,
-)(ItemThumbnailSpritesheetParams);
+export default compose(withSnackbar, withFormActions)(ItemThumbnailSpritesheetParams);

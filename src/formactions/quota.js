@@ -1,10 +1,10 @@
-import { SubmissionError } from 'redux-form';
 import update from 'immutability-helper';
+import { SubmissionError } from 'redux-form';
 
 import { quota as api } from '@vidispine/vdt-api';
 
 function filterQueryParams(queryParams) {
-  if (!('filter' in queryParams) && (typeof queryParams.filter !== 'object')) {
+  if (!('filter' in queryParams) && typeof queryParams.filter !== 'object') {
     return queryParams;
   }
   const { filter } = queryParams;
@@ -29,9 +29,10 @@ function filterQueryParams(queryParams) {
 
 export function onCreate(form) {
   const { quotaRuleDocument } = form;
-  return api.createQuota({
-    quotaRuleDocument,
-  })
+  return api
+    .createQuota({
+      quotaRuleDocument,
+    })
     .then((response) => ({ quotaRuleDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -45,9 +46,10 @@ export function onCreate(form) {
 export function onList(form) {
   const { queryParams: formQueryParams } = form;
   const queryParams = filterQueryParams(formQueryParams);
-  return api.listQuota({
-    queryParams,
-  })
+  return api
+    .listQuota({
+      queryParams,
+    })
     .then((response) => ({ quotaRuleListDocument: response.data, queryParams }))
     .catch((error) => {
       let errorMessage = error.message;

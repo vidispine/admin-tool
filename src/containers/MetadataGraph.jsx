@@ -1,11 +1,13 @@
 import { PureComponent } from 'react';
-import { metadata as MetadataApi } from '@vidispine/vdt-api';
+
 import { compose } from 'redux';
 
+import { metadata as MetadataApi } from '@vidispine/vdt-api';
+
+import MetadataGraphDisplay from '../components/metadata/MetadataGraphDisplay';
+import MetadataGraphParams from '../components/metadata/MetadataGraphParams';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
-import MetadataGraphParams from '../components/metadata/MetadataGraphParams';
-import MetadataGraphDisplay from '../components/metadata/MetadataGraphDisplay';
 
 const METADATA_GRAPH_FORM = 'METADATA_GRAPH_FORM';
 

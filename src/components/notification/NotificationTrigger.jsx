@@ -52,39 +52,42 @@ export function getTriggerEntity(trigger) {
   return triggerEntity;
 }
 
-const JobTriggerType = ({ trigger: { job } }) => {
+function JobTriggerType({ trigger: { job } }) {
   const triggerAction = getJobAction(job);
   return (
     <>
       <TextGrid title="Trigger Action" value={triggerAction} />
       <TextGrid title="Placeholder" value={job.placeholder} />
-      {job.filter
-        && (
+      {job.filter && (
         <>
           <TextGrid title="Type" value={job.filter.type} />
           <TextGrid title="Step" value={job.filter.step} />
-          {job.filter.jobdata
-            && (
+          {job.filter.jobdata && (
             <>
-              { job.filter.jobdata.key
-                && <TextGrid title="Job Data Key" value={job.filter.jobdata.key} />}
-              { job.filter.jobdata['key-regex']
-                && <TextGrid title="Job Data Key Regex" value={job.filter.jobdata['key-regex']} />}
-              { job.filter.jobdata.value
-                && <TextGrid title="Job Data Value" value={job.filter.jobdata.value} />}
-              { job.filter.jobdata['value-regex']
-                && <TextGrid title="Job Data Value Regex" value={job.filter.jobdata['value-regex']} />}
+              {job.filter.jobdata.key && (
+                <TextGrid title="Job Data Key" value={job.filter.jobdata.key} />
+              )}
+              {job.filter.jobdata['key-regex'] && (
+                <TextGrid title="Job Data Key Regex" value={job.filter.jobdata['key-regex']} />
+              )}
+              {job.filter.jobdata.value && (
+                <TextGrid title="Job Data Value" value={job.filter.jobdata.value} />
+              )}
+              {job.filter.jobdata['value-regex'] && (
+                <TextGrid title="Job Data Value Regex" value={job.filter.jobdata['value-regex']} />
+              )}
             </>
-            )}
+          )}
         </>
-        )}
-      {job.contentFilters
-        && <TextGrid title="Content Filters" variant="list" value={job.contentFilters.contentFilter} />}
+      )}
+      {job.contentFilters && (
+        <TextGrid title="Content Filters" variant="list" value={job.contentFilters.contentFilter} />
+      )}
     </>
   );
-};
+}
 
-const MetadataTriggerType = ({ trigger: { metadata } }) => {
+function MetadataTriggerType({ trigger: { metadata } }) {
   let triggerAction;
   if ('modify' in metadata) {
     triggerAction = 'modify';
@@ -92,20 +95,19 @@ const MetadataTriggerType = ({ trigger: { metadata } }) => {
   return (
     <>
       <TextGrid title="Trigger Action" value={triggerAction} />
-      {triggerAction === 'modify'
-      && (
-      <>
-        <TextGrid title="Field" value={metadata.modify.field} />
-        <TextGrid title="Language" value={metadata.modify.language} />
-        <TextGrid title="Track" value={metadata.modify.track} />
-        <TextGrid title="Interval" value={metadata.modify.interval} />
-      </>
+      {triggerAction === 'modify' && (
+        <>
+          <TextGrid title="Field" value={metadata.modify.field} />
+          <TextGrid title="Language" value={metadata.modify.language} />
+          <TextGrid title="Track" value={metadata.modify.track} />
+          <TextGrid title="Interval" value={metadata.modify.interval} />
+        </>
       )}
     </>
   );
-};
+}
 
-const ItemTriggerType = ({ trigger: { item } }) => {
+function ItemTriggerType({ trigger: { item } }) {
   let triggerAction;
   if ('modify' in item) {
     triggerAction = 'modify';
@@ -114,14 +116,10 @@ const ItemTriggerType = ({ trigger: { item } }) => {
   } else if ('delete' in item) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const CollectionTriggerType = ({ trigger: { collection } }) => {
+function CollectionTriggerType({ trigger: { collection } }) {
   let triggerAction;
   if ('modify' in collection) {
     triggerAction = 'modify';
@@ -137,15 +135,17 @@ const CollectionTriggerType = ({ trigger: { collection } }) => {
   return (
     <>
       <TextGrid title="Trigger Action" value={triggerAction} />
-      {triggerAction === 'metadata'
-        && <MetadataTriggerType trigger={{ metadata: collection.metadata }} />}
-      {triggerAction === 'item'
-        && <ItemTriggerType trigger={{ trigger: { item: collection.item } }} />}
+      {triggerAction === 'metadata' && (
+        <MetadataTriggerType trigger={{ metadata: collection.metadata }} />
+      )}
+      {triggerAction === 'item' && (
+        <ItemTriggerType trigger={{ trigger: { item: collection.item } }} />
+      )}
     </>
   );
-};
+}
 
-const StorageTriggerType = ({ trigger: { storage } }) => {
+function StorageTriggerType({ trigger: { storage } }) {
   let triggerAction;
   if ('filename' in storage) {
     triggerAction = 'filename';
@@ -154,14 +154,10 @@ const StorageTriggerType = ({ trigger: { storage } }) => {
   } else if ('delete' in storage) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const FileTriggerType = ({ trigger: { file } }) => {
+function FileTriggerType({ trigger: { file } }) {
   let triggerAction;
   if ('new' in file) {
     triggerAction = 'new';
@@ -174,14 +170,10 @@ const FileTriggerType = ({ trigger: { file } }) => {
   } else if ('delete' in file) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const GroupTriggerType = ({ trigger: { group } }) => {
+function GroupTriggerType({ trigger: { group } }) {
   let triggerAction;
   if ('modify' in group) {
     triggerAction = 'modify';
@@ -190,14 +182,10 @@ const GroupTriggerType = ({ trigger: { group } }) => {
   } else if ('delete' in group) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const ShapeTriggerType = ({ trigger: { shape } }) => {
+function ShapeTriggerType({ trigger: { shape } }) {
   let triggerAction;
   if ('modify' in shape) {
     triggerAction = 'modify';
@@ -206,14 +194,10 @@ const ShapeTriggerType = ({ trigger: { shape } }) => {
   } else if ('delete' in shape) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const AccessTriggerType = ({ trigger: { access } }) => {
+function AccessTriggerType({ trigger: { access } }) {
   let triggerAction;
   if ('change' in access) {
     triggerAction = 'change';
@@ -222,14 +206,10 @@ const AccessTriggerType = ({ trigger: { access } }) => {
   } else if ('delete' in access) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const QuotaTriggerType = ({ trigger: { quota } }) => {
+function QuotaTriggerType({ trigger: { quota } }) {
   let triggerAction;
   if ('warning' in quota) {
     triggerAction = 'warning';
@@ -238,28 +218,20 @@ const QuotaTriggerType = ({ trigger: { quota } }) => {
   } else if ('delete' in quota) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const DocumentTriggerType = ({ trigger: { document } }) => {
+function DocumentTriggerType({ trigger: { document } }) {
   let triggerAction;
   if ('create' in document) {
     triggerAction = 'create';
   } else if ('delete' in document) {
     triggerAction = 'delete';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-const DeletionLockTriggerType = ({ trigger: { deletionLock } }) => {
+function DeletionLockTriggerType({ trigger: { deletionLock } }) {
   let triggerAction;
   if ('create' in deletionLock) {
     triggerAction = 'create';
@@ -272,17 +244,11 @@ const DeletionLockTriggerType = ({ trigger: { deletionLock } }) => {
   } else if ('expire' in deletionLock) {
     triggerAction = 'expire';
   }
-  return (
-    <>
-      <TextGrid title="Trigger Action" value={triggerAction} />
-    </>
-  );
-};
+  return <TextGrid title="Trigger Action" value={triggerAction} />;
+}
 
-export default function NotificationTrigger({
-  trigger = {},
-}) {
-  let TriggerComponent = <></>;
+export default function NotificationTrigger({ trigger = {} }) {
+  let TriggerComponent = null;
   const triggerEntity = getTriggerEntity(trigger);
   switch (triggerEntity) {
     case 'job':

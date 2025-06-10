@@ -1,11 +1,12 @@
 import { PureComponent } from 'react';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+
 import Drawer from '@material-ui/core/Drawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { withStyles } from '@material-ui/core/styles';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import clsx from 'clsx';
 
 const styles = (theme) => ({
   drawer: {
@@ -85,9 +86,7 @@ class DrawerContainer extends PureComponent {
             disableRipple
             disableGutters
           >
-            <ListItemIcon>
-              {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </ListItemIcon>
+            <ListItemIcon>{open ? <ChevronLeftIcon /> : <ChevronRightIcon />}</ListItemIcon>
           </ListItem>
           <ListComponent {...props} />
         </Drawer>

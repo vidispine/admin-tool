@@ -5,9 +5,9 @@ export default function MetadataFieldTitle(props) {
     <TitleHeader
       grandParentTitle="Metadata Field"
       grandParentTo="/metadata-field/"
-      parentTitle={props.fieldName}
+      parentTitle={props?.fieldName}
       helpTo="/ref/metadata/field.html"
-      entityId={props.fieldName}
+      entityId={props?.fieldName}
       entityType="metadata-field"
       {...props}
     />

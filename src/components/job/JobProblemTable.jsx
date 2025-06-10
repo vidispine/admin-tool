@@ -3,11 +3,10 @@ import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
+
 import JobProblemRow from './JobProblemRow';
 
-export default function JobListTable({
-  jobProblemListDocument,
-}) {
+export default function JobListTable({ jobProblemListDocument }) {
   const { problem: problemList = [] } = jobProblemListDocument;
   return (
     <Table>
@@ -21,10 +20,7 @@ export default function JobListTable({
       </TableHead>
       <TableBody>
         {problemList.map((jobProblemType) => (
-          <JobProblemRow
-            key={jobProblemType.id}
-            jobProblemType={jobProblemType}
-          />
+          <JobProblemRow key={jobProblemType.id} jobProblemType={jobProblemType} />
         ))}
       </TableBody>
     </Table>

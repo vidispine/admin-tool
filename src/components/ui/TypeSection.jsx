@@ -1,5 +1,5 @@
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import startCase from 'lodash.startcase';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
@@ -23,7 +23,7 @@ const hoverStyle = (theme) => ({
   },
 });
 
-const TypeSection = ({
+function TypeSection({
   title,
   value,
   classes,
@@ -33,22 +33,22 @@ const TypeSection = ({
   titleStartCase = true,
   dense = false,
   ...props
-}) => {
-  if (hideNoValue && value === undefined) { return null; }
+}) {
+  if (hideNoValue && value === undefined) {
+    return null;
+  }
   return (
-    <div
-      className={hover ? classes.onHover : classes.noHover}
-    >
-      {title
-      && <Typography variant="subtitle2">{titleStartCase ? startCase(title) : title}</Typography>}
-      { typeof value === 'object'
-      && (
-      <div className={dense ? undefined : classes.marginLeft}>
-        <Component value={value} {...props} />
-      </div>
+    <div className={hover ? classes.onHover : classes.noHover}>
+      {title && (
+        <Typography variant="subtitle2">{titleStartCase ? startCase(title) : title}</Typography>
+      )}
+      {typeof value === 'object' && (
+        <div className={dense ? undefined : classes.marginLeft}>
+          <Component value={value} {...props} />
+        </div>
       )}
     </div>
   );
-};
+}
 
 export default withErrorBoundary(withStyles(hoverStyle)(TypeSection));

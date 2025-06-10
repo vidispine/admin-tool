@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
 
 import { autoimport as api } from '@vidispine/vdt-api';
-import AutoImportRuleListTitle from '../components/autoimport/AutoImportRuleListTitle';
-import AutoImportRuleListCard from '../components/autoimport/AutoImportRuleListCard';
+
 import AutoImportRuleDialog from '../components/autoimport/AutoImportRuleDialog';
+import AutoImportRuleListCard from '../components/autoimport/AutoImportRuleListCard';
+import AutoImportRuleListTitle from '../components/autoimport/AutoImportRuleListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const AUTOIMPORT_CREATE_MODAL = 'AUTOIMPORT_CREATE_MODAL';
@@ -25,7 +26,8 @@ class AutoImportRuleList extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listAutoImport()
+      api
+        .listAutoImport()
         .then((response) => this.setState({ autoImportRuleListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Auto Import Rules';
@@ -34,9 +36,7 @@ class AutoImportRuleList extends PureComponent {
   }
 
   render() {
-    const {
-      autoImportRuleListDocument,
-    } = this.state;
+    const { autoImportRuleListDocument } = this.state;
     return (
       <>
         <AutoImportRuleListTitle
@@ -45,15 +45,10 @@ class AutoImportRuleList extends PureComponent {
           codeModal="AutoImportRuleListDocument"
           createModal={AUTOIMPORT_CREATE_MODAL}
         />
-        { autoImportRuleListDocument
-        && (
-        <AutoImportRuleListCard
-          autoImportRuleListDocument={autoImportRuleListDocument}
-        />
+        {autoImportRuleListDocument && (
+          <AutoImportRuleListCard autoImportRuleListDocument={autoImportRuleListDocument} />
         )}
-        <AutoImportRuleDialog
-          dialogName={AUTOIMPORT_CREATE_MODAL}
-        />
+        <AutoImportRuleDialog dialogName={AUTOIMPORT_CREATE_MODAL} />
       </>
     );
   }

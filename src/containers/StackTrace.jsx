@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
 
 import { service as api } from '@vidispine/vdt-api';
-import StackTraceTitle from '../components/service/StackTraceTitle';
-import StackTraceCard from '../components/service/StackTraceCard';
 
+import StackTraceCard from '../components/service/StackTraceCard';
+import StackTraceTitle from '../components/service/StackTraceTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 class Service extends PureComponent {
@@ -24,8 +24,7 @@ class Service extends PureComponent {
     const { openSnackBar } = this.props;
     this.setState({ stacktrace: undefined });
     try {
-      api.getStackTrace()
-        .then((response) => this.setState({ stacktrace: response.data }));
+      api.getStackTrace().then((response) => this.setState({ stacktrace: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Stack Trace';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -36,13 +35,8 @@ class Service extends PureComponent {
     const { stacktrace } = this.state;
     return (
       <>
-        <StackTraceTitle
-          onRefresh={this.onRefresh}
-        />
-        <StackTraceCard
-          onRefresh={this.onRefresh}
-          stacktrace={stacktrace}
-        />
+        <StackTraceTitle onRefresh={this.onRefresh} />
+        <StackTraceCard onRefresh={this.onRefresh} stacktrace={stacktrace} />
       </>
     );
   }

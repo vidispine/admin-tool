@@ -1,13 +1,13 @@
 import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import NotificationListCard from '../components/notification/NotificationListCard';
-import NotificationCreate from '../components/notification/NotificationCreate';
-import UriListCard from '../components/ui/UriListCard';
-import CardList from '../components/ui/CardList';
-import { NOTIFICATION_ENTITY } from '../const';
 
+import NotificationCreate from '../components/notification/NotificationCreate';
+import NotificationListCard from '../components/notification/NotificationListCard';
+import CardList from '../components/ui/CardList';
+import TitleHeader from '../components/ui/TitleHeader';
+import UriListCard from '../components/ui/UriListCard';
+import { NOTIFICATION_ENTITY } from '../const';
 import withUI from '../hoc/withUI';
 
 const NOTIFICATION_CREATE_DIALOG = 'NOTIFICATION_CREATE_DIALOG';
@@ -41,7 +41,8 @@ class NotificationResourceList extends PureComponent {
 
   onFetch() {
     try {
-      api.listNotification({ entityType: 'placeholder', path: '/API/notification/' })
+      api
+        .listNotification({ entityType: 'placeholder', path: '/API/notification/' })
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,9 +51,7 @@ class NotificationResourceList extends PureComponent {
   }
 
   render() {
-    const {
-      history,
-    } = this.props;
+    const { history } = this.props;
     const { uriListDocument } = this.state;
     return (
       <>
@@ -71,9 +70,7 @@ class NotificationResourceList extends PureComponent {
             header={false}
             titleCase
           />
-          <NotificationListCard
-            uriListDocument={uriListDocument}
-          />
+          <NotificationListCard uriListDocument={uriListDocument} />
         </CardList>
         <NotificationCreate
           dialogName={NOTIFICATION_CREATE_DIALOG}

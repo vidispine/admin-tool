@@ -54,11 +54,10 @@ export function jaroDistance(s1, s2) {
   }
 
   return numMatches > 0
-    ? (
-      numMatches / shorter.length
-        + numMatches / longer.length
-        + (numMatches - Math.floor(transpositions / 2)) / numMatches
-    ) / 3.0
+    ? (numMatches / shorter.length +
+        numMatches / longer.length +
+        (numMatches - Math.floor(transpositions / 2)) / numMatches) /
+        3.0
     : 0;
 }
 
@@ -68,13 +67,16 @@ export function jaroToSimilarity(s1, s2, prefixScalingFactor = 0.2) {
   let commonPrefixLength = 0;
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < s1.length; i++) {
-    if (s1[i] === s2[i]) { commonPrefixLength += 1; } else { break; }
+    if (s1[i] === s2[i]) {
+      commonPrefixLength += 1;
+    } else {
+      break;
+    }
   }
 
-  return jaroSimilarity
-    + Math.min(commonPrefixLength, 4)
-    * prefixScalingFactor
-    * (1 - jaroSimilarity);
+  return (
+    jaroSimilarity + Math.min(commonPrefixLength, 4) * prefixScalingFactor * (1 - jaroSimilarity)
+  );
 }
 
 export function optionToScore(inputValue, option) {
@@ -87,7 +89,9 @@ export function optionToScore(inputValue, option) {
     );
     if (closestSynonym === null || similarity > closestSynonym.similarity) {
       closestSynonym = { similarity, value: synonym };
-      if (similarity === 1) { return false; }
+      if (similarity === 1) {
+        return false;
+      }
     }
     return true;
   });

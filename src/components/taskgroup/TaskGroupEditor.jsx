@@ -1,19 +1,21 @@
 import { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+
+import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Divider from '@material-ui/core/Divider';
 
-import TaskGroupForm from './TaskGroupForm';
-import TaskGroupDisplay from './TaskGroupDisplay';
-import * as formActions from '../../formactions/taskgroup';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/taskgroup';
+
+import TaskGroupDisplay from './TaskGroupDisplay';
+import TaskGroupForm from './TaskGroupForm';
 
 const EDIT_TASKGROUP_FORM = 'EDIT_TASKGROUP_FORM';
 
@@ -32,16 +34,8 @@ class ImportSettingsEditor extends PureComponent {
   }
 
   render() {
-    const {
-      taskGroupDocument,
-      submitForm,
-      groupName,
-      onRefresh,
-      openSnackBar,
-    } = this.props;
-    const {
-      isEditing,
-    } = this.state;
+    const { taskGroupDocument, submitForm, groupName, onRefresh, openSnackBar } = this.props;
+    const { isEditing } = this.state;
     const initialValues = {
       taskGroupDocument,
     };
@@ -49,7 +43,9 @@ class ImportSettingsEditor extends PureComponent {
       this.toggleEdit();
       const messageContent = 'Task Group Saved';
       openSnackBar({ messageContent });
-      if (onRefresh) { onRefresh(); }
+      if (onRefresh) {
+        onRefresh();
+      }
     };
     const onSubmitFail = () => {
       const messageContent = 'Error Updating Task Group';
@@ -58,7 +54,7 @@ class ImportSettingsEditor extends PureComponent {
     return (
       <>
         <CardHeader
-          action={(
+          action={
             <Grid container direction="row-reverse" alignItems="center">
               <Grid item>
                 <FormControlLabel
@@ -69,47 +65,35 @@ class ImportSettingsEditor extends PureComponent {
                 />
               </Grid>
             </Grid>
-          )}
+          }
         />
         <CardContent>
-          {isEditing
-            ? (
-              <TaskGroupForm
-                form={EDIT_TASKGROUP_FORM}
-                initialValues={initialValues}
-                onSubmit={formActions.onUpdate}
-                onSubmitSuccess={onSubmitSuccess}
-                onSubmitFail={onSubmitFail}
-                groupName={groupName}
-              />
-            )
-            : (
-              <TaskGroupDisplay
-                taskGroupDocument={taskGroupDocument}
-              />
-            )}
+          {isEditing ? (
+            <TaskGroupForm
+              form={EDIT_TASKGROUP_FORM}
+              initialValues={initialValues}
+              onSubmit={formActions.onUpdate}
+              onSubmitSuccess={onSubmitSuccess}
+              onSubmitFail={onSubmitFail}
+              groupName={groupName}
+            />
+          ) : (
+            <TaskGroupDisplay taskGroupDocument={taskGroupDocument} />
+          )}
         </CardContent>
-        {isEditing
-          && (
+        {isEditing && (
           <>
             <Divider />
             <AccordionActions>
-              <Button
-                size="small"
-                onClick={this.toggleEdit}
-              >
+              <Button size="small" onClick={this.toggleEdit}>
                 Cancel
               </Button>
-              <Button
-                onClick={() => submitForm(EDIT_TASKGROUP_FORM)}
-                size="small"
-                color="primary"
-              >
+              <Button onClick={() => submitForm(EDIT_TASKGROUP_FORM)} size="small" color="primary">
                 Save
               </Button>
             </AccordionActions>
           </>
-          )}
+        )}
       </>
     );
   }

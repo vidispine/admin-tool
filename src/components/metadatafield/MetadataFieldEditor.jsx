@@ -1,21 +1,18 @@
 import * as formActions from '../../formactions/metadatafield';
-
-import Editor from '../ui/Editor';
 import withUI from '../../hoc/withUI';
+import Editor from '../ui/Editor';
+
 import MetadataFieldDisplay from './MetadataFieldDisplay';
 import MetadataFieldForm from './MetadataFieldForm';
 
-function MetadataFieldEditor({
-  metadataFieldDocument,
-  fieldName,
-  openSnackBar,
-  onRefresh,
-}) {
+function MetadataFieldEditor({ metadataFieldDocument, fieldName, openSnackBar, onRefresh }) {
   const EDIT_METADATAFIELD_FORM = 'EDIT_METADATAFIELD_FORM';
   const onSubmitSuccess = () => {
     const messageContent = 'Metadata Field Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Metadata Field';

@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
+
 import { access as AccessApi } from '@vidispine/vdt-api';
 
-import withFormActions from '../hoc/withFormActions';
-import AccessGraphParams from '../components/access/AccessGraphParams';
 import AccessGraphDisplay from '../components/access/AccessGraphDisplay';
+import AccessGraphParams from '../components/access/AccessGraphParams';
+import withFormActions from '../hoc/withFormActions';
 
 const ACCESS_GRAPH_FORM = 'ACCESS_GRAPH_FORM';
 
@@ -100,11 +101,7 @@ class AccessGraph extends PureComponent {
           initialValues={{}}
           onSuccess={this.onSuccess}
         />
-        <AccessGraphDisplay
-          useGraphViz={useGraphViz}
-          graphDot={graphDot}
-          graphImage={graphImage}
-        />
+        <AccessGraphDisplay useGraphViz={useGraphViz} graphDot={graphDot} graphImage={graphImage} />
       </>
     );
   }

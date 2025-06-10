@@ -1,13 +1,14 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { importsettings as ImportSettingsApi } from '@vidispine/vdt-api';
-import ImportSettingsListTitle from '../components/importsettings/ImportSettingsListTitle';
-import ImportSettingsListCard from '../components/importsettings/ImportSettingsListCard';
-import ImportSettingsDialog from '../components/importsettings/ImportSettingsDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import ImportSettingsDialog from '../components/importsettings/ImportSettingsDialog';
+import ImportSettingsListCard from '../components/importsettings/ImportSettingsListCard';
+import ImportSettingsListTitle from '../components/importsettings/ImportSettingsListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const IMPORTSETTINGSLIST_CODE_MODAL = 'IMPORTSETTINGSLIST_CODE_MODAL';
 const IMPORTSETTINGS_CREATE_MODAL = 'IMPORTSETTINGS_CREATE_MODAL';
@@ -38,15 +39,8 @@ class ImportSettingsList extends PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      history,
-    } = this.props;
-    const {
-      uriListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, history } = this.props;
+    const { uriListDocument } = this.state;
     return (
       <>
         <ImportSettingsListTitle
@@ -54,20 +48,15 @@ class ImportSettingsList extends PureComponent {
           openCreate={() => openModal({ modalName: IMPORTSETTINGS_CREATE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        {uriListDocument
-          && (
-          <ImportSettingsListCard
-            uriListDocument={uriListDocument}
-          />
-          )}
+        {uriListDocument && <ImportSettingsListCard uriListDocument={uriListDocument} />}
         <CodeModal
-          isOpen={(modalName === IMPORTSETTINGSLIST_CODE_MODAL)}
+          isOpen={modalName === IMPORTSETTINGSLIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={uriListDocument}
           title="URIListDocument"
         />
         <ImportSettingsDialog
-          isOpen={(modalName === IMPORTSETTINGS_CREATE_MODAL)}
+          isOpen={modalName === IMPORTSETTINGS_CREATE_MODAL}
           closeModal={closeModal}
           history={history}
         />
@@ -77,7 +66,9 @@ class ImportSettingsList extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

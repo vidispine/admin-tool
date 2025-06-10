@@ -1,26 +1,21 @@
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField, Select } from '../form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import { loadStorageOptions } from '../storage/StorageSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import BoolCheckbox from '../ui/BoolCheckbox';
 import FileStates from '../../const/FileStates';
+import { TextField, Select } from '../form';
+import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
-    <Field
-      name="path"
-      component={TextField}
-      fullWidth
-      required
-    />
+    <Field name="path" component={TextField} fullWidth required />
     <Field
       name="storage"
       component={StatefulAsyncSelect}
@@ -41,28 +36,17 @@ const queryParams = () => (
       </Field>
     </FormControl>
     <FormControlLabel
-      control={(
-        <Field
-          name="duplicate"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="duplicate" component={BoolCheckbox} />}
       label="Duplicate"
     />
   </>
 );
 
-function FilePathForm({
-  error,
-  handleSubmit,
-}) {
+function FilePathForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

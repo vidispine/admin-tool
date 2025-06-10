@@ -6,14 +6,9 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(props.mb),
     },
   }),
-
 }));
 
 export default function CardList({ mb = 2, children }) {
   const classes = useStyles({ mb });
-  return (
-    <div className={classes.root}>
-      {children}
-    </div>
-  );
+  return <div className={classes.root}>{children}</div>;
 }

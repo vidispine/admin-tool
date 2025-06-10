@@ -1,40 +1,32 @@
 import TextGrid from '../../ui/TextGrid';
-import TypeSection from '../../ui/TypeSection';
 import TypeArray from '../../ui/TypeArray';
+import TypeSection from '../../ui/TypeSection';
 
-const JobPriorityConfigurationType = ({ value = {} }) => (
-  <>
+function JobPriorityConfigurationTypeType({ value }) {
+  return (
+    <>
+      <TextGrid title="Type" value={value?.type} hover />
+      <TextGrid title="Value" value={value?.value} hover />
+    </>
+  );
+}
+
+function JobPriorityConfigurationType({ value = {} }) {
+  return (
     <TypeArray
       title="Job Type"
       value={value.job}
       titleKey="type"
-      component={({ value: v = {} }) => (
-        <>
-          <TextGrid
-            title="Type"
-            value={v.type}
-            hover
-          />
-          <TextGrid
-            title="Value"
-            value={v.value}
-            hover
-          />
-        </>
-      )}
+      component={JobPriorityConfigurationTypeType}
     />
-  </>
-);
+  );
+}
 
-export default function JobPriorityDisplay({
-  jobPriorityConfigurationDocument,
-}) {
+export default function JobPriorityDisplay({ jobPriorityConfigurationDocument }) {
   return (
-    <>
-      <TypeSection
-        value={jobPriorityConfigurationDocument}
-        component={JobPriorityConfigurationType}
-      />
-    </>
+    <TypeSection
+      value={jobPriorityConfigurationDocument}
+      component={JobPriorityConfigurationType}
+    />
   );
 }

@@ -5,15 +5,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import withUI from '../../hoc/withUI';
+
 import CodeDisplay from './CodeDisplay';
 
-function CodeModal({
-  code,
-  variant,
-  title,
-  open,
-  onClose,
-}) {
+function CodeModal({ code, variant, title, open, onClose }) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       {open && (

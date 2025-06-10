@@ -7,7 +7,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableRowLink from '../ui/TableRowLink';
 
 export default function EssenceVersionCard({ essenceVersionDocument, linkTo, linkProps }) {
-  if (essenceVersionDocument === undefined) { return null; }
+  if (essenceVersionDocument === undefined) {
+    return null;
+  }
   const { shape: shapeList = [] } = essenceVersionDocument;
 
   return (

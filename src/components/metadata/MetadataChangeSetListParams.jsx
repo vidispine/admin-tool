@@ -1,16 +1,16 @@
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import MetadataChangeSetListParamsForm from './MetadataChangeSetListParamsForm';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
+
+import MetadataChangeSetListParamsForm from './MetadataChangeSetListParamsForm';
 
 export const METADATACHANGESETLIST_FORM = 'METADATACHANGESETLIST_FORM';
 
@@ -26,12 +26,16 @@ function MetadataChangeSetListParams({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Changeset List Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Changeset List';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Accordion>
@@ -51,17 +55,10 @@ function MetadataChangeSetListParams({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(METADATACHANGESETLIST_FORM)}
-        >
+        <Button size="small" onClick={() => resetForm(METADATACHANGESETLIST_FORM)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(METADATACHANGESETLIST_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(METADATACHANGESETLIST_FORM)}>
           Update
         </Button>
       </AccordionActions>

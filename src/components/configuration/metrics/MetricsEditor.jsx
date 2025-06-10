@@ -1,19 +1,18 @@
 import * as formActions from '../../../formactions/configuration';
-import Editor from '../../ui/Editor';
-import MetricsForm from './MetricsForm';
-import MetricsDisplay from './MetricsDisplay';
 import withSnackbar from '../../../hoc/withSnackbar';
+import Editor from '../../ui/Editor';
 
-function MetricsEditor({
-  metricsConfigurationDocument,
-  openSnackBar,
-  onSuccess,
-}) {
+import MetricsDisplay from './MetricsDisplay';
+import MetricsForm from './MetricsForm';
+
+function MetricsEditor({ metricsConfigurationDocument, openSnackBar, onSuccess }) {
   const EDIT_METRICS_FORM = 'EDIT_METRICS_FORM';
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Metrics Configuration Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Metrics Configuration';

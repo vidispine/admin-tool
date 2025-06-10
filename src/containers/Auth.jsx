@@ -1,17 +1,10 @@
 import { Component } from 'react';
-import { withCookies } from 'react-cookie';
-import { noauth as NoAuthApi, utils as api } from '@vidispine/vdt-api';
-import { compose } from 'redux';
-import { withSnackbarNoRouter } from '../hoc/withSnackbar';
-import setWelcomeConsoleMessage from '../utils/setWelcomeConsoleMessage';
 
-import {
-  AUTH_TOKEN,
-  AUTH_USERNAME,
-  AUTH_RUNAS,
-  AUTH_VIDISPINE_SERVER_URL,
-  AUTH_IS_AUTHENTICATED,
-} from '../const/Auth';
+import { withCookies } from 'react-cookie';
+import { compose } from 'redux';
+
+import { noauth as NoAuthApi, utils as api } from '@vidispine/vdt-api';
+
 import {
   getBasename,
   getVidispineUrlFromCookie,
@@ -22,6 +15,15 @@ import {
   setCookiePath,
   APP_BASENAME,
 } from '../const';
+import {
+  AUTH_TOKEN,
+  AUTH_USERNAME,
+  AUTH_RUNAS,
+  AUTH_VIDISPINE_SERVER_URL,
+  AUTH_IS_AUTHENTICATED,
+} from '../const/Auth';
+import { withSnackbarNoRouter } from '../hoc/withSnackbar';
+import setWelcomeConsoleMessage from '../utils/setWelcomeConsoleMessage';
 
 class Auth extends Component {
   constructor(props) {
@@ -42,13 +44,15 @@ class Auth extends Component {
     this.envVidispineUrl = getVidispineUrlFromEnv();
     this.pathVidispineUrl = getVidispineUrlFromPath();
     this.useContainerProxy = getContainerProxyFromWindow();
-    const baseUrl = this.pathVidispineUrl
-      || this.windowVidispineUrl
-      || this.envVidispineUrl
-      || this.cookieVidispineUrl;
-    this.useDevProxy = this.useContainerProxy === undefined
-    && baseUrl !== undefined
-    && (baseUrl === this.windowVidispineUrl || baseUrl === this.envVidispineUrl);
+    const baseUrl =
+      this.pathVidispineUrl ||
+      this.windowVidispineUrl ||
+      this.envVidispineUrl ||
+      this.cookieVidispineUrl;
+    this.useDevProxy =
+      this.useContainerProxy === undefined &&
+      baseUrl !== undefined &&
+      (baseUrl === this.windowVidispineUrl || baseUrl === this.envVidispineUrl);
     this.basename = getBasename(baseUrl);
     const atBasename = window.location.pathname.startsWith(APP_BASENAME);
     if (atBasename === false) {
@@ -61,11 +65,18 @@ class Auth extends Component {
     const runAs = cookies.get(AUTH_RUNAS, { path: this.basename });
     // see if the app is logged in even if it cannot read the token cookie
     const isAuthenticated = cookies.get(AUTH_IS_AUTHENTICATED, { path: APP_BASENAME });
-    if (isAuthenticated === 'true' && this.cookieVidispineUrl && this.pathVidispineUrl === undefined) {
+    if (
+      isAuthenticated === 'true' &&
+      this.cookieVidispineUrl &&
+      this.pathVidispineUrl === undefined
+    ) {
       // Set baseUrl in path then reload page to read token cookie
       const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
       const encodedBaseUrl = encodeURIComponent(this.cookieVidispineUrl);
-      const newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+      const newPath =
+        pathname === '/'
+          ? [encodedBaseUrl, '/'].join('')
+          : [pathname, encodedBaseUrl, ''].join('/');
       window.history.pushState({}, '', newPath);
       window.location.reload();
     }
@@ -74,9 +85,7 @@ class Auth extends Component {
       api.defaultClient.defaults.headers['X-Proxy-URL'] = baseUrl;
       api.defaultClient.defaults.baseURL = window.location.origin;
     } else if (baseUrl && baseUrl !== 'undefined') {
-      api.defaultClient.defaults.baseURL = this.useDevProxy
-        ? window.location.origin
-        : baseUrl;
+      api.defaultClient.defaults.baseURL = this.useDevProxy ? window.location.origin : baseUrl;
     }
 
     if (token && token !== 'undefined') {
@@ -161,9 +170,7 @@ class Auth extends Component {
       api.defaultClient.defaults.headers['X-Proxy-URL'] = baseUrl;
       api.defaultClient.defaults.baseURL = window.location.origin;
     } else {
-      api.defaultClient.defaults.baseURL = this.useDevProxy
-        ? window.location.origin
-        : baseUrl;
+      api.defaultClient.defaults.baseURL = this.useDevProxy ? window.location.origin : baseUrl;
     }
 
     this.setState({ baseUrl });
@@ -208,12 +215,7 @@ class Auth extends Component {
   }
 
   render() {
-    const {
-      token,
-      userName,
-      runAs,
-      baseUrl,
-    } = this.state;
+    const { token, userName, runAs, baseUrl } = this.state;
     const { loginComponent: Login, appComponent: App, ...props } = this.props;
     return token ? (
       <App

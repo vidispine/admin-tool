@@ -1,14 +1,15 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { access as AccessApi } from '@vidispine/vdt-api';
-import ImportAccessTitle from '../components/importaccess/ImportAccessTitle';
-import ImportAccessCard from '../components/importaccess/ImportAccessCard';
-import ImportAccessRemove from '../components/importaccess/ImportAccessRemove';
-import ImportAccessDialog from '../components/importaccess/ImportAccessDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import ImportAccessCard from '../components/importaccess/ImportAccessCard';
+import ImportAccessDialog from '../components/importaccess/ImportAccessDialog';
+import ImportAccessRemove from '../components/importaccess/ImportAccessRemove';
+import ImportAccessTitle from '../components/importaccess/ImportAccessTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const IMPORTACCESS_CODE_MODAL = 'IMPORTACCESS_CODE_MODAL';
 const IMPORTACCESS_REMOVE_MODAL = 'IMPORTACCESS_REMOVE_MODAL';
@@ -36,9 +37,9 @@ class ImportSettings extends PureComponent {
     const { openSnackBar, userName } = this.props;
     const headers = { RunAs: userName };
     try {
-      const {
-        data: importAccessControlListDocument,
-      } = await AccessApi.getImportAccess({ headers });
+      const { data: importAccessControlListDocument } = await AccessApi.getImportAccess({
+        headers,
+      });
       this.setState({ importAccessControlListDocument });
     } catch (error) {
       const messageContent = 'Error Loading Import Settings';
@@ -47,11 +48,7 @@ class ImportSettings extends PureComponent {
   }
 
   onRemove(groupName) {
-    const {
-      openSnackBar,
-      closeModal,
-      userName,
-    } = this.props;
+    const { openSnackBar, closeModal, userName } = this.props;
     const headers = { RunAs: userName };
     return () => {
       AccessApi.removeImportAccessGroup({ groupName, headers })
@@ -85,16 +82,8 @@ class ImportSettings extends PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      userName,
-    } = this.props;
-    const {
-      importAccessControlListDocument,
-      currentGroup,
-    } = this.state;
+    const { modalName, closeModal, openModal, userName } = this.props;
+    const { importAccessControlListDocument, currentGroup } = this.state;
     return (
       <>
         <ImportAccessTitle
@@ -103,31 +92,29 @@ class ImportSettings extends PureComponent {
           onRefresh={this.onRefresh}
           userName={userName}
         />
-        {importAccessControlListDocument
-          && (
+        {importAccessControlListDocument && (
           <ImportAccessCard
             importAccessControlListDocument={importAccessControlListDocument}
             openRemove={this.openRemove}
             openEdit={this.openEdit}
           />
-          )}
+        )}
         <CodeModal
-          isOpen={(modalName === IMPORTACCESS_CODE_MODAL)}
+          isOpen={modalName === IMPORTACCESS_CODE_MODAL}
           toggleDialogue={closeModal}
           code={importAccessControlListDocument}
           title="ImportAccessControlListDocument"
         />
-        { currentGroup
-          && (
+        {currentGroup && (
           <ImportAccessRemove
-            isOpen={(modalName === IMPORTACCESS_REMOVE_MODAL)}
+            isOpen={modalName === IMPORTACCESS_REMOVE_MODAL}
             closeModal={closeModal}
             onRemove={this.onRemove}
             groupName={currentGroup.name}
           />
-          )}
+        )}
         <ImportAccessDialog
-          isOpen={(modalName === IMPORTACCESS_EDIT_MODAL)}
+          isOpen={modalName === IMPORTACCESS_EDIT_MODAL}
           closeModal={closeModal}
           onRefresh={this.onRefresh}
           group={currentGroup}
@@ -139,7 +126,9 @@ class ImportSettings extends PureComponent {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   const { userName } = ownProps.match.params;
   return {
     userName,

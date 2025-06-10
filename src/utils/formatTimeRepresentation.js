@@ -1,17 +1,8 @@
 import { formatTimeCodeText, formatTimeCodeSeconds, formatTimeCodeSmpte } from '@vidispine/vdt-js';
 
-import {
-  TEXT_TIME, SMPTE_TIME, SECONDS_TIME,
-} from '../const/Time';
+import { TEXT_TIME, SMPTE_TIME, SECONDS_TIME } from '../const/Time';
 
-function formatTimeRepresentation({
-  to,
-  from,
-  value,
-  toOptions,
-  fromOptions,
-  conform,
-}) {
+function formatTimeRepresentation({ to, from, value, toOptions, fromOptions, conform }) {
   if (to === from) return value;
   let timeCode;
 

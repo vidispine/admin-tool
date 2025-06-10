@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import EchoCard from '../components/debug/EchoCard';
@@ -8,14 +9,11 @@ class Echo extends PureComponent {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);
     this.onFail = this.onFail.bind(this);
+    document.title = 'VidiCore Admin | XML Echo';
     this.state = {
       result: undefined,
       error: undefined,
     };
-  }
-
-  componentDidMount() {
-    document.title = 'VidiCore Admin | XML Echo';
   }
 
   onSuccess(response) {
@@ -26,21 +24,14 @@ class Echo extends PureComponent {
   }
 
   onFail(errors) {
-    const error = errors?.['_error'];
+    const error = errors?._error;
     this.setState({ result: undefined, error });
   }
 
   render() {
     const { result, error } = this.state;
     return (
-      <>
-        <EchoCard
-          result={result}
-          error={error}
-          onSuccess={this.onSuccess}
-          onFail={this.onFail}
-        />
-      </>
+      <EchoCard result={result} error={error} onSuccess={this.onSuccess} onFail={this.onFail} />
     );
   }
 }

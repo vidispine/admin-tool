@@ -1,9 +1,11 @@
 import { PureComponent } from 'react';
+
 import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
 
+import ItemThumbnailDeleteDialog, {
+  DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG,
+} from '../../components/item/ItemThumbnailDeleteDialog';
 import ItemThumbnailGrid from '../../components/item/ItemThumbnailGrid';
-import ItemThumbnailDeleteDialog, { DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG } from '../../components/item/ItemThumbnailDeleteDialog';
-
 import withSnackbar from '../../hoc/withSnackbar';
 
 class ItemThumbnail extends PureComponent {
@@ -57,11 +59,7 @@ class ItemThumbnail extends PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      title,
-    } = this.props;
+    const { titleComponent: TitleComponent, tabComponent: TabComponent, title } = this.props;
     const { itemDocument } = this.state;
     return (
       <>
@@ -74,12 +72,8 @@ class ItemThumbnail extends PureComponent {
           />
         )}
         {TabComponent && <TabComponent />}
-        {itemDocument && (
-          <>
-            {itemDocument.thumbnails && (
-              <ItemThumbnailGrid uriListDocument={itemDocument.thumbnails} />
-            )}
-          </>
+        {itemDocument && itemDocument.thumbnails && (
+          <ItemThumbnailGrid uriListDocument={itemDocument.thumbnails} />
         )}
         <ItemThumbnailDeleteDialog
           dialogName={ITEMTHUMBNAILDELETE_DIALOG}

@@ -1,10 +1,11 @@
 import { PureComponent } from 'react';
+
 import { shape as api } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
-import ShapeFileParams from '../../components/shape/ShapeFileParams';
 import FileListTable from '../../components/file/FileListTable';
+import ShapeFileParams from '../../components/shape/ShapeFileParams';
 import withCard from '../../hoc/withCard';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const FileListCard = withCard(FileListTable);
 
@@ -39,11 +40,12 @@ class ShapeFileList extends PureComponent {
 
   onFetch(itemId, shapeId) {
     try {
-      api.getShape({
-        itemId,
-        shapeId,
-        path: `/API/item/${itemId}/shape/${shapeId}/file`,
-      })
+      api
+        .getShape({
+          itemId,
+          shapeId,
+          path: `/API/item/${itemId}/shape/${shapeId}/file`,
+        })
         .then((response) => {
           const fileListDocument = response.data;
           this.setState({ fileListDocument });
@@ -66,11 +68,7 @@ class ShapeFileList extends PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-      itemId,
-      shapeId,
-    } = this.props;
+    const { titleComponent: TitleComponent, itemId, shapeId } = this.props;
     const { fileListDocument } = this.state;
     return (
       <>
@@ -82,12 +80,8 @@ class ShapeFileList extends PureComponent {
             codeModal="FileListDocument"
           />
         )}
-        <ShapeFileParams
-          shapeId={shapeId}
-          itemId={itemId}
-          onSuccess={this.onSuccess}
-        />
-        {fileListDocument && (<FileListCard fileListDocument={fileListDocument} />)}
+        <ShapeFileParams shapeId={shapeId} itemId={itemId} onSuccess={this.onSuccess} />
+        {fileListDocument && <FileListCard fileListDocument={fileListDocument} />}
       </>
     );
   }

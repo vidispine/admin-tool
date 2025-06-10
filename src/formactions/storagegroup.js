@@ -5,9 +5,10 @@ import { storagegroup as api } from '@vidispine/vdt-api';
 export function onCreate(form) {
   const { storageGroupDocument } = form;
   const { name: groupName } = storageGroupDocument;
-  return api.createStorageGroup({
-    groupName,
-  })
+  return api
+    .createStorageGroup({
+      groupName,
+    })
     .then(() => ({ storageGroupDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -21,10 +22,11 @@ export function onCreate(form) {
 export function onAddStorageGroupStorage(form, dispatch, props) {
   const { groupName } = props;
   const { storageId } = form;
-  return api.addStorageGroupStorage({
-    storageId,
-    groupName,
-  })
+  return api
+    .addStorageGroupStorage({
+      storageId,
+      groupName,
+    })
     .then(() => ({ storageId }))
     .catch((error) => {
       let errorMessage = error.message;

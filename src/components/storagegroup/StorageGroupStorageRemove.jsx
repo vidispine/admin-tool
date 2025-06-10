@@ -1,9 +1,9 @@
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { storagegroup as api } from '@vidispine/vdt-api';
 
@@ -16,7 +16,8 @@ export default function StorageGroupRemove({
   openSnackBar,
 }) {
   const onRemove = () => {
-    api.removeStorageGroupStorage({ groupName, storageId })
+    api
+      .removeStorageGroupStorage({ groupName, storageId })
       .then(() => {
         const messageContent = `Storage ${storageId} Removed`;
         openSnackBar({ messageContent });
@@ -34,20 +35,13 @@ export default function StorageGroupRemove({
         {`Remove Storage "${storageId}" From Storage Group "${groupName}"?`}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          This operation does not delete the actual storages.
-        </DialogContentText>
+        <DialogContentText>This operation does not delete the actual storages.</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

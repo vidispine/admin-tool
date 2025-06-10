@@ -5,11 +5,12 @@ import { collection as api, metadata as MetadataApi } from '@vidispine/vdt-api';
 export function onUpdateMetadata(form, dispatch, props) {
   const { metadataDocument = {}, queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.updateCollectionMetadata({
-    collectionId,
-    metadataDocument,
-    queryParams,
-  })
+  return api
+    .updateCollectionMetadata({
+      collectionId,
+      metadataDocument,
+      queryParams,
+    })
     .then((response) => ({ collectionId, ...response }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -23,10 +24,11 @@ export function onUpdateMetadata(form, dispatch, props) {
 export function onGetMetadata(form, dispatch, props) {
   const { queryParams = {} } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.getCollectionMetadata({
-    collectionId,
-    queryParams,
-  })
+  return api
+    .getCollectionMetadata({
+      collectionId,
+      queryParams,
+    })
     .then((response) => ({ collectionId, ...response }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -58,10 +60,11 @@ export function onListEntityMetadataChange(form, dispatch, props) {
 export function onGet(form, dispatch, props) {
   const { queryParams = {} } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.getCollection({
-    collectionId,
-    queryParams,
-  })
+  return api
+    .getCollection({
+      collectionId,
+      queryParams,
+    })
     .then((response) => ({ collectionId, ...response }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -73,14 +76,12 @@ export function onGet(form, dispatch, props) {
 }
 
 export function onSearch(form) {
-  const {
-    queryParams = {},
-    itemSearchDocument = {},
-  } = form;
-  return api.searchCollection({
-    itemSearchDocument,
-    queryParams,
-  })
+  const { queryParams = {}, itemSearchDocument = {} } = form;
+  return api
+    .searchCollection({
+      itemSearchDocument,
+      queryParams,
+    })
     .then((response) => ({
       queryParams,
       itemSearchDocument,
@@ -97,10 +98,11 @@ export function onSearch(form) {
 
 export function onCreate(form) {
   const { queryParams = {}, collectionDocument = {} } = form;
-  return api.createCollection({
-    collectionDocument,
-    queryParams,
-  })
+  return api
+    .createCollection({
+      collectionDocument,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -113,10 +115,11 @@ export function onCreate(form) {
 export function onRename(form, dispatch, props) {
   const { queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.renameCollection({
-    collectionId,
-    queryParams,
-  })
+  return api
+    .renameCollection({
+      collectionId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -130,11 +133,12 @@ export function onAddEntity(form, dispatch, props) {
   const { queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
   const entityId = props.entityId || form.entityId;
-  return api.addCollectionEntity({
-    collectionId,
-    entityId,
-    queryParams,
-  })
+  return api
+    .addCollectionEntity({
+      collectionId,
+      entityId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -148,11 +152,12 @@ export function onRemoveEntity(form, dispatch, props) {
   const { queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
   const entityId = props.entityId || form.entityId;
-  return api.removeCollectionEntity({
-    collectionId,
-    entityId,
-    queryParams,
-  })
+  return api
+    .removeCollectionEntity({
+      collectionId,
+      entityId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -165,12 +170,13 @@ export function onRemoveEntity(form, dispatch, props) {
 export function onCreateExport(form, dispatch, props) {
   const { queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.getCollection({
-    collectionId,
-    queryParams,
-    path: `/API/collection/${collectionId}/export`,
-    method: 'POST',
-  })
+  return api
+    .getCollection({
+      collectionId,
+      queryParams,
+      path: `/API/collection/${collectionId}/export`,
+      method: 'POST',
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -183,10 +189,11 @@ export function onCreateExport(form, dispatch, props) {
 export function onUpdateFolderCollection(form, dispatch, props) {
   const { queryParams } = form;
   const collectionId = props.collectionId || form.collectionId;
-  return api.updateFolderCollection({
-    collectionId,
-    queryParams,
-  })
+  return api
+    .updateFolderCollection({
+      collectionId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

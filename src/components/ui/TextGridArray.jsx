@@ -1,9 +1,8 @@
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+
 import TextGrid from './TextGrid';
 
-const TextGridArray = ({
-  value, title, arrayKey, ...props
-}) => {
+function TextGridArray({ value, title, arrayKey, ...props }) {
   if (props.hideNoValue && value === undefined) {
     return null;
   }
@@ -21,6 +20,6 @@ const TextGridArray = ({
       {...props}
     />
   ));
-};
+}
 
 export default withErrorBoundary(TextGridArray);

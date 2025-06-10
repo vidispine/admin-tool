@@ -1,19 +1,20 @@
 import { SubmissionError } from 'redux-form';
+
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
 const onError = (error) => {
   let errorMessage = error.message;
   if (error.response) {
-    errorMessage = JSON.stringify(
-      error.response.data, (k, v) => (v === null ? undefined : v
-      ),
-    );
+    errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
   }
   throw new SubmissionError({ _error: errorMessage });
 };
 
-const queryParamSerializer = (queryParams = {}) => Object.entries(queryParams)
-  .reduce((a, [key, value]) => ({ ...a, [key]: encodeURIComponent(value) }), {});
+const queryParamSerializer = (queryParams = {}) =>
+  Object.entries(queryParams).reduce(
+    (a, [key, value]) => ({ ...a, [key]: encodeURIComponent(value) }),
+    {},
+  );
 
 export function onGetItemBulkyMetadataAsFile(form, dispatch, props) {
   try {
@@ -30,8 +31,7 @@ export function onGetItemBulkyMetadataAsFile(form, dispatch, props) {
         silentJSONParsing: false,
         forcedJSONParsing: false,
       },
-    })
-      .catch(onError);
+    }).catch(onError);
   } catch (error) {
     return onError(error);
   }
@@ -54,8 +54,7 @@ export function onGetShapeBulkyMetadataAsFile(form, dispatch, props) {
         silentJSONParsing: false,
         forcedJSONParsing: false,
       },
-    })
-      .catch(onError);
+    }).catch(onError);
   } catch (error) {
     return onError(error);
   }
@@ -80,8 +79,7 @@ export function onGetComponentBulkyMetadataAsFile(form, dispatch, props) {
         silentJSONParsing: false,
         forcedJSONParsing: false,
       },
-    })
-      .catch(onError);
+    }).catch(onError);
   } catch (error) {
     return onError(error);
   }

@@ -1,17 +1,17 @@
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import AccessGraphParamsForm from './AccessGraphParamsForm';
+import * as formActions from '../../formactions/access';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import * as formActions from '../../formactions/access';
+
+import AccessGraphParamsForm from './AccessGraphParamsForm';
 
 export const FORM_NAME = 'ACCESS_GRAPH_PARAMS_FORM';
 

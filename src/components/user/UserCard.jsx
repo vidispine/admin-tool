@@ -1,17 +1,14 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import { UserBasicDisplay } from './UserDisplay';
 
-export default function UserCard({
-  ...props
-}) {
+export default function UserCard({ ...props }) {
   return (
     <SquareCard>
       <CardContent>
-        <UserBasicDisplay
-          {...props}
-        />
+        <UserBasicDisplay {...props} />
       </CardContent>
     </SquareCard>
   );

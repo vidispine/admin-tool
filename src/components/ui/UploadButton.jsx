@@ -1,21 +1,12 @@
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-export default function UploadButton({
-  input,
-  meta,
-  loading,
-  fullWidth = false,
-}) {
+export default function UploadButton({ input, meta, loading, fullWidth = false }) {
   const { value } = input;
   const fileName = value && value[0].name;
   return (
     <>
-      {Boolean(meta.touched && meta.error) && (
-        <FormHelperText error>
-          {meta.error}
-        </FormHelperText>
-      )}
+      {Boolean(meta.touched && meta.error) && <FormHelperText error>{meta.error}</FormHelperText>}
       <Button
         variant="text"
         component="label"
@@ -25,11 +16,7 @@ export default function UploadButton({
         fullWidth={fullWidth}
       >
         {fileName || 'Choose File'}
-        <input
-          style={{ display: 'none' }}
-          type="file"
-          onChange={input.onChange}
-        />
+        <input style={{ display: 'none' }} type="file" onChange={input.onChange} />
       </Button>
     </>
   );

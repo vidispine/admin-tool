@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
+
 import PropertiesCard from '../../components/configuration/properties/PropertiesCard';
 import PropertiesDialog from '../../components/configuration/properties/PropertiesDialog';
-
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -26,7 +26,8 @@ class Properties extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.getPropertiesConfiguration()
+      api
+        .getPropertiesConfiguration()
         .then((response) => this.setState({ configurationPropertyListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Configuration Properties';
@@ -48,12 +49,11 @@ class Properties extends PureComponent {
           code={configurationPropertyListDocument}
           codeModal="ConfigurationPropertyListDocument"
         />
-        {configurationPropertyListDocument
-        && (
-        <PropertiesCard
-          configurationPropertyListDocument={configurationPropertyListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {configurationPropertyListDocument && (
+          <PropertiesCard
+            configurationPropertyListDocument={configurationPropertyListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
         <PropertiesDialog
           dialogName={CONFIGURATIONPROPERTIES_CREATE_MODAL}

@@ -1,13 +1,15 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { sequence as SequenceApi } from '@vidispine/vdt-api';
 
-import { withRouterProps } from '../../hoc/withRouterProps';
-import routes from '../../const/routes';
-import withSnackbar from '../../hoc/withSnackbar';
 import ItemSequenceCard from '../../components/item/ItemSequenceCard';
 import ItemSequenceRemove from '../../components/item/ItemSequenceRemove';
 import TitleMenu from '../../components/ui/TitleMenu';
+import routes from '../../const/routes';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const ITEM_SEQUENCE_REMOVE_DIALOG = 'ITEM_SEQUENCE_REMOVE_DIALOG';
 
@@ -43,7 +45,12 @@ class ItemSequence extends PureComponent {
   onFetch(itemId, format) {
     try {
       SequenceApi.getItemSequence({ itemId, format })
-        .then((response) => this.setState({ sequenceDocument: response.data, contentType: response.headers['content-type'] }))
+        .then((response) =>
+          this.setState({
+            sequenceDocument: response.data,
+            contentType: response.headers['content-type'],
+          }),
+        )
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -84,7 +91,7 @@ class ItemSequence extends PureComponent {
               },
               { title: format },
             ]}
-            actionComponent={(
+            actionComponent={
               <TitleMenu
                 menuItems={[
                   {
@@ -94,7 +101,7 @@ class ItemSequence extends PureComponent {
                   },
                 ]}
               />
-            )}
+            }
             addAccessControl={null}
             entityId={null}
           />

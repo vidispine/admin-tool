@@ -1,14 +1,14 @@
 import { PureComponent } from 'react';
 
 import { group as api } from '@vidispine/vdt-api';
-import GroupTitle from '../components/group/GroupTitle';
+
 import GroupCard from '../components/group/GroupCard';
 import GroupChildCard from '../components/group/GroupChildCard';
 import GroupParentCard from '../components/group/GroupParentCard';
-import GroupUserCard from '../components/group/GroupUserCard';
 import GroupRemove from '../components/group/GroupRemove';
+import GroupTitle from '../components/group/GroupTitle';
+import GroupUserCard from '../components/group/GroupUserCard';
 import SimpleMetadataCard from '../components/ui/SimpleMetadataCard';
-
 import withUI from '../hoc/withUI';
 
 const GROUP_REMOVE_DIALOG = 'GROUP_REMOVE_DIALOG';
@@ -45,7 +45,8 @@ class Group extends PureComponent {
 
   onFetch(groupName) {
     try {
-      api.getGroup({ groupName })
+      api
+        .getGroup({ groupName })
         .then((response) => this.setState({ groupDocument: response.data }))
         .catch((error) => this.onFetchError(error));
     } catch (error) {
@@ -73,9 +74,7 @@ class Group extends PureComponent {
         />
         {groupDocument && (
           <>
-            <GroupCard
-              groupDocument={groupDocument}
-            />
+            <GroupCard groupDocument={groupDocument} />
             <GroupChildCard
               groupDocument={groupDocument}
               onSuccess={this.onRefresh}

@@ -4,9 +4,10 @@ import { job as api } from '@vidispine/vdt-api';
 
 export function onJobList(form) {
   const { queryParams } = form;
-  return api.listJob({
-    queryParams,
-  })
+  return api
+    .listJob({
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -19,10 +20,11 @@ export function onJobList(form) {
 export function onModifyJob(form, dispatch, props) {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api.modifyJob({
-    jobId,
-    queryParams,
-  })
+  return api
+    .modifyJob({
+      jobId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -35,10 +37,11 @@ export function onModifyJob(form, dispatch, props) {
 export function onDuplicateJob(form, dispatch, props) {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api.duplicateJob({
-    jobId,
-    queryParams,
-  })
+  return api
+    .duplicateJob({
+      jobId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -51,10 +54,11 @@ export function onDuplicateJob(form, dispatch, props) {
 export function onAbortJob(form, dispatch, props) {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api.abortJob({
-    jobId,
-    queryParams,
-  })
+  return api
+    .abortJob({
+      jobId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -66,9 +70,10 @@ export function onAbortJob(form, dispatch, props) {
 
 export function onCreateJob(form) {
   const { queryParams } = form;
-  return api.createJob({
-    queryParams,
-  })
+  return api
+    .createJob({
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

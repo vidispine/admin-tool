@@ -4,7 +4,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { access as AccessApi } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
 function AccessControlRemove({
@@ -35,20 +37,13 @@ function AccessControlRemove({
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>{`Remove Import Setting ${accessId} ?`}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Users may no longer be able to access this.
-        </DialogContentText>
+        <DialogContentText>Users may no longer be able to access this.</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

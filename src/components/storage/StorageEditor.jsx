@@ -1,20 +1,17 @@
 import { connect } from 'react-redux';
-import * as formActions from '../../formactions/storage';
+
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/storage';
 import Editor from '../ui/Editor';
 
-function StorageEditor({
-  storageDocument,
-  storageId,
-  openSnackBar,
-  onRefresh,
-  ...props
-}) {
+function StorageEditor({ storageDocument, storageId, openSnackBar, onRefresh, ...props }) {
   const EDIT_STORAGE_FORM = 'EDIT_STORAGE_FORM';
   const onSubmitSuccess = () => {
     const messageContent = 'Storage Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Storage';

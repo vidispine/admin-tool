@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import AuditLogTitle from '../components/auditlog/AuditLogTitle';
-import AuditLogFilterCard from '../components/auditlog/AuditLogFilterCard';
 import AuditLogCard from '../components/auditlog/AuditLogCard';
+import AuditLogFilterCard from '../components/auditlog/AuditLogFilterCard';
+import AuditLogTitle from '../components/auditlog/AuditLogTitle';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
 
@@ -84,13 +85,7 @@ class AuditLog extends PureComponent {
   }
 
   render() {
-    const {
-      auditLogDocument,
-      count,
-      page,
-      rowsPerPage,
-      orderDirection,
-    } = this.state;
+    const { auditLogDocument, count, page, rowsPerPage, orderDirection } = this.state;
     return (
       <>
         <AuditLogTitle
@@ -98,22 +93,18 @@ class AuditLog extends PureComponent {
           codeModal="AuditLogDocument"
           onRefresh={this.onRefresh}
         />
-        <AuditLogFilterCard
-          form={AUDITLOG_FILTER_FORM}
-          onSuccess={this.onSuccess}
-        />
-        {auditLogDocument
-        && (
-        <AuditLogCard
-          auditLogDocument={auditLogDocument}
-          count={count}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          onChangePage={this.onChangePage}
-          onChangeRowsPerPage={this.onChangeRowsPerPage}
-          onChangeOrder={this.onChangeOrder}
-          orderDirection={orderDirection}
-        />
+        <AuditLogFilterCard form={AUDITLOG_FILTER_FORM} onSuccess={this.onSuccess} />
+        {auditLogDocument && (
+          <AuditLogCard
+            auditLogDocument={auditLogDocument}
+            count={count}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={this.onChangePage}
+            onChangeRowsPerPage={this.onChangeRowsPerPage}
+            onChangeOrder={this.onChangeOrder}
+            orderDirection={orderDirection}
+          />
         )}
       </>
     );

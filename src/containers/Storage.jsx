@@ -1,16 +1,17 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { storage as api } from '@vidispine/vdt-api';
-import StorageTitle from '../components/storage/StorageTitle';
-import StorageCard from '../components/storage/StorageCard';
-import StorageRemove from '../components/storage/StorageRemove';
-import StorageMethodDialog from '../components/storage/StorageMethodDialog';
-import StorageType from '../components/storage/StorageType';
-import StorageEvacuate from '../components/storage/StorageEvacuate';
-import StorageEvacuateCancel from '../components/storage/StorageEvacuateCancel';
 
 import * as actions from '../actions';
+import StorageCard from '../components/storage/StorageCard';
+import StorageEvacuate from '../components/storage/StorageEvacuate';
+import StorageEvacuateCancel from '../components/storage/StorageEvacuateCancel';
+import StorageMethodDialog from '../components/storage/StorageMethodDialog';
+import StorageRemove from '../components/storage/StorageRemove';
+import StorageTitle from '../components/storage/StorageTitle';
+import StorageType from '../components/storage/StorageType';
 
 const STORAGE_REMOVE_MODAL = 'STORAGE_REMOVE_MODAL';
 const STORAGEMETHOD_CREATE_MODAL = 'STORAGEMETHOD_CREATE_MODAL';
@@ -50,7 +51,8 @@ class Storage extends PureComponent {
 
   onFetch(storageId) {
     try {
-      api.getStorage({ storageId })
+      api
+        .getStorage({ storageId })
         .then((response) => this.setState({ storageDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -61,7 +63,8 @@ class Storage extends PureComponent {
   onRescan() {
     const { storageId, openSnackBar } = this.props;
     try {
-      api.rescanStorage({ storageId })
+      api
+        .rescanStorage({ storageId })
         .then(() => {
           const messageContent = 'Rescan Started';
           openSnackBar({ messageContent });
@@ -80,17 +83,8 @@ class Storage extends PureComponent {
   }
 
   render() {
-    const {
-      storageId,
-      modalName,
-      closeModal,
-      openModal,
-      openSnackBar,
-      history,
-    } = this.props;
-    const {
-      storageDocument,
-    } = this.state;
+    const { storageId, modalName, closeModal, openModal, openSnackBar, history } = this.props;
+    const { storageDocument } = this.state;
     return (
       <>
         <StorageTitle
@@ -105,22 +99,22 @@ class Storage extends PureComponent {
           onRescan={this.onRescan}
         />
         {storageDocument && (
-        <StorageCard
-          onRefresh={this.onRefresh}
-          storageId={storageId}
-          storageDocument={storageDocument}
-          openMethodCreate={() => openModal({ modalName: STORAGEMETHOD_CREATE_MODAL })}
-        />
+          <StorageCard
+            onRefresh={this.onRefresh}
+            storageId={storageId}
+            storageDocument={storageDocument}
+            openMethodCreate={() => openModal({ modalName: STORAGEMETHOD_CREATE_MODAL })}
+          />
         )}
         <StorageRemove
-          isOpen={(modalName === STORAGE_REMOVE_MODAL)}
+          isOpen={modalName === STORAGE_REMOVE_MODAL}
           storageId={storageId}
           openSnackBar={openSnackBar}
           closeModal={closeModal}
           history={history}
         />
         <StorageMethodDialog
-          isOpen={(modalName === STORAGEMETHOD_CREATE_MODAL)}
+          isOpen={modalName === STORAGEMETHOD_CREATE_MODAL}
           onRefresh={this.onRefresh}
           storageId={storageId}
           closeModal={closeModal}
@@ -147,7 +141,9 @@ class Storage extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { storageId } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     storageId,

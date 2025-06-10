@@ -1,16 +1,14 @@
-import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import { reduxForm, FormSection } from 'redux-form';
 
-import { TextField } from '../form';
 import { required, isUrl } from '../../utils/FieldValidation';
-import Field from '../ui/Field';
+import { TextField } from '../form';
 import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
 
-const hasTokenOrValue = (value, { secretKey, headers = {} }) => (
-  headers.token
-  || headers.bearer
-  || secretKey ? undefined : required(value));
+const hasTokenOrValue = (value, { secretKey, headers = {} }) =>
+  headers.token || headers.bearer || secretKey ? undefined : required(value);
 
 const headers = () => (
   <>
@@ -38,25 +36,13 @@ const headers = () => (
 );
 
 const queryParams = () => (
-  <>
-    <FormControlLabel
-      control={(
-        <Field
-          name="autoRefresh"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Remember Me"
-    />
-  </>
+  <FormControlLabel
+    control={<Field name="autoRefresh" component={BoolCheckbox} />}
+    label="Remember Me"
+  />
 );
 
-function LoginForm({
-  error,
-  handleSubmit,
-  onTestUrl,
-  useDevProxy,
-}) {
+function LoginForm({ error, handleSubmit, onTestUrl, useDevProxy }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}

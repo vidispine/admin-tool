@@ -1,6 +1,7 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import ImportAccessTable from './ImportAccessTable';
 
 export default function ImportSettingsCard({

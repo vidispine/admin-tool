@@ -20,20 +20,23 @@ export const getBasename = (baseUrl) => {
 
 export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') => {
   const cookies = {};
-  document.cookie
-    .split('; ')
-    .forEach((keyValue) => {
-      const [key, value] = keyValue.split('=');
-      cookies[key] = value;
-    });
+  document.cookie.split('; ').forEach((keyValue) => {
+    const [key, value] = keyValue.split('=');
+    cookies[key] = value;
+  });
   if (cookies[cookieKey]) return decodeURIComponent(cookies[cookieKey]);
   return undefined;
 };
-export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') => (import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined);
-export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
-export const getContainerProxyFromWindow = (windowKey = 'CONTAINER_PROXY') => (window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined);
+export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') =>
+  import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined;
+export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') =>
+  window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined;
+export const getContainerProxyFromWindow = (windowKey = 'CONTAINER_PROXY') =>
+  window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined;
 export const getVidispineUrlFromPath = () => {
-  const pathnameWithoutBasename = window.location.pathname.replace(APP_BASENAME, '').replace(/^\/+/, '');
+  const pathnameWithoutBasename = window.location.pathname
+    .replace(APP_BASENAME, '')
+    .replace(/^\/+/, '');
   if (pathnameWithoutBasename === undefined) return undefined;
   const [encodedPath] = pathnameWithoutBasename.split('/');
   try {
@@ -57,9 +60,7 @@ export const setCookiePath = (vidispineUrl) => {
   const encodedVidispineUrl = encodeURIComponent(vidispineUrl);
   return `${
     baseName !== '' && !baseName.startsWith('/') ? '/' : ''
-  }${baseName}/${encodedVidispineUrl}${
-    encodedVidispineUrl.endsWith('/') ? '' : '/'
-  }`;
+  }${baseName}/${encodedVidispineUrl}${encodedVidispineUrl.endsWith('/') ? '' : '/'}`;
 };
 
 export const NOTIFICATION_ENTITY = [

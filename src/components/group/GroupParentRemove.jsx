@@ -4,6 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { group as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
 function GroupParentRemove({
@@ -15,12 +16,15 @@ function GroupParentRemove({
   onSuccess,
 }) {
   const onRemove = () => {
-    api.removeGroupChildren({ groupName: parentGroupName, childGroupName })
+    api
+      .removeGroupChildren({ groupName: parentGroupName, childGroupName })
       .then(() => {
         const messageContent = `Group ${childGroupName} Removed From ${parentGroupName}`;
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing Group';
@@ -29,19 +33,12 @@ function GroupParentRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Group "${childGroupName}" From ${parentGroupName}?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Group "${childGroupName}" From ${parentGroupName}?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

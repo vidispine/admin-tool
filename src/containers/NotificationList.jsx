@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import NotificationListCard from '../components/notification/NotificationListCard';
-import NotificationCreate from '../components/notification/NotificationCreate';
 
+import NotificationCreate from '../components/notification/NotificationCreate';
+import NotificationListCard from '../components/notification/NotificationListCard';
+import TitleHeader from '../components/ui/TitleHeader';
 import withUI from '../hoc/withUI';
 import capitalizeString from '../utils/capitalizeString';
 
@@ -48,7 +48,8 @@ class NotificationList extends PureComponent {
 
   onFetch(entityType) {
     try {
-      api.listNotification({ entityType })
+      api
+        .listNotification({ entityType })
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -57,10 +58,7 @@ class NotificationList extends PureComponent {
   }
 
   render() {
-    const {
-      entityType,
-      history,
-    } = this.props;
+    const { entityType, history } = this.props;
     const { uriListDocument } = this.state;
     return (
       <>
@@ -75,10 +73,7 @@ class NotificationList extends PureComponent {
           createModal={NOTIFICATION_CREATE_DIALOG}
           entityType={entityType}
         />
-        <NotificationListCard
-          uriListDocument={uriListDocument}
-          entityType={entityType}
-        />
+        <NotificationListCard uriListDocument={uriListDocument} entityType={entityType} />
         <NotificationCreate
           dialogName={NOTIFICATION_CREATE_DIALOG}
           entityType={entityType}

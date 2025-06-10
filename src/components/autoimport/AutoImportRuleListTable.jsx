@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import AutoImportRuleRow from './AutoImportRuleRow';
 
-export default function AutoImportRuleListTable({
-  autoImportRuleListDocument = {},
-}) {
+export default function AutoImportRuleListTable({ autoImportRuleListDocument = {} }) {
   const { rule: autoImportRuleList = [] } = autoImportRuleListDocument;
   return (
     <Table>
@@ -20,10 +18,7 @@ export default function AutoImportRuleListTable({
       </TableHead>
       <TableBody>
         {autoImportRuleList.map((autoImportRule) => (
-          <AutoImportRuleRow
-            key={autoImportRule.storage}
-            autoImportRule={autoImportRule}
-          />
+          <AutoImportRuleRow key={autoImportRule.storage} autoImportRule={autoImportRule} />
         ))}
       </TableBody>
     </Table>

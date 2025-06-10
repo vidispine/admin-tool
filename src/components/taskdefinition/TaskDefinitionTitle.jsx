@@ -5,7 +5,7 @@ export default function TaskDefinitionTitle(props) {
     <TitleHeader
       parentTitle="Job Type"
       parentTo="/jobtype/"
-      title={props.taskDefinitionType}
+      title={props?.taskDefinitionType}
       helpTo="/ref/task-definition.html"
       {...props}
     />

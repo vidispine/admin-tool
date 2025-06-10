@@ -1,28 +1,26 @@
 import * as formActions from '../../formactions/analyzepreset';
+import withUI from '../../hoc/withUI';
+import Editor from '../ui/Editor';
+
 import AnalyzePresetDisplay from './AnalyzePresetDisplay';
 import AnalyzePresetForm from './AnalyzePresetForm';
 
-import Editor from '../ui/Editor';
-import withUI from '../../hoc/withUI';
-
 const EDIT_ANALYZEPRESET_FORM = 'EDIT_ANALYZEPRESET_FORM';
 
-function AnalyzePresetEditor({
-  analyzePresetDocument,
-  preset,
-  openSnackBar,
-  onSuccess,
-  onFail,
-}) {
+function AnalyzePresetEditor({ analyzePresetDocument, preset, openSnackBar, onSuccess, onFail }) {
   const onSubmitSuccess = () => {
     const messageContent = 'Analyze Preset Saved';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(); }
+    if (onSuccess) {
+      onSuccess();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Analyze Preset';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(); }
+    if (onFail) {
+      onFail();
+    }
   };
   return (
     <Editor

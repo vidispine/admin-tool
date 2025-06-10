@@ -1,7 +1,8 @@
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { user as UserApi } from '@vidispine/vdt-api';
+
 import { StatefulAsyncSelect } from '../ui/Select';
 
 const debouncedListUser = debounce(UserApi.listUser, 500, {
@@ -14,8 +15,9 @@ export const loadUserOptions = async (inputValue) => {
   const { user: userList = [] } = userListType;
   let filterUserList = userList;
   if (inputValue && inputValue !== '*') {
-    filterUserList = userList
-      .filter((f) => f.userName.toLowerCase().includes(inputValue.toLowerCase()));
+    filterUserList = userList.filter((f) =>
+      f.userName.toLowerCase().includes(inputValue.toLowerCase()),
+    );
   }
   const options = filterUserList.map((f) => ({
     label: f.userName,

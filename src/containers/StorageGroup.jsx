@@ -1,14 +1,15 @@
 import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { storagegroup as api } from '@vidispine/vdt-api';
-import StorageGroupTitle from '../components/storagegroup/StorageGroupTitle';
+
+import * as actions from '../actions';
 import StorageGroupCard from '../components/storagegroup/StorageGroupCard';
 import StorageGroupRemove from '../components/storagegroup/StorageGroupRemove';
 import StorageGroupStorageDialog from '../components/storagegroup/StorageGroupStorageDialog';
+import StorageGroupTitle from '../components/storagegroup/StorageGroupTitle';
 import CodeModal from '../components/ui/CodeModal';
-
-import * as actions from '../actions';
 
 const STORAGEGROUP_CODE_MODAL = 'STORAGEGROUP_CODE_MODAL';
 const STORAGEGROUP_REMOVE_MODAL = 'STORAGEGROUP_REMOVE_MODAL';
@@ -32,7 +33,8 @@ class StorageGroup extends PureComponent {
   onRefresh() {
     const { openSnackBar, groupName } = this.props;
     try {
-      api.getStorageGroup({ groupName })
+      api
+        .getStorageGroup({ groupName })
         .then((response) => this.setState({ storageGroupDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Storage Group';
@@ -41,17 +43,8 @@ class StorageGroup extends PureComponent {
   }
 
   render() {
-    const {
-      groupName,
-      modalName,
-      closeModal,
-      openModal,
-      openSnackBar,
-      history,
-    } = this.props;
-    const {
-      storageGroupDocument,
-    } = this.state;
+    const { groupName, modalName, closeModal, openModal, openSnackBar, history } = this.props;
+    const { storageGroupDocument } = this.state;
     return (
       <>
         <StorageGroupTitle
@@ -61,29 +54,28 @@ class StorageGroup extends PureComponent {
           onRefresh={this.onRefresh}
           groupName={groupName}
         />
-        {storageGroupDocument
-        && (
-        <StorageGroupCard
-          onRefresh={this.onRefresh}
-          groupName={groupName}
-          storageGroupDocument={storageGroupDocument}
-        />
+        {storageGroupDocument && (
+          <StorageGroupCard
+            onRefresh={this.onRefresh}
+            groupName={groupName}
+            storageGroupDocument={storageGroupDocument}
+          />
         )}
         <CodeModal
-          isOpen={(modalName === STORAGEGROUP_CODE_MODAL)}
+          isOpen={modalName === STORAGEGROUP_CODE_MODAL}
           toggleDialogue={closeModal}
           code={storageGroupDocument}
           title="StorageGroupDocument"
         />
         <StorageGroupRemove
-          isOpen={(modalName === STORAGEGROUP_REMOVE_MODAL)}
+          isOpen={modalName === STORAGEGROUP_REMOVE_MODAL}
           groupName={groupName}
           openSnackBar={openSnackBar}
           closeModal={closeModal}
           history={history}
         />
         <StorageGroupStorageDialog
-          isOpen={(modalName === STORAGEGROUP_STORAGE_ADD_MODAL)}
+          isOpen={modalName === STORAGEGROUP_STORAGE_ADD_MODAL}
           closeModal={closeModal}
           groupName={groupName}
           onRefresh={this.onRefresh}
@@ -95,7 +87,9 @@ class StorageGroup extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { groupName } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     groupName,

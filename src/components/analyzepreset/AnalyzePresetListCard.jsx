@@ -3,15 +3,11 @@ import CardContent from '@material-ui/core/CardContent';
 
 import AnalyzePresetListTable from './AnalyzePresetListTable';
 
-export default function AnalyzePresetListCard({
-  analyzePresetListDocument,
-}) {
+export default function AnalyzePresetListCard({ analyzePresetListDocument }) {
   return (
     <Card>
       <CardContent>
-        <AnalyzePresetListTable
-          analyzePresetListDocument={analyzePresetListDocument}
-        />
+        <AnalyzePresetListTable analyzePresetListDocument={analyzePresetListDocument} />
       </CardContent>
     </Card>
   );

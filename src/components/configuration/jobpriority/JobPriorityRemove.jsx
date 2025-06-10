@@ -4,18 +4,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
+
 import withUI from '../../../hoc/withUI';
 
-function JobPriorityRemove({
-  open,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  onError,
-}) {
+function JobPriorityRemove({ open, onClose, openSnackBar, onSuccess, onError }) {
   const onRemove = () => {
     ConfigurationApi.updateJobPriorityConfiguration({
-      jobPriorityConfigurationDocument: { },
+      jobPriorityConfigurationDocument: {},
     })
       .then(() => {
         const messageContent = 'Job Priority Configuration Removed';
@@ -31,19 +26,12 @@ function JobPriorityRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        Remove Job Priority Configuration?
-      </DialogTitle>
+      <DialogTitle>Remove Job Priority Configuration?</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

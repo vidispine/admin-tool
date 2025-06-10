@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import StorageGroupRow from './StorageGroupRow';
 
-export default function StorageGroupListTable({
-  storageGroupListDocument = {},
-}) {
+export default function StorageGroupListTable({ storageGroupListDocument = {} }) {
   const { group: storageGroupList = [] } = storageGroupListDocument;
   return (
     <Table>
@@ -19,10 +17,7 @@ export default function StorageGroupListTable({
       </TableHead>
       <TableBody>
         {storageGroupList.map((storageGroup) => (
-          <StorageGroupRow
-            key={storageGroup.name}
-            storageGroup={storageGroup}
-          />
+          <StorageGroupRow key={storageGroup.name} storageGroup={storageGroup} />
         ))}
       </TableBody>
     </Table>

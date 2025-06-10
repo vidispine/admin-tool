@@ -1,11 +1,11 @@
 import { PureComponent } from 'react';
 
 import { metadata as api } from '@vidispine/vdt-api';
-import withSnackbar from '../hoc/withSnackbar';
-import withCard from '../hoc/withCard';
 
 import MetadataEntryDisplay from '../components/metadata/MetadataEntryDisplay';
 import TitleHeader from '../components/ui/TitleHeader';
+import withCard from '../hoc/withCard';
+import withSnackbar from '../hoc/withSnackbar';
 
 const MetadataEntryDisplayCard = withCard(MetadataEntryDisplay);
 
@@ -47,7 +47,8 @@ class Metadata extends PureComponent {
 
   onFetch(metadataUuid) {
     try {
-      api.getMetadata({ metadataUuid })
+      api
+        .getMetadata({ metadataUuid })
         .then((response) => this.setState({ metadataEntryDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -68,9 +69,7 @@ class Metadata extends PureComponent {
           parentTo="/search/field-group/"
           onRefresh={this.onRefresh}
         />
-        <MetadataEntryDisplayCard
-          metadataEntryDocument={metadataEntryDocument}
-        />
+        <MetadataEntryDisplayCard metadataEntryDocument={metadataEntryDocument} />
       </>
     );
   }

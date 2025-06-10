@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { vxa as api } from '@vidispine/vdt-api';
-import VxaTitle from '../components/vxa/VxaTitle';
+
 import VxaCard from '../components/vxa/VxaCard';
 import VxaRemove from '../components/vxa/VxaRemove';
-
+import VxaTitle from '../components/vxa/VxaTitle';
 import withUI from '../hoc/withUI';
 
 const REMOVE_AGENT_DIALOG = 'REMOVE_AGENT_DIALOG';
@@ -28,7 +28,8 @@ class Vxa extends PureComponent {
   onRefresh() {
     const { vxaUuid } = this.props;
     try {
-      api.getVxa({ vxaUuid })
+      api
+        .getVxa({ vxaUuid })
         .then((response) => this.setState({ vxaDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -54,12 +55,7 @@ class Vxa extends PureComponent {
           removeModal={REMOVE_AGENT_DIALOG}
           vxaUuid={vxaUuid}
         />
-        {vxaDocument
-        && (
-        <VxaCard
-          vxaDocument={vxaDocument}
-        />
-        )}
+        {vxaDocument && <VxaCard vxaDocument={vxaDocument} />}
         <VxaRemove
           dialogName={REMOVE_AGENT_DIALOG}
           onSuccess={() => history.push('/vxa/')}

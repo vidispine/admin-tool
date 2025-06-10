@@ -1,6 +1,6 @@
 import TextGrid from '../ui/TextGrid';
-import TypeSection from '../ui/TypeSection';
 import TypeArray from '../ui/TypeArray';
+import TypeSection from '../ui/TypeSection';
 
 const setVariant = (key) => {
   switch (key) {
@@ -11,40 +11,19 @@ const setVariant = (key) => {
   }
 };
 
-const KeyValueType = ({ value = {} }) => (
-  <>
-    <TextGrid
-      title={value.key}
-      value={value.value}
-      variant={setVariant(value.key)}
-    />
-  </>
-);
+function KeyValueType({ value = {} }) {
+  return <TextGrid title={value.key} value={value.value} variant={setVariant(value.key)} />;
+}
 
-const AnalyzePresetType = ({ value = {} }) => (
-  <>
-    <TextGrid
-      title="name"
-      value={value.name}
-      hover
-    />
-    <TypeArray
-      arrayTitle="Data"
-      value={value.data}
-      component={KeyValueType}
-    />
-  </>
-);
-
-export default function AnalyzePresetDisplay({
-  analyzePresetDocument,
-}) {
+function AnalyzePresetType({ value = {} }) {
   return (
     <>
-      <TypeSection
-        component={AnalyzePresetType}
-        value={analyzePresetDocument}
-      />
+      <TextGrid title="name" value={value.name} hover />
+      <TypeArray arrayTitle="Data" value={value.data} component={KeyValueType} />
     </>
   );
+}
+
+export default function AnalyzePresetDisplay({ analyzePresetDocument }) {
+  return <TypeSection component={AnalyzePresetType} value={analyzePresetDocument} />;
 }

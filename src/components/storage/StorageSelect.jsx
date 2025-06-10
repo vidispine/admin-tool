@@ -1,7 +1,8 @@
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { storage as StorageApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
 const debounceListStorage = debounce(StorageApi.listStorage, 500, {

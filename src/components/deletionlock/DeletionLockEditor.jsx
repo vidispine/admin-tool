@@ -1,21 +1,20 @@
 import { connect } from 'react-redux';
-import * as formActions from '../../formactions/deletionlock';
+
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/deletionlock';
 import Editor from '../ui/Editor';
+
 import DeletionLockDisplay from './DeletionLockDisplay';
 import DeletionLockForm from './DeletionLockForm';
 
-function DeletionLockEditor({
-  deletionLockDocument,
-  lockId,
-  openSnackBar,
-  onRefresh,
-}) {
+function DeletionLockEditor({ deletionLockDocument, lockId, openSnackBar, onRefresh }) {
   const EDIT_DELETIONLOCK_FORM = 'EDIT_DELETIONLOCK_FORM';
   const onSubmitSuccess = () => {
     const messageContent = 'Deletion Lock Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Deletion Lock';

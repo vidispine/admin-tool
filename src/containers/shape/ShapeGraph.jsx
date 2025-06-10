@@ -1,8 +1,9 @@
 import { PureComponent } from 'react';
+
 import { shape as api } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
 import GraphViz from '../../components/ui/GraphViz';
+import withSnackbar from '../../hoc/withSnackbar';
 
 class ShapeGraph extends PureComponent {
   constructor(props) {
@@ -37,20 +38,22 @@ class ShapeGraph extends PureComponent {
     const { useGraphViz = true } = this.props;
     try {
       if (useGraphViz) {
-        api.getShapeGraphDot({
-          itemId,
-          shapeId,
-        })
+        api
+          .getShapeGraphDot({
+            itemId,
+            shapeId,
+          })
           .then((response) => {
             this.setState({ graphDot: response.data });
           })
           .catch((error) => this.onRefreshError(error));
       } else {
-        api.getShapeGraph({
-          itemId,
-          shapeId,
-          responseType: 'blob',
-        })
+        api
+          .getShapeGraph({
+            itemId,
+            shapeId,
+            responseType: 'blob',
+          })
           .then((response) => {
             this.setState({ graphImage: response.data });
           })
@@ -68,10 +71,7 @@ class ShapeGraph extends PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-      useGraphViz = true,
-    } = this.props;
+    const { titleComponent: TitleComponent, useGraphViz = true } = this.props;
     const { graphImage, graphDot } = this.state;
     return (
       <>
@@ -85,20 +85,11 @@ class ShapeGraph extends PureComponent {
           />
         )}
         {useGraphViz === false && graphImage ? (
-          <img
-            alt="graph"
-            src={URL.createObjectURL(graphImage)}
-            style={{ width: '100%' }}
-          />
+          <img alt="graph" src={URL.createObjectURL(graphImage)} style={{ width: '100%' }} />
         ) : null}
         {useGraphViz === true && graphDot ? (
-          <GraphViz
-            dot={graphDot}
-            width="100%"
-            height="80vh"
-          />
+          <GraphViz dot={graphDot} width="100%" height="80vh" />
         ) : null}
-
       </>
     );
   }

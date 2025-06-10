@@ -1,18 +1,18 @@
-import { compose } from 'redux';
-
-import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
+import { compose } from 'redux';
 
-import AccessControlMergedParamsForm from './AccessControlMergedParamsForm';
+import * as formActions from '../../formactions/access';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import * as formActions from '../../formactions/access';
+
+import AccessControlMergedParamsForm from './AccessControlMergedParamsForm';
 
 export const ACCESS_MERGED_PARAMS_FORM = 'ACCESS_MERGED_PARAMS_FORM';
 
@@ -29,12 +29,16 @@ function AccessControlMergedParams({
   ...formProps
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Access Control Merged Display';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Accordion>
@@ -71,4 +75,9 @@ function AccessControlMergedParams({
   );
 }
 
-export default compose(withSnackbar, withFormActions)(AccessControlMergedParams);
+const AccessControlMergedParamsWithSnackbarWithFormActions = compose(
+  withSnackbar,
+  withFormActions,
+)(AccessControlMergedParams);
+
+export default AccessControlMergedParamsWithSnackbarWithFormActions;

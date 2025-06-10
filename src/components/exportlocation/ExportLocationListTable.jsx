@@ -3,11 +3,10 @@ import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
+
 import ExportLocationRow from './ExportLocationRow';
 
-export default function ExportLocationListTable({
-  exportLocationListDocument = [],
-}) {
+export default function ExportLocationListTable({ exportLocationListDocument = [] }) {
   const { exportLocation: exportLocationList = [] } = exportLocationListDocument;
   return (
     <Table>

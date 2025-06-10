@@ -1,15 +1,13 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
+import UserListCard from '../components/user/UserListCard';
+import UserListParams, { USER_LIST_PARAMS_FORM } from '../components/user/UserListParams';
+import UserListTitle from '../components/user/UserListTitle';
+import UserWizard from '../components/user/UserWizard';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
-
-import UserListTitle from '../components/user/UserListTitle';
-import UserListCard from '../components/user/UserListCard';
-import UserWizard from '../components/user/UserWizard';
-import UserListParams, {
-  USER_LIST_PARAMS_FORM,
-} from '../components/user/UserListParams';
 
 const USER_CREATE_MODAL = 'USER_CREATE_MODAL';
 

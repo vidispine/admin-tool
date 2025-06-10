@@ -1,9 +1,7 @@
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRowLink';
 
-export default function JobProblemRow({
-  jobProblemType,
-}) {
+export default function JobProblemRow({ jobProblemType }) {
   const [jobId] = jobProblemType.job;
   const to = jobId ? `/job/${jobProblemType.job}/` : undefined;
   return (

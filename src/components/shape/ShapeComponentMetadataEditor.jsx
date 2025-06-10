@@ -13,9 +13,17 @@ const styles = (theme) => ({
 });
 
 function ShapeComponentMetadataEditor({
-  metadata, componentId, itemId, shapeId, onRefresh, ...props
+  metadata,
+  componentId,
+  itemId,
+  shapeId,
+  onRefresh,
+  ...props
 }) {
-  const entityId = itemId !== undefined || shapeId !== undefined || componentId !== undefined ? `${itemId}/shape/${shapeId}/component/${componentId}` : undefined;
+  const entityId =
+    itemId !== undefined || shapeId !== undefined || componentId !== undefined
+      ? `${itemId}/shape/${shapeId}/component/${componentId}`
+      : undefined;
   return (
     <SimpleMetadataEditor
       simpleMetadataDocument={{ field: metadata }}

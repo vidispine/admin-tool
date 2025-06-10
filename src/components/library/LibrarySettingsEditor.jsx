@@ -1,8 +1,9 @@
-import Editor from '../ui/Editor';
-import LibrarySettingsForm from './LibrarySettingsForm';
-import LibrarySettingsDisplay from './LibrarySettingsDisplay';
-import withSnackbar from '../../hoc/withSnackbar';
 import * as formActions from '../../formactions/library';
+import withSnackbar from '../../hoc/withSnackbar';
+import Editor from '../ui/Editor';
+
+import LibrarySettingsDisplay from './LibrarySettingsDisplay';
+import LibrarySettingsForm from './LibrarySettingsForm';
 
 function LibrarySettingsEditor({
   librarySettingsDocument,
@@ -16,12 +17,16 @@ function LibrarySettingsEditor({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Library Settings Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Library Settings';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Editor

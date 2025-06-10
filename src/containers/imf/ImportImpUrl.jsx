@@ -1,27 +1,29 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
 
-import ImportImpUrlWizard, { EDIT_IMPORTIMPURL_FORM } from '../../components/imf/ImportImpUrlWizard';
+import { compose } from 'redux';
+
+import ImportImpUrlWizard, {
+  EDIT_IMPORTIMPURL_FORM,
+} from '../../components/imf/ImportImpUrlWizard';
 import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportImpUrl extends PureComponent {
-  componentDidMount() {
+function ImportImpUrl({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | IMF | Import URL';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTIMPURL_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTIMPURL_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history } = this.props;
-    return (
-      <ImportImpUrlWizard
-        initialValues={{ metadataDocument: {} }}
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return (
+    <ImportImpUrlWizard initialValues={{ metadataDocument: {} }} onSuccess={onSuccess} {...props} />
+  );
 }
 
-export default withFormActions(ImportImpUrl);
+export default compose(withRouterProps, withFormActions)(ImportImpUrl);

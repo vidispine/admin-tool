@@ -1,14 +1,14 @@
 import { PureComponent } from 'react';
 
 import { job as JobApi } from '@vidispine/vdt-api';
-import JobTitle from '../components/job/JobTitle';
-import JobCard from '../components/job/JobCard';
-import JobPriority from '../components/job/JobPriority';
-import JobDuplicate from '../components/job/JobDuplicate';
-import JobAbort from '../components/job/JobAbort';
-import JobRemove from '../components/job/JobRemove';
-import { RUNNING_STATES, WAITING_STATES } from '../const/JobStates';
 
+import JobAbort from '../components/job/JobAbort';
+import JobCard from '../components/job/JobCard';
+import JobDuplicate from '../components/job/JobDuplicate';
+import JobPriority from '../components/job/JobPriority';
+import JobRemove from '../components/job/JobRemove';
+import JobTitle from '../components/job/JobTitle';
+import { RUNNING_STATES, WAITING_STATES } from '../const/JobStates';
 import withUI from '../hoc/withUI';
 
 const JOB_PRIORITY_DIALOG = 'JOB_PRIORITY_DIALOG';
@@ -69,7 +69,7 @@ class Job extends PureComponent {
       this.setState({ autoRefresh: false });
       return;
     }
-    if (this.timer && (!RUNNING_STATES.includes(status))) {
+    if (this.timer && !RUNNING_STATES.includes(status)) {
       clearInterval(this.timer);
       this.timer = undefined;
       this.setState({ autoRefresh: false });
@@ -113,8 +113,9 @@ class Job extends PureComponent {
 
   onFetchProblem(jobId) {
     try {
-      JobApi.listJob({ path: `/API/job/${jobId}/problem` })
-        .then((response) => this.setState({ jobProblemListDocument: response.data }));
+      JobApi.listJob({ path: `/API/job/${jobId}/problem` }).then((response) =>
+        this.setState({ jobProblemListDocument: response.data }),
+      );
     } catch (error) {
       this.onRefreshError(error);
     }
@@ -136,10 +137,7 @@ class Job extends PureComponent {
           abortDialog={JOB_ABORT_DIALOG}
           removeDialog={JOB_REMOVE_DIALOG}
         />
-        <JobCard
-          jobDocument={jobDocument}
-          jobProblemListDocument={jobProblemListDocument}
-        />
+        <JobCard jobDocument={jobDocument} jobProblemListDocument={jobProblemListDocument} />
         <JobPriority
           dialogName={JOB_PRIORITY_DIALOG}
           onSuccess={this.onRefresh}

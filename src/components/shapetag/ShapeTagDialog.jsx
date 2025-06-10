@@ -1,19 +1,15 @@
-import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { connect } from 'react-redux';
 
-import ShapeTagForm from './ShapeTagForm';
-import * as formActions from '../../formactions/shapetag';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/shapetag';
 import WizardForm from '../ui/WizardForm';
 
-function ShapeTagDialog({
-  closeModal,
-  isOpen,
-  history,
-  openSnackBar,
-}) {
+import ShapeTagForm from './ShapeTagForm';
+
+function ShapeTagDialog({ closeModal, isOpen, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { transcodePresetDocument } = response;
     const { name: tagName } = transcodePresetDocument;

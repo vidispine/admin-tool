@@ -1,14 +1,15 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import FileListTitle from '../components/file/FileListTitle';
-import FileListFilter from '../components/file/FileListFilter';
-import FilePrefixCard from '../components/file/FilePrefixCard';
-import FileListTable from '../components/file/FileListTable';
 import FileEntity from '../components/file/FileEntity';
+import FileListFilter from '../components/file/FileListFilter';
+import FileListTable from '../components/file/FileListTable';
+import FileListTitle from '../components/file/FileListTitle';
+import FilePrefixCard from '../components/file/FilePrefixCard';
+import withCard from '../hoc/withCard';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
-import withCard from '../hoc/withCard';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
@@ -25,16 +26,8 @@ class FileList extends PureComponent {
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     this.onChangePrefix = this.onChangePrefix.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
-    const sort = orderBy
-      ? [{ field: orderBy, order: `${orderDirection}ending` }]
-      : [];
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
+    const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
         first,
@@ -104,7 +97,11 @@ class FileList extends PureComponent {
           createModal={FILE_ENTITY_DIALOG}
           onRefresh={this.onRefresh}
         />
-        <FileListFilter form={FILE_FILTER_FORM} onSuccess={this.onSuccess} />
+        <FileListFilter
+          form={FILE_FILTER_FORM}
+          onSuccess={this.onSuccess}
+          initialValues={this.initialValues}
+        />
         {fileListDocument && (
           <>
             {fileListDocument.prefixes && (

@@ -4,10 +4,11 @@ import { vsimport as api } from '@vidispine/vdt-api';
 
 export function onImportUri(form) {
   const { queryParams, metadataDocument } = form;
-  return api.createImportUri({
-    queryParams,
-    metadataDocument,
-  })
+  return api
+    .createImportUri({
+      queryParams,
+      metadataDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -22,13 +23,16 @@ export function onImportRawNoAuth(form) {
   const { transferId } = queryParams;
   const file = upload[0];
   const { name: filename } = file;
-  return api.createImportRawPasskey({
-    filename,
-    queryParams,
-    metadataDocument,
-  })
+  return api
+    .createImportRawPasskey({
+      filename,
+      queryParams,
+      metadataDocument,
+    })
     .then((response) => {
-      const { data: { data: jobData = [] } } = response;
+      const {
+        data: { data: jobData = [] },
+      } = response;
       const passkey = jobData.find((j) => j.key === 'passkey').value;
       return api.createImportRawNoAuth({
         file,
@@ -49,10 +53,11 @@ export function onImportRawNoAuth(form) {
 
 export function onImportPlaceholder(form) {
   const { queryParams, metadataDocument } = form;
-  return api.createImportPlaceholder({
-    queryParams,
-    metadataDocument,
-  })
+  return api
+    .createImportPlaceholder({
+      queryParams,
+      metadataDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -66,11 +71,12 @@ export function onImportComponent(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
   const component = props.component || form.component;
-  return api.createImportComponent({
-    itemId,
-    component,
-    queryParams,
-  })
+  return api
+    .createImportComponent({
+      itemId,
+      component,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -83,10 +89,11 @@ export function onImportComponent(form, dispatch, props) {
 export function onImportSidecar(form, dispatch, props) {
   const { queryParams } = form;
   const itemId = props.itemId || form.itemId;
-  return api.createImportItemSidecar({
-    itemId,
-    queryParams,
-  })
+  return api
+    .createImportItemSidecar({
+      itemId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -100,11 +107,12 @@ export function onImportSidecarRaw(form, dispatch, props) {
   const { queryParams, upload } = form;
   const itemId = props.itemId || form.itemId;
   const file = upload[0];
-  return api.createImportItemSidecarRaw({
-    itemId,
-    file,
-    queryParams,
-  })
+  return api
+    .createImportItemSidecarRaw({
+      itemId,
+      file,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

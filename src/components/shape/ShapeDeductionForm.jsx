@@ -1,18 +1,18 @@
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField, Select } from '../form';
 
+import JobPriority from '../../const/JobPriority';
+import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
 import BoolCheckbox from '../ui/BoolCheckbox';
-import FormSection from '../ui/FormSection';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
-import JobPriority from '../../const/JobPriority';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
-import { required } from '../../utils/FieldValidation';
 
 const queryParams = () => (
   <>
@@ -22,15 +22,9 @@ const queryParams = () => (
         <MenuItem value="true">true</MenuItem>
         <MenuItem value="mcc">mcc</MenuItem>
       </Field>
-    </FormControl>
-    {' '}
+    </FormControl>{' '}
     <FormControlLabel
-      control={(
-        <Field
-          name="ccFromVideo"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="ccFromVideo" component={BoolCheckbox} />}
       label="Extract closed captions from video tracks as well as data tracks"
     />
     <FormControl fullWidth>
@@ -51,11 +45,7 @@ const queryParams = () => (
       arrayHeader
       dense
     />
-    <Field
-      name="notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -67,36 +57,13 @@ const queryParams = () => (
   </>
 );
 
-function ShapeDeductionForm({
-  error,
-  handleSubmit,
-  itemId,
-  shapeId,
-}) {
+function ShapeDeductionForm({ error, handleSubmit, itemId, shapeId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      {!itemId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      {!shapeId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        label="queryParams"
-        component={queryParams}
-      />
+      {!itemId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      {!shapeId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      <FormSection name="queryParams" label="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

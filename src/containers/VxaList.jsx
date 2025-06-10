@@ -1,11 +1,11 @@
 import { PureComponent } from 'react';
 
 import { vxa as api } from '@vidispine/vdt-api';
-import VxaListCard from '../components/vxa/VxaListCard';
-import VxaDialog from '../components/vxa/VxaDialog';
-import VxaConfigurationDialog from '../components/vxa/VxaConfigurationDialog';
-import VxaListTitle from '../components/vxa/VxaListTitle';
 
+import VxaConfigurationDialog from '../components/vxa/VxaConfigurationDialog';
+import VxaDialog from '../components/vxa/VxaDialog';
+import VxaListCard from '../components/vxa/VxaListCard';
+import VxaListTitle from '../components/vxa/VxaListTitle';
 import withUI from '../hoc/withUI';
 
 const VXA_CREATE_MODAL = 'VXA_CREATE_MODAL';
@@ -29,7 +29,8 @@ class VxaList extends PureComponent {
 
   onRefresh() {
     try {
-      api.listVxa()
+      api
+        .listVxa()
         .then((response) => this.setState({ vxaListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -54,12 +55,8 @@ class VxaList extends PureComponent {
           code={vxaListDocument}
           codeModal="VXAListDocument"
         />
-        {vxaListDocument
-        && (
-        <VxaListCard
-          vxaListDocument={vxaListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {vxaListDocument && (
+          <VxaListCard vxaListDocument={vxaListDocument} onRefresh={this.onRefresh} />
         )}
         <VxaDialog
           dialogName={VXA_CREATE_MODAL}
@@ -69,13 +66,12 @@ class VxaList extends PureComponent {
             this.onRefresh();
           }}
         />
-        { vxaConfiguration
-          && (
+        {vxaConfiguration && (
           <VxaConfigurationDialog
             dialogName={VXA_CONFIG_MODAL}
             vxaConfiguration={vxaConfiguration}
           />
-          )}
+        )}
       </>
     );
   }

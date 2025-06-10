@@ -1,8 +1,8 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import LogReportCard from '../../components/configuration/logreport/LogReportCard';
 
+import LogReportCard from '../../components/configuration/logreport/LogReportCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -23,7 +23,8 @@ class LogReport extends PureComponent {
 
   onRefresh() {
     try {
-      api.getLogReportConfiguration()
+      api
+        .getLogReportConfiguration()
         .then((response) => this.setState({ logReportConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,12 +51,11 @@ class LogReport extends PureComponent {
           code={logReportConfigurationDocument}
           codeModal="LogReportConfigurationDocument"
         />
-        { logReportConfigurationDocument
-        && (
-        <LogReportCard
-          logReportConfigurationDocument={logReportConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {logReportConfigurationDocument && (
+          <LogReportCard
+            logReportConfigurationDocument={logReportConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
       </>
     );

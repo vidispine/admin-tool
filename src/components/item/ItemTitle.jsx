@@ -1,41 +1,43 @@
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
-import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
-import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import { Link } from 'react-router-dom';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
-import UnstyledLink from '../ui/UnstyledLink';
-import { withModalNoRouter } from '../../hoc/withModal';
 import routes from '../../const/routes';
+import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
+import UnstyledLink from '../ui/UnstyledLink';
 
-export const ItemHeading = ({ itemId }) => (
-  <Grid container alignItems="center">
-    <Grid item>
-      <Typography variant="h5" color="textSecondary">
-        Item
-      </Typography>
+export function ItemHeading({ itemId }) {
+  return (
+    <Grid container alignItems="center">
+      <Grid item>
+        <Typography variant="h5" color="textSecondary">
+          Item
+        </Typography>
+      </Grid>
+      <Grid item>
+        <IconButton disabled>
+          <ArrowForwardIos />
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <Typography
+          variant="h5"
+          component={Link}
+          to={routes.itemList({ itemId })}
+          style={{ textDecoration: 'none' }}
+        >
+          {itemId}
+        </Typography>
+      </Grid>
     </Grid>
-    <Grid item>
-      <IconButton disabled>
-        <ArrowForwardIos />
-      </IconButton>
-    </Grid>
-    <Grid item>
-      <Typography
-        variant="h5"
-        component={Link}
-        to={routes.itemList({ itemId })}
-        style={{ textDecoration: 'none' }}
-      >
-        {itemId}
-      </Typography>
-    </Grid>
-  </Grid>
-);
+  );
+}
 
 function ItemTitle({
   itemId,
@@ -73,13 +75,13 @@ function ItemTitle({
       breadcrumbList={
         Array.isArray(breadcrumbList)
           ? [
-            { title: 'Item', to: routes.itemList() },
-            { title: itemId, to: routes.item({ itemId }) },
-            ...breadcrumbList,
-          ]
+              { title: 'Item', to: routes.itemList() },
+              { title: itemId, to: routes.item({ itemId }) },
+              ...breadcrumbList,
+            ]
           : undefined
       }
-      actionComponent={(
+      actionComponent={
         <>
           {createModal && (
             <Tooltip title={createTooltip}>
@@ -119,18 +121,12 @@ function ItemTitle({
                 <Typography color="inherit">Create Shape</Typography>
               </MenuItem>
             ) : null}
-            <UnstyledLink
-              to={`/import/item/shape/placeholder/?itemId=${itemId}`}
-            >
+            <UnstyledLink to={`/import/item/shape/placeholder/?itemId=${itemId}`}>
               <MenuItem>
-                <Typography color="inherit">
-                  Create Shape Placeholder
-                </Typography>
+                <Typography color="inherit">Create Shape Placeholder</Typography>
               </MenuItem>
             </UnstyledLink>
-            <MenuItem
-              onClick={() => onOpen({ modalName: addToCollectionModal })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: addToCollectionModal })}>
               <Typography>Add To Collection</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: relationModal })}>
@@ -151,9 +147,7 @@ function ItemTitle({
             <MenuItem onClick={() => onOpen({ modalName: posterModal })}>
               <Typography>Create Poster</Typography>
             </MenuItem>
-            <MenuItem
-              onClick={() => onOpen({ modalName: createSequenceModal })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: createSequenceModal })}>
               <Typography>Create Sequence</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
@@ -166,15 +160,13 @@ function ItemTitle({
               <Typography color="secondary">Delete Item</Typography>
             </MenuItem>
             {removeAllShapesModal ? (
-              <MenuItem
-                onClick={() => onOpen({ modalName: removeAllShapesModal })}
-              >
+              <MenuItem onClick={() => onOpen({ modalName: removeAllShapesModal })}>
                 <Typography color="secondary">Delete All Shapes</Typography>
               </MenuItem>
             ) : null}
           </Menu>
         </>
-      )}
+      }
       {...props}
     />
   );

@@ -7,12 +7,13 @@ export function onUpdateEntityTag(form, dispatch, props) {
   const entityType = props.entityType || form.entityType;
   const entityId = props.entityId || form.entityId;
   const tagName = props.tagName || form.tagName;
-  return api.updateEntityStorageRuleTag({
-    entityType,
-    entityId,
-    tagName,
-    storageRuleDocument,
-  })
+  return api
+    .updateEntityStorageRuleTag({
+      entityType,
+      entityId,
+      tagName,
+      storageRuleDocument,
+    })
     .then(() => ({ storageRuleDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -29,11 +30,12 @@ export function onUpdateEntity(form, dispatch, props) {
   const entityId = props.entityId || form.entityId;
   const tagName = props.tagName || form.tagName;
   if (tagName !== undefined) return onUpdateEntityTag(form, dispatch, props);
-  return api.updateEntityStorageRule({
-    entityType,
-    entityId,
-    storageRuleDocument,
-  })
+  return api
+    .updateEntityStorageRule({
+      entityType,
+      entityId,
+      storageRuleDocument,
+    })
     .then(() => ({ storageRuleDocument }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -47,10 +49,11 @@ export function onUpdateEntity(form, dispatch, props) {
 export function onUpdateShapeTag(form, dispatch, props) {
   const { storageRuleDocument } = form;
   const tagName = props.tagName || storageRuleDocument.tag;
-  return api.updateStorageRuleShapeTag({
-    tagName,
-    storageRuleDocument,
-  })
+  return api
+    .updateStorageRuleShapeTag({
+      tagName,
+      storageRuleDocument,
+    })
     .then(() => ({ storageRuleDocument }))
     .catch((error) => {
       let errorMessage = error.message;

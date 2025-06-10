@@ -1,18 +1,19 @@
 import { PureComponent } from 'react';
+
 import { shape as api } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
-import ShapeParams from '../../components/shape/ShapeParams';
-import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
-import ShapeComponentDelete from '../../components/shape/ShapeComponentDelete';
+import ItemShapeCreate from '../../components/item/ItemShapeCreate';
 import ShapeComponentAnalyze from '../../components/shape/ShapeComponentAnalyze';
+import ShapeComponentAssociateFile from '../../components/shape/ShapeComponentAssociateFile';
 import ShapeComponentCopy from '../../components/shape/ShapeComponentCopy';
 import ShapeComponentCopyShape from '../../components/shape/ShapeComponentCopyShape';
+import ShapeComponentDelete from '../../components/shape/ShapeComponentDelete';
 import ShapeComponentMove from '../../components/shape/ShapeComponentMove';
 import ShapeComponentMoveShape from '../../components/shape/ShapeComponentMoveShape';
-import ShapeComponentAssociateFile from '../../components/shape/ShapeComponentAssociateFile';
 import ShapeComponentRemoveFile from '../../components/shape/ShapeComponentRemoveFile';
-import ItemShapeCreate from '../../components/item/ItemShapeCreate';
+import ShapeOverviewComponent from '../../components/shape/ShapeOverview';
+import ShapeParams from '../../components/shape/ShapeParams';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const ITEM_SHAPE_CREATE_DIALOG = 'ITEM_SHAPE_CREATE_DIALOG';
 const SHAPE_COMPONENT_DELETE_DIALOG = 'SHAPE_COMPONENT_DELETE_DIALOG';
@@ -57,11 +58,12 @@ class ShapeOverview extends PureComponent {
 
   onFetch(itemId, shapeId) {
     try {
-      api.getShape({
-        itemId,
-        shapeId,
-        queryParams: { includePlaceholder: true },
-      })
+      api
+        .getShape({
+          itemId,
+          shapeId,
+          queryParams: { includePlaceholder: true },
+        })
         .then((response) => this.setState({ shapeDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -98,12 +100,9 @@ class ShapeOverview extends PureComponent {
             onRefresh={this.onRefresh}
             breadcrumbList={['Overview']}
             createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
-
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ShapeParams
           shapeId={shapeId}
           itemId={itemId}
@@ -136,13 +135,17 @@ class ShapeOverview extends PureComponent {
             />
             <ShapeComponentCopy
               dialogName={SHAPE_COMPONENT_COPY_DIALOG}
-              onSuccess={(response, dispatch, props) => history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)}
+              onSuccess={(response, dispatch, props) =>
+                history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)
+              }
               itemId={itemId}
               shapeId={shapeId}
             />
             <ShapeComponentCopyShape
               dialogName={SHAPE_COMPONENT_COPY_SHAPE_DIALOG}
-              onSuccess={(response, dispatch, props) => history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)}
+              onSuccess={(response, dispatch, props) =>
+                history.push(`/item/${props.values.targetItemId}/shape/${response.data.id}/`)
+              }
               itemId={itemId}
               shapeId={shapeId}
             />

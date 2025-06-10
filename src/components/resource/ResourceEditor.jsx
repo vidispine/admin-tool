@@ -1,19 +1,21 @@
 import { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+
+import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Divider from '@material-ui/core/Divider';
 
-import ResourceForm from './ResourceForm';
-import ResourceDisplay from './ResourceDisplay';
-import * as formActions from '../../formactions/resource';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/resource';
+
+import ResourceDisplay from './ResourceDisplay';
+import ResourceForm from './ResourceForm';
 
 const EDIT_RESOURCE_FORM = 'EDIT_RESOURCE_FORM';
 
@@ -32,17 +34,9 @@ class ResourceEditor extends PureComponent {
   }
 
   render() {
-    const {
-      resourceType,
-      resourceId,
-      resourceDocument,
-      submitForm,
-      onRefresh,
-      openSnackBar,
-    } = this.props;
-    const {
-      isEditing,
-    } = this.state;
+    const { resourceType, resourceId, resourceDocument, submitForm, onRefresh, openSnackBar } =
+      this.props;
+    const { isEditing } = this.state;
     const initialValues = {
       resourceDocument,
     };
@@ -50,7 +44,9 @@ class ResourceEditor extends PureComponent {
       this.toggleEdit();
       const messageContent = 'Resource Saved';
       openSnackBar({ messageContent });
-      if (onRefresh) { onRefresh(); }
+      if (onRefresh) {
+        onRefresh();
+      }
     };
     const onSubmitFail = () => {
       const messageContent = 'Error Updating Resource';
@@ -59,7 +55,7 @@ class ResourceEditor extends PureComponent {
     return (
       <>
         <CardHeader
-          action={(
+          action={
             <Grid container direction="row-reverse" alignItems="center">
               <Grid item>
                 <FormControlLabel
@@ -70,49 +66,36 @@ class ResourceEditor extends PureComponent {
                 />
               </Grid>
             </Grid>
-          )}
+          }
         />
         <CardContent>
-          {isEditing
-            ? (
-              <ResourceForm
-                form={EDIT_RESOURCE_FORM}
-                initialValues={initialValues}
-                onSubmit={formActions.onUpdate}
-                onSubmitSuccess={onSubmitSuccess}
-                onSubmitFail={onSubmitFail}
-                resourceId={resourceId}
-                resourceType={resourceType}
-              />
-            )
-            : (
-              <ResourceDisplay
-                resourceDocument={resourceDocument}
-                resourceType={resourceType}
-              />
-            )}
+          {isEditing ? (
+            <ResourceForm
+              form={EDIT_RESOURCE_FORM}
+              initialValues={initialValues}
+              onSubmit={formActions.onUpdate}
+              onSubmitSuccess={onSubmitSuccess}
+              onSubmitFail={onSubmitFail}
+              resourceId={resourceId}
+              resourceType={resourceType}
+            />
+          ) : (
+            <ResourceDisplay resourceDocument={resourceDocument} resourceType={resourceType} />
+          )}
         </CardContent>
-        {isEditing
-          && (
+        {isEditing && (
           <>
             <Divider />
             <AccordionActions>
-              <Button
-                size="small"
-                onClick={this.toggleEdit}
-              >
+              <Button size="small" onClick={this.toggleEdit}>
                 Cancel
               </Button>
-              <Button
-                onClick={() => submitForm(EDIT_RESOURCE_FORM)}
-                size="small"
-                color="primary"
-              >
+              <Button onClick={() => submitForm(EDIT_RESOURCE_FORM)} size="small" color="primary">
                 Save
               </Button>
             </AccordionActions>
           </>
-          )}
+        )}
       </>
     );
   }

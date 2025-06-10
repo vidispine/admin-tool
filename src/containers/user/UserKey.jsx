@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
+
 import { user as api } from '@vidispine/vdt-api';
 
 import UserKeyCard from '../../components/user/UserKeyCard';
 import UserKeyDialog from '../../components/user/UserKeyDialog';
-
 import withUI from '../../hoc/withUI';
 
 const USERKEY_CREATE_MODAL = 'USERKEY_CREATE_MODAL';
@@ -41,7 +41,8 @@ class UserKey extends PureComponent {
 
   onFetch(userName) {
     try {
-      api.listKey({ userName })
+      api
+        .listKey({ userName })
         .then((response) => this.setState({ accessKeyListDocument: response.data }))
         .catch((error) => this.onFetchError(error));
     } catch (error) {
@@ -61,11 +62,7 @@ class UserKey extends PureComponent {
 
   render() {
     const { accessKeyListDocument, accessKeyDocument } = this.state;
-    const {
-      userName,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { userName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     return (
       <>
         {TitleComponent && (

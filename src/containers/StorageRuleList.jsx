@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { storagerule as api } from '@vidispine/vdt-api';
-import StorageRuleListTitle from '../components/storagerule/StorageRuleListTitle';
-import StorageRuleListCard from '../components/storagerule/StorageRuleListCard';
-import StorageRuleDialog from '../components/storagerule/StorageRuleDialog';
 
+import StorageRuleDialog from '../components/storagerule/StorageRuleDialog';
+import StorageRuleListCard from '../components/storagerule/StorageRuleListCard';
+import StorageRuleListTitle from '../components/storagerule/StorageRuleListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const STORAGERULE_DIALOG = 'STORAGERULE_DIALOG';
@@ -26,7 +26,8 @@ class StorageRuleList extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listStorageRule()
+      api
+        .listStorageRule()
         .then((response) => this.setState({ storageRulesDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Storage Rule List';
@@ -44,17 +45,13 @@ class StorageRuleList extends PureComponent {
           codeModal="StorageRulesDocument"
           createModal={STORAGERULE_DIALOG}
         />
-        { storageRulesDocument
-          && (
+        {storageRulesDocument && (
           <StorageRuleListCard
             onRefresh={this.onRefresh}
             storageRulesDocument={storageRulesDocument}
           />
-          )}
-        <StorageRuleDialog
-          dialogName={STORAGERULE_DIALOG}
-          onSuccess={this.onRefresh}
-        />
+        )}
+        <StorageRuleDialog dialogName={STORAGERULE_DIALOG} onSuccess={this.onRefresh} />
       </>
     );
   }

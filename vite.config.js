@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { defineConfig, splitVendorChunkPlugin, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
 import dns from 'dns';
+
+import react from '@vitejs/plugin-react';
+import { defineConfig, splitVendorChunkPlugin, loadEnv } from 'vite';
 
 dns.setDefaultResultOrder('verbatim');
 
@@ -16,7 +17,7 @@ const setProxy = ({ mode }) => {
     selfHandleResponse: false,
     configure: (proxy) => {
       proxy.on('proxyRes', (proxyRes) => {
-      // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign
         delete proxyRes.headers['www-authenticate'];
       });
     },
@@ -30,23 +31,23 @@ const setProxy = ({ mode }) => {
 
 const base = process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL;
 
-export default ({ mode }) => defineConfig({
-  base,
-  server: {
-    port: 3000,
-    host: 'localhost',
-    open: true,
-    proxy: setProxy({ mode }),
-
-  },
-  plugins: [splitVendorChunkPlugin(), react()],
-  define: {
-    'process.env.NODE_ENV': `"${mode}"`,
-  },
-  build: {
-    outDir: 'build',
-    commonjsOptions: {
-      transformMixedEsModules: true,
+export default ({ mode }) =>
+  defineConfig({
+    base,
+    server: {
+      port: 3000,
+      host: 'localhost',
+      open: true,
+      proxy: setProxy({ mode }),
     },
-  },
-});
+    plugins: [splitVendorChunkPlugin(), react()],
+    define: {
+      'process.env.NODE_ENV': `"${mode}"`,
+    },
+    build: {
+      outDir: 'build',
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    },
+  });

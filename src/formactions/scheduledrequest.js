@@ -2,11 +2,13 @@ import { SubmissionError } from 'redux-form';
 
 import { scheduledrequest as api } from '@vidispine/vdt-api';
 
-export function onListScheduledRequest(form) { // eslint-disable-line import/prefer-default-export
+export function onListScheduledRequest(form) {
+  // eslint-disable-line import/prefer-default-export
   const { queryParams } = form;
-  return api.listScheduledRequest({
-    queryParams,
-  })
+  return api
+    .listScheduledRequest({
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

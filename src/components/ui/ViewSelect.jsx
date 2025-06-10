@@ -1,9 +1,9 @@
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import ViewHeadline from '@material-ui/icons/ViewHeadline';
 import ViewModule from '@material-ui/icons/ViewModule';
 import ViewStream from '@material-ui/icons/ViewStream';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
 
 export const CARD_VIEW = 'CARD_VIEW';
 export const GRID_VIEW = 'GRID_VIEW';
@@ -16,27 +16,21 @@ export default function ViewSelect({ isActive = ROW_VIEW, onChange }) {
       <Grid item>
         <Tooltip title="Row">
           <IconButton onClick={handleChange(ROW_VIEW)}>
-            <ViewHeadline
-              color={isActive === ROW_VIEW ? 'action' : 'disabled'}
-            />
+            <ViewHeadline color={isActive === ROW_VIEW ? 'action' : 'disabled'} />
           </IconButton>
         </Tooltip>
       </Grid>
       <Grid item>
         <Tooltip title="Card">
           <IconButton onClick={handleChange(CARD_VIEW)}>
-            <ViewStream
-              color={isActive === CARD_VIEW ? 'action' : 'disabled'}
-            />
+            <ViewStream color={isActive === CARD_VIEW ? 'action' : 'disabled'} />
           </IconButton>
         </Tooltip>
       </Grid>
       <Grid item>
         <Tooltip title="Grid">
           <IconButton onClick={handleChange(GRID_VIEW)}>
-            <ViewModule
-              color={isActive === GRID_VIEW ? 'action' : 'disabled'}
-            />
+            <ViewModule color={isActive === GRID_VIEW ? 'action' : 'disabled'} />
           </IconButton>
         </Tooltip>
       </Grid>

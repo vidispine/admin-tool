@@ -1,14 +1,14 @@
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField } from '../form';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
 import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
+import { TextField } from '../form';
+import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -32,116 +32,42 @@ const queryParams = () => (
       disableInitial
       creatable
     />
-    <Field
-      name="change"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="first"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="number"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="interval"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="track"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="language"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="samplerate"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="include"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="from"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="to"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="includeConstraintValue"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="includeExtraData"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="change" component={TextField} fullWidth />
+    <Field name="first" component={TextField} fullWidth />
+    <Field name="number" component={TextField} fullWidth />
+    <Field name="interval" component={TextField} fullWidth />
+    <Field name="track" component={TextField} fullWidth />
+    <Field name="language" component={TextField} fullWidth />
+    <Field name="samplerate" component={TextField} fullWidth />
+    <Field name="include" component={TextField} fullWidth />
+    <Field name="from" component={TextField} fullWidth />
+    <Field name="to" component={TextField} fullWidth />
+    <Field name="includeConstraintValue" component={TextField} fullWidth />
+    <Field name="includeExtraData" component={TextField} fullWidth />
     <FormControlLabel
-      control={(
-        <Field
-          name="starttc"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="starttc" component={BoolCheckbox} />}
       label="Start TC"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="defaultValue"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="defaultValue" component={BoolCheckbox} />}
       label="Default Value"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="includeTransientMetadata"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="includeTransientMetadata" component={BoolCheckbox} />}
       label="Include Transient Metadata"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="conflict"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="conflict" component={BoolCheckbox} />}
       label="Conflict"
     />
   </>
 );
 
-function MetadataChangeSetListParamsForm({
-  error,
-  handleSubmit,
-}) {
+function MetadataChangeSetListParamsForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
     </form>
   );
 }

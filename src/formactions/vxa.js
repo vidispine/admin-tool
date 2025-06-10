@@ -4,9 +4,10 @@ import { vxa as api } from '@vidispine/vdt-api';
 
 export function onCreate(form) {
   const { queryParams } = form;
-  return api.createVxa({
-    queryParams,
-  })
+  return api
+    .createVxa({
+      queryParams,
+    })
     .then((response) => ({ vxaConfiguration: response.data, queryParams }))
     .catch((error) => {
       let errorMessage = error.message;

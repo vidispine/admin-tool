@@ -5,15 +5,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { storage as api } from '@vidispine/vdt-api';
 
-export default function StorageRemove({
-  closeModal,
-  isOpen,
-  storageId,
-  history,
-  openSnackBar,
-}) {
+export default function StorageRemove({ closeModal, isOpen, storageId, history, openSnackBar }) {
   const onRemove = () => {
-    api.removeStorage({ storageId })
+    api
+      .removeStorage({ storageId })
       .then(() => {
         const messageContent = `Storage ${storageId} Removed`;
         openSnackBar({ messageContent });
@@ -27,19 +22,12 @@ export default function StorageRemove({
   };
   return (
     <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Storage "${storageId}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Storage "${storageId}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

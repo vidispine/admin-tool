@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { projection as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
+
 import ProjectionCard from '../components/projection/ProjectionCard';
 import ProjectionRemove from '../components/projection/ProjectionRemove';
-
+import TitleHeader from '../components/ui/TitleHeader';
 import withSnackbar from '../hoc/withSnackbar';
 import formatXML from '../utils/formatXML';
 
@@ -60,15 +60,8 @@ class Projection extends PureComponent {
   }
 
   render() {
-    const {
-      projectionId,
-      history,
-    } = this.props;
-    const {
-      incomingProjectionDocument,
-      outgoingProjectionDocument,
-      isRefreshing,
-    } = this.state;
+    const { projectionId, history } = this.props;
+    const { incomingProjectionDocument, outgoingProjectionDocument, isRefreshing } = this.state;
     return (
       <>
         <TitleHeader
@@ -79,7 +72,7 @@ class Projection extends PureComponent {
           onRefresh={this.onRefresh}
           removeModal={PROJECTION_REMOVE_MODAL}
         />
-        { !isRefreshing && (
+        {!isRefreshing && (
           <ProjectionCard
             projectionId={projectionId}
             onRefresh={this.onRefresh}

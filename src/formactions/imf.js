@@ -1,16 +1,14 @@
 import { SubmissionError } from 'redux-form';
 
-import {
-  vsimport as importApi,
-  file as fileApi,
-} from '@vidispine/vdt-api';
+import { vsimport as importApi, file as fileApi } from '@vidispine/vdt-api';
 
 export function onImportImpUrl(form) {
   const { queryParams, metadataDocument } = form;
-  return importApi.createImportImp({
-    queryParams,
-    metadataDocument,
-  })
+  return importApi
+    .createImportImp({
+      queryParams,
+      metadataDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -23,11 +21,12 @@ export function onImportImpUrl(form) {
 export function onImportImpFile(form, dispatch, props) {
   const { queryParams, metadataDocument } = form;
   const fileId = props.fileId || form.fileId;
-  return fileApi.createFileImportAssetMap({
-    fileId,
-    queryParams,
-    metadataDocument,
-  })
+  return fileApi
+    .createFileImportAssetMap({
+      fileId,
+      queryParams,
+      metadataDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -40,11 +39,12 @@ export function onImportImpFile(form, dispatch, props) {
 export function onImportImpPath(form, dispatch, props) {
   const { queryParams, metadataDocument } = form;
   const storageId = props.storageId || form.storageId;
-  return fileApi.createFilePathImportAssetMap({
-    storageId,
-    queryParams,
-    metadataDocument,
-  })
+  return fileApi
+    .createFilePathImportAssetMap({
+      storageId,
+      queryParams,
+      metadataDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

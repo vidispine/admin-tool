@@ -1,30 +1,26 @@
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 import { compose } from 'redux';
 
 import * as formActions from '../../formactions/job';
-import JobCreateForm from './JobCreateForm';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+
+import JobCreateForm from './JobCreateForm';
 
 const JOB_CREATE_FORM = 'JOB_CREATE_FORM';
 
-function JobCreate({
-  open,
-  onClose,
-  onSuccess,
-  openSnackBar,
-  submitForm,
-  initialValues,
-}) {
+function JobCreate({ open, onClose, onSuccess, openSnackBar, submitForm, initialValues }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Job Started';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = () => {
@@ -32,12 +28,7 @@ function JobCreate({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>Start Job</DialogTitle>
       <DialogContent>
         <JobCreateForm
@@ -51,18 +42,10 @@ function JobCreate({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(JOB_CREATE_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(JOB_CREATE_FORM)}>
           Start
         </Button>
       </DialogActions>

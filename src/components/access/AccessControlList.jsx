@@ -17,25 +17,23 @@ export default function AccessControlListCard({
     <>
       {openCreate && (
         <CardHeader
-          action={(
+          action={
             <IconButton onClick={openCreate}>
               <PlaylistAdd />
             </IconButton>
-          )}
+          }
         />
       )}
-      {
-        accessList.map((accessControlDocument) => (
-          <AccessControlCard
-            accessControlDocument={accessControlDocument}
-            key={accessControlDocument.id}
-            onRefresh={onRefresh}
-            entityType={entityType}
-            entityId={entityId}
-            openRemove={openRemove}
-          />
-        ))
-      }
+      {accessList.map((accessControlDocument) => (
+        <AccessControlCard
+          accessControlDocument={accessControlDocument}
+          key={accessControlDocument.id}
+          onRefresh={onRefresh}
+          entityType={entityType}
+          entityId={entityId}
+          openRemove={openRemove}
+        />
+      ))}
     </>
   );
 }

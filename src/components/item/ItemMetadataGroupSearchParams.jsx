@@ -1,18 +1,18 @@
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import ItemMetadataGroupSearchParamsForm from './ItemMetadataGroupSearchParamsForm';
+import * as formActions from '../../formactions/item';
+import withExpansion from '../../hoc/withExpansion';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import withExpansion from '../../hoc/withExpansion';
-import * as formActions from '../../formactions/item';
+
+import ItemMetadataGroupSearchParamsForm from './ItemMetadataGroupSearchParamsForm';
 
 export const ITEM_METADATAGROUPSEARCH_PARAMS_FORM = 'ITEM_METADATAGROUPSEARCH_PARAMS_FORM';
 
@@ -72,8 +72,4 @@ function ItemMetadataGroupSearchParams({
   );
 }
 
-export default compose(
-  withSnackbar,
-  withFormActions,
-  withExpansion,
-)(ItemMetadataGroupSearchParams);
+export default compose(withSnackbar, withFormActions, withExpansion)(ItemMetadataGroupSearchParams);

@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { taskdefinition as api } from '@vidispine/vdt-api';
+
 import JobTypeDialog from '../components/jobtype/JobTypeDialog';
 import JobTypeListCard from '../components/jobtype/JobTypeListCard';
 import JobTypeListTitle from '../components/jobtype/JobTypeListTitle';
-
 import withSnackbar from '../hoc/withSnackbar';
 
 const JOBTYPE_CREATE_MODAL = 'JOBTYPE_CREATE_MODAL';
@@ -26,8 +26,7 @@ class JobTypeList extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listJobType()
-        .then((response) => this.setState({ uriListDocument: response.data }));
+      api.listJobType().then((response) => this.setState({ uriListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Job Type List';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -45,12 +44,7 @@ class JobTypeList extends PureComponent {
           code={uriListDocument}
           codeModal="URIListDocument"
         />
-        { uriListDocument
-        && (
-        <JobTypeListCard
-          uriListDocument={uriListDocument}
-        />
-        )}
+        {uriListDocument && <JobTypeListCard uriListDocument={uriListDocument} />}
         <JobTypeDialog
           dialogName={JOBTYPE_CREATE_MODAL}
           onSuccess={({ jobType }) => history.push(`/task-definition/jobtype/${jobType}/`)}

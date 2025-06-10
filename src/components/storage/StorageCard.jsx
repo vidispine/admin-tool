@@ -1,19 +1,16 @@
 import Card from '@material-ui/core/Card';
 
 import CardList from '../ui/CardList';
-import StorageEditor from './StorageEditor';
-import StorageMetadataEditor from './StorageMetadataEditor';
-import StorageMethodList from './StorageMethodList';
-import {
-  StorageBasicForm,
-  StorageAdvancedForm,
-  StorageScriptForm,
-} from './StorageForm';
+
 import {
   StorageBasicDisplay,
   StorageAdvancedDisplay,
   StorageScriptDisplay,
 } from './StorageDisplay';
+import StorageEditor from './StorageEditor';
+import { StorageBasicForm, StorageAdvancedForm, StorageScriptForm } from './StorageForm';
+import StorageMetadataEditor from './StorageMetadataEditor';
+import StorageMethodList from './StorageMethodList';
 
 export default function StorageCard(props) {
   return (
@@ -27,9 +24,7 @@ export default function StorageCard(props) {
         />
       </Card>
       <Card>
-        <StorageMethodList
-          {...props}
-        />
+        <StorageMethodList {...props} />
       </Card>
       <Card>
         <StorageEditor
@@ -40,9 +35,7 @@ export default function StorageCard(props) {
         />
       </Card>
       <Card>
-        <StorageMetadataEditor
-          {...props}
-        />
+        <StorageMetadataEditor {...props} />
       </Card>
       <Card>
         <StorageEditor

@@ -1,7 +1,9 @@
 import { PureComponent } from 'react';
 
 import AccessControlMergedList from '../components/access/AccessControlMergedList';
-import AccessControlMergedParams, { ACCESS_MERGED_PARAMS_FORM } from '../components/access/AccessControlMergedParams';
+import AccessControlMergedParams, {
+  ACCESS_MERGED_PARAMS_FORM,
+} from '../components/access/AccessControlMergedParams';
 import withFormActions from '../hoc/withFormActions';
 
 class AccessControlMerged extends PureComponent {
@@ -23,9 +25,7 @@ class AccessControlMerged extends PureComponent {
   }
 
   render() {
-    const {
-      accessControlMergedDocument,
-    } = this.state;
+    const { accessControlMergedDocument } = this.state;
     const {
       titleComponent: TitleComponent,
       tabComponent: TabComponent,
@@ -43,17 +43,13 @@ class AccessControlMerged extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <AccessControlMergedParams
           entityId={entityId}
           entityType={entityType}
           onSuccess={(response) => this.setState({ accessControlMergedDocument: response.data })}
         />
-        <AccessControlMergedList
-          accessControlMergedDocument={accessControlMergedDocument}
-        />
+        <AccessControlMergedList accessControlMergedDocument={accessControlMergedDocument} />
       </>
     );
   }

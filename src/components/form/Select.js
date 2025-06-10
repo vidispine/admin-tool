@@ -1,13 +1,12 @@
 import Select from '@material-ui/core/Select';
+
 import createComponent from './createComponent';
 import mapError from './mapError';
 
 export default createComponent(
   Select,
   ({
-    input: {
-      onChange, value, onBlur, ...inputProps
-    },
+    input: { onChange, value, onBlur, ...inputProps },
     onChange: onChangeFromField,
     defaultValue,
     ...props

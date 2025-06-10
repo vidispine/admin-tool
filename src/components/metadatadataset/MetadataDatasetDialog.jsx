@@ -1,25 +1,20 @@
-import { compose } from 'redux';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import { compose } from 'redux';
 
-import MetadataDatasetForm from './MetadataDatasetForm';
 import * as formActions from '../../formactions/metadatadataset';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
 
+import MetadataDatasetForm from './MetadataDatasetForm';
+
 const EDIT_METADATADATASET_FORM = 'EDIT_METADATADATASET_FORM';
 
-function MetadataDatasetDialog({
-  submitForm,
-  open,
-  onClose,
-  openSnackBar,
-  history,
-}) {
+function MetadataDatasetDialog({ submitForm, open, onClose, openSnackBar, history }) {
   const onSubmitSuccess = (response) => {
     const { datasetId } = response;
     const messageContent = `Metadata Dataset ${datasetId} Created`;
@@ -32,12 +27,7 @@ function MetadataDatasetDialog({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>New Metadata Dataset</DialogTitle>
       <DialogContent>
         <MetadataDatasetForm
@@ -49,18 +39,10 @@ function MetadataDatasetDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_METADATADATASET_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_METADATADATASET_FORM)}>
           Save
         </Button>
       </DialogActions>

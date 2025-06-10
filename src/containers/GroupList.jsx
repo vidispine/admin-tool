@@ -1,12 +1,11 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import GroupListTitle from '../components/group/GroupListTitle';
 import GroupListCard from '../components/group/GroupListCard';
+import GroupListParams, { GROUP_LIST_PARAMS_FORM } from '../components/group/GroupListParams';
+import GroupListTitle from '../components/group/GroupListTitle';
 import GroupWizard from '../components/group/GroupWizard';
-import GroupListParams, {
-  GROUP_LIST_PARAMS_FORM,
-} from '../components/group/GroupListParams';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 
@@ -62,9 +61,7 @@ class GroupList extends PureComponent {
   }
 
   render() {
-    const {
-      groupListDocument, rowsPerPage, page,
-    } = this.state;
+    const { groupListDocument, rowsPerPage, page } = this.state;
     const { history } = this.props;
     const first = page * rowsPerPage + 1;
     return (

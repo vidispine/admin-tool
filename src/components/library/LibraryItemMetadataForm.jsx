@@ -1,16 +1,16 @@
-import { reduxForm } from 'redux-form';
-import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { TextField, Select } from '../form';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import Field from '../ui/Field';
-import FormSection from '../ui/FormSection';
-import FieldTypeArray from '../ui/FieldTypeArray';
 import JobPriority from '../../const/JobPriority';
-import { KeyValuePairType } from '../ui/FormType';
+import { TextField, Select } from '../form';
 import { MetadataType } from '../metadata/MetadataForm';
+import Field from '../ui/Field';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
+import { KeyValuePairType } from '../ui/FormType';
 
 const queryParams = () => (
   <>
@@ -32,11 +32,7 @@ const queryParams = () => (
       arrayHeader
       dense
     />
-    <Field
-      name="notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -48,31 +44,13 @@ const queryParams = () => (
   </>
 );
 
-function LibraryItemMetadataForm({
-  error,
-  handleSubmit,
-  libraryId,
-}) {
+function LibraryItemMetadataForm({ error, handleSubmit, libraryId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      {!libraryId && (
-        <Field
-          name="libraryId"
-          component={TextField}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="metadataDocument"
-        label="MetadataDocument"
-        component={MetadataType}
-      />
-      <FormSection
-        name="queryParams"
-        label="queryParams"
-        component={queryParams}
-      />
+      {!libraryId && <Field name="libraryId" component={TextField} fullWidth />}
+      <FormSection name="metadataDocument" label="MetadataDocument" component={MetadataType} />
+      <FormSection name="queryParams" label="queryParams" component={queryParams} />
     </form>
   );
 }

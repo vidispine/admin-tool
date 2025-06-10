@@ -1,17 +1,14 @@
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import VxaListTable from './VxaListTable';
 
-export default function VxaListCard({
-  ...props
-}) {
+export default function VxaListCard({ ...props }) {
   return (
     <SquareCard>
       <CardContent>
-        <VxaListTable
-          {...props}
-        />
+        <VxaListTable {...props} />
       </CardContent>
     </SquareCard>
   );

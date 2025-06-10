@@ -1,7 +1,8 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Main from './Main';
 import { getBasename } from '../const';
+
+import Main from './Main';
 
 export default function App(props) {
   const { baseUrl } = props;

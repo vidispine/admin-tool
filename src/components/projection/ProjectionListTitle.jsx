@@ -1,19 +1,14 @@
 import Typography from '@material-ui/core/Typography';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
 import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
 
-function ProjectionListTitle({
-  incomingDialog,
-  outgoingDialog,
-  onOpen,
-  ...props
-}) {
+function ProjectionListTitle({ incomingDialog, outgoingDialog, onOpen, ...props }) {
   return (
     <TitleHeader
       {...props}
-      actionComponent={(
+      actionComponent={
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: incomingDialog })}>
             <Typography>Create Incoming Projection</Typography>
@@ -22,7 +17,7 @@ function ProjectionListTitle({
             <Typography>Create Outgoing Projection</Typography>
           </MenuItem>
         </Menu>
-      )}
+      }
     />
   );
 }

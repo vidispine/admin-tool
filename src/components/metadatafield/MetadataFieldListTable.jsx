@@ -1,13 +1,13 @@
+import withDialogProps from '../../hoc/withDialogProps';
+import FieldGroupFieldRemove from '../fieldgroup/FieldGroupFieldRemove';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
 
-import withDialogProps from '../../hoc/withDialogProps';
-import MetadataFieldRow from './MetadataFieldRow';
-import FieldGroupFieldRemove from '../fieldgroup/FieldGroupFieldRemove';
 import MetadataFieldRemove from './MetadataFieldRemove';
+import MetadataFieldRow from './MetadataFieldRow';
 
 const REMOVE_METADATAFIELD_DIALOG = 'REMOVE_METADATAFIELD_DIALOG';
 
@@ -41,22 +41,20 @@ function MetadataFieldListTable({
           ))}
         </TableBody>
       </Table>
-      {groupName
-        ? (
-          <FieldGroupFieldRemove
-            {...dialogProps}
-            dialogName={REMOVE_METADATAFIELD_DIALOG}
-            groupName={groupName}
-            onSuccess={onRefresh}
-          />
-        )
-        : (
-          <MetadataFieldRemove
-            {...dialogProps}
-            dialogName={REMOVE_METADATAFIELD_DIALOG}
-            onSuccess={onRefresh}
-          />
-        )}
+      {groupName ? (
+        <FieldGroupFieldRemove
+          {...dialogProps}
+          dialogName={REMOVE_METADATAFIELD_DIALOG}
+          groupName={groupName}
+          onSuccess={onRefresh}
+        />
+      ) : (
+        <MetadataFieldRemove
+          {...dialogProps}
+          dialogName={REMOVE_METADATAFIELD_DIALOG}
+          onSuccess={onRefresh}
+        />
+      )}
     </>
   );
 }

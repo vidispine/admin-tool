@@ -1,28 +1,22 @@
 import { PureComponent } from 'react';
 
-import TitleHeader from '../components/ui/TitleHeader';
 import StitchCard from '../components/stitch/StitchCard';
+import TitleHeader from '../components/ui/TitleHeader';
 
 export default class Stitch extends PureComponent {
   constructor(props) {
     super(props);
+    document.title = 'VidiCore Admin | Stitch';
     this.state = {
       url: undefined,
     };
-  }
-
-  componentDidMount() {
-    document.title = 'VidiCore Admin | Stitch';
   }
 
   render() {
     const { url } = this.state;
     return (
       <>
-        <TitleHeader
-          title="Stitch Images"
-          helpTo="/ref/misc/stitching.html"
-        />
+        <TitleHeader title="Stitch Images" helpTo="/ref/misc/stitching.html" />
         <StitchCard
           url={url}
           onSuccess={(newUrl) => this.setState({ url: newUrl })}

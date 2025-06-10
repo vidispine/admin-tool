@@ -1,28 +1,24 @@
 import { PureComponent } from 'react';
-import { connect } from 'react-redux';
+
+import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
-import Stepper from '@material-ui/core/Stepper';
+import Divider from '@material-ui/core/Divider';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Typography from '@material-ui/core/Typography';
-import {
-  reduxForm, Field, submit, destroy, getFormValues, stopSubmit, isDirty,
-} from 'redux-form';
-import Tabs from '@material-ui/core/Tabs';
+import Stepper from '@material-ui/core/Stepper';
 import Tab from '@material-ui/core/Tab';
-import Divider from '@material-ui/core/Divider';
-
-import CodeField from './CodeField';
+import Tabs from '@material-ui/core/Tabs';
+import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import { reduxForm, Field, submit, destroy, getFormValues, stopSubmit, isDirty } from 'redux-form';
 
 import * as actions from '../../actions';
 import * as formActions from '../../formactions/wizard';
+
+import CodeField from './CodeField';
 import StepContent from './StepContent';
 
-function JsonDocumentForm({
-  error,
-  handleSubmit,
-}) {
+function JsonDocumentForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -41,10 +37,7 @@ function JsonDocumentForm({
   );
 }
 
-function XMLDocumentForm({
-  error,
-  handleSubmit,
-}) {
+function XMLDocumentForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -89,13 +82,15 @@ class WizardForm extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.props.destroyForm(EDIT_XML_FORM);
+    const { destroyForm } = this.props;
+    destroyForm(EDIT_XML_FORM);
   }
 
   onBack(response) {
-    if (this.state.activeStep !== 0) {
-      this.setState(({ activeStep }) => ({
-        activeStep: activeStep - 1,
+    const { activeStep } = this.state;
+    if (activeStep !== 0) {
+      this.setState(({ activeStep: newActiveStep }) => ({
+        activeStep: newActiveStep - 1,
         jsonDocument: response,
         tabValue: JSON_TAB,
       }));
@@ -145,147 +140,96 @@ class WizardForm extends PureComponent {
       initialStep,
       ...formProps
     } = this.props;
-    const {
-      activeStep,
-      jsonDocument,
-      xmlDocument,
-      tabValue,
-    } = this.state;
+    const { activeStep, jsonDocument, xmlDocument, tabValue } = this.state;
     const initialValues = { [documentName]: jsonDocument };
     return (
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
           <StepLabel>{documentName}</StepLabel>
           <StepContent>
-            <Tabs
-              value={tabValue}
-              onChange={this.onChangeTab}
-            >
+            <Tabs value={tabValue} onChange={this.onChangeTab}>
               <Tab label="JSON" value={JSON_TAB} />
               <Tab label="XML" value={XML_TAB} />
             </Tabs>
-            { tabValue === JSON_TAB
-            && (
-            <>
-              <ReduxJsonForm
-                form={EDIT_JSON_FORM}
-                onSubmitSuccess={this.onNext}
-                onSubmit={formActions.onParse}
-                initialValues={{ jsonDocument }}
-              />
-              <AccordionActions>
-                {onCancel
-                && (
-                <Button
-                  size="small"
-                  color="secondary"
-                  onClick={onCancel}
-                >
-                  Cancel
-                </Button>
-                )}
-                {jsonDocument === undefined
-                && (
-                <Button
-                  onClick={this.onSkip}
-                >
-                  Skip
-                </Button>
-                )}
-                {isJSONFormDirty
-                && (
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={() => submitForm(EDIT_JSON_FORM)}
-                >
-                  Next
-                </Button>
-                )}
-                {!isJSONFormDirty && jsonDocument !== undefined
-                && (
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={() => submitForm(EDIT_JSON_FORM)}
-                >
-                  Next
-                </Button>
-                )}
-              </AccordionActions>
-            </>
+            {tabValue === JSON_TAB && (
+              <>
+                <ReduxJsonForm
+                  form={EDIT_JSON_FORM}
+                  onSubmitSuccess={this.onNext}
+                  onSubmit={formActions.onParse}
+                  initialValues={{ jsonDocument }}
+                />
+                <AccordionActions>
+                  {onCancel && (
+                    <Button size="small" color="secondary" onClick={onCancel}>
+                      Cancel
+                    </Button>
+                  )}
+                  {jsonDocument === undefined && <Button onClick={this.onSkip}>Skip</Button>}
+                  {isJSONFormDirty && (
+                    <Button
+                      variant="text"
+                      color="primary"
+                      onClick={() => submitForm(EDIT_JSON_FORM)}
+                    >
+                      Next
+                    </Button>
+                  )}
+                  {!isJSONFormDirty && jsonDocument !== undefined && (
+                    <Button
+                      variant="text"
+                      color="primary"
+                      onClick={() => submitForm(EDIT_JSON_FORM)}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </AccordionActions>
+              </>
             )}
-            { tabValue === XML_TAB
-            && (
-            <>
-              <ReduxXMLForm
-                form={EDIT_XML_FORM}
-                onSubmitSuccess={this.onNext}
-                onSubmit={formActions.onParseXML}
-                initialValues={{ xmlDocument }}
-                destroyOnUnmount={false}
-              />
-              <AccordionActions>
-                {onCancel
-                && (
-                <Button
-                  size="small"
-                  color="secondary"
-                  onClick={onCancel}
-                >
-                  Cancel
-                </Button>
-                )}
-                <Button
-                  onClick={this.onSkip}
-                >
-                  Skip
-                </Button>
-                {isXMLFormDirty
-                && (
-                <Button
-                  variant="text"
-                  color="primary"
-                  onClick={() => submitForm(EDIT_XML_FORM)}
-                >
-                  Next
-                </Button>
-                )}
-              </AccordionActions>
-            </>
+            {tabValue === XML_TAB && (
+              <>
+                <ReduxXMLForm
+                  form={EDIT_XML_FORM}
+                  onSubmitSuccess={this.onNext}
+                  onSubmit={formActions.onParseXML}
+                  initialValues={{ xmlDocument }}
+                  destroyOnUnmount={false}
+                />
+                <AccordionActions>
+                  {onCancel && (
+                    <Button size="small" color="secondary" onClick={onCancel}>
+                      Cancel
+                    </Button>
+                  )}
+                  <Button onClick={this.onSkip}>Skip</Button>
+                  {isXMLFormDirty && (
+                    <Button
+                      variant="text"
+                      color="primary"
+                      onClick={() => submitForm(EDIT_XML_FORM)}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </AccordionActions>
+              </>
             )}
           </StepContent>
         </Step>
         <Step>
           <StepLabel>Form</StepLabel>
           <StepContent>
-            <FormComponent
-              form={EDIT_WIZARD_FORM}
-              initialValues={initialValues}
-              {...formProps}
-            />
+            <FormComponent form={EDIT_WIZARD_FORM} initialValues={initialValues} {...formProps} />
             <AccordionActions>
               <Divider />
-              {onCancel
-              && (
-              <Button
-                size="small"
-                color="secondary"
-                onClick={onCancel}
-              >
-                Cancel
-              </Button>
+              {onCancel && (
+                <Button size="small" color="secondary" onClick={onCancel}>
+                  Cancel
+                </Button>
               )}
-              <Button
-                onClick={this.onGetValues}
-              >
-                Back
-              </Button>
-              <Button
-                variant="text"
-                color="primary"
-                onClick={() => submitForm(EDIT_WIZARD_FORM)}
-              >
+              <Button onClick={this.onGetValues}>Back</Button>
+              <Button variant="text" color="primary" onClick={() => submitForm(EDIT_WIZARD_FORM)}>
                 Save
               </Button>
             </AccordionActions>

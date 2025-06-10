@@ -1,14 +1,15 @@
 import { PureComponent } from 'react';
-import { connect } from 'react-redux';
+
 import startCase from 'lodash.startcase';
+import { connect } from 'react-redux';
 
 import { resource as api } from '@vidispine/vdt-api';
-import ResourceTitle from '../components/resource/ResourceTitle';
-import ResourceCard from '../components/resource/ResourceCard';
-import ResourceRemove from '../components/resource/ResourceRemove';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import ResourceCard from '../components/resource/ResourceCard';
+import ResourceRemove from '../components/resource/ResourceRemove';
+import ResourceTitle from '../components/resource/ResourceTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const RESOURCE_CODE_MODAL = 'RESOURCELIST_CODE_MODAL';
 const RESOURCE_REMOVE_MODAL = 'RESOURCE_REMOVE_MODAL';
@@ -31,7 +32,8 @@ class Resource extends PureComponent {
   onRefresh() {
     const { openSnackBar, resourceType, resourceId } = this.props;
     try {
-      api.getResource({ resourceType, resourceId })
+      api
+        .getResource({ resourceType, resourceId })
         .then((response) => this.setState({ resourceDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Resource';
@@ -40,18 +42,9 @@ class Resource extends PureComponent {
   }
 
   render() {
-    const {
-      resourceType,
-      resourceId,
-      modalName,
-      closeModal,
-      openModal,
-      openSnackBar,
-      history,
-    } = this.props;
-    const {
-      resourceDocument,
-    } = this.state;
+    const { resourceType, resourceId, modalName, closeModal, openModal, openSnackBar, history } =
+      this.props;
+    const { resourceDocument } = this.state;
     return (
       <>
         <ResourceTitle
@@ -61,23 +54,22 @@ class Resource extends PureComponent {
           resourceType={resourceType}
           resourceId={resourceId}
         />
-        {resourceDocument
-        && (
-        <ResourceCard
-          onRefresh={this.onRefresh}
-          resourceType={resourceType}
-          resourceId={resourceId}
-          resourceDocument={resourceDocument}
-        />
+        {resourceDocument && (
+          <ResourceCard
+            onRefresh={this.onRefresh}
+            resourceType={resourceType}
+            resourceId={resourceId}
+            resourceDocument={resourceDocument}
+          />
         )}
         <CodeModal
-          isOpen={(modalName === RESOURCE_CODE_MODAL)}
+          isOpen={modalName === RESOURCE_CODE_MODAL}
           toggleDialogue={closeModal}
           code={resourceDocument}
           title="ResourceDocument"
         />
         <ResourceRemove
-          isOpen={(modalName === RESOURCE_REMOVE_MODAL)}
+          isOpen={modalName === RESOURCE_REMOVE_MODAL}
           resourceType={resourceType}
           resourceId={resourceId}
           openSnackBar={openSnackBar}
@@ -91,7 +83,9 @@ class Resource extends PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { resourceType, resourceId } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     resourceType,

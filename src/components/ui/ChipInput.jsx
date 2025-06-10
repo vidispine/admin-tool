@@ -1,6 +1,6 @@
-import ChipInput from 'material-ui-chip-input';
-import update from 'immutability-helper';
 import { withStyles } from '@material-ui/core/styles';
+import update from 'immutability-helper';
+import ChipInput from 'material-ui-chip-input';
 
 const styles = {
   chipContainer: {
@@ -8,20 +8,12 @@ const styles = {
   },
 };
 
-function WrappedChipInput({
-  classes,
-  input,
-  simple = false,
-  ...props
-}) {
+function WrappedChipInput({ classes, input, simple = false, ...props }) {
   const onBlur = (event) => {
     if (event.target.value) {
       const blurTarget = simple ? [event.target.value] : [{ value: event.target.value }];
       if (typeof input.value === 'object') {
-        const newValue = update(
-          input.value,
-          { $push: blurTarget },
-        );
+        const newValue = update(input.value, { $push: blurTarget });
         input.onBlur(newValue);
       } else {
         input.onBlur(blurTarget);
@@ -31,13 +23,10 @@ function WrappedChipInput({
     }
   };
   const onDelete = (chip, i) => {
-    const newValue = update(
-      input.value,
-      { $splice: [[i, 1]] },
-    );
+    const newValue = update(input.value, { $splice: [[i, 1]] });
     input.onChange(newValue);
   };
-  const value = (typeof input.value === 'string') ? undefined : input.value;
+  const value = typeof input.value === 'string' ? undefined : input.value;
   const dataSourceConfig = simple ? undefined : { value: 'value', text: 'value' };
   return (
     <ChipInput

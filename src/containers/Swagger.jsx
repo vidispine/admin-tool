@@ -1,10 +1,12 @@
-import SwaggerUI from 'swagger-ui-react';
-import 'swagger-ui-react/swagger-ui.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { utils as VidiCoreApi } from '@vidispine/vdt-api';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import SwaggerUI from 'swagger-ui-react';
+import 'swagger-ui-react/swagger-ui.css';
+
+import { utils as VidiCoreApi } from '@vidispine/vdt-api';
+
 import TitleHeader from '../components/ui/TitleHeader';
 
 const VIDICORE_OPENAPI_URLS = [
@@ -70,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   Operations: {},
 }));
 
-const SwaggerLayout = ({ getComponent }) => {
+function SwaggerLayout({ getComponent }) {
   const Operations = getComponent('operations', true);
   const Filter = getComponent('FilterContainer', true);
   const classes = useStyles();
@@ -85,7 +87,7 @@ const SwaggerLayout = ({ getComponent }) => {
       </div>
     </div>
   );
-};
+}
 
 const LayoutPlugin = () => ({
   components: { SwaggerLayout },
@@ -106,27 +108,26 @@ const requestInterceptor = (req) => {
   return req;
 };
 
-const Swagger = () => (
-  <>
-    <TitleHeader
-      title="Swagger"
-      linkTo="https://swagger.io/docs/specification/about/"
-    />
-    <Card>
-      <CardContent>
-        <SwaggerUI
-          url={VIDICORE_OPENAPI_URLS[0].url}
-          docExpansion={false}
-          filter
-          tryItOutEnabled
-          plugins={[LayoutPlugin]}
-          layout="SwaggerLayout"
-          onComplete={onComplete}
-          requestInterceptor={requestInterceptor}
-        />
-      </CardContent>
-    </Card>
-  </>
-);
+function Swagger() {
+  return (
+    <>
+      <TitleHeader title="Swagger" linkTo="https://swagger.io/docs/specification/about/" />
+      <Card>
+        <CardContent>
+          <SwaggerUI
+            url={VIDICORE_OPENAPI_URLS[0].url}
+            docExpansion={false}
+            filter
+            tryItOutEnabled
+            plugins={[LayoutPlugin]}
+            layout="SwaggerLayout"
+            onComplete={onComplete}
+            requestInterceptor={requestInterceptor}
+          />
+        </CardContent>
+      </Card>
+    </>
+  );
+}
 
 export default Swagger;

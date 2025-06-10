@@ -3,11 +3,10 @@ import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
+
 import ErrorLogRow from './ErrorLogRow';
 
-export default function ErrorLogTable({
-  errorLogListDocument = {},
-}) {
+export default function ErrorLogTable({ errorLogListDocument = {} }) {
   const { errorLog: errorLogList = [] } = errorLogListDocument;
   return (
     <Table>
@@ -23,10 +22,7 @@ export default function ErrorLogTable({
       </TableHead>
       <TableBody>
         {errorLogList.map((errorLogDocument) => (
-          <ErrorLogRow
-            key={errorLogDocument.id}
-            errorLogDocument={errorLogDocument}
-          />
+          <ErrorLogRow key={errorLogDocument.id} errorLogDocument={errorLogDocument} />
         ))}
       </TableBody>
     </Table>

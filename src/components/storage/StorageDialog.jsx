@@ -1,19 +1,15 @@
-import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { connect } from 'react-redux';
 
-import StorageForm from './StorageForm';
-import * as formActions from '../../formactions/storage';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/storage';
 import WizardForm from '../ui/WizardForm';
 
-function StorageDialog({
-  closeModal,
-  isOpen,
-  history,
-  openSnackBar,
-}) {
+import StorageForm from './StorageForm';
+
+function StorageDialog({ closeModal, isOpen, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { storageDocument } = response;
     const { id: storageId } = storageDocument;

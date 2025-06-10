@@ -1,7 +1,8 @@
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { taskdefinition as TaskDefinitionApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
 const debouncedListJobType = debounce(TaskDefinitionApi.listJobType, 500, {

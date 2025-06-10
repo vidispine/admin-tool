@@ -1,41 +1,70 @@
 import { useRef, useCallback } from 'react';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { Link, useHistory } from 'react-router-dom';
 import { components as SelectComponents } from 'react-select';
-import { makeStyles } from '@material-ui/core/styles';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import routes from '../../const/routes';
-import { WrappedSelectCreatable } from './Select';
 import { optionListToScore } from '../../utils/similar';
+
+import { WrappedSelectCreatable } from './Select';
 
 const goToOptions = [
   {
-    value: (entityId) => `/item/${entityId}`, label: 'Item', synonyms: ['item'], siteId: true,
+    value: (entityId) => `/item/${entityId}`,
+    label: 'Item',
+    synonyms: ['item'],
+    siteId: true,
   },
   {
-    value: (entityId) => `/collection/${entityId}`, label: 'Collection', synonyms: ['collection'], siteId: true,
+    value: (entityId) => `/collection/${entityId}`,
+    label: 'Collection',
+    synonyms: ['collection'],
+    siteId: true,
   },
   {
-    value: (entityId) => `/storage/${entityId}`, label: 'Storage', synonyms: ['storage'], siteId: true,
+    value: (entityId) => `/storage/${entityId}`,
+    label: 'Storage',
+    synonyms: ['storage'],
+    siteId: true,
   },
   {
-    value: (entityId) => `/file/${entityId}`, label: 'File', synonyms: ['file'], siteId: true,
+    value: (entityId) => `/file/${entityId}`,
+    label: 'File',
+    synonyms: ['file'],
+    siteId: true,
   },
   {
-    value: (entityId) => `/user/${entityId}`, label: 'User', synonyms: ['user'], siteId: false,
+    value: (entityId) => `/user/${entityId}`,
+    label: 'User',
+    synonyms: ['user'],
+    siteId: false,
   },
   {
-    value: (entityId) => `/group/${entityId}`, label: 'Group', synonyms: ['group'], siteId: false,
+    value: (entityId) => `/group/${entityId}`,
+    label: 'Group',
+    synonyms: ['group'],
+    siteId: false,
   },
   {
-    value: (entityId) => `/metadata-field/${entityId}`, label: 'Metadata Field', synonyms: ['metadata', 'field', 'md'], siteId: false,
+    value: (entityId) => `/metadata-field/${entityId}`,
+    label: 'Metadata Field',
+    synonyms: ['metadata', 'field', 'md'],
+    siteId: false,
   },
   {
-    value: (entityId) => `/field-group/${entityId}`, label: 'Field Group', synonyms: ['fieldgroup', 'fg'], siteId: false,
+    value: (entityId) => `/field-group/${entityId}`,
+    label: 'Field Group',
+    synonyms: ['fieldgroup', 'fg'],
+    siteId: false,
   },
   {
-    value: (entityId) => `/job/${entityId}`, label: 'Job', synonyms: ['job'], siteId: true,
+    value: (entityId) => `/job/${entityId}`,
+    label: 'Job',
+    synonyms: ['job'],
+    siteId: true,
   },
 ];
 
@@ -152,10 +181,11 @@ const useOptionStyles = makeStyles({
   },
 });
 
-const Option = (props) => {
+function Option(props) {
   const classes = useOptionStyles();
-  const { value, __isNew__: isNew, label } = props.data || {};
-  const { fuzzyRef } = props.selectProps;
+  const { data, selectProps } = props;
+  const { value, __isNew__: isNew, label } = data || {};
+  const { fuzzyRef } = selectProps;
   let to = value;
   if (isNew === true && fuzzyRef?.current?.value) {
     const { entityId, value: fuzzyValue } = fuzzyRef.current;
@@ -166,19 +196,11 @@ const Option = (props) => {
     return (
       <SelectComponents.Option {...props} className={classes.Option}>
         <div className={classes.ValueWrapper}>
-          <Link
-            className={classes.ValueLink}
-            to={to}
-          >
+          <Link className={classes.ValueLink} to={to}>
             {label}
           </Link>
           <Tooltip title="Open in new tab">
-            <Link
-              className={classes.ValueIcon}
-              to={to}
-              target="_blank"
-              rel="noopener"
-            >
+            <Link className={classes.ValueIcon} to={to} target="_blank" rel="noopener">
               <OpenInNewIcon fontSize="small" />
             </Link>
           </Tooltip>
@@ -187,7 +209,7 @@ const Option = (props) => {
     );
   }
   return SelectComponents.Option(props);
-};
+}
 
 export default function NavSelect({ onChange: propsOnChange, ...props }) {
   const history = useHistory();
@@ -206,7 +228,7 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       return false;
     }
   }, []);
-  const formatCreateLabel = useCallback(((inputValue) => {
+  const formatCreateLabel = useCallback((inputValue) => {
     const label = fuzzyRef?.current?.label;
     if (label) {
       let [, ...entityId] = inputValue.split(' ');
@@ -221,7 +243,7 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       }
     }
     return 'Keep typing....';
-  }), []);
+  }, []);
 
   const onCreateOption = useCallback(() => {
     if (fuzzyRef?.current?.entityId && fuzzyRef?.current?.value) {
@@ -230,11 +252,14 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       else history.push(value);
     }
     fuzzyRef.current = undefined;
-  }, []);
-  const onChange = useCallback((e) => {
-    if (propsOnChange) propsOnChange(e);
-    history.push(e.value);
-  }, [history, propsOnChange]);
+  }, [history]);
+  const onChange = useCallback(
+    (e) => {
+      if (propsOnChange) propsOnChange(e);
+      history.push(e.value);
+    },
+    [history, propsOnChange],
+  );
   return (
     <WrappedSelectCreatable
       value=""

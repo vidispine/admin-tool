@@ -2,15 +2,11 @@ import TableCell from '@material-ui/core/TableCell';
 
 import TableRowLink from '../ui/TableRowLink';
 
-export default function StorageGroupRow({
-  storageGroup,
-}) {
+export default function StorageGroupRow({ storageGroup }) {
   const { name: groupName } = storageGroup;
   return (
     <TableRowLink hover to={`/storage-group/${groupName}/`}>
-      <TableCell>
-        {groupName}
-      </TableCell>
+      <TableCell>{groupName}</TableCell>
     </TableRowLink>
   );
 }

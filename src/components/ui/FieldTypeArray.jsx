@@ -1,14 +1,15 @@
-import Typography from '@material-ui/core/Typography';
-import { FormSection, FieldArray } from 'redux-form';
-import Delete from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Delete from '@material-ui/icons/Delete';
 import startCase from 'lodash.startcase';
+import { FormSection, FieldArray } from 'redux-form';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+
 import TextButton from './TextButton';
 
 const hoverStyle = (theme) => ({
@@ -17,8 +18,7 @@ const hoverStyle = (theme) => ({
       backgroundColor: theme.palette.action.hover,
     },
   },
-  noHover: {
-  },
+  noHover: {},
   marginLeft: {
     marginLeft: '10px',
   },
@@ -29,26 +29,17 @@ const hoverStyle = (theme) => ({
   },
 });
 
-const RemoveAction = ({
-  removeLabel,
-  fields,
-  index,
-  label,
-}) => (
-  removeLabel ? (
-    <Button
-      size="small"
-      color="secondary"
-      onClick={() => fields.remove(index)}
-    >
+function RemoveAction({ removeLabel, fields, index, label }) {
+  return removeLabel ? (
+    <Button size="small" color="secondary" onClick={() => fields.remove(index)}>
       {`Remove ${label}`}
     </Button>
   ) : (
     <IconButton onClick={() => fields.remove(index)}>
       <Delete />
     </IconButton>
-  )
-);
+  );
+}
 
 function TypeArray({
   fields,
@@ -67,20 +58,17 @@ function TypeArray({
   const thisLabel = labelStartCase ? startCase(label) : label;
   return (
     <div>
-      { arrayHeader && (
-      <div className={classes.header}>
-        <Typography variant="subtitle2">{thisLabel}</Typography>
-        <IconButton onClick={() => fields.push()} size="small" color="primary">
-          <AddCircleOutlineIcon />
-        </IconButton>
-      </div>
+      {arrayHeader && (
+        <div className={classes.header}>
+          <Typography variant="subtitle2">{thisLabel}</Typography>
+          <IconButton onClick={() => fields.push()} size="small" color="primary">
+            <AddCircleOutlineIcon />
+          </IconButton>
+        </div>
       )}
 
       {fields.map((thisField, index) => (
-        <div
-          key={`${thisField}`}
-          className={hover ? classes.onHover : classes.noHover}
-        >
+        <div key={`${thisField}`} className={hover ? classes.onHover : classes.noHover}>
           <Grid
             container
             direction="row-reverse"
@@ -88,7 +76,7 @@ function TypeArray({
             alignItems="baseline"
           >
             <Grid item sm="auto">
-              { direction !== 'row' && (
+              {direction !== 'row' && (
                 <RemoveAction
                   index={index}
                   removeLabel={removeLabel}
@@ -97,19 +85,14 @@ function TypeArray({
                 />
               )}
             </Grid>
-            { withHeader && (
-              <Typography variant="subtitle2">
-                {`${thisLabel} ${index + 1}`}
-              </Typography>
+            {withHeader && (
+              <Typography variant="subtitle2">{`${thisLabel} ${index + 1}`}</Typography>
             )}
           </Grid>
-          { direction === 'row' ? (
+          {direction === 'row' ? (
             <Grid container direction="row">
               <Grid item sm={11}>
-                <FormSection
-                  name={`${thisField}`}
-                  component={typeComponent}
-                />
+                <FormSection name={`${thisField}`} component={typeComponent} />
               </Grid>
               <Grid item sm="auto">
                 <RemoveAction
@@ -121,22 +104,15 @@ function TypeArray({
               </Grid>
             </Grid>
           ) : (
-            <div
-              className={dense ? undefined : classes.marginLeft}
-            >
-              <FormSection
-                name={`${thisField}`}
-                component={typeComponent}
-              />
+            <div className={dense ? undefined : classes.marginLeft}>
+              <FormSection name={`${thisField}`} component={typeComponent} />
             </div>
           )}
         </div>
       ))}
       {/* TODO check when there is no header label */}
-      {((
-        fields.length > 0 && fields.length !== maxOccurs)
-        || (arrayHeader === false && fields.length === 0 && fields.length !== maxOccurs)
-      ) && (
+      {((fields.length > 0 && fields.length !== maxOccurs) ||
+        (arrayHeader === false && fields.length === 0 && fields.length !== maxOccurs)) && (
         <TextButton onClick={() => fields.push()} color="primary" style={{ marginTop: 10 }}>
           {thisLabel ? `Add ${thisLabel}` : 'Add'}
         </TextButton>
@@ -145,12 +121,8 @@ function TypeArray({
   );
 }
 
-const FieldTypeArray = ({ component, ...props }) => (
-  <FieldArray
-    component={TypeArray}
-    typeComponent={component}
-    {...props}
-  />
-);
+function FieldTypeArray({ component, ...props }) {
+  return <FieldArray component={TypeArray} typeComponent={component} {...props} />;
+}
 
 export default withErrorBoundary(withStyles(hoverStyle)(FieldTypeArray));

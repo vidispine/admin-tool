@@ -4,11 +4,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 function VidispineIcon(props) {
   return (
     // <SvgIcon {...props} component={headerLogo} viewBox="0 0 76.64 76.21">
-    <SvgIcon
-      {...props}
-      data-name="Layer 1"
-      viewBox="0 0 747.77 839.9"
-    >
+    <SvgIcon {...props} data-name="Layer 1" viewBox="0 0 747.77 839.9">
       <defs>
         <style>
           {`.cls-1 {

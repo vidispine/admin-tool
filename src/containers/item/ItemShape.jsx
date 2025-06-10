@@ -1,8 +1,9 @@
 import { PureComponent } from 'react';
-import { shape as api } from '@vidispine/vdt-api';
-import UriListCard from '../../components/ui/UriListCard';
-import ShapeListParams from '../../components/shape/ShapeListParams';
 
+import { shape as api } from '@vidispine/vdt-api';
+
+import ShapeListParams from '../../components/shape/ShapeListParams';
+import UriListCard from '../../components/ui/UriListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
 class ItemShape extends PureComponent {
@@ -38,10 +39,11 @@ class ItemShape extends PureComponent {
   onFetch(itemId) {
     const queryParams = { placeholder: 'all' };
     try {
-      api.listShape({
-        itemId,
-        queryParams,
-      })
+      api
+        .listShape({
+          itemId,
+          queryParams,
+        })
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -73,9 +75,7 @@ class ItemShape extends PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ShapeListParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ uriListDocument: response.data })}

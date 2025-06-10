@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import DeletionLockListTitle from '../components/deletionlock/DeletionLockListTitle';
-import DeletionLockListFilterCard from '../components/deletionlock/DeletionLockListFilterCard';
 import DeletionLockListCard from '../components/deletionlock/DeletionLockListCard';
+import DeletionLockListFilterCard from '../components/deletionlock/DeletionLockListFilterCard';
+import DeletionLockListTitle from '../components/deletionlock/DeletionLockListTitle';
 import DeletionLockWizard from '../components/deletionlock/DeletionLockWizard';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
@@ -70,12 +71,7 @@ class DeletionLockList extends PureComponent {
   }
 
   render() {
-    const {
-      deletionLockListDocument,
-      count,
-      page,
-      rowsPerPage,
-    } = this.state;
+    const { deletionLockListDocument, count, page, rowsPerPage } = this.state;
     const {
       history,
       entityId,
@@ -99,22 +95,23 @@ class DeletionLockList extends PureComponent {
           entityId={entityId}
           entityType={entityType}
         />
-        {deletionLockListDocument
-          && (
-            <DeletionLockListCard
-              deletionLockListDocument={deletionLockListDocument}
-              count={count}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onChangePage={this.onChangePage}
-              onChangeRowsPerPage={this.onChangeRowsPerPage}
-              entityId={entityId}
-              entityType={entityType}
-            />
-          )}
+        {deletionLockListDocument && (
+          <DeletionLockListCard
+            deletionLockListDocument={deletionLockListDocument}
+            count={count}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onChangePage={this.onChangePage}
+            onChangeRowsPerPage={this.onChangeRowsPerPage}
+            entityId={entityId}
+            entityType={entityType}
+          />
+        )}
         <DeletionLockWizard
           dialogName={DELETIONLOCK_CREATE_MODAL}
-          onSuccess={entityId ? this.onRefresh : ({ data }) => history.push(`/deletion-lock/${data.id}`)}
+          onSuccess={
+            entityId ? this.onRefresh : ({ data }) => history.push(`/deletion-lock/${data.id}`)
+          }
           entityId={entityId}
           entityType={entityType}
         />

@@ -1,15 +1,16 @@
 /* eslint-disable max-len */
 import { useState } from 'react';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '../ui/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Link from '@material-ui/core/Link';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+
 import { withModalNoRouter } from '../../hoc/withModal';
+import DialogContent from '../ui/DialogContent';
 import TextGrid from '../ui/TextGrid';
 
 const corsConfigurationDocumentXML = `<CORSConfigurationDocument xmlns="http://xml.vidispine.com/schema/vidispine">
@@ -102,75 +103,67 @@ const XML_TAB = 'XML_TAB';
 const JSON_TAB = 'JSON_TAB';
 const CURL_TAB = 'CURL_TAB';
 
-function LoginHelpDialog({
-  open,
-  onClose,
-  baseUrl,
-}) {
+function LoginHelpDialog({ open, onClose, baseUrl }) {
   const [tab, setTab] = useState(CURL_TAB);
   const onChangeTab = (event, newTab) => setTab(newTab);
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} maxWidth={false}>
       <DialogTitle>Configure CORS</DialogTitle>
       <DialogContent>
-        Cross-Origin must be configured on the VidiCore server to allow browser requests from this location.
+        Cross-Origin must be configured on the VidiCore server to allow browser requests from this
+        location.
       </DialogContent>
       <DialogContent>
-        <Tabs
-          value={tab}
-          onChange={onChangeTab}
-        >
+        <Tabs value={tab} onChange={onChangeTab}>
           <Tab label="XML" value={XML_TAB} />
           <Tab label="JSON" value={JSON_TAB} />
           <Tab label="cURL" value={CURL_TAB} />
         </Tabs>
-        {{
-          XML_TAB: (
-            <>
+        {
+          {
+            XML_TAB: (
+              <>
+                <TextGrid
+                  title="Request"
+                  value={`PUT ${baseUrl}/API/configuration/cors`}
+                  variant="xml"
+                  codeProps={{ lineNumbers: false }}
+                  noWrapTitle={false}
+                />
+                <TextGrid
+                  title="Body"
+                  value={corsConfigurationDocumentXML}
+                  variant="xml"
+                  codeProps={{ lineNumbers: false }}
+                />
+              </>
+            ),
+            JSON_TAB: (
+              <>
+                <TextGrid
+                  title="Request"
+                  value={`PUT ${baseUrl}/API/configuration/cors`}
+                  variant="xml"
+                  codeProps={{ lineNumbers: false }}
+                  noWrapTitle={false}
+                />
+                <TextGrid
+                  title="Body"
+                  value={corsConfigurationDocumentJSON}
+                  variant="json"
+                  codeProps={{ lineNumbers: false }}
+                />
+              </>
+            ),
+            CURL_TAB: (
               <TextGrid
-                title="Request"
-                value={`PUT ${baseUrl}/API/configuration/cors`}
-                variant="xml"
-                codeProps={{ lineNumbers: false }}
-                noWrapTitle={false}
+                value={curlCommand.replace('{YOUR_VIDICORE_SERVER}', baseUrl)}
+                variant="code"
+                codeProps={{ lineNumbers: false, mode: 'shell' }}
               />
-              <TextGrid
-                title="Body"
-                value={corsConfigurationDocumentXML}
-                variant="xml"
-                codeProps={{ lineNumbers: false }}
-              />
-            </>
-          ),
-          JSON_TAB: (
-            <>
-              <TextGrid
-                title="Request"
-                value={`PUT ${baseUrl}/API/configuration/cors`}
-                variant="xml"
-                codeProps={{ lineNumbers: false }}
-                noWrapTitle={false}
-              />
-              <TextGrid
-                title="Body"
-                value={corsConfigurationDocumentJSON}
-                variant="json"
-                codeProps={{ lineNumbers: false }}
-              />
-            </>
-          ),
-          CURL_TAB: (
-            <TextGrid
-              value={curlCommand.replace('{YOUR_VIDICORE_SERVER}', baseUrl)}
-              variant="code"
-              codeProps={{ lineNumbers: false, mode: 'shell' }}
-            />
-          ),
-        }[tab]}
+            ),
+          }[tab]
+        }
       </DialogContent>
       <DialogContent>
         <Link
@@ -184,11 +177,7 @@ function LoginHelpDialog({
         </Link>
       </DialogContent>
       <DialogActions>
-        <Button
-          size="small"
-          color="inherit"
-          onClick={onClose}
-        >
+        <Button size="small" color="inherit" onClick={onClose}>
           Close
         </Button>
       </DialogActions>

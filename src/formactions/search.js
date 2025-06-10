@@ -3,14 +3,12 @@ import { SubmissionError } from 'redux-form';
 import { search as api } from '@vidispine/vdt-api';
 
 export function onSearchShape(form) {
-  const {
-    queryParams = {},
-    shapeSearchDocument = {},
-  } = form;
-  return api.searchShape({
-    shapeSearchDocument,
-    queryParams,
-  })
+  const { queryParams = {}, shapeSearchDocument = {} } = form;
+  return api
+    .searchShape({
+      shapeSearchDocument,
+      queryParams,
+    })
     .then((response) => ({
       queryParams,
       shapeSearchDocument,
@@ -26,14 +24,12 @@ export function onSearchShape(form) {
 }
 
 export function onSearchFile(form) {
-  const {
-    queryParams = {},
-    fileSearchDocument = {},
-  } = form;
-  return api.searchFile({
-    fileSearchDocument,
-    queryParams,
-  })
+  const { queryParams = {}, fileSearchDocument = {} } = form;
+  return api
+    .searchFile({
+      fileSearchDocument,
+      queryParams,
+    })
     .then((response) => ({
       queryParams,
       fileSearchDocument,
@@ -49,14 +45,12 @@ export function onSearchFile(form) {
 }
 
 export function onSearch(form) {
-  const {
-    queryParams = {},
-    itemSearchDocument = {},
-  } = form;
-  return api.searchItemCollection({
-    itemSearchDocument,
-    queryParams,
-  })
+  const { queryParams = {}, itemSearchDocument = {} } = form;
+  return api
+    .searchItemCollection({
+      itemSearchDocument,
+      queryParams,
+    })
     .then((response) => ({
       queryParams,
       itemSearchDocument,
@@ -72,12 +66,11 @@ export function onSearch(form) {
 }
 
 export function onAutocomplete(form) {
-  const {
-    autocompleteRequestDocument = {},
-  } = form;
-  return api.searchAutoComplete({
-    autocompleteRequestDocument,
-  })
+  const { autocompleteRequestDocument = {} } = form;
+  return api
+    .searchAutoComplete({
+      autocompleteRequestDocument,
+    })
     .then((response) => ({
       autocompleteRequestDocument,
       ...response,

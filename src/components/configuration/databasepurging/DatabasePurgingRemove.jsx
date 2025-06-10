@@ -4,19 +4,17 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
+
 import withUI from '../../../hoc/withUI';
 
-function DatabasePurgingRemove({
-  open,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  onError,
-}) {
+function DatabasePurgingRemove({ open, onClose, openSnackBar, onSuccess, onError }) {
   const onRemove = () => {
     ConfigurationApi.updateDatabasePurgingConfiguration({
       databasePurgingConfigurationDocument: {
-        changeLog: {}, auditTrail: {}, job: {}, transferLog: {},
+        changeLog: {},
+        auditTrail: {},
+        job: {},
+        transferLog: {},
       },
     })
       .then(() => {
@@ -33,19 +31,12 @@ function DatabasePurgingRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        Remove Database Purging Configuration?
-      </DialogTitle>
+      <DialogTitle>Remove Database Purging Configuration?</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

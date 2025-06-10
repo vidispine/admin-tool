@@ -1,30 +1,27 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
+
 import ImportCollectionWizard, {
   EDIT_COLLECTION_FORM,
 } from '../../components/import/ImportCollectionWizard';
 import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportCollection extends PureComponent {
-  componentDidMount() {
+function ImportCollection({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Collection';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_COLLECTION_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_COLLECTION_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, ...props } = this.props;
-    return (
-      <ImportCollectionWizard
-        onSuccess={(response) => history.push(`/collection/${response.data.id}`)}
-        {...props}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/collection/${response.data.id}`);
+  };
+
+  return <ImportCollectionWizard onSuccess={onSuccess} {...props} />;
 }
 
 export default compose(withRouterProps, withFormActions)(ImportCollection);

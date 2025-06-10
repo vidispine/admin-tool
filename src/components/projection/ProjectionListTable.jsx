@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import ProjectionListRow from './ProjectionListRow';
 
-export default function ProjectionListTable({
-  projectionList = [],
-}) {
+export default function ProjectionListTable({ projectionList = [] }) {
   return (
     <Table>
       <TableHead>
@@ -19,10 +17,7 @@ export default function ProjectionListTable({
       </TableHead>
       <TableBody>
         {projectionList.map((projection) => (
-          <ProjectionListRow
-            key={projection}
-            projection={projection}
-          />
+          <ProjectionListRow key={projection} projection={projection} />
         ))}
       </TableBody>
     </Table>

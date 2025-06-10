@@ -1,7 +1,7 @@
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import startCase from 'lodash.startcase';
+import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
+import startCase from 'lodash.startcase';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
 
@@ -20,7 +20,7 @@ const hoverStyle = (theme) => ({
   },
 });
 
-const TypeArray = ({
+function TypeArray({
   title,
   titleKey,
   value,
@@ -34,10 +34,16 @@ const TypeArray = ({
   titleStartCase = true,
   arrayKey,
   ...props
-}) => {
-  if (hideNoValue && value === undefined) { return null; }
-  if (hideNoValue && value.length === 0) { return null; }
-  if (!Array.isArray(value)) { return null; }
+}) {
+  if (hideNoValue && value === undefined) {
+    return null;
+  }
+  if (hideNoValue && value.length === 0) {
+    return null;
+  }
+  if (!Array.isArray(value)) {
+    return null;
+  }
   return (
     <>
       {arrayTitle && (
@@ -55,9 +61,7 @@ const TypeArray = ({
         >
           {title && !titleKey && (
             <Typography variant="subtitle2">
-              {titleStartCase
-                ? startCase(`${title} ${index + 1}`)
-                : `${title} ${index + 1}`}
+              {titleStartCase ? startCase(`${title} ${index + 1}`) : `${title} ${index + 1}`}
             </Typography>
           )}
           {titleKey && title && (
@@ -69,9 +73,7 @@ const TypeArray = ({
           )}
           {titleKey && !title && (
             <Typography variant="subtitle2">
-              {titleStartCase
-                ? startCase(thisValue[titleKey])
-                : thisValue[titleKey]}
+              {titleStartCase ? startCase(thisValue[titleKey]) : thisValue[titleKey]}
             </Typography>
           )}
           <div className={clsx({ [classes.withMargin]: dense === false })}>
@@ -81,6 +83,6 @@ const TypeArray = ({
       ))}
     </>
   );
-};
+}
 
 export default withErrorBoundary(withStyles(hoverStyle)(TypeArray));

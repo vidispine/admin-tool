@@ -1,12 +1,13 @@
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
-import FieldGroupRow from './FieldGroupRow';
-import FieldGroupRemove from './FieldGroupRemove';
+
 import FieldGroupChildRemove from './FieldGroupChildRemove';
-import withDialogProps from '../../hoc/withDialogProps';
+import FieldGroupRemove from './FieldGroupRemove';
+import FieldGroupRow from './FieldGroupRow';
 
 const REMOVE_FIELDGROUP_DIALOG = 'REMOVE_FIELDGROUP_DIALOG';
 
@@ -38,22 +39,20 @@ function FieldGroupListTable({
           ))}
         </TableBody>
       </Table>
-      {groupName
-        ? (
-          <FieldGroupChildRemove
-            {...dialogProps}
-            dialogName={REMOVE_FIELDGROUP_DIALOG}
-            groupName={groupName}
-            onSuccess={onRefresh}
-          />
-        )
-        : (
-          <FieldGroupRemove
-            {...dialogProps}
-            dialogName={REMOVE_FIELDGROUP_DIALOG}
-            onSuccess={onRefresh}
-          />
-        )}
+      {groupName ? (
+        <FieldGroupChildRemove
+          {...dialogProps}
+          dialogName={REMOVE_FIELDGROUP_DIALOG}
+          groupName={groupName}
+          onSuccess={onRefresh}
+        />
+      ) : (
+        <FieldGroupRemove
+          {...dialogProps}
+          dialogName={REMOVE_FIELDGROUP_DIALOG}
+          onSuccess={onRefresh}
+        />
+      )}
     </>
   );
 }

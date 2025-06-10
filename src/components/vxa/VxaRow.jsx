@@ -1,23 +1,17 @@
-import UnstyledLink from '../ui/UnstyledLink';
+import { OnlineIcon, OfflineIcon } from '../ui/StatusIcon';
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRow';
-import { OnlineIcon, OfflineIcon } from '../ui/StatusIcon';
+import UnstyledLink from '../ui/UnstyledLink';
 
-export default function VxaRow({
-  vxaDocument = {},
-}) {
+export default function VxaRow({ vxaDocument = {} }) {
   return (
     <TableRow to={`/vxa/${vxaDocument.uuid}/`} hover>
       <TableCell>
-        <UnstyledLink to={`/vxa/${vxaDocument.uuid}/`}>
-          {vxaDocument.uuid}
-        </UnstyledLink>
+        <UnstyledLink to={`/vxa/${vxaDocument.uuid}/`}>{vxaDocument.uuid}</UnstyledLink>
       </TableCell>
       <TableCell>{vxaDocument.name}</TableCell>
       <TableCell>{vxaDocument.vxaVersion}</TableCell>
-      <TableCell>
-        {vxaDocument.status === 'ONLINE' ? <OnlineIcon /> : <OfflineIcon />}
-      </TableCell>
+      <TableCell>{vxaDocument.status === 'ONLINE' ? <OnlineIcon /> : <OfflineIcon />}</TableCell>
     </TableRow>
   );
 }

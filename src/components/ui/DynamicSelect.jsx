@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
-import TextField from '@material-ui/core/TextField';
+
 import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
 import update from 'immutability-helper';
 
 export default class DynamicSelect extends PureComponent {
@@ -18,7 +19,8 @@ export default class DynamicSelect extends PureComponent {
   handleChange(event) {
     const { value: newState } = event.target;
     const { value: prevState } = this.state;
-    const { value: prevValue, onChange } = this.props.input;
+    const { input } = this.props;
+    const { value: prevValue, onChange } = input;
     if (prevValue) {
       const newValue = update(prevValue, {
         [newState]: {
@@ -36,13 +38,7 @@ export default class DynamicSelect extends PureComponent {
   }
 
   render() {
-    const {
-      children,
-      label,
-      choices = {},
-      input,
-      ...selectProps
-    } = this.props;
+    const { children, label, choices = {}, input, ...selectProps } = this.props;
     const { value } = this.state;
     const ChoiceComponent = value ? choices[value] : null;
     return (
@@ -55,7 +51,7 @@ export default class DynamicSelect extends PureComponent {
           FormHelperTextProps={{ focused: true }}
           onChange={this.handleChange}
         >
-          { children }
+          {children}
         </TextField>
         {ChoiceComponent}
       </>

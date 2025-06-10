@@ -8,16 +8,14 @@ export default function AccessControlListCard({
   const { rule: ruleList = [] } = quotaRuleListDocument;
   return (
     <>
-      {
-        ruleList.map((quotaRuleDocument) => (
-          <QuotaCard
-            quotaRuleDocument={quotaRuleDocument}
-            key={quotaRuleDocument.id}
-            onRefresh={onRefresh}
-            openRemove={openRemove}
-          />
-        ))
-      }
+      {ruleList.map((quotaRuleDocument) => (
+        <QuotaCard
+          quotaRuleDocument={quotaRuleDocument}
+          key={quotaRuleDocument.id}
+          onRefresh={onRefresh}
+          openRemove={openRemove}
+        />
+      ))}
     </>
   );
 }

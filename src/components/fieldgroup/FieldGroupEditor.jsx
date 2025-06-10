@@ -1,7 +1,6 @@
 import * as formActions from '../../formactions/fieldgroup';
-
-import Editor from '../ui/Editor';
 import withUI from '../../hoc/withUI';
+import Editor from '../ui/Editor';
 
 function FieldGroupEditor({
   metadataFieldGroupDocument,
@@ -14,7 +13,9 @@ function FieldGroupEditor({
   const onSubmitSuccess = () => {
     const messageContent = 'Field Group Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Field Group';

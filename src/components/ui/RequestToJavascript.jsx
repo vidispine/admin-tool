@@ -1,5 +1,5 @@
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Button from '@material-ui/core/Button';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import stringifyObject from 'stringify-object';
 
 import TextGrid from './TextGrid';
@@ -7,7 +7,11 @@ import TextGrid from './TextGrid';
 const STANDARD_HEADERS = ['accept', 'content-type', 'authorization'];
 
 const requestToJavascriptApi = ({
-  method, fullUrl, requestHeaders, requestData, requestContentType,
+  method,
+  fullUrl,
+  requestHeaders,
+  requestData,
+  requestContentType,
 }) => {
   const output = [];
   let requestBody;
@@ -27,7 +31,9 @@ const requestToJavascriptApi = ({
   queryParams.forEach(([key, value]) => output.push(`queryParam('${key}', '${value}')`));
   const isJson = requestContentType && requestContentType.toLowerCase() === 'application/json';
   if (requestData !== undefined) {
-    const requestString = isJson ? stringifyObject(requestData, { indent: '  ' }) : `\`${requestData}\``;
+    const requestString = isJson
+      ? stringifyObject(requestData, { indent: '  ' })
+      : `\`${requestData}\``;
     requestBody = `const requestBody = ${requestString};`;
     output.push('input(requestBody)');
     if (!isJson) output.push(`dataType('${requestContentType}')`);
@@ -54,11 +60,7 @@ function RequestToJavascript({ request, onClick: propsOnClick, label = 'Go To Ja
         codeProps={{ lineNumbers: false, mode: 'javascript' }}
       />
       {onClick && label ? (
-        <Button
-          variant="text"
-          startIcon={<ArrowForwardIcon />}
-          onClick={onClick}
-        >
+        <Button variant="text" startIcon={<ArrowForwardIcon />} onClick={onClick}>
           {label}
         </Button>
       ) : null}

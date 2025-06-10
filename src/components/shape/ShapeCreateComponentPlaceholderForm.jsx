@@ -1,11 +1,11 @@
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field } from 'redux-form';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 
-import { TextField, Select } from '../form';
 import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
 import FormSection from '../ui/FormSection';
 
 const COMPONENT_TYPES = ['container', 'audio', 'video', 'binary'];
@@ -22,22 +22,11 @@ const queryParams = () => (
         ))}
       </Field>
     </FormControl>
-    <Field
-      name="index"
-      label="Track Index"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
+    <Field name="index" label="Track Index" component={TextField} type="number" fullWidth />
   </>
 );
 
-function ShapeCreateComponentPlaceholderForm({
-  error,
-  handleSubmit,
-  itemId,
-  shapeId,
-}) {
+function ShapeCreateComponentPlaceholderForm({ error, handleSubmit, itemId, shapeId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -61,10 +50,7 @@ function ShapeCreateComponentPlaceholderForm({
           fullWidth
         />
       ) : null}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

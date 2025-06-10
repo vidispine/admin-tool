@@ -5,10 +5,11 @@ import { importsettings as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { settingsId } = props;
   const { importSettingsDocument } = form;
-  return api.updateImportSettings({
-    settingsId,
-    importSettingsDocument,
-  })
+  return api
+    .updateImportSettings({
+      settingsId,
+      importSettingsDocument,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -20,9 +21,10 @@ export function onUpdate(form, dispatch, props) {
 
 export function onCreate(form) {
   const { importSettingsDocument } = form;
-  return api.createImportSettings({
-    importSettingsDocument,
-  })
+  return api
+    .createImportSettings({
+      importSettingsDocument,
+    })
     .then((response) => ({ importSettingsDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;

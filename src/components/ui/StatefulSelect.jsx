@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
-import TextField from '@material-ui/core/TextField';
+
 import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
 
 export default class StatefulSelect extends PureComponent {
   constructor(props) {
@@ -13,8 +14,11 @@ export default class StatefulSelect extends PureComponent {
 
   handleChange(name) {
     return (event) => {
-      const prevState = this.state[name];
-      if (this.props.onChange) { this.props.onChange(event, event.target.value, prevState, name); }
+      const { [name]: prevState } = this.state;
+      const { onChange } = this.props;
+      if (onChange) {
+        onChange(event, event.target.value, prevState, name);
+      }
       this.setState({
         [name]: event.target.value,
       });
@@ -22,13 +26,9 @@ export default class StatefulSelect extends PureComponent {
   }
 
   render() {
-    const {
-      children,
-      ValueComponent,
-      label,
-      ...selectProps
-    } = this.props;
-    const value = this.state[this.props.name];
+    const { children, ValueComponent, label, ...selectProps } = this.props;
+    const { name } = this.props;
+    const { [name]: value } = this.state;
     const WrappedValueComponent = ValueComponent && ValueComponent(value);
     return (
       <>
@@ -38,9 +38,9 @@ export default class StatefulSelect extends PureComponent {
           select
           value={value}
           FormHelperTextProps={{ focused: true }}
-          onChange={this.handleChange(this.props.name)}
+          onChange={this.handleChange(name)}
         >
-          { children }
+          {children}
         </TextField>
 
         {WrappedValueComponent}

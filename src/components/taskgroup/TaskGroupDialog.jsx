@@ -1,25 +1,20 @@
-import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
+
+import * as actions from '../../actions';
+import * as formActions from '../../formactions/taskgroup';
 
 import TaskGroupForm from './TaskGroupForm';
-import * as formActions from '../../formactions/taskgroup';
-import * as actions from '../../actions';
 
 const EDIT_TASKGROUP_FORM = 'EDIT_TASKGROUP_FORM';
 
-function TaskGroupDialog({
-  submitForm,
-  closeModal,
-  isOpen,
-  history,
-  openSnackBar,
-}) {
+function TaskGroupDialog({ submitForm, closeModal, isOpen, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { taskGroupDocument } = response;
     const { name: groupName } = taskGroupDocument;
@@ -45,18 +40,10 @@ function TaskGroupDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={closeModal}
-        >
+        <Button size="small" color="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_TASKGROUP_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_TASKGROUP_FORM)}>
           Save
         </Button>
       </DialogActions>

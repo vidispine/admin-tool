@@ -27,4 +27,3 @@ jobs:
       - name: Build the Docker image
         run: PUBLIC_URL=/admin-tool npm run docker:buildx:push
         shell: bash
-

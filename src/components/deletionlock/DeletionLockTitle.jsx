@@ -1,9 +1,6 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function DeletionLockTitle({
-  lockId,
-  ...props
-}) {
+export default function DeletionLockTitle({ lockId, ...props }) {
   return (
     <TitleHeader
       helpTo="/ref/deletion-lock.html"

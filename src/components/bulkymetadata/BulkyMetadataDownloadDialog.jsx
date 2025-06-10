@@ -1,17 +1,17 @@
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'redux';
 
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-
-import Dialog from '@material-ui/core/Dialog';
 import * as formActions from '../../formactions/bulkymetadata';
-import BulkyMetadataDownloadForm from './BulkyMetadataDownloadForm';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
-import DialogContent from '../ui/DialogContent';
+import withUI from '../../hoc/withUI';
 import downloadFile from '../../utils/downloadFile';
+import DialogContent from '../ui/DialogContent';
+
+import BulkyMetadataDownloadForm from './BulkyMetadataDownloadForm';
 
 const BULKYMETADATA_DOWNLOAD_FORM = 'BULKYMETADATA_DOWNLOAD_FORM';
 
@@ -47,21 +47,20 @@ function BulkyMetadataDownloadDialog({
     const { data, headers } = response;
     const fileName = filenameFromHeaders(headers) || bulkyMetadataKey;
     downloadFile({ data, fileName });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Starting Download';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>{`Download ${bulkyMetadataKey}`}</DialogTitle>
       <DialogContent>
         <BulkyMetadataDownloadForm
@@ -78,17 +77,10 @@ function BulkyMetadataDownloadDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          onClick={onClose}
-        >
+        <Button size="small" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(form)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(form)}>
           Download
         </Button>
       </DialogActions>

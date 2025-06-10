@@ -1,21 +1,16 @@
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
 
-import withDialogProps from '../../hoc/withDialogProps';
-import TransferRow from './TransferRow';
 import TransferPriority from './TransferPriority';
+import TransferRow from './TransferRow';
 
 const TRANSFER_PRIORITY_DIALOG = 'TRANSFER_PRIORITY_DIALOG';
 
-function TransferTable({
-  transferListDocument,
-  onSuccess,
-  dialogProps,
-  onOpen,
-}) {
+function TransferTable({ transferListDocument, onSuccess, dialogProps, onOpen }) {
   const { transfer: transferList = [] } = transferListDocument;
   return (
     <>

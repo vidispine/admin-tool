@@ -1,9 +1,9 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
+
 import TitleHeader from '../components/ui/TitleHeader';
 import UriListCard from '../components/ui/UriListCard';
-
 import withUI from '../hoc/withUI';
 
 class Configuration extends PureComponent {
@@ -22,7 +22,8 @@ class Configuration extends PureComponent {
 
   onRefresh() {
     try {
-      api.getConfiguration()
+      api
+        .getConfiguration()
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -47,13 +48,12 @@ class Configuration extends PureComponent {
           code={uriListDocument}
           codeModal="URIListDocument"
         />
-        { uriListDocument
-        && (
-        <UriListCard
-          uriListDocument={uriListDocument}
-          linkTo={(uri) => `/configuration/${uri}/`}
-          titleCase
-        />
+        {uriListDocument && (
+          <UriListCard
+            uriListDocument={uriListDocument}
+            linkTo={(uri) => `/configuration/${uri}/`}
+            titleCase
+          />
         )}
       </>
     );

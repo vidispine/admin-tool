@@ -1,10 +1,6 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function ShapeTagListTitle({
-  openCode,
-  openCreate,
-  onRefresh,
-}) {
+export default function ShapeTagListTitle({ openCode, openCreate, onRefresh }) {
   return (
     <TitleHeader
       title="Shape Tag"

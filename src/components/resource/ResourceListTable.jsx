@@ -6,156 +6,143 @@ import TableRow from '@material-ui/core/TableRow';
 
 import ResourceListRow from './ResourceListRow';
 
-const NetworkHeader = () => (
-  <>
-    <TableCell>Netmask</TableCell>
-    <TableCell>Bandswidth</TableCell>
-  </>
-);
+function NetworkHeader() {
+  return (
+    <>
+      <TableCell>Netmask</TableCell>
+      <TableCell>Bandswidth</TableCell>
+    </>
+  );
+}
 
-const ExternalTranscoderHeader = () => (
-  <>
-    <TableCell>Source</TableCell>
-    <TableCell>Destination</TableCell>
-    <TableCell>Shape Tag</TableCell>
-  </>
-);
+function ExternalTranscoderHeader() {
+  return (
+    <>
+      <TableCell>Source</TableCell>
+      <TableCell>Destination</TableCell>
+      <TableCell>Shape Tag</TableCell>
+    </>
+  );
+}
 
-const TranscoderHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-    <TableCell>Version</TableCell>
-    <TableCell>Status</TableCell>
-  </>
-);
+function TranscoderHeader() {
+  return (
+    <>
+      <TableCell>URL</TableCell>
+      <TableCell>Version</TableCell>
+      <TableCell>Status</TableCell>
+    </>
+  );
+}
 
-const CerifyHeader = () => (
-  <>
-    <TableCell>Address</TableCell>
-  </>
-);
+function CerifyHeader() {
+  return <TableCell>Address</TableCell>;
+}
 
-const FinalCutServerHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-    <TableCell>Tag</TableCell>
-    <TableCell>State</TableCell>
-  </>
-);
+function FinalCutServerHeader() {
+  return (
+    <>
+      <TableCell>URL</TableCell>
+      <TableCell>Tag</TableCell>
+      <TableCell>State</TableCell>
+    </>
+  );
+}
 
-const MXFServerHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-    <TableCell>Workspace Url</TableCell>
-    <TableCell>User Workspace Url</TableCell>
-  </>
-);
+function MXFServerHeader() {
+  return (
+    <>
+      <TableCell>URL</TableCell>
+      <TableCell>Workspace Url</TableCell>
+      <TableCell>User Workspace Url</TableCell>
+    </>
+  );
+}
 
-const SigniantHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-    <TableCell>Tag</TableCell>
-  </>
-);
+function SigniantHeader() {
+  return (
+    <>
+      <TableCell>URL</TableCell>
+      <TableCell>Tag</TableCell>
+    </>
+  );
+}
 
-const LDAPHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-  </>
-);
+function LDAPHeader() {
+  return <TableCell>URL</TableCell>;
+}
 
-const CloudConvertHeader = () => (
-  <>
-    <TableCell>Public Address</TableCell>
-    <TableCell>API Host</TableCell>
-  </>
-);
+function CloudConvertHeader() {
+  return (
+    <>
+      <TableCell>Public Address</TableCell>
+      <TableCell>API Host</TableCell>
+    </>
+  );
+}
 
-const VidinetServiceRow = () => (
-  <>
-    <TableCell>Url</TableCell>
-    <TableCell>Name</TableCell>
-    <TableCell>Endpoint</TableCell>
-    <TableCell>State</TableCell>
-  </>
-);
+function VidinetServiceRow() {
+  return (
+    <>
+      <TableCell>Url</TableCell>
+      <TableCell>Name</TableCell>
+      <TableCell>Endpoint</TableCell>
+      <TableCell>State</TableCell>
+    </>
+  );
+}
 
-const EidrHeader = () => (
-  <>
-    <TableCell>URL</TableCell>
-    <TableCell>Party ID</TableCell>
-    <TableCell>User ID</TableCell>
-  </>
-);
+function EidrHeader() {
+  return (
+    <>
+      <TableCell>URL</TableCell>
+      <TableCell>Party ID</TableCell>
+      <TableCell>User ID</TableCell>
+    </>
+  );
+}
 
-const ThumbnailServiceHeader = () => (
-  <>
-    <TableCell>Path</TableCell>
-    <TableCell>Status</TableCell>
-  </>
-);
+function ThumbnailServiceHeader() {
+  return (
+    <>
+      <TableCell>Path</TableCell>
+      <TableCell>Status</TableCell>
+    </>
+  );
+}
 
-const ResourceHeader = ({ resourceType }) => {
+function ResourceHeader({ resourceType }) {
   switch (resourceType) {
     case 'network':
-      return (
-        <NetworkHeader />
-      );
+      return <NetworkHeader />;
     case 'transcoder':
-      return (
-        <TranscoderHeader />
-      );
+      return <TranscoderHeader />;
     case 'externalTranscoder':
-      return (
-        <ExternalTranscoderHeader />
-      );
+      return <ExternalTranscoderHeader />;
     case 'cerify':
-      return (
-        <CerifyHeader />
-      );
+      return <CerifyHeader />;
     case 'thumbnail':
-      return (
-        <ThumbnailServiceHeader />
-      );
+      return <ThumbnailServiceHeader />;
     case 'finalcutserver':
-      return (
-        <FinalCutServerHeader />
-      );
+      return <FinalCutServerHeader />;
     case 'mxfserver':
-      return (
-        <MXFServerHeader />
-      );
+      return <MXFServerHeader />;
     case 'signiant':
-      return (
-        <SigniantHeader />
-      );
+      return <SigniantHeader />;
     case 'ldap':
-      return (
-        <LDAPHeader />
-      );
+      return <LDAPHeader />;
     case 'cloudconvert':
-      return (
-        <CloudConvertHeader />
-      );
+      return <CloudConvertHeader />;
     case 'vidinet':
-      return (
-        <VidinetServiceRow />
-      );
+      return <VidinetServiceRow />;
     case 'eidr':
-      return (
-        <EidrHeader />
-      );
+      return <EidrHeader />;
     default:
-      return (
-        <TableCell />
-      );
+      return <TableCell />;
   }
-};
+}
 
-export default function NotificationListTable({
-  resourceListDocument = {},
-  resourceType,
-}) {
+export default function NotificationListTable({ resourceListDocument = {}, resourceType }) {
   const { resource: resourceList = [] } = resourceListDocument;
   return (
     <Table>
@@ -167,11 +154,7 @@ export default function NotificationListTable({
       </TableHead>
       <TableBody>
         {resourceList.map((resource) => (
-          <ResourceListRow
-            key={resource.id}
-            resource={resource}
-            resourceType={resourceType}
-          />
+          <ResourceListRow key={resource.id} resource={resource} resourceType={resourceType} />
         ))}
       </TableBody>
     </Table>

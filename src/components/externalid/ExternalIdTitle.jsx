@@ -2,11 +2,7 @@ import startCase from 'lodash.startcase';
 
 import TitleHeader from '../ui/TitleHeader';
 
-export default function ExternalIdTitle({
-  entityType,
-  entityId,
-  ...props
-}) {
+export default function ExternalIdTitle({ entityType, entityId, ...props }) {
   return (
     <TitleHeader
       title="External ID"

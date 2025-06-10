@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 
 import { version as api } from '@vidispine/vdt-api';
+
 import VersionCard from '../components/version/VersionCard';
 import VersionDialog from '../components/version/VersionDialog';
 import VersionTitle from '../components/version/VersionTitle';
@@ -25,8 +26,7 @@ class Version extends PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.getVersion()
-        .then((response) => this.setState({ versionDocument: response.data }));
+      api.getVersion().then((response) => this.setState({ versionDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Version Information';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -34,9 +34,7 @@ class Version extends PureComponent {
   }
 
   render() {
-    const {
-      versionDocument,
-    } = this.state;
+    const { versionDocument } = this.state;
     return (
       <>
         <VersionTitle
@@ -45,15 +43,8 @@ class Version extends PureComponent {
           code={versionDocument}
           codeModal="VersionDocument"
         />
-        { versionDocument && (
-          <VersionCard
-            versionDocument={versionDocument}
-          />
-        )}
-        <VersionDialog
-          dialogName={VERSION_UPDATE_MODAL}
-          onSuccess={this.onRefresh}
-        />
+        {versionDocument && <VersionCard versionDocument={versionDocument} />}
+        <VersionDialog dialogName={VERSION_UPDATE_MODAL} onSuccess={this.onRefresh} />
       </>
     );
   }

@@ -1,7 +1,8 @@
 import { Component } from 'react';
+
 import Typography from '@material-ui/core/Typography';
 
-const withErrorBoundary = (WrappedComponent) => (
+const withErrorBoundary = (WrappedComponent) =>
   class extends Component {
     constructor(props) {
       super(props);
@@ -14,12 +15,12 @@ const withErrorBoundary = (WrappedComponent) => (
     }
 
     render() {
-      if (this.state.hasError) {
+      const { hasError } = this.state;
+      if (hasError) {
         return <Typography color="error">Unable to render component (see console)</Typography>;
       }
       return <WrappedComponent {...this.props} />;
     }
-  }
-);
+  };
 
 export default withErrorBoundary;

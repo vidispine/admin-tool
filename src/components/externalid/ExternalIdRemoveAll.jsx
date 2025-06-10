@@ -4,26 +4,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { externalid as api } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function ExternalIdRemoveAll({
-  open,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  entityType,
-  entityId,
-}) {
+function ExternalIdRemoveAll({ open, onClose, openSnackBar, onSuccess, entityType, entityId }) {
   const onRemove = () => {
-    api.removeAllExternalId({
-      entityType,
-      entityId,
-    })
+    api
+      .removeAllExternalId({
+        entityType,
+        entityId,
+      })
       .then(() => {
         const messageContent = 'All External IDs Removed';
         openSnackBar({ messageContent });
         onClose();
-        if (onSuccess) { onSuccess(); }
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch(() => {
         const messageContent = 'Error Removing External IDs';
@@ -32,19 +29,12 @@ function ExternalIdRemoveAll({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove All External IDs For "${entityId}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove All External IDs For "${entityId}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

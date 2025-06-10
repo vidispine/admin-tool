@@ -1,12 +1,13 @@
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
-import ExternalIdNamespaceRow from './ExternalIdNamespaceRow';
-import ExternalIdNamespaceRemove from './ExternalIdNamespaceRemove';
+
 import ExternalIdNamespaceDialog from './ExternalIdNamespaceDialog';
-import withDialogProps from '../../hoc/withDialogProps';
+import ExternalIdNamespaceRemove from './ExternalIdNamespaceRemove';
+import ExternalIdNamespaceRow from './ExternalIdNamespaceRow';
 
 const EXTERNALID_NAMESPACE_REMOVE_DIALOG = 'EXTERNALID_NAMESPACE_REMOVE_DIALOG';
 const EXTERNALID_NAMESPACE_EDIT_DIALOG = 'EXTERNALID_NAMESPACE_EDIT_DIALOG';
@@ -17,9 +18,8 @@ function ExternalIdNamespaceTable({
   dialogProps,
   onOpen,
 }) {
-  const {
-    namespace: externalIdentifierNamespaceList = [],
-  } = externalIdentifierNamespaceListDocument;
+  const { namespace: externalIdentifierNamespaceList = [] } =
+    externalIdentifierNamespaceListDocument;
   return (
     <>
       <Table>

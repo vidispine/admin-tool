@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
 
 import { documentmetadata as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import DocumentMetadataListCard from '../components/documentmetadata/DocumentMetadataListCard';
-import DocumentMetadataCreate from '../components/documentmetadata/DocumentMetadataCreate';
 
+import DocumentMetadataCreate from '../components/documentmetadata/DocumentMetadataCreate';
+import DocumentMetadataListCard from '../components/documentmetadata/DocumentMetadataListCard';
+import TitleHeader from '../components/ui/TitleHeader';
 import withSnackbar from '../hoc/withSnackbar';
 
 const DOCUMENT_CREATE_DIALOG = 'DOCUMENT_CREATE_DIALOG';
@@ -31,17 +31,15 @@ class DocumentMetadataList extends PureComponent {
   }
 
   onRefresh() {
-    const {
-      first,
-      rowsPerPage: number,
-    } = this.state;
+    const { first, rowsPerPage: number } = this.state;
     this.onFetch(first, number);
   }
 
   onFetch(first, number) {
     const queryParams = { first, number };
     try {
-      api.listDocumentMetadata({ queryParams })
+      api
+        .listDocumentMetadata({ queryParams })
         .then((response) => this.setState({ documentListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -63,17 +61,13 @@ class DocumentMetadataList extends PureComponent {
 
   onChangePage({ page }) {
     const { rowsPerPage } = this.state;
-    const first = (page * rowsPerPage) + 1;
+    const first = page * rowsPerPage + 1;
     this.setState({ page, first });
     this.onFetch(first, rowsPerPage);
   }
 
   render() {
-    const {
-      page,
-      rowsPerPage,
-      documentListDocument,
-    } = this.state;
+    const { page, rowsPerPage, documentListDocument } = this.state;
     const { history } = this.props;
     return (
       <>

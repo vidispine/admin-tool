@@ -1,30 +1,25 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
+
+import ImportRawWizard, { EDIT_IMPORTRAW_FORM } from '../../components/import/ImportRawWizard';
 import withFormActions from '../../hoc/withFormActions';
-import ImportRawWizard, {
-  EDIT_IMPORTRAW_FORM,
-} from '../../components/import/ImportRawWizard';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportRaw extends PureComponent {
-  componentDidMount() {
+function ImportRaw({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Upload';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTRAW_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTRAW_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, ...props } = this.props;
-    return (
-      <ImportRawWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        {...props}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return <ImportRawWizard onSuccess={onSuccess} {...props} />;
 }
 
 export default compose(withRouterProps, withFormActions)(ImportRaw);

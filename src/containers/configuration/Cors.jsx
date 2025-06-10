@@ -1,8 +1,8 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import CorsCard from '../../components/configuration/cors/CorsCard';
 
+import CorsCard from '../../components/configuration/cors/CorsCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
@@ -23,7 +23,8 @@ class Cors extends PureComponent {
 
   onRefresh() {
     try {
-      api.getCorsConfiguration()
+      api
+        .getCorsConfiguration()
         .then((response) => this.setState({ corsConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,7 +51,7 @@ class Cors extends PureComponent {
           code={corsConfigurationDocument}
           codeModal="CORSConfigurationDocument"
         />
-        { corsConfigurationDocument && (
+        {corsConfigurationDocument && (
           <CorsCard
             corsConfigurationDocument={corsConfigurationDocument}
             onSuccess={this.onRefresh}

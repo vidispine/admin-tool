@@ -1,22 +1,28 @@
 import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { compose } from 'redux';
 
-import withTabs from '../hoc/withTabs';
-import MetadataFieldTitle from '../components/metadatafield/MetadataFieldTitle';
 import MetadataFieldRemove from '../components/metadatafield/MetadataFieldRemove';
-import withSnackbar from '../hoc/withSnackbar';
+import MetadataFieldTitle from '../components/metadatafield/MetadataFieldTitle';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import DrawerListItem from '../components/ui/DrawerListItem';
-import MetadataFieldOverview from './metadatafield/MetadataFieldOverview';
+import withSnackbar from '../hoc/withSnackbar';
+import withTabs from '../hoc/withTabs';
+
 import MetadataFieldAllowedValues from './metadatafield/MetadataFieldAllowedValues';
+import MetadataFieldOverview from './metadatafield/MetadataFieldOverview';
 
 const METADATAFIELD_OVERVIEW_TAB = 'METADATAFIELD_OVERVIEW_TAB';
 const METADATAFIELD_ALLOWEDVALUES_TAB = 'METADATAFIELD_ALLOWEDVALUES_TAB';
 
 const TAB_TITLE = [
   { tab: METADATAFIELD_OVERVIEW_TAB, listText: 'Overview', component: MetadataFieldOverview },
-  { tab: METADATAFIELD_ALLOWEDVALUES_TAB, listText: 'Allowed Values', component: MetadataFieldAllowedValues },
+  {
+    tab: METADATAFIELD_ALLOWEDVALUES_TAB,
+    listText: 'Allowed Values',
+    component: MetadataFieldAllowedValues,
+  },
 ];
 
 const listComponent = ({ onChangeTab, tabValue }) => (
@@ -54,7 +60,9 @@ class MetadataField extends PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -62,11 +70,7 @@ class MetadataField extends PureComponent {
   }
 
   render() {
-    const {
-      fieldName,
-      onChangeTab,
-      tabValue,
-    } = this.props;
+    const { fieldName, onChangeTab, tabValue } = this.props;
     const tabInfo = TAB_TITLE.find((thisTab) => thisTab.tab === tabValue) || TAB_TITLE[0];
     const { listText, component: mainComponent } = tabInfo;
     const titleComponent = (props) => (
@@ -76,7 +80,8 @@ class MetadataField extends PureComponent {
         title={listText}
         {...props}
       />
-    ); return (
+    );
+    return (
       <>
         <DrawerContainer
           onChangeTab={onChangeTab}
@@ -88,10 +93,7 @@ class MetadataField extends PureComponent {
           titleComponent={titleComponent}
           setOnRefresh={this.setOnRefresh}
         />
-        <MetadataFieldRemove
-          dialogName={METADATAFIELD_REMOVE_MODAL}
-          fieldName={fieldName}
-        />
+        <MetadataFieldRemove dialogName={METADATAFIELD_REMOVE_MODAL} fieldName={fieldName} />
       </>
     );
   }

@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import withSnackbar from '../../hoc/withSnackbar';
-import TitleHeader from '../../components/ui/TitleHeader';
+
 import PathAliasCard from '../../components/configuration/pathalias/PathAliasCard';
+import TitleHeader from '../../components/ui/TitleHeader';
+import withSnackbar from '../../hoc/withSnackbar';
 
 class PathAlias extends PureComponent {
   constructor(props) {
@@ -21,7 +22,8 @@ class PathAlias extends PureComponent {
 
   onRefresh() {
     try {
-      api.getPathAliasConfiguration()
+      api
+        .getPathAliasConfiguration()
         .then((response) => this.setState({ pathAliasConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -48,12 +50,11 @@ class PathAlias extends PureComponent {
           code={pathAliasConfigurationDocument}
           codeModal="PathAliasConfigurationDocument"
         />
-        {pathAliasConfigurationDocument
-        && (
-        <PathAliasCard
-          pathAliasConfigurationDocument={pathAliasConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {pathAliasConfigurationDocument && (
+          <PathAliasCard
+            pathAliasConfigurationDocument={pathAliasConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
       </>
     );

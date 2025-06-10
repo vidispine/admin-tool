@@ -6,10 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import EssenceVersionListRow from './EssenceVersionListRow';
 
-export default function EssenceVersionListTable({
-  essenceVersionListDocument = {},
-  ...props
-}) {
+export default function EssenceVersionListTable({ essenceVersionListDocument = {}, ...props }) {
   const { version: versionList = [] } = essenceVersionListDocument;
   return (
     <Table>

@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, FormSection } from 'redux-form';
-import { TextField } from '../form';
 
+import { TextField } from '../form';
 import Field from '../ui/Field';
 
 const headers = () => (
@@ -34,34 +34,23 @@ const headers = () => (
 );
 
 const queryParams = () => (
-  <>
-    <Field
-      name="seconds"
-      label="Timeout "
-      component={TextField}
-      helperText="Seconds"
-      fullWidth
-      variant="outlined"
-      margin="dense"
-    />
-  </>
+  <Field
+    name="seconds"
+    label="Timeout "
+    component={TextField}
+    helperText="Seconds"
+    fullWidth
+    variant="outlined"
+    margin="dense"
+  />
 );
 
-function LoginFormAdvanced({
-  error,
-  handleSubmit,
-}) {
+function LoginFormAdvanced({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="headers"
-        component={headers}
-      />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="headers" component={headers} />
+      <FormSection name="queryParams" component={queryParams} />
       <Field
         name="accessKey"
         label="Access Key"

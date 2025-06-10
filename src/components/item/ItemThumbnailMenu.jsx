@@ -1,10 +1,10 @@
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import Menu, { MenuItem } from '../ui/Menu';
 import withModal from '../../hoc/withModal';
 import downloadThumbnail from '../../utils/downloadThumbnail';
 import parseThumbnailUri from '../../utils/parseThumbnailUri';
+import Menu, { MenuItem } from '../ui/Menu';
 
 import { DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG } from './ItemThumbnailDeleteDialog';
 
@@ -17,11 +17,12 @@ const styles = (theme) => ({
 function ItemThumbnailMenu({ classes, uri, onOpen }) {
   const onDelete = () => onOpen({ modalName: ITEMTHUMBNAILDELETE_DIALOG, uri });
   const onDownload = () => {
-    const {
-      resourceId, itemId, time, isPoster,
-    } = parseThumbnailUri(uri);
+    const { resourceId, itemId, time, isPoster } = parseThumbnailUri(uri);
     downloadThumbnail({
-      resourceId, itemId, time, isPoster,
+      resourceId,
+      itemId,
+      time,
+      isPoster,
     });
   };
   return (

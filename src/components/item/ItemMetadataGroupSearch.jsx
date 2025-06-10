@@ -1,18 +1,18 @@
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import CardContent from '@material-ui/core/CardContent';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import ItemMetadataGroupSearchForm from './ItemMetadataGroupSearchForm';
+import * as formActions from '../../formactions/item';
+import withExpansion from '../../hoc/withExpansion';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import withExpansion from '../../hoc/withExpansion';
-import * as formActions from '../../formactions/item';
+
+import ItemMetadataGroupSearchForm from './ItemMetadataGroupSearchForm';
 
 export const ITEM_METADATAGROUPSEARCH_FORM = 'ITEM_METADATAGROUPSEARCH_FORM';
 
@@ -72,8 +72,4 @@ function ItemMetadataGroupSearch({
   );
 }
 
-export default compose(
-  withSnackbar,
-  withFormActions,
-  withExpansion,
-)(ItemMetadataGroupSearch);
+export default compose(withSnackbar, withFormActions, withExpansion)(ItemMetadataGroupSearch);

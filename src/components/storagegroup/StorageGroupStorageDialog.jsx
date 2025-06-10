@@ -1,15 +1,16 @@
-import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
+
+import * as actions from '../../actions';
+import * as formActions from '../../formactions/storagegroup';
 
 import StorageGroupStorageForm from './StorageGroupStorageForm';
-import * as formActions from '../../formactions/storagegroup';
-import * as actions from '../../actions';
 
 const EDIT_STORAGEGROUP_STORAGE_FORM = 'EDIT_STORAGEGROUP_STORAGE_FORM';
 
@@ -46,11 +47,7 @@ function StorageGroupStorageDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={closeModal}
-        >
+        <Button size="small" color="secondary" onClick={closeModal}>
           Close
         </Button>
         <Button

@@ -5,11 +5,12 @@ import { documentmetadata as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { metadataDocument = {}, queryParams } = form;
   const documentMetadataName = props.documentMetadataName || form.documentMetadataName;
-  return api.updateDocumentMetadata({
-    documentMetadataName,
-    metadataDocument,
-    queryParams,
-  })
+  return api
+    .updateDocumentMetadata({
+      documentMetadataName,
+      metadataDocument,
+      queryParams,
+    })
     .then((response) => ({ documentMetadataName, ...response }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -23,10 +24,11 @@ export function onUpdate(form, dispatch, props) {
 export function onGet(form, dispatch, props) {
   const { queryParams } = form;
   const documentMetadataName = props.documentMetadataName || form.documentMetadataName;
-  return api.getDocumentMetadata({
-    documentMetadataName,
-    queryParams,
-  })
+  return api
+    .getDocumentMetadata({
+      documentMetadataName,
+      queryParams,
+    })
     .then((response) => ({ documentMetadataName, ...response }))
     .catch((error) => {
       let errorMessage = error.message;

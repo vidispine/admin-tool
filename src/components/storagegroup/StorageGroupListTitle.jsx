@@ -1,10 +1,6 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function StorageGroupListTitle({
-  openCode,
-  openCreate,
-  onRefresh,
-}) {
+export default function StorageGroupListTitle({ openCode, openCreate, onRefresh }) {
   return (
     <TitleHeader
       title="Storage Group"

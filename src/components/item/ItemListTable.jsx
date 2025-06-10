@@ -1,26 +1,21 @@
-import startCase from 'lodash.startcase';
 import Table from '@material-ui/core/Table';
-import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableFooter from '@material-ui/core/TableFooter';
+import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import startCase from 'lodash.startcase';
 
 import TableActions from '../ui/TableActions';
 import TableRowLink from '../ui/TableRowLink';
 
-const TableHeadCell = ({
-  orderBy,
-  orderDirection,
-  onChangeOrder,
-  name,
-}) => (
-  onChangeOrder ? (
+function TableHeadCell({ orderBy, orderDirection, onChangeOrder, name }) {
+  return onChangeOrder ? (
     <TableCell>
       <TableSortLabel
-        active={(orderBy === name)}
+        active={orderBy === name}
         direction={orderDirection || undefined}
         onClick={onChangeOrder(name)}
       >
@@ -28,11 +23,9 @@ const TableHeadCell = ({
       </TableSortLabel>
     </TableCell>
   ) : (
-    <TableCell>
-      {startCase(name)}
-    </TableCell>
-  )
-);
+    <TableCell>{startCase(name)}</TableCell>
+  );
+}
 
 const terseToValue = (entityType, fieldName) => {
   const terseField = entityType?.terse?.[fieldName];
@@ -45,29 +38,19 @@ const terseToValue = (entityType, fieldName) => {
   return terseField?.value;
 };
 
-export const ItemTypeRow = ({
-  itemType,
-  terse,
-  fieldList,
-  children,
-}) => (
-  <TableRowLink
-    to={`/item/${itemType.id}/`}
-    hover
-  >
-    {children}
-    <TableCell>{itemType.id}</TableCell>
-    {(terse && itemType.terse) && (
-      fieldList.map((fieldName) => (
-        <TableCell
-          key={fieldName}
-        >
-          {terseToValue(itemType, fieldName)}
-        </TableCell>
-      ))
-    )}
-  </TableRowLink>
-);
+export function ItemTypeRow({ itemType, terse, fieldList, children }) {
+  return (
+    <TableRowLink to={`/item/${itemType.id}/`} hover>
+      {children}
+      <TableCell>{itemType.id}</TableCell>
+      {terse &&
+        itemType.terse &&
+        fieldList.map((fieldName) => (
+          <TableCell key={fieldName}>{terseToValue(itemType, fieldName)}</TableCell>
+        ))}
+    </TableRowLink>
+  );
+}
 
 function ItemListTable({
   itemListDocument,
@@ -81,62 +64,58 @@ function ItemListTable({
   orderBy,
   orderDirection,
 }) {
-  if (itemListDocument === undefined) { return null; }
+  if (itemListDocument === undefined) {
+    return null;
+  }
   const { item: itemList = [], hits: count = 0 } = itemListDocument;
   const { terse, field = [] } = queryParams;
   let fieldList = field;
-  if (!Array.isArray(field)) { fieldList = field.split(','); }
+  if (!Array.isArray(field)) {
+    fieldList = field.split(',');
+  }
   return (
-    <>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell
-              name="itemId"
-              onChangeOrder={onChangeOrder}
-              orderBy={orderBy}
-              orderDirection={orderDirection}
-            />
-            {terse && (
-              fieldList.map((fieldName) => (
-                <TableHeadCell
-                  key={fieldName}
-                  name={fieldName}
-                  onChangeOrder={onChangeOrder}
-                  orderBy={orderBy}
-                  orderDirection={orderDirection}
-                />
-              ))
-            )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {itemList.map((itemType) => (
-            <ItemTypeRow
-              key={itemType.id}
-              itemType={itemType}
-              terse={terse}
-              fieldList={fieldList}
-            />
-          ))}
-        </TableBody>
-        {(onChangePage && onChangeRowsPerPage) && (
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                count={count}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                onPageChange={onChangePage}
-                onRowsPerPageChange={onChangeRowsPerPage}
-                ActionsComponent={TableActions}
-                rowsPerPageOptions={rowsPerPageOptions}
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeadCell
+            name="itemId"
+            onChangeOrder={onChangeOrder}
+            orderBy={orderBy}
+            orderDirection={orderDirection}
+          />
+          {terse &&
+            fieldList.map((fieldName) => (
+              <TableHeadCell
+                key={fieldName}
+                name={fieldName}
+                onChangeOrder={onChangeOrder}
+                orderBy={orderBy}
+                orderDirection={orderDirection}
               />
-            </TableRow>
-          </TableFooter>
-        )}
-      </Table>
-    </>
+            ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {itemList.map((itemType) => (
+          <ItemTypeRow key={itemType.id} itemType={itemType} terse={terse} fieldList={fieldList} />
+        ))}
+      </TableBody>
+      {onChangePage && onChangeRowsPerPage && (
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              count={count}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              onPageChange={onChangePage}
+              onRowsPerPageChange={onChangeRowsPerPage}
+              ActionsComponent={TableActions}
+              rowsPerPageOptions={rowsPerPageOptions}
+            />
+          </TableRow>
+        </TableFooter>
+      )}
+    </Table>
   );
 }
 

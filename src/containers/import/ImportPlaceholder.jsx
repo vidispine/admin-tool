@@ -1,30 +1,27 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
-import withFormActions from '../../hoc/withFormActions';
+
 import ImportPlaceholderWizard, {
   EDIT_IMPORTPLACEHOLDER_FORM,
 } from '../../components/import/ImportPlaceholderWizard';
+import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportPlaceholder extends PureComponent {
-  componentDidMount() {
+function ImportPlaceholder({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Placeholder';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTPLACEHOLDER_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTPLACEHOLDER_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, ...props } = this.props;
-    return (
-      <ImportPlaceholderWizard
-        onSuccess={(response) => history.push(`/item/${response.data.id}`)}
-        {...props}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/item/${response.data.id}`);
+  };
+
+  return <ImportPlaceholderWizard onSuccess={onSuccess} {...props} />;
 }
 
 export default compose(withRouterProps, withFormActions)(ImportPlaceholder);

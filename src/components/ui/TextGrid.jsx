@@ -1,19 +1,21 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
+
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import startCase from 'lodash.startcase';
-import clsx from 'clsx';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import CancelIcon from '@material-ui/icons/CancelOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import CancelIcon from '@material-ui/icons/CancelOutlined';
+import CheckIcon from '@material-ui/icons/Check';
+import EditIcon from '@material-ui/icons/Edit';
+import clsx from 'clsx';
+import startCase from 'lodash.startcase';
 
 import withErrorBoundary from '../../hoc/withErrorBoundary';
-import TextGridValue from './TextGridValue';
-import TextGridCode from './TextGridCode';
+
 import TextGridBoolean from './TextGridBoolean';
+import TextGridCode from './TextGridCode';
+import TextGridValue from './TextGridValue';
 
 const styles = (theme) => ({
   onHover: {
@@ -80,26 +82,24 @@ function TextGrid({
   const inputRef = useRef();
   const [isEdit, setIsEdit] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const onEditCallback = useCallback(
-    async () => {
-      if (!onEdit || !inputRef) return;
-      const newValue = inputRef.current.value;
-      try {
-        await onEdit(newValue, value);
-        setHasError(false);
-        setIsEdit(false);
-      } catch (error) {
-        setHasError(true);
-      }
-    },
-    [onEdit, value],
-  );
+  const onEditCallback = useCallback(async () => {
+    if (!onEdit || !inputRef) return;
+    const newValue = inputRef.current.value;
+    try {
+      await onEdit(newValue, value);
+      setHasError(false);
+      setIsEdit(false);
+    } catch (error) {
+      setHasError(true);
+    }
+  }, [onEdit, value]);
   const onToggleEdit = () => setIsEdit((prevValue) => !prevValue);
   const onCloseEdit = () => {
     setIsEdit(false);
     setHasError(false);
   };
-  useEffect(() => { // set input focus when toggling edit
+  useEffect(() => {
+    // set input focus when toggling edit
     if (isEdit && inputRef) {
       inputRef.current.focus();
     }
@@ -158,21 +158,8 @@ function TextGrid({
       );
     default:
       return (
-        <Grid
-          container
-          direction="row"
-          wrap="nowrap"
-          className={className}
-          alignItems="flex-start"
-        >
-          <Grid
-            md={3}
-            sm={4}
-            xs={6}
-            className={classes.TitleGridItem}
-            {...titleGridProps}
-            item
-          >
+        <Grid container direction="row" wrap="nowrap" className={className} alignItems="flex-start">
+          <Grid md={3} sm={4} xs={6} className={classes.TitleGridItem} {...titleGridProps} item>
             <Typography
               color="textSecondary"
               variant="subtitle2"
@@ -184,12 +171,7 @@ function TextGrid({
               {titleStartCase ? startCase(title) : title}
             </Typography>
           </Grid>
-          <Grid
-            xs="auto"
-            className={classes.ValueGridItem}
-            {...valueGridProps}
-            item
-          >
+          <Grid xs="auto" className={classes.ValueGridItem} {...valueGridProps} item>
             <TextGridValue
               {...valueTypographyProps}
               value={value}

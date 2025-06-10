@@ -1,29 +1,25 @@
-import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
-import MetadataFieldListTable from '../metadatafield/MetadataFieldListTable';
-import FieldGroupFieldDialog from './FieldGroupFieldDialog';
 import withModal from '../../hoc/withModal';
+import MetadataFieldListTable from '../metadatafield/MetadataFieldListTable';
+
+import FieldGroupFieldDialog from './FieldGroupFieldDialog';
 
 const ADD_FIELDGROUP_FIELD = 'ADD_FIELDGROUP_FIELD';
 
-function FieldGroupChildEditor({
-  groupName,
-  onRefresh,
-  metadataFieldGroupDocument,
-  onOpen,
-}) {
+function FieldGroupChildEditor({ groupName, onRefresh, metadataFieldGroupDocument, onOpen }) {
   return (
     <>
       <CardHeader
         disableTypography
         title={<Typography variant="subtitle1">Metadata Fields</Typography>}
-        action={(
+        action={
           <Grid container direction="row-reverse" alignItems="center">
             <Grid item>
               <Tooltip title="Add">
@@ -33,7 +29,7 @@ function FieldGroupChildEditor({
               </Tooltip>
             </Grid>
           </Grid>
-        )}
+        }
       />
       <CardContent>
         <MetadataFieldListTable

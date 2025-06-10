@@ -6,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import PathAliasRow from './PathAliasRow';
 
-export default function PathAliasTable({
-  pathAliasConfigurationDocument,
-}) {
+export default function PathAliasTable({ pathAliasConfigurationDocument }) {
   const { alias: pathAliasList = [] } = pathAliasConfigurationDocument;
   return (
     <Table>
@@ -20,10 +18,7 @@ export default function PathAliasTable({
       </TableHead>
       <TableBody>
         {pathAliasList.map((pathAlias) => (
-          <PathAliasRow
-            key={pathAlias}
-            pathAlias={pathAlias}
-          />
+          <PathAliasRow key={pathAlias} pathAlias={pathAlias} />
         ))}
       </TableBody>
     </Table>

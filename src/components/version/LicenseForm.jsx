@@ -1,20 +1,19 @@
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field } from 'redux-form';
-import Grid from '@material-ui/core/Grid';
 
 import { required } from '../../utils/FieldValidation';
 import UploadButton from '../ui/UploadButton';
 
-function LicenseForm({
-  error,
-  handleSubmit,
-  className,
-  onSubmit,
-  submitOnChange,
-}) {
+function LicenseForm({ error, handleSubmit, className, onSubmit, submitOnChange }) {
   const onChange = submitOnChange ? () => setTimeout(handleSubmit((p) => onSubmit(p))) : undefined;
   return (
-    <form onChange={onChange} onSubmit={handleSubmit} className={className} style={{ padding: '10px' }}>
+    <form
+      onChange={onChange}
+      onSubmit={handleSubmit}
+      className={className}
+      style={{ padding: '10px' }}
+    >
       <Grid container direction="column" alignItems="center">
         {error && <Typography color="error">{error}</Typography>}
         <Field

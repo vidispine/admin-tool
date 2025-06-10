@@ -1,18 +1,16 @@
 import Typography from '@material-ui/core/Typography';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
-import { withModalNoRouter } from '../../hoc/withModal';
 import { OK_STATES } from '../../const/StorageStates';
+import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
+
 import StorageStatus from './StorageStatus';
 
-const EvacuateMenuItem = ({
-  storageDocument,
-  evacuateModal,
-  evacuateCancelModal,
-  onOpen,
-}) => {
-  if (storageDocument === undefined) { return null; }
+function EvacuateMenuItem({ storageDocument, evacuateModal, evacuateCancelModal, onOpen }) {
+  if (storageDocument === undefined) {
+    return null;
+  }
   const { state } = storageDocument;
   if (OK_STATES.includes(state)) {
     return (
@@ -29,7 +27,7 @@ const EvacuateMenuItem = ({
     );
   }
   return null;
-};
+}
 
 function StorageTitle({
   onOpen,
@@ -51,7 +49,7 @@ function StorageTitle({
       entityId={storageId}
       entityType="storage"
       code={code}
-      iconList={(
+      iconList={
         <>
           <StorageStatus storageDocument={code} />
           <Menu>
@@ -72,8 +70,7 @@ function StorageTitle({
             </MenuItem>
           </Menu>
         </>
-
-      )}
+      }
       {...props}
     />
   );

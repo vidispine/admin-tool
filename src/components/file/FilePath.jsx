@@ -1,32 +1,30 @@
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'redux';
 
 import * as formActions from '../../formactions/file';
-import FilePathForm from './FilePathForm';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+
+import FilePathForm from './FilePathForm';
 
 const FILE_PATH_FORM = 'FILE_PATH_FORM';
 
-function FilePath({
-  open,
-  onClose,
-  onSuccess,
-  openSnackBar,
-  submitForm,
-  fileDocument,
-}) {
-  if (fileDocument === undefined) { return null; }
+function FilePath({ open, onClose, onSuccess, openSnackBar, submitForm, fileDocument }) {
+  if (fileDocument === undefined) {
+    return null;
+  }
   const { id: fileId } = fileDocument;
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'New Path Saved';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = () => {
@@ -34,12 +32,7 @@ function FilePath({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>Set New Path</DialogTitle>
       <DialogContent>
         <FilePathForm
@@ -53,18 +46,10 @@ function FilePath({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(FILE_PATH_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(FILE_PATH_FORM)}>
           Save
         </Button>
       </DialogActions>

@@ -5,11 +5,12 @@ import { resource as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { resourceId, resourceType } = props;
   const { resourceDocument } = form;
-  return api.modifyResource({
-    resourceType,
-    resourceId,
-    resourceDocument,
-  })
+  return api
+    .modifyResource({
+      resourceType,
+      resourceId,
+      resourceDocument,
+    })
     .then((response) => ({ resourceDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -23,10 +24,11 @@ export function onUpdate(form, dispatch, props) {
 export function onCreate(form, dispatch, props) {
   const { resourceType } = props;
   const { resourceDocument } = form;
-  return api.createResource({
-    resourceType,
-    resourceDocument,
-  })
+  return api
+    .createResource({
+      resourceType,
+      resourceDocument,
+    })
     .then((response) => ({ resourceDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;

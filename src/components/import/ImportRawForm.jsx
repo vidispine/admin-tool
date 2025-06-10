@@ -1,25 +1,25 @@
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import UploadButton from '../ui/UploadButton';
-import Field from '../ui/Field';
+import JobPriority from '../../const/JobPriority';
+import { required } from '../../utils/FieldValidation';
 import { TextField, Select } from '../form';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { required } from '../../utils/FieldValidation';
-import FormSection from '../ui/FormSection';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import ChipInput from '../ui/ChipInput';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
-import JobPriority from '../../const/JobPriority';
+import { StatefulAsyncSelect } from '../ui/Select';
+import UploadButton from '../ui/UploadButton';
 
 const queryParams = () => (
   <FormGroup>
@@ -50,18 +50,14 @@ const queryParams = () => (
         control={<Field name="no-transcode" component={BoolCheckbox} />}
         label="No Transcoding"
       />
-      <FormHelperText>
-        Disable transcoding even if the tags parameter is set
-      </FormHelperText>
+      <FormHelperText>Disable transcoding even if the tags parameter is set</FormHelperText>
     </FormControl>
     <FormControl>
       <FormControlLabel
         control={<Field name="createThumbnails" component={BoolCheckbox} />}
         label="Create Thumbnails"
       />
-      <FormHelperText>
-        Generate thumbnails as per defined by shape tag
-      </FormHelperText>
+      <FormHelperText>Generate thumbnails as per defined by shape tag</FormHelperText>
     </FormControl>
     <Field
       name="thumbnailService"
@@ -112,8 +108,8 @@ const queryParams = () => (
         fullWidth
       />
       <FormHelperText>
-        Use transcoder’s estimate of the duration for allocating header space in
-        MOV files and similar files
+        Use transcoder’s estimate of the duration for allocating header space in MOV files and
+        similar files
       </FormHelperText>
     </FormControl>
     <FormControl>
@@ -123,8 +119,8 @@ const queryParams = () => (
         fullWidth
       />
       <FormHelperText>
-        True - try to put the index tables (header) in front of the file. False
-        - put header at end of file
+        True - try to put the index tables (header) in front of the file. False - put header at end
+        of file
       </FormHelperText>
     </FormControl>
     <Field
@@ -141,12 +137,7 @@ const queryParams = () => (
       component={TextField}
       fullWidth
     />
-    <Field
-      name="notification"
-      label="Notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" label="Notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -239,10 +230,7 @@ const queryParams = () => (
   </FormGroup>
 );
 
-function ImportRawForm({
-  error,
-  handleSubmit,
-}) {
+function ImportRawForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -253,10 +241,7 @@ function ImportRawForm({
         validate={[required]}
         fullWidth
       />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

@@ -1,30 +1,25 @@
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import { TextField, Select } from '../form';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
 import JobPriority from '../../const/JobPriority';
-import { StatefulAsyncSelect } from '../ui/Select';
+import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
-import { required } from '../../utils/FieldValidation';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
-    <Field
-      name="uri"
-      component={TextField}
-      fullWidth
-      required
-    />
+    <Field name="uri" component={TextField} fullWidth required />
     <Field
       name="tag"
       label="Shape Tag"
@@ -44,13 +39,13 @@ const queryParams = () => (
       fullWidth
     />
     <FormControlLabel
-      control={(
+      control={
         <Field
           name="removeOldEssenceFiles"
           component={BoolCheckbox}
           label="Remove Old Essence Files"
         />
-      )}
+      }
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
@@ -62,11 +57,7 @@ const queryParams = () => (
         ))}
       </Field>
     </FormControl>
-    <Field
-      name="notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -95,26 +86,12 @@ const queryParams = () => (
   </>
 );
 
-function ItemImpImportForm({
-  error,
-  handleSubmit,
-  itemId,
-}) {
+function ItemImpImportForm({ error, handleSubmit, itemId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      {!itemId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      {!itemId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

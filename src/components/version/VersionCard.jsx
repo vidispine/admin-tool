@@ -1,5 +1,5 @@
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 
 import SquareCard from '../ui/SquareCard';
 
@@ -13,33 +13,21 @@ export default function VersionCard(props) {
   return (
     <>
       <SquareCard>
-        <CardHeader
-          title="System"
-        />
+        <CardHeader title="System" />
         <CardContent>
-          <VersionSystemInfoDisplay
-            {...props}
-          />
+          <VersionSystemInfoDisplay {...props} />
         </CardContent>
       </SquareCard>
       <SquareCard>
-        <CardHeader
-          title="License"
-        />
+        <CardHeader title="License" />
         <CardContent>
-          <VersionLicenseInfoDisplay
-            {...props}
-          />
+          <VersionLicenseInfoDisplay {...props} />
         </CardContent>
       </SquareCard>
       <SquareCard>
-        <CardHeader
-          title="Component"
-        />
+        <CardHeader title="Component" />
         <CardContent>
-          <VersionComponentDisplay
-            {...props}
-          />
+          <VersionComponentDisplay {...props} />
         </CardContent>
       </SquareCard>
     </>

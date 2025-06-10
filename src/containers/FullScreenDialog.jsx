@@ -1,26 +1,26 @@
 import { forwardRef } from 'react';
+
+import AppBar from '@material-ui/core/AppBar';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Slide from '@material-ui/core/Slide';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 
-import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
-
-import { withModalNoRouter } from '../hoc/withModal';
 import NavSelect from '../components/ui/NavSelect';
 import routes from '../const/routes';
+import { withModalNoRouter } from '../hoc/withModal';
 
 const styles = (theme) => ({
   appBar: {
@@ -38,28 +38,23 @@ const styles = (theme) => ({
 
 const Transition = forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 
-function FullScreenDialog({
-  classes,
-  open,
-  onClose,
-}) {
-  const ListLink = ({ to, primary }) => (
+function ListLink({ to, primary, onClose }) {
+  return (
     <ListItem button to={to} component={Link} onClick={onClose}>
       <ListItemText secondary={primary} />
     </ListItem>
   );
-  const ListGroup = ({ subheader, children }) => (
-    <List
-      component="nav"
-      subheader={(
-        <ListSubheader disableSticky>
-          { subheader }
-        </ListSubheader>
-      )}
-    >
-      { children }
+}
+
+function ListGroup({ subheader, children }) {
+  return (
+    <List component="nav" subheader={<ListSubheader disableSticky>{subheader}</ListSubheader>}>
+      {children}
     </List>
   );
+}
+
+function FullScreenDialog({ classes, open, onClose }) {
   const breakPoints = {
     lg: 2,
     md: 3,
@@ -92,54 +87,55 @@ function FullScreenDialog({
         <Grid container alignItems="flex-start">
           <Grid item {...breakPoints}>
             <ListGroup subheader="Workflow">
-              <ListLink to="/new-job/" primary="New Job" />
-              <ListLink to="/job" primary="Job List" />
-              <ListLink to="/job/problem/" primary="Job Problems" />
-              <ListLink to="/jobtype/" primary="Job Types" />
-              <ListLink to="/task-group/" primary="Task Groups" />
+              <ListLink to="/new-job/" primary="New Job" onClose={onClose} />
+              <ListLink to="/job" primary="Job List" onClose={onClose} />
+              <ListLink to="/job/problem/" primary="Job Problems" onClose={onClose} />
+              <ListLink to="/jobtype/" primary="Job Types" onClose={onClose} />
+              <ListLink to="/task-group/" primary="Task Groups" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Search">
-              <ListLink to="/search/" primary="Items & Collections" />
-              <ListLink to={routes.itemList()} primary="Items" />
-              <ListLink to="/collection/" primary="Collections" />
-              <ListLink to="/shape/" primary="Shapes" />
-              <ListLink to="/search/file/" primary="Files" />
-              <ListLink to="/library/" primary="Libraries" />
-              <ListLink to="/search/field-group/" primary="Field Groups" />
+              <ListLink to="/search/" primary="Items & Collections" onClose={onClose} />
+              <ListLink to={routes.itemList()} primary="Items" onClose={onClose} />
+              <ListLink to="/collection/" primary="Collections" onClose={onClose} />
+              <ListLink to="/shape/" primary="Shapes" onClose={onClose} />
+              <ListLink to="/search/file/" primary="Files" onClose={onClose} />
+              <ListLink to="/library/" primary="Libraries" onClose={onClose} />
+              <ListLink to="/search/field-group/" primary="Field Groups" onClose={onClose} />
               <ListLink
                 to="/item/metadata-group/"
                 primary="Item By Metadata Group"
+                onClose={onClose}
               />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Storage">
-              <ListLink to="/storage/" primary="Storages" />
-              <ListLink to="/file/" primary="Files" />
-              <ListLink to="/storage-rule/" primary="Storage Rules" />
-              <ListLink to="/quota/" primary="Quota" />
-              <ListLink to="/storage-group/" primary="Storage Groups" />
-              <ListLink to="/auto-import/" primary="Auto Import Rules" />
+              <ListLink to="/storage/" primary="Storages" onClose={onClose} />
+              <ListLink to="/file/" primary="Files" onClose={onClose} />
+              <ListLink to="/storage-rule/" primary="Storage Rules" onClose={onClose} />
+              <ListLink to="/quota/" primary="Quota" onClose={onClose} />
+              <ListLink to="/storage-group/" primary="Storage Groups" onClose={onClose} />
+              <ListLink to="/auto-import/" primary="Auto Import Rules" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Create">
-              <ListLink to="/import/item/placeholder/" primary="Item" />
-              <ListLink to="/import/collection/" primary="Collection" />
-              <ListLink to="/import/item/shape/placeholder/" primary="Shape" />
+              <ListLink to="/import/item/placeholder/" primary="Item" onClose={onClose} />
+              <ListLink to="/import/collection/" primary="Collection" onClose={onClose} />
+              <ListLink to="/import/item/shape/placeholder/" primary="Shape" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Import">
-              <ListLink to="/import/file/" primary="File" />
-              <ListLink to="/import/item/upload/" primary="Upload" />
-              <ListLink to="/import/item/uri/" primary="URIs" />
-              <ListLink to="/import/item/shape/" primary="Shape" />
-              <ListLink to="/import/item/component/" primary="Component" />
-              <ListLink to="/import/sidecar/" primary="Sidecar" />
-              <ListLink to="/import/settings/" primary="Settings" />
+              <ListLink to="/import/file/" primary="File" onClose={onClose} />
+              <ListLink to="/import/item/upload/" primary="Upload" onClose={onClose} />
+              <ListLink to="/import/item/uri/" primary="URIs" onClose={onClose} />
+              <ListLink to="/import/item/shape/" primary="Shape" onClose={onClose} />
+              <ListLink to="/import/item/component/" primary="Component" onClose={onClose} />
+              <ListLink to="/import/sidecar/" primary="Sidecar" onClose={onClose} />
+              <ListLink to="/import/settings/" primary="Settings" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
@@ -147,101 +143,103 @@ function FullScreenDialog({
               <ListLink
                 to="/import-imp/?tab=IMPORTIMP_URL_TAB"
                 primary="Import From URL"
+                onClose={onClose}
               />
               <ListLink
                 to="/import-imp/?tab=IMPORTIMP_PATH_TAB"
                 primary="Import From Path"
+                onClose={onClose}
               />
               <ListLink
                 to="/import-imp/?tab=IMPORTIMP_FILE_TAB"
                 primary="Import From File"
+                onClose={onClose}
               />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Resources">
               <ListLink to="/vxa/" primary="Server Agents" />
-              <ListLink to="/resource/transcoder/" primary="Transcoders" />
-              <ListLink to="/resource/thumbnail/" primary="Thumbnail Paths" />
-              <ListLink to="/export-location" primary="Export Locations" />
-              <ListLink to="/resource/vidinet/" primary="Vidinet" />
-              <ListLink to="/resource/" primary="All Resources" />
+              <ListLink to="/resource/transcoder/" primary="Transcoders" onClose={onClose} />
+              <ListLink to="/resource/thumbnail/" primary="Thumbnail Paths" onClose={onClose} />
+              <ListLink to="/export-location" primary="Export Locations" onClose={onClose} />
+              <ListLink to="/resource/vidinet/" primary="Vidinet" onClose={onClose} />
+              <ListLink to="/resource/" primary="All Resources" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Authentication">
-              <ListLink to="/user/" primary="Users" />
-              <ListLink to="/group/" primary="Groups" />
+              <ListLink to="/user/" primary="Users" onClose={onClose} />
+              <ListLink to="/group/" primary="Groups" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Metadata">
-              <ListLink to="/metadata-field/" primary="Fields" />
-              <ListLink to="/field-group/" primary="Field Groups" />
-              <ListLink to="/document/" primary="Document" />
-              <ListLink to="/projection/" primary="Projection" />
-              <ListLink to="/metadata-dataset/" primary="Datasets" />
+              <ListLink to="/metadata-field/" primary="Fields" onClose={onClose} />
+              <ListLink to="/field-group/" primary="Field Groups" onClose={onClose} />
+              <ListLink to="/document/" primary="Document" onClose={onClose} />
+              <ListLink to="/projection/" primary="Projection" onClose={onClose} />
+              <ListLink to="/metadata-dataset/" primary="Datasets" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Utils">
-              <ListLink to="/debug/echo/" primary="XML Echo" />
-              <ListLink to="/javascript/test/" primary="Javascript Test" />
-              <ListLink to="/stitch/" primary="Stitch" />
-              <ListLink to="/wizard/" primary="Wizard" />
+              <ListLink to="/debug/echo/" primary="XML Echo" onClose={onClose} />
+              <ListLink to="/javascript/test/" primary="Javascript Test" onClose={onClose} />
+              <ListLink to="/stitch/" primary="Stitch" onClose={onClose} />
+              <ListLink to="/wizard/" primary="Wizard" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Transcoding">
-              <ListLink to="/shape-tag/" primary="Shape Tags" />
-              <ListLink to="/conform/" primary="Conform Media" />
-              <ListLink to="/analyze-preset/" primary="Analyze Presets" />
+              <ListLink to="/shape-tag/" primary="Shape Tags" onClose={onClose} />
+              <ListLink to="/conform/" primary="Conform Media" onClose={onClose} />
+              <ListLink to="/analyze-preset/" primary="Analyze Presets" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Information">
-              <ListLink to="/swagger/" primary="Swagger" />
-              <ListLink to="/version/" primary="Version" />
-              <ListLink to="/selftest/" primary="Self Test" />
-              <ListLink to="/log" primary="Audit Log" />
-              <ListLink to="/error/" primary="Error Log" />
-              <ListLink to="/transfer/" primary="Import Transfers" />
-              <ListLink to="/scheduled-request/" primary="Scheduled Requests" />
-              <ListLink to="/deletion-lock/" primary="Deletion Locks" />
+              <ListLink to="/swagger/" primary="Swagger" onClose={onClose} />
+              <ListLink to="/version/" primary="Version" onClose={onClose} />
+              <ListLink to="/selftest/" primary="Self Test" onClose={onClose} />
+              <ListLink to="/log" primary="Audit Log" onClose={onClose} />
+              <ListLink to="/error/" primary="Error Log" onClose={onClose} />
+              <ListLink to="/transfer/" primary="Import Transfers" onClose={onClose} />
+              <ListLink to="/scheduled-request/" primary="Scheduled Requests" onClose={onClose} />
+              <ListLink to="/deletion-lock/" primary="Deletion Locks" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="System">
-              <ListLink to="/reindex/" primary="Re-Index" />
-              <ListLink to="/service/" primary="Services" />
-              <ListLink to="/service/stacktrace/" primary="Stack Trace" />
+              <ListLink to="/reindex/" primary="Re-Index" onClose={onClose} />
+              <ListLink to="/service/" primary="Services" onClose={onClose} />
+              <ListLink to="/service/stacktrace/" primary="Stack Trace" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Configuration">
-              <ListLink to="/configuration/properties/" primary="Properties" />
-              <ListLink to="/configuration/job-pool/" primary="Job Pool" />
-              <ListLink to="/configuration/ftp-pool/" primary="FTP Pool" />
-              <ListLink to="/configuration/path-alias/" primary="Path Alias" />
-              <ListLink to="/external-id/" primary="External Identifiers" />
-              <ListLink to="/configuration/" primary="All Configuration" />
-              <ListLink to="/secret/" primary="Secrets" />
+              <ListLink to="/configuration/properties/" primary="Properties" onClose={onClose} />
+              <ListLink to="/configuration/job-pool/" primary="Job Pool" onClose={onClose} />
+              <ListLink to="/configuration/ftp-pool/" primary="FTP Pool" onClose={onClose} />
+              <ListLink to="/configuration/path-alias/" primary="Path Alias" onClose={onClose} />
+              <ListLink to="/external-id/" primary="External Identifiers" onClose={onClose} />
+              <ListLink to="/configuration/" primary="All Configuration" onClose={onClose} />
+              <ListLink to="/secret/" primary="Secrets" onClose={onClose} />
             </ListGroup>
           </Grid>
           <Grid item {...breakPoints}>
             <ListGroup subheader="Notification">
-              <ListLink to="/notification/item/" primary="Item" />
-              <ListLink to="/notification/collection/" primary="Collection" />
-              <ListLink to="/notification/job/" primary="Job" />
-              <ListLink to="/notification/" primary="All Notification" />
+              <ListLink to="/notification/item/" primary="Item" onClose={onClose} />
+              <ListLink to="/notification/collection/" primary="Collection" onClose={onClose} />
+              <ListLink to="/notification/job/" primary="Job" onClose={onClose} />
+              <ListLink to="/notification/" primary="All Notification" onClose={onClose} />
             </ListGroup>
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
         <Typography variant="caption">
-          {`Last Commit: ${import.meta.env.VITE_GIT_COMMIT}`
-            || 'Last Commit: UNKNOWN'}
+          {`Last Commit: ${import.meta.env.VITE_GIT_COMMIT}` || 'Last Commit: UNKNOWN'}
         </Typography>
       </DialogActions>
     </Dialog>

@@ -1,7 +1,8 @@
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { shapetag as ShapeTagApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
 const debouncedListShapeTag = debounce(ShapeTagApi.listShapeTag, 500, {

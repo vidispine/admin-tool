@@ -1,5 +1,7 @@
 import { forwardRef } from 'react';
+
 import IconButton from '@material-ui/core/IconButton';
+
 import VidispineIcon from './VidispineIcon';
 
 const VidispineButton = forwardRef(({ IconButtonProps = {}, IconProps = {} }, ref) => (

@@ -1,20 +1,15 @@
-import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { connect } from 'react-redux';
 
-import { StorageMethodForm } from './StorageForm';
-import * as formActions from '../../formactions/storage';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/storage';
 import WizardForm from '../ui/WizardForm';
 
-function StorageMethodDialog({
-  closeModal,
-  isOpen,
-  openSnackBar,
-  storageId,
-  onRefresh,
-}) {
+import { StorageMethodForm } from './StorageForm';
+
+function StorageMethodDialog({ closeModal, isOpen, openSnackBar, storageId, onRefresh }) {
   const onSubmitSuccess = () => {
     const messageContent = 'Storage Method Added';
     openSnackBar({ messageContent });

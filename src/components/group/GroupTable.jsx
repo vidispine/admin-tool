@@ -1,17 +1,17 @@
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
+import TableActions from '../ui/TableActions';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
-import TableHead from '../ui/TableHead';
-import TableRow from '../ui/TableRow';
-import TableActions from '../ui/TableActions';
-import TablePagination from '../ui/TablePagination';
 import TableFooter from '../ui/TableFooter';
-
-import withDialogProps from '../../hoc/withDialogProps';
-import GroupRow from './GroupRow';
+import TableHead from '../ui/TableHead';
+import TablePagination from '../ui/TablePagination';
+import TableRow from '../ui/TableRow';
 import UserGroupRemove from '../user/UserGroupRemove';
+
 import GroupChildRemove from './GroupChildRemove';
 import GroupParentRemove from './GroupParentRemove';
+import GroupRow from './GroupRow';
 
 const REMOVE_GROUP_DIALOG = 'REMOVE_GROUP_DIALOG';
 
@@ -32,7 +32,9 @@ function GroupTable({
 }) {
   const { group: groupList = [] } = groupListDocument;
   const rowsPerPageOptions = [100, 250, 500];
-  if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
+  if (!rowsPerPageOptions.includes(rowsPerPage)) {
+    rowsPerPageOptions.push(rowsPerPage);
+  }
   return (
     <>
       <Table>
@@ -52,50 +54,46 @@ function GroupTable({
             />
           ))}
         </TableBody>
-        {count
-        && (
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              count={count}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onPageChange={onChangePage}
-              onRowsPerPageChange={onChangeRowsPerPage}
-              ActionsComponent={TableActions}
-              rowsPerPageOptions={rowsPerPageOptions}
-            />
-          </TableRow>
-        </TableFooter>
+        {count && (
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={count}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                onPageChange={onChangePage}
+                onRowsPerPageChange={onChangeRowsPerPage}
+                ActionsComponent={TableActions}
+                rowsPerPageOptions={rowsPerPageOptions}
+              />
+            </TableRow>
+          </TableFooter>
         )}
       </Table>
-      {userName
-        && (
+      {userName && (
         <UserGroupRemove
           {...dialogProps}
           dialogName={REMOVE_GROUP_DIALOG}
           userName={userName}
           onSuccess={onSuccess}
         />
-        )}
-      {parentGroupName
-        && (
+      )}
+      {parentGroupName && (
         <GroupChildRemove
           {...dialogProps}
           dialogName={REMOVE_GROUP_DIALOG}
           parentGroupName={parentGroupName}
           onSuccess={onSuccess}
         />
-        )}
-      {childGroupName
-        && (
+      )}
+      {childGroupName && (
         <GroupParentRemove
           {...dialogProps}
           dialogName={REMOVE_GROUP_DIALOG}
           childGroupName={childGroupName}
           onSuccess={onSuccess}
         />
-        )}
+      )}
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import * as formActions from '../../formactions/shapetag';
+
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/shapetag';
 import Editor from '../ui/Editor';
 
 function ShapeTagEditor({
@@ -15,7 +16,9 @@ function ShapeTagEditor({
   const onSubmitSuccess = () => {
     const messageContent = 'Shape Tag Rule Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Shape Tag';

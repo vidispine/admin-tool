@@ -1,24 +1,20 @@
+import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import IconButton from '@material-ui/core/IconButton';
+
+import withDialogProps from '../../hoc/withDialogProps';
+import { capitalizeString } from '../../utils';
+import UnstyledLink from '../ui/UnstyledLink';
 
 import CollectionEntityRemove from './CollectionEntityRemove';
-import UnstyledLink from '../ui/UnstyledLink';
-import { capitalizeString } from '../../utils';
-import withDialogProps from '../../hoc/withDialogProps';
 
 const REMOVE_COLLECTION_ENTITY_DIALOG = 'REMOVE_COLLECTION_ENTITY_DIALOG';
 
-function CollectionContentTable({
-  collectionDocument,
-  onSuccess,
-  onOpen,
-  dialogProps,
-}) {
+function CollectionContentTable({ collectionDocument, onSuccess, onOpen, dialogProps }) {
   const { content: collectionContentList = [], id: collectionId } = collectionDocument;
   const onOpenRemove = onOpen(REMOVE_COLLECTION_ENTITY_DIALOG);
   return (
@@ -50,10 +46,12 @@ function CollectionContentTable({
               </TableCell>
               <TableCell>
                 <IconButton
-                  onClick={() => onOpenRemove({
-                    entityType: collectionContentType.type,
-                    entityId: collectionContentType.id,
-                  })}
+                  onClick={() =>
+                    onOpenRemove({
+                      entityType: collectionContentType.type,
+                      entityId: collectionContentType.id,
+                    })
+                  }
                 >
                   <DeleteForever />
                 </IconButton>

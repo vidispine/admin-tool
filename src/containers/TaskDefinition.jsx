@@ -1,18 +1,17 @@
 import { PureComponent } from 'react';
-import { compose } from 'redux';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
-import { withRouterProps } from '../hoc/withRouterProps';
-
-import TaskDefinitionOverview from './taskdefinition/TaskDefinitionOverview';
-import TaskDefinitionGraph from './taskdefinition/TaskDefinitionGraph';
-
-import TaskDefinitionTitle from '../components/taskdefinition/TaskDefinitionTitle';
 import JobTypeRemove from '../components/jobtype/JobTypeRemove';
-
+import TaskDefinitionTitle from '../components/taskdefinition/TaskDefinitionTitle';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import { withRouterProps } from '../hoc/withRouterProps';
+
+import TaskDefinitionGraph from './taskdefinition/TaskDefinitionGraph';
+import TaskDefinitionOverview from './taskdefinition/TaskDefinitionOverview';
 
 const TASKDEFINITION_REMOVE_DIALOG = 'TASKDEFINITION_REMOVE_DIALOG';
 
@@ -28,7 +27,6 @@ const TAB_TITLE = [
     component: TaskDefinitionGraph,
     path: '/task-definition/jobtype/:taskDefinitionType/graph/',
   },
-
 ];
 
 const listComponentRoute = ({ taskDefinitionType }) => (
@@ -49,9 +47,7 @@ const listComponentRoute = ({ taskDefinitionType }) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
         path={path}
@@ -79,7 +75,9 @@ class TaskDefinition extends PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -87,10 +85,7 @@ class TaskDefinition extends PureComponent {
   }
 
   render() {
-    const {
-      taskDefinitionType,
-      history,
-    } = this.props;
+    const { taskDefinitionType, history } = this.props;
     const titleComponent = (props) => (
       <TaskDefinitionTitle
         onRefresh={this.onRefresh}
