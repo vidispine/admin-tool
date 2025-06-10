@@ -37,11 +37,11 @@ class ItemPoster extends PureComponent {
   }
 
   onFetch(itemId) {
-    const baseUrl = api.defaultClient.defaults.baseURL || '';
+    const baseURL = api.defaultClient.defaults.baseURL || '';
     const queryParams = {
       content: 'poster',
       'noauth-url': true,
-      baseURI: `${baseUrl}/APInoauth/`,
+      baseURI: `${baseURL}/APInoauth/`,
     };
     try {
       ItemApi.getItem({ itemId, queryParams })

@@ -45,7 +45,7 @@ const styles = (theme) => ({
   },
 });
 
-function TopAppBar({ toggleMainMenu, toggleHistory, classes, onLogout, userName, baseUrl }) {
+function TopAppBar({ toggleMainMenu, toggleHistory, classes, onLogout, userName, baseURL }) {
   const changeTheme = useChangeTheme();
   const [paletteType, setPaletteType] = useState(getCookie('paletteType') || 'system');
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -77,7 +77,7 @@ function TopAppBar({ toggleMainMenu, toggleHistory, classes, onLogout, userName,
           </IconButton>
         </Tooltip>
         <Typography variant="subtitle2" color="inherit">
-          {baseUrl}
+          {baseURL}
         </Typography>
         <Hidden xsDown>
           <div

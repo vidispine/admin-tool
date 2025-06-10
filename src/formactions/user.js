@@ -86,7 +86,7 @@ function onWhoAmI(form, dispatch, props) {
 }
 
 export function onGetUserToken(form, dispatch, props) {
-  const { headers = {}, queryParams, baseUrl, accessKey, secretKey } = form;
+  const { headers = {}, queryParams, baseURL: formBaseURL, accessKey, secretKey } = form;
   const { status } = props;
   const { runAs, token, bearer, ...headerProps } = headers;
   if (accessKey && secretKey) {
@@ -99,7 +99,7 @@ export function onGetUserToken(form, dispatch, props) {
   if (token) {
     return onWhoAmI(form, dispatch, props);
   }
-  const baseURL = baseUrl.replace(/\/+$/, '');
+  const baseURL = formBaseURL.replace(/\/+$/, '');
   const userName = props.userName || form.userName || headers.username;
   return UserApi.getUserToken({
     username: userName,

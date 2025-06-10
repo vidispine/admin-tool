@@ -99,7 +99,7 @@ class ItemSpritesheet extends PureComponent {
             <>
               <ItemThumbnailSpritesheetImage
                 thumbnailSpriteSheetDocument={thumbnailSpriteSheetDocument}
-                baseUrl={VidiCoreApi?.defaultClient?.defaults?.baseURL}
+                baseURL={VidiCoreApi?.defaultClient?.defaults?.baseURL}
               />
               <ItemThumbnailSpritesheetDisplay
                 thumbnailSpriteSheetDocument={thumbnailSpriteSheetDocument}

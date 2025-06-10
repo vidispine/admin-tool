@@ -32,6 +32,7 @@ const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'lig
 class Login extends PureComponent {
   constructor(props) {
     super(props);
+    document.title = 'VidiCore Admin';
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
@@ -44,25 +45,24 @@ class Login extends PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'VidiCore Admin';
-    const { baseUrl } = this.props;
-    if (baseUrl) {
+    const { baseURL } = this.props;
+    if (baseURL) {
       this.onRefresh();
     }
   }
 
   async onRefresh() {
-    const { onOpen, useDevProxy, useContainerProxy, baseUrl } = this.props;
+    const { onOpen, useDevProxy, useContainerProxy, baseURL } = this.props;
     this.setState({ selfTestDocument: undefined });
     await this.setState({ loading: true });
-    let baseURL = useDevProxy ? window.location.origin : baseUrl;
-    if (useContainerProxy) baseURL = window.location.origin;
+    let proxyBaseURL = useDevProxy ? window.location.origin : baseURL;
+    if (useContainerProxy) proxyBaseURL = window.location.origin;
     try {
       api
         .listSelfTest({
           noAuth: true,
-          baseURL,
-          headers: useContainerProxy ? { 'X-Proxy-URL': baseUrl } : {},
+          baseURL: proxyBaseURL,
+          headers: useContainerProxy ? { 'X-Proxy-URL': baseURL } : {},
         })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
@@ -97,9 +97,9 @@ class Login extends PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess({ data: token, userName: newUserName, runAs, baseUrl }) {
-    if (baseUrl) {
-      const encodedBaseUrl = encodeURIComponent(baseUrl);
+  onSuccess({ data: token, userName: newUserName, runAs, baseURL }) {
+    if (baseURL) {
+      const encodedBaseUrl = encodeURIComponent(baseURL);
       const encodedPathBaseUrl = getVidispineUrlFromPath()
         ? encodeURIComponent(getVidispineUrlFromPath())
         : undefined;
@@ -119,27 +119,27 @@ class Login extends PureComponent {
     }
     const { setUserName, setToken, setRunAs, setResponseInterceptor, setBaseUrl } = this.props;
     if (runAs) {
-      setRunAs(runAs, baseUrl);
+      setRunAs(runAs, baseURL);
     }
     setResponseInterceptor();
-    setUserName(newUserName, baseUrl);
-    setToken(token, baseUrl);
-    setBaseUrl(baseUrl);
+    setUserName(newUserName, baseURL);
+    setToken(token, baseURL);
+    setBaseUrl(baseURL);
   }
 
-  onTestUrl(baseUrl) {
+  onTestUrl(baseURL) {
     const { setBaseUrl } = this.props;
-    setBaseUrl(baseUrl);
+    setBaseUrl(baseURL);
     this.onRefresh();
   }
 
   render() {
     const { selfTestDocument, loading, loadingInit } = this.state;
-    const { userName, baseUrl, onOpen, useDevProxy } = this.props;
+    const { userName, baseURL, onOpen, useDevProxy } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
       queryParams: { autoRefresh: true, seconds: 604800 },
-      baseUrl,
+      baseURL,
     };
     const { status } = selfTestDocument || {};
     return (
@@ -246,7 +246,7 @@ class Login extends PureComponent {
           loadingInit={loadingInit}
           setLoadingInit={(newState) => this.setState({ loadingInit: newState })}
         />
-        <LoginHelpDialog dialogName={HELP_DIALOG} baseUrl={baseUrl} />
+        <LoginHelpDialog dialogName={HELP_DIALOG} baseURL={baseURL} />
       </ThemeProvider>
     );
   }

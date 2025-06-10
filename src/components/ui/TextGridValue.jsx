@@ -294,7 +294,7 @@ function TextGridValue({
       break;
     case 'fileIdList':
       valueComponent = value.split(',').map((label) => (
-        <StyledTypography className={className}>
+        <StyledTypography className={className} key={label}>
           <UnstyledLink to={`/file/${label}/`}>{label}</UnstyledLink>
         </StyledTypography>
       ));
@@ -335,7 +335,7 @@ function TextGridValue({
       break;
     case 'commaseparatedlist':
       valueComponent = value.split(',').map((label) => (
-        <StyledTypography className={classes.overflowWrapAnywhere} {...typographyProps}>
+        <StyledTypography className={classes.overflowWrapAnywhere} {...typographyProps} key={label}>
           {capitalize ? capitalizeString(label) : label.toString()}
         </StyledTypography>
       ));

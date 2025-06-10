@@ -29,15 +29,18 @@ const setProxy = ({ mode }) => {
   return proxy;
 };
 
-const base = process.env.PUBLIC_URL === '' ? '/' : process.env.PUBLIC_URL;
+const setBase = ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const base = env.BASE_URL === '' ? '/' : env.BASE_URL;
+  return base;
+};
 
 export default ({ mode }) =>
   defineConfig({
-    base,
+    base: setBase({ mode }),
     server: {
       port: 3000,
       host: 'localhost',
-      open: true,
       proxy: setProxy({ mode }),
     },
     plugins: [splitVendorChunkPlugin(), react()],

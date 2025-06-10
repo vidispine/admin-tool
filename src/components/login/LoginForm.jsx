@@ -47,11 +47,11 @@ function LoginForm({ error, handleSubmit, onTestUrl, useDevProxy }) {
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <Field
-        name="baseUrl"
+        name="baseURL"
         label="VidiCore Server"
         component={TextField}
         required
-        onBlur={(event, baseUrl) => onTestUrl(baseUrl)}
+        onBlur={(event, baseURL) => onTestUrl(baseURL)}
         fullWidth
         autoFocus
         validate={[required, isUrl]}

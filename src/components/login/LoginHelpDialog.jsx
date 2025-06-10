@@ -103,7 +103,7 @@ const XML_TAB = 'XML_TAB';
 const JSON_TAB = 'JSON_TAB';
 const CURL_TAB = 'CURL_TAB';
 
-function LoginHelpDialog({ open, onClose, baseUrl }) {
+function LoginHelpDialog({ open, onClose, baseURL }) {
   const [tab, setTab] = useState(CURL_TAB);
   const onChangeTab = (event, newTab) => setTab(newTab);
   return (
@@ -125,7 +125,7 @@ function LoginHelpDialog({ open, onClose, baseUrl }) {
               <>
                 <TextGrid
                   title="Request"
-                  value={`PUT ${baseUrl}/API/configuration/cors`}
+                  value={`PUT ${baseURL}/API/configuration/cors`}
                   variant="xml"
                   codeProps={{ lineNumbers: false }}
                   noWrapTitle={false}
@@ -142,7 +142,7 @@ function LoginHelpDialog({ open, onClose, baseUrl }) {
               <>
                 <TextGrid
                   title="Request"
-                  value={`PUT ${baseUrl}/API/configuration/cors`}
+                  value={`PUT ${baseURL}/API/configuration/cors`}
                   variant="xml"
                   codeProps={{ lineNumbers: false }}
                   noWrapTitle={false}
@@ -157,7 +157,7 @@ function LoginHelpDialog({ open, onClose, baseUrl }) {
             ),
             CURL_TAB: (
               <TextGrid
-                value={curlCommand.replace('{YOUR_VIDICORE_SERVER}', baseUrl)}
+                value={curlCommand.replace('{YOUR_VIDICORE_SERVER}', baseURL)}
                 variant="code"
                 codeProps={{ lineNumbers: false, mode: 'shell' }}
               />

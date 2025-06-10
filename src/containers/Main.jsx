@@ -115,7 +115,7 @@ import Wizard from './Wizard';
 const HISTORY_DIALOG = 'HISTORY_DIALOG';
 const MAINMENU_DIALOG = 'MAINMENU_DIALOG';
 
-function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userName, baseUrl }) {
+function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userName, baseURL }) {
   const toggleHistory = () => onOpen({ modalName: HISTORY_DIALOG });
   const toggleMainMenu = () => onOpen({ modalName: MAINMENU_DIALOG });
   const onLogout = () => {
@@ -132,7 +132,7 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
         userName={userName}
         toggleMainMenu={toggleMainMenu}
         toggleHistory={toggleHistory}
-        baseUrl={baseUrl}
+        baseURL={baseURL}
       />
       <main
         style={{

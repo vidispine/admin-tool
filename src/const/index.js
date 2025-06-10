@@ -13,9 +13,9 @@ if (publicUrl && publicUrl.startsWith('http')) {
 }
 export const APP_BASENAME = publicUrl;
 
-export const getBasename = (baseUrl) => {
-  if (baseUrl === undefined) return APP_BASENAME;
-  return [APP_BASENAME.replace(/\/+$/, ''), encodeURIComponent(baseUrl)].join('/');
+export const getBasename = (baseURL) => {
+  if (baseURL === undefined) return APP_BASENAME;
+  return [APP_BASENAME.replace(/\/+$/, ''), encodeURIComponent(baseURL)].join('/');
 };
 
 export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') => {
@@ -27,8 +27,13 @@ export const getVidispineUrlFromCookie = (cookieKey = 'VIDISPINE-SERVER-URL') =>
   if (cookies[cookieKey]) return decodeURIComponent(cookies[cookieKey]);
   return undefined;
 };
-export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') =>
-  import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined;
+export const getVidispineUrlFromEnv = (envKey = 'VITE_VIDISPINE_URL') => {
+  try {
+    return import.meta.env[envKey] !== '' ? import.meta.env[envKey] : undefined;
+  } catch (error) {
+    return undefined;
+  }
+};
 export const getVidispineUrlFromWindow = (windowKey = 'VIDISPINE_URL') =>
   window[windowKey] !== `$${windowKey}` ? window[windowKey] : undefined;
 export const getContainerProxyFromWindow = (windowKey = 'CONTAINER_PROXY') =>
@@ -58,9 +63,13 @@ export const getVidispineUrlFromSessionStorage = (storageKey = 'VIDISPINE_URL') 
 export const setCookiePath = (vidispineUrl) => {
   const baseName = APP_BASENAME.replace(/^\/+/, '');
   const encodedVidispineUrl = encodeURIComponent(vidispineUrl);
-  return `${
+  const cookiePath = `${
     baseName !== '' && !baseName.startsWith('/') ? '/' : ''
   }${baseName}/${encodedVidispineUrl}${encodedVidispineUrl.endsWith('/') ? '' : '/'}`;
+  console.log({
+    setCookiePath: { APP_BASENAME, vidispineUrl, baseName, encodedVidispineUrl, cookiePath },
+  });
+  return cookiePath;
 };
 
 export const NOTIFICATION_ENTITY = [

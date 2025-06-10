@@ -1,6 +1,6 @@
 FROM nginx
-ARG PUBLIC_URL
-COPY build /usr/share/nginx/html${PUBLIC_URL}
+ARG BASE_URL
+COPY build /usr/share/nginx/html${BASE_URL}
 COPY build/index.html /usr/share/nginx/html/
 COPY proxy.template /etc/nginx/conf.d/proxy.template
 ENV VIDISPINE_URL=http://localhost:8080
