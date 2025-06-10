@@ -6,7 +6,7 @@ on:
 jobs:
   build_and_publish:
     permissions:
-      pages: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
