@@ -25,5 +25,5 @@ jobs:
         run: npm ci
         shell: bash
       - name: Build the Docker image
-        run: BASE_URL=/admin-tool npm run docker:buildx:push
+        run: VITE_GIT_COMMIT=$(git rev-parse --short HEAD) BASE_URL=/admin-tool npm run docker:buildx:push
         shell: bash
