@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build site
-        run: BASE_URL=${BASE_URL} GENERATE_SOURCEMAP=false npm run build
+        run: BASE_URL=${BASE_URL} npm run build
         env:
           BASE_URL: ${{ github.event.inputs.public_url }}
       - name: Upload artifact
