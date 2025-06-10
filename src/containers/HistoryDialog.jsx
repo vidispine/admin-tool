@@ -23,6 +23,7 @@ import TableCell from '../components/ui/TableCell';
 import TableRow from '../components/ui/TableRow';
 import TextGrid from '../components/ui/TextGrid';
 import TypeArray from '../components/ui/TypeArray';
+import { PROXY_HEADER } from '../const/Auth';
 import withModal from '../hoc/withModal';
 import formatXML from '../utils/formatXML';
 
@@ -106,18 +107,19 @@ class HistoryDialog extends PureComponent {
   }
 
   onRequest(request) {
+    const { baseURL } = this.props;
     if (!request) {
       return;
     }
     const { recentResponses: prevResponses } = this.state;
-    const { requestId, headers = {}, data: requestData, method, url, baseURL } = request;
+    const { requestId, headers = {}, data: requestData, method, url } = request;
     let { url: fullUrl } = request;
     if (baseURL) fullUrl = [baseURL, url].join('');
     const requestUrl = new URL(fullUrl);
     const requestParams = Array.from(requestUrl.searchParams);
     const requestHeaders = {};
     Object.entries(headers).forEach(([key, value]) => {
-      if (typeof value === 'string') {
+      if (typeof value === 'string' && key !== PROXY_HEADER) {
         requestHeaders[key] = value;
       }
     });

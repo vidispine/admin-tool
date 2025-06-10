@@ -21,6 +21,7 @@ import {
   AUTH_RUNAS,
   AUTH_VIDISPINE_SERVER_URL,
   AUTH_IS_AUTHENTICATED,
+  PROXY_HEADER,
 } from '../const/Auth';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
 import setWelcomeConsoleMessage from '../utils/setWelcomeConsoleMessage';
@@ -55,25 +56,6 @@ class Auth extends Component {
       (baseURL === this.windowVidispineUrl || baseURL === this.envVidispineUrl);
     this.basename = getBasename(baseURL);
     const atBasename = window.location.pathname.startsWith(APP_BASENAME);
-    console.log({
-      constructor: {
-        APP_BASENAME,
-        AUTH_TOKEN,
-        AUTH_USERNAME,
-        AUTH_RUNAS,
-        AUTH_VIDISPINE_SERVER_URL,
-        AUTH_IS_AUTHENTICATED,
-        cookieVidispineUrl: this.cookieVidispineUrl,
-        windowVidispineUrl: this.windowVidispineUrl,
-        envVidispineUrl: this.envVidispineUrl,
-        pathVidispineUrl: this.pathVidispineUrl,
-        useContainerProxy: this.useContainerProxy,
-        baseURL,
-        useDevProxy: this.useDevProxy,
-        basename: this.basename,
-        atBasename,
-      },
-    });
     if (atBasename === false) {
       window.history.pushState({}, '', APP_BASENAME);
       window.location.reload();
@@ -84,14 +66,6 @@ class Auth extends Component {
     const runAs = cookies.get(AUTH_RUNAS, { path: this.basename });
     // see if the app is logged in even if it cannot read the token cookie
     const isAuthenticated = cookies.get(AUTH_IS_AUTHENTICATED, { path: APP_BASENAME });
-    console.log({
-      constructor: {
-        token,
-        userName,
-        runAs,
-        isAuthenticated,
-      },
-    });
     if (
       isAuthenticated === 'true' &&
       this.cookieVidispineUrl &&
@@ -103,14 +77,6 @@ class Auth extends Component {
       const encodedBaseUrl = encodeURIComponent(cookieVidispineUrl);
       const currentPathName = window.location.pathname;
       const newRootPath = `${appBaseName}/${encodedBaseUrl}/`.replaceAll('//', '/');
-      const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
-      console.log({
-        constructor: {
-          pathname,
-          encodedBaseUrl,
-          newRootPath,
-        },
-      });
       if (!currentPathName.startsWith(newRootPath) && !newRootPath.includes('undefined')) {
         window.history.pushState({}, '', newRootPath);
         window.location.reload();
@@ -118,7 +84,9 @@ class Auth extends Component {
     }
 
     if (this.useContainerProxy) {
-      api.defaultClient.defaults.headers['X-Proxy-URL'] = baseURL;
+      api.defaultClient.defaults.headers[PROXY_HEADER] = baseURL;
+      api.defaultClient.defaults.baseURL = window.location.origin;
+    } else if (this.useDevProxy) {
       api.defaultClient.defaults.baseURL = window.location.origin;
     } else if (baseURL && baseURL !== 'undefined') {
       api.defaultClient.defaults.baseURL = this.useDevProxy ? window.location.origin : baseURL;
@@ -143,7 +111,6 @@ class Auth extends Component {
   setUserName(userName, baseURL) {
     const { cookies } = this.props;
     const path = setCookiePath(baseURL);
-    console.log({ setUserName: { userName, AUTH_USERNAME, baseURL, path } });
     cookies.set(AUTH_USERNAME, userName, { path });
     this.setState({ userName });
   }
@@ -151,7 +118,6 @@ class Auth extends Component {
   setToken(token, baseURL) {
     const { cookies } = this.props;
     const path = setCookiePath(baseURL);
-    console.log({ setToken: { token, AUTH_TOKEN, baseURL, path, APP_BASENAME } });
     cookies.set(AUTH_TOKEN, token, { path: setCookiePath(baseURL) });
     cookies.set(AUTH_IS_AUTHENTICATED, true, { path: APP_BASENAME });
     api.defaultClient.defaults.headers.Authorization = `token ${token}`;
@@ -202,24 +168,15 @@ class Auth extends Component {
 
   setBaseUrl(baseURL) {
     const { cookies } = this.props;
-    console.log({
-      setBaseUrl: {
-        AUTH_VIDISPINE_SERVER_URL,
-        baseURL,
-        APP_BASENAME,
-        useDevProxy: this.windowVidispineUrl !== baseURL,
-        useContainerProxy: this.useContainerProxy,
-      },
-    });
     cookies.set(AUTH_VIDISPINE_SERVER_URL, baseURL, { path: APP_BASENAME });
-    if (this.windowVidispineUrl !== baseURL) {
-      this.useDevProxy = false;
-    }
+    if (this.windowVidispineUrl !== baseURL) this.useDevProxy = false;
     if (this.useContainerProxy) {
-      api.defaultClient.defaults.headers['X-Proxy-URL'] = baseURL;
+      api.defaultClient.defaults.headers[PROXY_HEADER] = baseURL;
+      api.defaultClient.defaults.baseURL = window.location.origin;
+    } else if (this.useDevProxy) {
       api.defaultClient.defaults.baseURL = window.location.origin;
     } else {
-      api.defaultClient.defaults.baseURL = this.useDevProxy ? window.location.origin : baseURL;
+      api.defaultClient.defaults.baseURL = baseURL;
     }
 
     this.setState({ baseURL });
@@ -265,8 +222,6 @@ class Auth extends Component {
 
   render() {
     const { token, userName, runAs, baseURL } = this.state;
-    console.log({ state: this.state });
-    console.log({ props: this.props });
     const { loginComponent: Login, appComponent: App, ...props } = this.props;
     return token ? (
       <App

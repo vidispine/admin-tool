@@ -20,6 +20,7 @@ import SelfTestStatus from '../components/selftest/SelfTestStatus';
 import GitHubButton from '../components/ui/GitHubButton';
 import VidispineAltIcon from '../components/ui/VidispineAltIcon';
 import { getVidispineUrlFromPath } from '../const';
+import { PROXY_HEADER } from '../const/Auth';
 import { withModalNoRouter } from '../hoc/withModal';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
 
@@ -62,7 +63,7 @@ class Login extends PureComponent {
         .listSelfTest({
           noAuth: true,
           baseURL: proxyBaseURL,
-          headers: useContainerProxy ? { 'X-Proxy-URL': baseURL } : {},
+          headers: useContainerProxy ? { [PROXY_HEADER]: baseURL } : {},
         })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
@@ -135,7 +136,7 @@ class Login extends PureComponent {
 
   render() {
     const { selfTestDocument, loading, loadingInit } = this.state;
-    const { userName, baseURL, onOpen, useDevProxy } = this.props;
+    const { userName, baseURL, onOpen, useDevProxy, useContainerProxy } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
       queryParams: { autoRefresh: true, seconds: 604800 },
@@ -177,6 +178,7 @@ class Login extends PureComponent {
                     onTestUrl={this.onTestUrl}
                     status={status}
                     useDevProxy={useDevProxy}
+                    useContainerProxy={useContainerProxy}
                   />
                 </Grid>
               </Grid>

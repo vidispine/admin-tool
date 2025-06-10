@@ -126,7 +126,7 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
   return (
     <div style={{ zIndex: 1, minWidth: '100%' }}>
       <FullScreenDialog dialogName={MAINMENU_DIALOG} />
-      <HistoryDialog dialogName={HISTORY_DIALOG} />
+      <HistoryDialog dialogName={HISTORY_DIALOG} baseURL={baseURL} />
       <TopAppBar
         onLogout={onLogout}
         userName={userName}
