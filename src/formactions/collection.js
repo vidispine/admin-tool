@@ -202,3 +202,21 @@ export function onUpdateFolderCollection(form, dispatch, props) {
       throw new SubmissionError({ _error: errorMessage });
     });
 }
+
+export function onGetCollectionSequence(form, dispatch, props) {
+  const { queryParams = {} } = form;
+  const collectionId = props.collectionId || form.collectionId;
+  return api
+    .collectionSequence({
+      collectionId,
+      queryParams: { mode: 'COLLECTION_ORDER', ...queryParams },
+    })
+    .then((response) => ({ collectionId, ...response }))
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}

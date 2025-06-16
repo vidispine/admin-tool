@@ -25,6 +25,7 @@ import CollectionCollection from './collection/CollectionCollection';
 import CollectionContent from './collection/CollectionContent';
 import CollectionMetadata from './collection/CollectionMetadata';
 import CollectionMetadataChangeSetList from './collection/CollectionMetadataChangeSetList';
+import CollectionSequence from './collection/CollectionSequence';
 import DeletionLockList from './DeletionLockList';
 import MetadataGraph from './MetadataGraph';
 import NotificationEntity from './NotificationEntity';
@@ -48,6 +49,7 @@ const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
 const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
+const SEQUENCE_TAB = 'SEQUENCE_TAB';
 
 const TAB_TITLE = [
   {
@@ -119,6 +121,13 @@ const TAB_TITLE = [
     listText: 'Metadata Graph',
     component: MetadataGraph,
     path: '/collection/:collectionId/metadata/graph/',
+    entity: 'collection',
+  },
+  {
+    tab: SEQUENCE_TAB,
+    listText: 'Sequence',
+    component: CollectionSequence,
+    path: '/collection/:collectionId/sequence-document/',
     entity: 'collection',
   },
 ];

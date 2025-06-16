@@ -88,7 +88,7 @@ function RationalType({ value = {} }) {
 
 const TimeBaseType = RationalType;
 
-function TimeCodeType({ value = {} }) {
+export function TimeCodeType({ value = {} }) {
   return (
     <>
       <TextGrid title="samples" value={value.samples} hover hideNoValue />
@@ -526,6 +526,20 @@ export function ShapeTagAdvancedDisplay({ transcodePresetDocument }) {
 
 export function ShapeTagScriptDisplay({ transcodePresetDocument }) {
   return <TypeSection component={ScriptSection} value={transcodePresetDocument} />;
+}
+
+export function TranscodePresetType({ value = {} }) {
+  return (
+    <>
+      <TypeSection component={ContainerSection} value={value} />
+      <TypeSection component={AudioSection} value={value} />
+      <TypeSection component={VideoSection} value={value} />
+      <TypeSection component={ThumbnailSection} value={value} />
+      <TypeSection component={OverlaySection} value={value} />
+      <TypeSection component={AdvancedSection} value={value} />
+      <TypeSection component={ScriptSection} value={value} />
+    </>
+  );
 }
 
 export default function ShapeTagDisplay({ transcodePresetDocument }) {
