@@ -45,11 +45,12 @@ class Auth extends Component {
     this.envVidispineUrl = getVidispineUrlFromEnv();
     this.pathVidispineUrl = getVidispineUrlFromPath();
     this.useContainerProxy = getContainerProxyFromWindow();
-    const baseURL =
+    let baseURL =
       this.pathVidispineUrl ||
       this.windowVidispineUrl ||
       this.envVidispineUrl ||
       this.cookieVidispineUrl;
+    if (baseURL) baseURL = baseURL.replace(/\/+$/, '');
     this.useDevProxy =
       this.useContainerProxy === undefined &&
       baseURL !== undefined &&
@@ -108,17 +109,19 @@ class Auth extends Component {
     };
   }
 
-  setUserName(userName, baseURL) {
+  setUserName(userName, propsBaseURL) {
+    const baseURL = propsBaseURL.replace(/\/+$/, '');
     const { cookies } = this.props;
     const path = setCookiePath(baseURL);
     cookies.set(AUTH_USERNAME, userName, { path });
     this.setState({ userName });
   }
 
-  setToken(token, baseURL) {
+  setToken(token, propsBaseURL) {
+    const baseURL = propsBaseURL.replace(/\/+$/, '');
     const { cookies } = this.props;
     const path = setCookiePath(baseURL);
-    cookies.set(AUTH_TOKEN, token, { path: setCookiePath(baseURL) });
+    cookies.set(AUTH_TOKEN, token, { path });
     cookies.set(AUTH_IS_AUTHENTICATED, true, { path: APP_BASENAME });
     api.defaultClient.defaults.headers.Authorization = `token ${token}`;
     this.setState({ token });
@@ -166,7 +169,8 @@ class Auth extends Component {
     this.setState({ runAs });
   }
 
-  setBaseUrl(baseURL) {
+  setBaseUrl(propsBaseURL) {
+    const baseURL = propsBaseURL.replace(/\/+$/, '');
     const { cookies } = this.props;
     cookies.set(AUTH_VIDISPINE_SERVER_URL, baseURL, { path: APP_BASENAME });
     if (this.windowVidispineUrl !== baseURL) this.useDevProxy = false;
