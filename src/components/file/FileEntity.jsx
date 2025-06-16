@@ -14,7 +14,7 @@ import FileEntityForm from './FileEntityForm';
 
 const FILE_ENTITY_FORM = 'FILE_ENTITY_FORM';
 
-function FileEntity({ open, onClose, onSuccess, openSnackBar, submitForm }) {
+function FileEntity({ open, onClose, onSuccess, openSnackBar, submitForm, storageId }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'File Created';
     openSnackBar({ messageContent });
@@ -37,6 +37,7 @@ function FileEntity({ open, onClose, onSuccess, openSnackBar, submitForm }) {
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           onCancel={onClose}
+          initialValues={{ storageId }}
         />
       </DialogContent>
       <Divider />

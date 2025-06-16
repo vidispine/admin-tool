@@ -20,6 +20,7 @@ function FileListTable({
   onChangeOrder,
   orderBy,
   orderDirection,
+  storageId,
 }) {
   if (fileListDocument === undefined) {
     return null;
@@ -47,7 +48,7 @@ function FileListTable({
             orderBy={orderBy}
             orderDirection={orderDirection}
           />
-          <TableHeadCell name="Storage" />
+          {storageId === undefined ? <TableHeadCell name="Storage" /> : null}
           <TableHeadCell
             name="size"
             onChangeOrder={onChangeOrder}
@@ -64,7 +65,7 @@ function FileListTable({
       </TableHead>
       <TableBody>
         {fileList.map((fileDocument) => (
-          <FileRow key={fileDocument.id} fileDocument={fileDocument} />
+          <FileRow key={fileDocument.id} fileDocument={fileDocument} storageId={storageId} />
         ))}
       </TableBody>
       {onChangePage && onChangeRowsPerPage && (

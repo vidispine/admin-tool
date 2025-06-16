@@ -20,6 +20,9 @@ export default {
   itemSequence: (params) => generatePath('/item/:itemId/sequence/:format/', params),
   fileList: (params) => generatePath('/file/', params),
   file: (params) => generatePath('/file/:fileId', params),
+  storageList: (params) => generatePath('/storage/', params),
+  storage: (params) => generatePath('/storage/:storageId', params),
+  storageFile: (params) => generatePath('/storage/:storageId/file/', params),
   secretList: (params) => generatePath('/secret/', params),
   secret: (params) => generatePath('/secret/:alias', params),
 };

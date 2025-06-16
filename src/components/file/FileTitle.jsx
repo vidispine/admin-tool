@@ -25,6 +25,7 @@ function AbandonMenuItem({ fileDocument, abandonModal, onOpen }) {
 
 function FileTitle({
   fileId,
+  storageId,
   onOpen,
   stateModal,
   moveModal,
@@ -45,7 +46,9 @@ function FileTitle({
     <TitleHeader
       helpTo="/ref/storage/file.html"
       breadcrumbList={[
-        { title: 'File', to: routes.fileList() },
+        storageId ? { title: 'Storage', to: routes.storageList() } : null,
+        storageId ? { title: storageId, to: routes.storage({ storageId }) } : null,
+        { title: 'File', to: storageId ? routes.storageFile({ storageId }) : routes.fileList() },
         { title: fileId, to: routes.file({ fileId }) },
         ...breadcrumbList,
       ]}

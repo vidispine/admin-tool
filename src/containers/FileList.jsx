@@ -11,6 +11,7 @@ import withCard from '../hoc/withCard';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
 import withPaginationForm from '../hoc/withPaginationForm';
+import withUI from '../hoc/withUI';
 
 const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
 
@@ -44,8 +45,21 @@ class FileList extends PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'VidiCore Admin | File';
+    const { storageId } = this.props;
+    document.title = storageId
+      ? `VidiCore Admin | Storage | ${storageId} | File`
+      : 'VidiCore Admin | File';
     this.onRefresh();
+  }
+
+  async UNSAFE_componentWillReceiveProps({ storageId }) {
+    if (!storageId) return;
+    const { storageId: prevStorageId, changeForm } = this.props;
+    if (prevStorageId !== storageId) {
+      await changeForm(FILE_FILTER_FORM, 'storageId', storageId);
+      this.onRefresh();
+      document.title = `VidiCore Admin | Storage | ${storageId} | File`;
+    }
   }
 
   onRefresh() {
@@ -88,19 +102,39 @@ class FileList extends PureComponent {
 
   render() {
     const { fileListDocument, queryParams } = this.state;
-    const { history } = this.props;
+    const {
+      storageId,
+      history,
+      titleComponent: TitleComponent,
+      tabComponent: TabComponent,
+    } = this.props;
     return (
       <>
-        <FileListTitle
-          code={fileListDocument}
-          codeModal="FileListDocument"
-          createModal={FILE_ENTITY_DIALOG}
-          onRefresh={this.onRefresh}
-        />
+        {TitleComponent ? (
+          <TitleComponent
+            code={fileListDocument}
+            codeModal="FileListDocument"
+            onRefresh={this.onRefresh}
+            createModal={FILE_ENTITY_DIALOG}
+            iconList={null}
+            removeModal={null}
+            title="File"
+          />
+        ) : (
+          <FileListTitle
+            code={fileListDocument}
+            codeModal="FileListDocument"
+            createModal={FILE_ENTITY_DIALOG}
+            onRefresh={this.onRefresh}
+          />
+        )}
+        {TabComponent && <TabComponent />}
+
         <FileListFilter
           form={FILE_FILTER_FORM}
           onSuccess={this.onSuccess}
           initialValues={this.initialValues}
+          storageId={storageId}
         />
         {fileListDocument && (
           <>
@@ -108,6 +142,7 @@ class FileList extends PureComponent {
               <FilePrefixCard
                 filePrefixType={fileListDocument.prefixes}
                 onChangePrefix={this.onChangePrefix}
+                storageId={storageId}
               />
             )}
             <FileListTableCard
@@ -115,16 +150,18 @@ class FileList extends PureComponent {
               queryParams={queryParams}
               form={FILE_FILTER_FORM}
               sortField="queryParams.sort"
+              storageId={storageId}
             />
           </>
         )}
         <FileEntity
           dialogName={FILE_ENTITY_DIALOG}
           onSuccess={(response) => history.push(`/file/${response.data.id}`)}
+          storageId={storageId}
         />
       </>
     );
   }
 }
 
-export default compose(withFormActions, withFormSelectors)(FileList, FILE_FILTER_FORM);
+export default compose(withUI, withFormActions, withFormSelectors)(FileList, FILE_FILTER_FORM);

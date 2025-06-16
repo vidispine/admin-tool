@@ -21,6 +21,27 @@ import withUI from '../../hoc/withUI';
 import ExternalIdLink from '../externalid/ExternalIdLink';
 
 import CodeModal from './CodeModal';
+import Menu, { MenuItem } from './Menu';
+
+function TitleMenu({ menuList = [], onOpen }) {
+  if (!Array.isArray(menuList) || menuList.length < 1) return null;
+  return (
+    <Menu>
+      {menuList.map(
+        ({ menuComponent, onClick, modalName, color = 'inherit', label }) =>
+          menuComponent ||
+          (label ? (
+            <MenuItem
+              key={label}
+              onClick={onClick || (modalName && onOpen) ? () => onOpen({ modalName }) : undefined}
+            >
+              <Typography color={color}>{label}</Typography>
+            </MenuItem>
+          ) : null),
+      )}
+    </Menu>
+  );
+}
 
 function TitleHeader({
   title,
@@ -52,58 +73,61 @@ function TitleHeader({
   codeVariant,
   titleChip,
   addAccessControl,
+  menuList,
   style = {},
 }) {
   const breadcrumb = (
     <Grid container alignItems="center">
       {Array.isArray(breadcrumbList) ? (
-        breadcrumbList.map((thisBreadcrumb, idx) => {
-          const isLastBreadCrumb = idx + 1 === breadcrumbList.length;
-          const breadcrumbColor = isLastBreadCrumb ? 'inherit' : 'textSecondary';
-          let textComponent = null;
-          let spacerComponent = null;
-          if (thisBreadcrumb.to) {
-            const { to: breadCrumbTo, title: breadcrumbTitle = '' } = thisBreadcrumb;
-            textComponent = (
-              <Typography
-                variant="h5"
-                color={breadcrumbColor}
-                component={Link}
-                to={breadCrumbTo}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                {breadcrumbTitle}
-              </Typography>
+        breadcrumbList
+          .filter((thisBreadcrumb) => thisBreadcrumb !== undefined && thisBreadcrumb !== null)
+          .map((thisBreadcrumb, idx, arr) => {
+            const isLastBreadCrumb = idx + 1 === arr.length;
+            const breadcrumbColor = isLastBreadCrumb ? 'inherit' : 'textSecondary';
+            let textComponent = null;
+            let spacerComponent = null;
+            if (thisBreadcrumb.to) {
+              const { to: breadCrumbTo, title: breadcrumbTitle = '' } = thisBreadcrumb;
+              textComponent = (
+                <Typography
+                  variant="h5"
+                  color={breadcrumbColor}
+                  component={Link}
+                  to={breadCrumbTo}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {breadcrumbTitle}
+                </Typography>
+              );
+            } else if (thisBreadcrumb.title) {
+              textComponent = (
+                <Typography variant="h5" color={breadcrumbColor}>
+                  {thisBreadcrumb.title}
+                </Typography>
+              );
+            } else {
+              textComponent = (
+                <Typography variant="h5" color={breadcrumbColor}>
+                  {thisBreadcrumb}
+                </Typography>
+              );
+            }
+            if (isLastBreadCrumb === false) {
+              spacerComponent = (
+                <Grid item>
+                  <IconButton disabled>
+                    <ArrowForwardIos />
+                  </IconButton>
+                </Grid>
+              );
+            }
+            return (
+              <Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
+                {textComponent}
+                {spacerComponent}
+              </Fragment>
             );
-          } else if (thisBreadcrumb.title) {
-            textComponent = (
-              <Typography variant="h5" color={breadcrumbColor}>
-                {thisBreadcrumb.title}
-              </Typography>
-            );
-          } else {
-            textComponent = (
-              <Typography variant="h5" color={breadcrumbColor}>
-                {thisBreadcrumb}
-              </Typography>
-            );
-          }
-          if (isLastBreadCrumb === false) {
-            spacerComponent = (
-              <Grid item>
-                <IconButton disabled>
-                  <ArrowForwardIos />
-                </IconButton>
-              </Grid>
-            );
-          }
-          return (
-            <Fragment key={thisBreadcrumb.to || thisBreadcrumb.title || thisBreadcrumb}>
-              {textComponent}
-              {spacerComponent}
-            </Fragment>
-          );
-        })
+          })
       ) : (
         <>
           {grandParentTitle && (
@@ -125,14 +149,14 @@ function TitleHeader({
               )}
             </Grid>
           )}
-          {grandParentTitle && (
+          {grandParentTitle && parentTitle ? (
             <Grid item>
               <IconButton disabled>
                 <ArrowForwardIos />
               </IconButton>
             </Grid>
-          )}
-          {parentTitle && (
+          ) : null}
+          {parentTitle ? (
             <Grid item>
               {parentTo ? (
                 <Typography
@@ -150,8 +174,8 @@ function TitleHeader({
                 </Typography>
               )}
             </Grid>
-          )}
-          {parentTitle && (
+          ) : null}
+          {parentTitle && title && (
             <Grid item>
               <IconButton disabled>
                 <ArrowForwardIos />
@@ -258,6 +282,7 @@ function TitleHeader({
     </Tooltip>
   );
   const action = actionComponent || defaultAction;
+  const menu = menuList ? <TitleMenu menuList={menuList} onOpen={openModal} /> : null;
   return (
     <div style={style}>
       <Grid container direction="row" justifyContent="space-between" alignItems="baseline">
@@ -273,8 +298,9 @@ function TitleHeader({
             {openExternalId}
             {openCodeComponent}
             {refeshAction}
-            {action}
             {iconList}
+            {action}
+            {menu}
           </Grid>
         </Grid>
       </Grid>

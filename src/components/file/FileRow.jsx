@@ -6,15 +6,20 @@ import TableRowLink from '../ui/TableRowLink';
 
 import FileStatus from './FileStatus';
 
-export default function FileRow({ fileDocument = {} }) {
+export default function FileRow({ fileDocument = {}, storageId }) {
   return (
-    <TableRowLink to={`/file/${fileDocument.id}/`} hover>
+    <TableRowLink
+      to={
+        storageId ? `/storage/${storageId}/file/${fileDocument.id}/` : `/file/${fileDocument.id}/`
+      }
+      hover
+    >
       <TableCell>{fileDocument.path}</TableCell>
       <TableCell>{fileDocument.id}</TableCell>
       <TableCell>
         <FileStatus fileDocument={fileDocument} />
       </TableCell>
-      <TableCell>{fileDocument.storage}</TableCell>
+      {storageId === undefined ? <TableCell>{fileDocument.storage}</TableCell> : null}
       <TableCell>{bytesToSize(fileDocument.size)}</TableCell>
       <TableCell>
         {fileDocument.timestamp ? moment(fileDocument.timestamp).toString() : ''}

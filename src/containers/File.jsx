@@ -47,7 +47,7 @@ const listComponentRoute = (props) => (
       <ListItemLink
         key={path}
         primary={listText}
-        to={generatePath(path, props)}
+        to={generatePath(props.storageId ? `/storage/:storageId${path}` : path, props)}
         exact={exact}
         dense
         style={{ paddingLeft: 8 }}
@@ -62,7 +62,7 @@ const mainComponentRoute = (props) => (
     {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
-        path={path}
+        path={props.storageId ? `/storage/:storageId${path}` : path}
         exact={exact}
         render={() => <RenderComponent {...props} title={listText} />}
       />
@@ -98,8 +98,10 @@ class File extends PureComponent {
   }
 
   render() {
-    const { fileId, onChangeTab, tabValue } = this.props;
-    const titleComponent = (props) => <FileTitle fileId={fileId} {...props} />;
+    const { storageId, fileId, onChangeTab, tabValue } = this.props;
+    const titleComponent = (props) => (
+      <FileTitle fileId={fileId} storageId={storageId} {...props} />
+    );
     return (
       <DrawerContainer
         mainComponent={mainComponentRoute}
@@ -108,6 +110,7 @@ class File extends PureComponent {
         onChangeTab={onChangeTab}
         tabValue={tabValue}
         titleComponent={titleComponent}
+        storageId={storageId}
         fileId={fileId}
         entityId={fileId}
         entityType="file"

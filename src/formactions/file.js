@@ -127,9 +127,24 @@ export function onGetFile(form, dispatch, props) {
 export function onFileList(form, dispatch, props) {
   const { storageId } = props;
   const { queryParams } = form;
+  if (storageId) {
+    return api
+      .listFileStorage({
+        storageId,
+        queryParams,
+      })
+      .catch((error) => {
+        let errorMessage = error.message;
+        if (error.response) {
+          errorMessage = JSON.stringify(error.response.data, (k, v) =>
+            v === null ? undefined : v,
+          );
+        }
+        throw new SubmissionError({ _error: errorMessage });
+      });
+  }
   return api
     .listFile({
-      storageId,
       queryParams,
     })
     .catch((error) => {

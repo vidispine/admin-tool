@@ -21,6 +21,7 @@ function FileListFilter({
   resetForm,
   form = 'FILE_FILTER_FORM',
   changeForm,
+  storageId,
   initialValues = {
     queryParams: {
       first: 0,
@@ -60,6 +61,7 @@ function FileListFilter({
           onCancel={onClose}
           destroyOnUnmount={false}
           initialValues={initialValues}
+          storageId={storageId}
         />
       </AccordionDetails>
       <Divider />

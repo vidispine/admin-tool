@@ -18,6 +18,7 @@ import withTabs from '../hoc/withTabs';
 import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
 import DeletionLockList from './DeletionLockList';
+import ExternalId from './ExternalId';
 import LibraryContent from './library/LibraryContent';
 import LibrarySettings from './library/LibrarySettings';
 import StorageRule from './StorageRule';
@@ -34,6 +35,7 @@ const LIBRARY_UPDATE_DIALOG = 'LIBRARY_UPDATE_DIALOG';
 const LIBRARY_ITEM_METADATA_DIALOG = 'LIBRARY_ITEM_METADATA_DIALOG';
 const LIBRARY_ACCESSCONTROL_ADD_DIALOG = 'LIBRARY_ACCESSCONTROL_ADD_DIALOG';
 const LIBRARY_EXPORT_DIALOG = 'LIBRARY_EXPORT_DIALOG';
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
   {
@@ -72,6 +74,13 @@ const TAB_TITLE = [
     listText: 'Deletion Locks',
     component: DeletionLockList,
     path: '/library/:libraryId/deletion-locks/',
+  },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/library/:libraryId/external-id/',
+    entity: 'library',
   },
 ];
 

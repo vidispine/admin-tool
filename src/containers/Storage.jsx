@@ -1,159 +1,122 @@
 import { PureComponent } from 'react';
 
-import { connect } from 'react-redux';
+import List from '@material-ui/core/List';
+import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
-import { storage as api } from '@vidispine/vdt-api';
-
-import * as actions from '../actions';
-import StorageCard from '../components/storage/StorageCard';
-import StorageEvacuate from '../components/storage/StorageEvacuate';
-import StorageEvacuateCancel from '../components/storage/StorageEvacuateCancel';
-import StorageMethodDialog from '../components/storage/StorageMethodDialog';
-import StorageRemove from '../components/storage/StorageRemove';
 import StorageTitle from '../components/storage/StorageTitle';
-import StorageType from '../components/storage/StorageType';
+import DrawerContainer from '../components/ui/DrawerContainer';
+import ListItemLink from '../components/ui/ListItemLink';
+import withTabs from '../hoc/withTabs';
+import withUI from '../hoc/withUI';
 
-const STORAGE_REMOVE_MODAL = 'STORAGE_REMOVE_MODAL';
-const STORAGEMETHOD_CREATE_MODAL = 'STORAGEMETHOD_CREATE_MODAL';
-const STORAGE_TYPE_DIALOG = 'STORAGE_TYPE_DIALOG';
-const STORAGE_EVACUATE_DIALOG = 'STORAGE_EVACUATE_DIALOG';
-const STORAGE_EVACUATE_CANCEL_DIALOG = 'STORAGE_EVACUATE_CANCEL_DIALOG';
+import ExternalId from './ExternalId';
+import FileList from './FileList';
+import StorageStorage from './storage/StorageStorage';
+
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
+const STORAGE_TAB = 'STORAGE_TAB';
+const STORAGE_FILE_TAB = 'STORAGE_FILE_TAB';
+
+const TAB_TITLE = [
+  {
+    tab: STORAGE_TAB,
+    listText: 'Storage',
+    component: StorageStorage,
+    path: '/storage/:storageId/',
+    exact: true,
+  },
+  {
+    tab: STORAGE_FILE_TAB,
+    listText: 'Files',
+    component: FileList,
+    path: '/storage/:storageId/file/',
+  },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/storage/:storageId/external-id/',
+    entity: 'storage',
+  },
+];
+
+const listComponentRoute = (props) => (
+  <List>
+    {TAB_TITLE.map(({ path, listText, exact }) => (
+      <ListItemLink
+        key={path}
+        primary={listText}
+        to={generatePath(path, props)}
+        exact={exact}
+        dense
+        style={{ paddingLeft: 8 }}
+        disableGutters
+      />
+    ))}
+  </List>
+);
+
+const mainComponentRoute = (props) => (
+  <Switch>
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} title={listText} />}
+      />
+    ))}
+  </Switch>
+);
 
 class Storage extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
-    this.onRefreshError = this.onRefreshError.bind(this);
-    this.onFetch = this.onFetch.bind(this);
-    this.onRescan = this.onRescan.bind(this);
-    this.onRescanError = this.onRescanError.bind(this);
+    this.setOnRefresh = this.setOnRefresh.bind(this);
+
     this.state = {
-      storageDocument: undefined,
+      onRefresh: undefined,
     };
   }
 
   componentDidMount() {
     const { storageId } = this.props;
     document.title = `VidiCore Admin | Storage | ${storageId}`;
-    this.onRefresh();
   }
 
   onRefresh() {
-    const { storageId } = this.props;
-    this.onFetch(storageId);
-  }
-
-  onRefreshError() {
-    const { openSnackBar } = this.props;
-    const messageContent = 'Error Loading Storage';
-    openSnackBar({ messageContent, messageColor: 'secondary' });
-  }
-
-  onFetch(storageId) {
-    try {
-      api
-        .getStorage({ storageId })
-        .then((response) => this.setState({ storageDocument: response.data }))
-        .catch((error) => this.onRefreshError(error));
-    } catch (error) {
-      this.onRefreshError(error);
+    const { onRefresh } = this.state;
+    if (onRefresh) {
+      onRefresh();
     }
   }
 
-  onRescan() {
-    const { storageId, openSnackBar } = this.props;
-    try {
-      api
-        .rescanStorage({ storageId })
-        .then(() => {
-          const messageContent = 'Rescan Started';
-          openSnackBar({ messageContent });
-          this.onRefresh();
-        })
-        .catch((error) => this.onRescanError(error));
-    } catch (error) {
-      this.onRescanError(error);
-    }
-  }
-
-  onRescanError() {
-    const { openSnackBar } = this.props;
-    const messageContent = 'Error Rescanning Storage';
-    openSnackBar({ messageContent, messageColor: 'secondary' });
+  setOnRefresh(onRefresh) {
+    this.setState({ onRefresh });
   }
 
   render() {
-    const { storageId, modalName, closeModal, openModal, openSnackBar, history } = this.props;
-    const { storageDocument } = this.state;
+    const { storageId, onChangeTab, tabValue } = this.props;
+    const titleComponent = (props) => (
+      <StorageTitle onRefresh={this.onRefresh} storageId={storageId} {...props} />
+    );
     return (
-      <>
-        <StorageTitle
-          removeModal={STORAGE_REMOVE_MODAL}
-          typeModal={STORAGE_TYPE_DIALOG}
-          evacuateModal={STORAGE_EVACUATE_DIALOG}
-          evacuateCancelModal={STORAGE_EVACUATE_CANCEL_DIALOG}
-          onRefresh={this.onRefresh}
-          storageId={storageId}
-          code={storageDocument}
-          codeModal="StorageDocument"
-          onRescan={this.onRescan}
-        />
-        {storageDocument && (
-          <StorageCard
-            onRefresh={this.onRefresh}
-            storageId={storageId}
-            storageDocument={storageDocument}
-            openMethodCreate={() => openModal({ modalName: STORAGEMETHOD_CREATE_MODAL })}
-          />
-        )}
-        <StorageRemove
-          isOpen={modalName === STORAGE_REMOVE_MODAL}
-          storageId={storageId}
-          openSnackBar={openSnackBar}
-          closeModal={closeModal}
-          history={history}
-        />
-        <StorageMethodDialog
-          isOpen={modalName === STORAGEMETHOD_CREATE_MODAL}
-          onRefresh={this.onRefresh}
-          storageId={storageId}
-          closeModal={closeModal}
-        />
-        <StorageType
-          dialogName={STORAGE_TYPE_DIALOG}
-          storageDocument={storageDocument}
-          onSuccess={this.onRefresh}
-        />
-        <StorageEvacuate
-          dialogName={STORAGE_EVACUATE_DIALOG}
-          storageDocument={storageDocument}
-          onSuccess={this.onRefresh}
-        />
-        <StorageEvacuateCancel
-          dialogName={STORAGE_EVACUATE_CANCEL_DIALOG}
-          storageDocument={storageDocument}
-          onSuccess={this.onRefresh}
-        />
-      </>
+      <DrawerContainer
+        mainComponent={mainComponentRoute}
+        listComponent={listComponentRoute}
+        defaultOpen
+        onChangeTab={onChangeTab}
+        tabValue={tabValue}
+        titleComponent={titleComponent}
+        storageId={storageId}
+        entityId={storageId}
+        entityType="storage"
+        setOnRefresh={this.setOnRefresh}
+      />
     );
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const { storageId } = ownProps.match.params;
-  const {
-    ui: { modalName },
-  } = state;
-  return {
-    modalName,
-    storageId,
-  };
-}
-
-const mapDispatchToProps = {
-  openSnackBar: actions.ui.openSnackBar,
-  closeModal: actions.ui.closeModal,
-  openModal: actions.ui.openModal,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Storage);
+export default compose(withTabs(STORAGE_TAB), withUI)(Storage);

@@ -29,6 +29,7 @@ import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
 import AccessGraph from './AccessGraph';
 import DeletionLockList from './DeletionLockList';
+import ExternalId from './ExternalId';
 import ItemBulkyMetadata from './item/ItemBulkyMetadata';
 import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
 import ItemCollection from './item/ItemCollection';
@@ -89,6 +90,7 @@ const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
 const ITEM_ANALYZE_DIALOG = 'ITEM_ANALYZE_DIALOG';
 const ITEM_SEQUENCE_CREATE_DIALOG = 'ITEM_SEQUENCE_CREATE_DIALOG';
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
   {
@@ -228,6 +230,13 @@ const TAB_TITLE = [
     component: ItemSequenceList,
     path: '/item/:itemId/sequence/',
     exact: true,
+  },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/item/:itemId/external-id/',
+    entity: 'item',
   },
 ];
 
