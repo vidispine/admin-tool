@@ -17,6 +17,8 @@ export default function ResourceTitle({
       grandParentTo="/resource/"
       parentTitle={startCase(resourceType)}
       parentTo={`/resource/${resourceType}/`}
+      entityId={resourceId}
+      entityType={`resource/${resourceType}`}
       title={resourceId}
       onRefresh={onRefresh}
       openCode={openCode}
