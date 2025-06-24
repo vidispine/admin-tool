@@ -36,6 +36,23 @@ export function onUpdate(form, dispatch, props) {
     });
 }
 
+export function onRemove(form, dispatch, props) {
+  const { queryParams } = form;
+  const storageId = props.storageId || form.storageId;
+  return api
+    .removeStorage({
+      storageId,
+      queryParams,
+    })
+    .catch((error) => {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+      }
+      throw new SubmissionError({ _error: errorMessage });
+    });
+}
+
 export function onMethodUpdate(form, dispatch, props) {
   const { method } = form;
   const { storageId } = props;
