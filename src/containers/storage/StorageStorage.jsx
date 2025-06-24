@@ -123,7 +123,7 @@ class StorageStorage extends PureComponent {
               },
               {
                 label: 'Delete Storage',
-                modalName: STORAGE_TYPE_DIALOG,
+                modalName: STORAGE_REMOVE_MODAL,
                 color: 'secondary',
               },
             ]}
