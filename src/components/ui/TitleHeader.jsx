@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 
 import Chip from '@material-ui/core/Chip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,6 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
+import CheckIcon from '@material-ui/icons/Check';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CodeIcon from '@material-ui/icons/Code';
 import DeleteForever from '@material-ui/icons/DeleteForever';
@@ -21,7 +22,28 @@ import withUI from '../../hoc/withUI';
 import ExternalIdLink from '../externalid/ExternalIdLink';
 
 import CodeModal from './CodeModal';
+import CopyIcon from './CopyIcon';
 import Menu, { MenuItem } from './Menu';
+
+function CopyCodeIcon({ code }) {
+  const [isCopied, setIsCopied] = useState(false);
+  const onClick = () => {
+    navigator.clipboard.writeText(typeof code === 'object' ? JSON.stringify(code, null, 2) : code);
+    setIsCopied(true);
+  };
+  useEffect(() => {
+    if (isCopied === false) return undefined;
+    const timerId = setTimeout(() => setIsCopied(false), 3000); // 2-second delay
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [isCopied]);
+  return (
+    <Tooltip title={isCopied === true ? 'Copied' : 'Copy to clipboard'}>
+      <IconButton onClick={onClick}>{isCopied ? <CheckIcon /> : <CopyIcon />}</IconButton>
+    </Tooltip>
+  );
+}
 
 function TitleMenu({ menuList = [], onOpen }) {
   if (!Array.isArray(menuList) || menuList.length < 1) return null;
@@ -208,6 +230,10 @@ function TitleHeader({
       </Tooltip>
     );
   }
+  let copyCodeComponent;
+  if (code) {
+    copyCodeComponent = <CopyCodeIcon code={code} />;
+  }
   const autoRefreshSwitch = onChangeAutoRefresh && (
     <FormControlLabel
       control={<Switch checked={autoRefresh} onChange={onChangeAutoRefresh} />}
@@ -297,6 +323,7 @@ function TitleHeader({
             {openAddAccess}
             {openExternalId}
             {openCodeComponent}
+            {copyCodeComponent}
             {refeshAction}
             {iconList}
             {action}
