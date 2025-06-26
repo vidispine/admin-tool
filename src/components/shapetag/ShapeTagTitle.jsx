@@ -11,6 +11,7 @@ export default function ShapeTagTitle({ openCode, onRefresh, tagName, openRemove
       parentTo="/shape-tag/"
       openCode={openCode}
       onRefresh={onRefresh}
+      helpTo="/ref/shape-tag.html"
       actionComponent={
         <IconButton onClick={openRemove}>
           <DeleteForever />

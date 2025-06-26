@@ -7,7 +7,7 @@ export default function ShapeTagListTitle({ openCode, openCreate, onRefresh }) {
       onRefresh={onRefresh}
       openCode={openCode}
       openAction={openCreate}
-      helpTo="/item/shape-tag.html"
+      helpTo="/ref/shape-tag.html"
     />
   );
 }

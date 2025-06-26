@@ -147,6 +147,28 @@ function TextGrid({
           isValueHidden={isValueHidden}
         />
       );
+    case 'application/javascript':
+    case 'javascript':
+      return (
+        <TextGridCode
+          title={title}
+          value={value}
+          variant={variant}
+          titleGridProps={titleGridProps}
+          titleStartCase={titleStartCase}
+          codeProps={{
+            mode: 'javascript',
+            foldGutter: true,
+            gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+            ...codeProps,
+          }}
+          noWrapTitle={noWrapTitle}
+          hideCode={hideCode}
+          onTextClick={onTextClick}
+          toggleHideValue={toggleHideValue}
+          isValueHidden={isValueHidden}
+        />
+      );
     case 'boolean':
       return (
         <TextGridBoolean

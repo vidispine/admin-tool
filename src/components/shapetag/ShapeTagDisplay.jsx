@@ -497,7 +497,7 @@ export function ThumbnailSection({ value = {} }) {
 }
 
 export function ScriptSection({ value = {} }) {
-  return <TextGrid value={value.script} variant="json" />;
+  return <TextGrid value={value.script} variant="javascript" />;
 }
 
 export function ShapeTagContainerDisplay({ transcodePresetDocument }) {

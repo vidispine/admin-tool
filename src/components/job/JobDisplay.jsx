@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import getJobDataVariant from '../../utils/getJobDataVariant';
+import getSimpleMetadataVariant from '../../utils/getSimpleMetadataVariant';
 import TextGrid from '../ui/TextGrid';
 import TypeArray from '../ui/TypeArray';
 import TypeSection from '../ui/TypeSection';
@@ -69,7 +69,7 @@ function KeyValueType({ value }) {
       title={value.key}
       value={value.value}
       titleStartCase={false}
-      variant={getJobDataVariant(value.key)}
+      variant={getSimpleMetadataVariant(value.key)}
       hideCode
       hover
     />

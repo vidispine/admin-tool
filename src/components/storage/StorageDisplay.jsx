@@ -104,7 +104,9 @@ export function StorageMetadataDisplay({ value = {} }) {
 }
 
 function ScriptSection({ value = {} }) {
-  return <TextGrid title="archiveScript" value={value.archiveScript} variant="code" hideNoValue />;
+  return (
+    <TextGrid title="archiveScript" value={value.archiveScript} variant="javascript" hideNoValue />
+  );
 }
 
 export function StorageScriptDisplay({ value = {} }) {

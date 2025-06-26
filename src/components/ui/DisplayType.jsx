@@ -1,14 +1,23 @@
+import getSimpleMetadataVariant from '../../utils/getSimpleMetadataVariant';
+
 import TextGrid from './TextGrid';
 import TypeArray from './TypeArray';
 import TypeSection from './TypeSection';
 
 function SimpleMetadataValueType({ dense, value = {} }) {
   return dense ? (
-    <TextGrid title={value.key} value={value.value} hover hideNoValue titleStartCase={false} />
+    <TextGrid
+      title={value.key}
+      value={value.value}
+      hover
+      hideNoValue
+      titleStartCase={false}
+      variant={getSimpleMetadataVariant(value.key)}
+    />
   ) : (
     <>
       <TextGrid title="key" value={value.key} />
-      <TextGrid title="value" value={value.value} />
+      <TextGrid title="value" value={value.value} variant={getSimpleMetadataVariant(value.key)} />
     </>
   );
 }
@@ -26,11 +35,18 @@ export function SimpleMetadataType({ value: v = {}, dense = true }) {
 
 export function KeyValuePairType({ value = {}, dense = true }) {
   return dense ? (
-    <TextGrid title={value.key} value={value.value} hover hideNoValue titleStartCase={false} />
+    <TextGrid
+      title={value.key}
+      value={value.value}
+      hover
+      hideNoValue
+      titleStartCase={false}
+      variant={getSimpleMetadataVariant(value.key)}
+    />
   ) : (
     <>
       <TextGrid title="key" value={value.key} />
-      <TextGrid title="value" value={value.value} />
+      <TextGrid title="value" value={value.value} variant={getSimpleMetadataVariant(value.key)} />
     </>
   );
 }
