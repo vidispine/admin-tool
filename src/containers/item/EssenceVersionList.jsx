@@ -1,12 +1,14 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { shape as api } from '@vidispine/vdt-api';
 
 import EssenceVersionListCard from '../../components/item/EssenceVersionListCard';
-import withSnackbar from '../../hoc/withSnackbar';
 import { withRouterProps } from '../../hoc/withRouterProps';
+import withSnackbar from '../../hoc/withSnackbar';
 
-class EssenceVersionList extends React.PureComponent {
+class EssenceVersionList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -36,7 +38,8 @@ class EssenceVersionList extends React.PureComponent {
 
   onFetch(itemId) {
     try {
-      api.listShapeEssence({ itemId })
+      api
+        .listShapeEssence({ itemId })
         .then((response) => this.setState({ essenceVersionListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -51,11 +54,7 @@ class EssenceVersionList extends React.PureComponent {
   }
 
   render() {
-    const {
-      itemId,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { itemId, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { essenceVersionListDocument } = this.state;
     return (
       <>
@@ -67,9 +66,7 @@ class EssenceVersionList extends React.PureComponent {
             title="Version"
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {essenceVersionListDocument && (
           <EssenceVersionListCard
             essenceVersionListDocument={essenceVersionListDocument}

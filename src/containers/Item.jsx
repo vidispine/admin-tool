@@ -1,56 +1,56 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
-
 import { Route, Switch, generatePath } from 'react-router-dom';
-import withTabs from '../hoc/withTabs';
-import { withRouterProps } from '../hoc/withRouterProps';
-import routes from '../const/routes';
+import { compose } from 'redux';
 
-import ItemMetadata from './item/ItemMetadata';
-import ItemCollection from './item/ItemCollection';
-import ItemShape from './item/ItemShape';
-import ItemContent from './item/ItemContent';
-import ItemUri from './item/ItemUri';
-import ItemPoster from './item/ItemPoster';
-import ItemThumbnail from './item/ItemThumbnail';
-import ItemJob from './item/ItemJob';
-import ItemProjection from './item/ItemProjection';
-import ItemRelationList from './item/ItemRelationList';
-import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
-import ItemBulkyMetadata from './item/ItemBulkyMetadata';
-import ItemVersion from './item/ItemVersion';
-import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
-import ItemSpritesheet from './item/ItemSpritesheet';
-import ItemSequenceList from './item/ItemSequenceList';
-import ItemSequence from './item/ItemSequence';
-import AccessGraph from './AccessGraph';
-import MetadataGraph from './MetadataGraph';
-import NotificationEntityList from './NotificationEntityList';
-import NotificationEntity from './NotificationEntity';
-
-import AccessControl from './AccessControl';
-import AccessControlMerged from './AccessControlMerged';
-import StorageRule from './StorageRule';
-import DeletionLockList from './DeletionLockList';
-
-import ItemTitle from '../components/item/ItemTitle';
+import AccessControlDialog from '../components/access/AccessControlDialog';
+import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import ItemAnalyze from '../components/item/ItemAnalyze';
 import ItemDelete from '../components/item/ItemDelete';
-import ItemTranscode from '../components/item/ItemTranscode';
-import ItemThumbnailDialog from '../components/item/ItemThumbnail';
-import ItemRelationDialog from '../components/item/ItemRelation';
 import ItemExport from '../components/item/ItemExport';
 import ItemImpExport from '../components/item/ItemImpExport';
 import ItemImpImport from '../components/item/ItemImpImport';
-import ItemShapeCreate from '../components/item/ItemShapeCreate';
+import ItemRelationDialog from '../components/item/ItemRelation';
 import ItemSequenceCreate from '../components/item/ItemSequenceCreate';
-import ItemAnalyze from '../components/item/ItemAnalyze';
-import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import ItemShapeCreate from '../components/item/ItemShapeCreate';
+import ItemThumbnailDialog from '../components/item/ItemThumbnail';
+import ItemTitle from '../components/item/ItemTitle';
+import ItemTranscode from '../components/item/ItemTranscode';
 import JobCreate from '../components/job/JobCreate';
-import AccessControlDialog from '../components/access/AccessControlDialog';
 import ShapeDeleteAll from '../components/shape/ShapeDeleteAll';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import routes from '../const/routes';
+import { withRouterProps } from '../hoc/withRouterProps';
+import withTabs from '../hoc/withTabs';
+
+import AccessControl from './AccessControl';
+import AccessControlMerged from './AccessControlMerged';
+import AccessGraph from './AccessGraph';
+import DeletionLockList from './DeletionLockList';
+import ExternalId from './ExternalId';
+import ItemBulkyMetadata from './item/ItemBulkyMetadata';
+import ItemBulkyMetadataList from './item/ItemBulkyMetadataList';
+import ItemCollection from './item/ItemCollection';
+import ItemContent from './item/ItemContent';
+import ItemJob from './item/ItemJob';
+import ItemMetadata from './item/ItemMetadata';
+import ItemMetadataChangeSetList from './item/ItemMetadataChangeSetList';
+import ItemPoster from './item/ItemPoster';
+import ItemProjection from './item/ItemProjection';
+import ItemRelationList from './item/ItemRelationList';
+import ItemSequence from './item/ItemSequence';
+import ItemSequenceList from './item/ItemSequenceList';
+import ItemShape from './item/ItemShape';
+import ItemSpritesheet from './item/ItemSpritesheet';
+import ItemThumbnail from './item/ItemThumbnail';
+import ItemUri from './item/ItemUri';
+import ItemVersion from './item/ItemVersion';
+import MetadataGraph from './MetadataGraph';
+import NotificationEntity from './NotificationEntity';
+import NotificationEntityList from './NotificationEntityList';
+import StorageRule from './StorageRule';
 
 const ITEM_METADATA_TAB = 'ITEM_METADATA_TAB';
 const ITEM_COLLECTION_TAB = 'ITEM_COLLECTION_TAB';
@@ -90,6 +90,7 @@ const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
 const ITEM_ANALYZE_DIALOG = 'ITEM_ANALYZE_DIALOG';
 const ITEM_SEQUENCE_CREATE_DIALOG = 'ITEM_SEQUENCE_CREATE_DIALOG';
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
   {
@@ -230,6 +231,13 @@ const TAB_TITLE = [
     path: '/item/:itemId/sequence/',
     exact: true,
   },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/item/:itemId/external-id/',
+    entity: 'item',
+  },
 ];
 
 const listComponentRoute = ({ itemId }) => (
@@ -268,9 +276,7 @@ const mainComponentRoute = (props) => (
       render={() => <NotificationEntity {...props} />}
       {...props}
     />
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact, ...renderProps
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact, ...renderProps }) => (
       <Route
         key={path}
         path={path}
@@ -278,14 +284,11 @@ const mainComponentRoute = (props) => (
         render={() => <RenderComponent {...props} {...renderProps} title={listText} />}
       />
     ))}
-    <Route
-      path="*"
-      render={() => <ItemMetadata {...props} title="Metadata" />}
-    />
+    <Route path="*" render={() => <ItemMetadata {...props} title="Metadata" />} />
   </Switch>
 );
 
-class Item extends React.PureComponent {
+class Item extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -302,7 +305,9 @@ class Item extends React.PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -310,12 +315,7 @@ class Item extends React.PureComponent {
   }
 
   render() {
-    const {
-      onChangeTab,
-      tabValue,
-      itemId,
-      history,
-    } = this.props;
+    const { onChangeTab, tabValue, itemId, history } = this.props;
     const titleComponent = (props) => (
       <ItemTitle
         itemId={itemId}
@@ -353,9 +353,11 @@ class Item extends React.PureComponent {
         />
         <ItemDelete
           dialogName={ITEM_REMOVE_DIALOG}
-          onSuccess={() => history.push(
-            '/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true',
-          )}
+          onSuccess={() =>
+            history.push(
+              '/item/?content=metadata%2Cthumbnail&baseURI=%2FAPInoauth%2F&terse=true&noauth-url=true',
+            )
+          }
           itemId={itemId}
         />
         <ShapeDeleteAll
@@ -407,11 +409,13 @@ class Item extends React.PureComponent {
         />
         <ItemSequenceCreate
           dialogName={ITEM_SEQUENCE_CREATE_DIALOG}
-          onSuccess={
-            (_response, _dispatch, props) => history.push(routes.itemSequence({
-              itemId,
-              format: props.values.format,
-            }))
+          onSuccess={(_response, _dispatch, props) =>
+            history.push(
+              routes.itemSequence({
+                itemId,
+                format: props.values.format,
+              }),
+            )
           }
           itemId={itemId}
         />

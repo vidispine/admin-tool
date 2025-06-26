@@ -1,10 +1,11 @@
-import React from 'react';
-import { item as api } from '@vidispine/vdt-api';
-import ItemCollectionCard from '../../components/item/ItemCollectionCard';
+import { PureComponent } from 'react';
 
+import { item as api } from '@vidispine/vdt-api';
+
+import ItemCollectionCard from '../../components/item/ItemCollectionCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemCollection extends React.PureComponent {
+class ItemCollection extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -35,10 +36,11 @@ class ItemCollection extends React.PureComponent {
   onFetch(itemId) {
     const queryParams = { field: '__collection,__ancestor_collection,__parent_collection' };
     try {
-      api.getItemMetadata({
-        itemId,
-        queryParams: Object.entries(queryParams),
-      })
+      api
+        .getItemMetadata({
+          itemId,
+          queryParams: Object.entries(queryParams),
+        })
         .then((response) => this.setState({ metadataListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -70,9 +72,7 @@ class ItemCollection extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {metadataListDocument && (
           <ItemCollectionCard
             metadataListDocument={metadataListDocument}

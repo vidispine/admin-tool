@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,7 +15,8 @@ export default function ResourceRemove({
   openSnackBar,
 }) {
   const onRemove = () => {
-    api.removeResource({ resourceId, resourceType })
+    api
+      .removeResource({ resourceId, resourceType })
       .then(() => {
         const messageContent = `${resourceType} ${resourceId} Removed`;
         openSnackBar({ messageContent });
@@ -30,19 +30,12 @@ export default function ResourceRemove({
   };
   return (
     <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove ${startCase(resourceType)} "${resourceId}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove ${startCase(resourceType)} "${resourceId}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

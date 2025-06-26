@@ -1,7 +1,8 @@
-import React from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { PureComponent } from 'react';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
+
 import { utils as api } from '@vidispine/vdt-api';
 
 const styles = ({ palette }) => ({
@@ -13,7 +14,7 @@ const styles = ({ palette }) => ({
   },
 });
 
-class LoadingProgress extends React.PureComponent {
+class LoadingProgress extends PureComponent {
   constructor(props) {
     super(props);
     this.onShow = this.onShow.bind(this);

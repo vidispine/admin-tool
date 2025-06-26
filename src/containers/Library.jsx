@@ -1,26 +1,27 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
-import withTabs from '../hoc/withTabs';
-import { withRouterProps } from '../hoc/withRouterProps';
-
-import LibrarySettings from './library/LibrarySettings';
-import LibraryContent from './library/LibraryContent';
-import AccessControl from './AccessControl';
-import AccessControlMerged from './AccessControlMerged';
-import StorageRule from './StorageRule';
-
-import LibraryTitle from '../components/library/LibraryTitle';
-import LibraryRemove from '../components/library/LibraryRemove';
-import LibraryUpdate from '../components/library/LibraryUpdate';
-import LibraryItemMetadata from '../components/library/LibraryItemMetadata';
-import LibraryExport from '../components/library/LibraryExport';
 import AccessControlDialog from '../components/access/AccessControlDialog';
+import LibraryExport from '../components/library/LibraryExport';
+import LibraryItemMetadata from '../components/library/LibraryItemMetadata';
+import LibraryRemove from '../components/library/LibraryRemove';
+import LibraryTitle from '../components/library/LibraryTitle';
+import LibraryUpdate from '../components/library/LibraryUpdate';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import { withRouterProps } from '../hoc/withRouterProps';
+import withTabs from '../hoc/withTabs';
+
+import AccessControl from './AccessControl';
+import AccessControlMerged from './AccessControlMerged';
 import DeletionLockList from './DeletionLockList';
+import ExternalId from './ExternalId';
+import LibraryContent from './library/LibraryContent';
+import LibrarySettings from './library/LibrarySettings';
+import StorageRule from './StorageRule';
 
 const LIBRARY_SETTINGS_TAB = 'LIBRARY_SETTINGS_TAB';
 const LIBRARY_CONTENT_TAB = 'LIBRARY_CONTENT_TAB';
@@ -34,25 +35,52 @@ const LIBRARY_UPDATE_DIALOG = 'LIBRARY_UPDATE_DIALOG';
 const LIBRARY_ITEM_METADATA_DIALOG = 'LIBRARY_ITEM_METADATA_DIALOG';
 const LIBRARY_ACCESSCONTROL_ADD_DIALOG = 'LIBRARY_ACCESSCONTROL_ADD_DIALOG';
 const LIBRARY_EXPORT_DIALOG = 'LIBRARY_EXPORT_DIALOG';
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
   {
-    tab: LIBRARY_SETTINGS_TAB, listText: 'Settings', component: LibrarySettings, path: '/library/:libraryId/settings/',
+    tab: LIBRARY_SETTINGS_TAB,
+    listText: 'Settings',
+    component: LibrarySettings,
+    path: '/library/:libraryId/settings/',
   },
   {
-    tab: LIBRARY_CONTENT_TAB, listText: 'Content', component: LibraryContent, path: '/library/:libraryId/', exact: true,
+    tab: LIBRARY_CONTENT_TAB,
+    listText: 'Content',
+    component: LibraryContent,
+    path: '/library/:libraryId/',
+    exact: true,
   },
   {
-    tab: ACCESS_TAB, listText: 'Direct Access', component: AccessControl, path: '/library/:libraryId/direct-access/',
+    tab: ACCESS_TAB,
+    listText: 'Direct Access',
+    component: AccessControl,
+    path: '/library/:libraryId/direct-access/',
   },
   {
-    tab: ACCESSMERGED_TAB, listText: 'Merged Access', component: AccessControlMerged, path: '/library/:libraryId/merged-access/',
+    tab: ACCESSMERGED_TAB,
+    listText: 'Merged Access',
+    component: AccessControlMerged,
+    path: '/library/:libraryId/merged-access/',
   },
   {
-    tab: STORAGERULE_TAB, listText: 'Storage Rules', component: StorageRule, path: '/library/:libraryId/storage-rules/',
+    tab: STORAGERULE_TAB,
+    listText: 'Storage Rules',
+    component: StorageRule,
+    path: '/library/:libraryId/storage-rules/',
   },
   {
-    tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/library/:libraryId/deletion-locks/',
+    tab: DELETIONLOCK_TAB,
+    listText: 'Deletion Locks',
+    component: DeletionLockList,
+    path: '/library/:libraryId/deletion-locks/',
+  },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/library/:libraryId/external-id/',
+    entity: 'library',
   },
 ];
 
@@ -74,9 +102,7 @@ const listComponentRoute = (props) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
         path={path}
@@ -87,7 +113,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class Library extends React.PureComponent {
+class Library extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -114,9 +140,7 @@ class Library extends React.PureComponent {
   }
 
   render() {
-    const {
-      onChangeTab, tabValue, libraryId, history,
-    } = this.props;
+    const { onChangeTab, tabValue, libraryId, history } = this.props;
     const titleComponent = (props) => (
       <LibraryTitle
         libraryId={libraryId}
@@ -142,19 +166,13 @@ class Library extends React.PureComponent {
           entityType="library"
           setOnRefresh={this.setOnRefresh}
         />
-        <LibraryUpdate
-          dialogName={LIBRARY_UPDATE_DIALOG}
-          libraryId={libraryId}
-        />
+        <LibraryUpdate dialogName={LIBRARY_UPDATE_DIALOG} libraryId={libraryId} />
         <LibraryRemove
           dialogName={LIBRARY_REMOVE_DIALOG}
           onSuccess={() => history.push('/library/')}
           libraryId={libraryId}
         />
-        <LibraryItemMetadata
-          dialogName={LIBRARY_ITEM_METADATA_DIALOG}
-          libraryId={libraryId}
-        />
+        <LibraryItemMetadata dialogName={LIBRARY_ITEM_METADATA_DIALOG} libraryId={libraryId} />
         <AccessControlDialog
           dialogName={LIBRARY_ACCESSCONTROL_ADD_DIALOG}
           entityType="library"

@@ -1,13 +1,10 @@
-import React from 'react';
-import moment from 'moment';
 import Check from '@material-ui/icons/Check';
+import moment from 'moment';
 
-import TableRow from '../ui/TableRow';
 import TableCell from '../ui/TableCell';
+import TableRow from '../ui/TableRow';
 
-export default function DeletionLockRow({
-  deletionLockType = {},
-}) {
+export default function DeletionLockRow({ deletionLockType = {} }) {
   const {
     id: lockId,
     user,

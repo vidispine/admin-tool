@@ -1,4 +1,5 @@
 import { access as AccessApi } from '@vidispine/vdt-api';
+
 import withSubmissionError from './withSubmissionError';
 
 export const onUpdateImportAccessGroup = withSubmissionError((form, dispatch, props) => {

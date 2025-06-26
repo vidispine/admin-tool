@@ -1,16 +1,16 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { collection as CollectionApi } from '@vidispine/vdt-api';
-import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
-import CollectionMetadataDisplayParams from '../../components/collection/CollectionMetadataDisplayParams';
-import TimeRepresentation from '../../components/ui/TimeRepresentation';
 
-import withSnackbar from '../../hoc/withSnackbar';
+import CollectionMetadataDisplayParams from '../../components/collection/CollectionMetadataDisplayParams';
+import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
+import TimeRepresentation from '../../components/ui/TimeRepresentation';
 import withCard from '../../hoc/withCard';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const CollectionMetadataCard = withCard(CollectionMetadataEditor);
 
-class CollectionMetadata extends React.PureComponent {
+class CollectionMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

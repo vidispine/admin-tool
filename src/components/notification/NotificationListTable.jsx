@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,10 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import NotificationListRow from './NotificationListRow';
 
-export default function NotificationListTable({
-  notificationList = [],
-  entityType,
-}) {
+export default function NotificationListTable({ notificationList = [], entityType }) {
   return (
     <Table>
       <TableHead>

@@ -1,20 +1,20 @@
-import React from 'react';
-import { compose } from 'redux';
-import Grid from '@material-ui/core/Grid';
+import { PureComponent } from 'react';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import MetadataGroupSearchDocument from '../components/item/ItemMetadataGroupSearch';
-import ItemMetadataGroupSearchParams from '../components/item/ItemMetadataGroupSearchParams';
+import Grid from '@material-ui/core/Grid';
+import { compose } from 'redux';
+
 import ItemListCard from '../components/item/ItemListCard';
 import ItemListGrid from '../components/item/ItemListGrid';
 import ItemListTableCard from '../components/item/ItemListTableCard';
+import MetadataGroupSearchDocument from '../components/item/ItemMetadataGroupSearch';
+import ItemMetadataGroupSearchParams from '../components/item/ItemMetadataGroupSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import ViewSelect, { CARD_VIEW, GRID_VIEW, ROW_VIEW } from '../components/ui/ViewSelect';
-
 import withFormActions from '../hoc/withFormActions';
 
 const ITEM_METADATAGROUPSEARCH_FORM = 'ITEM_METADATAGROUPSEARCH_FORM';
 
-class ItemMetadataGroupSearch extends React.PureComponent {
+class ItemMetadataGroupSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,16 +23,8 @@ class ItemMetadataGroupSearch extends React.PureComponent {
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     this.onChangeView = this.onChangeView.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
-    const sort = orderBy
-      ? [{ field: orderBy, order: `${orderDirection}ending` }]
-      : [];
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
+    const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
         first,

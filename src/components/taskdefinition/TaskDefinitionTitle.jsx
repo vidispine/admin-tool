@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 
 export default function TaskDefinitionTitle(props) {
@@ -7,7 +5,7 @@ export default function TaskDefinitionTitle(props) {
     <TitleHeader
       parentTitle="Job Type"
       parentTo="/jobtype/"
-      title={props.taskDefinitionType}
+      title={props?.taskDefinitionType}
       helpTo="/ref/task-definition.html"
       {...props}
     />

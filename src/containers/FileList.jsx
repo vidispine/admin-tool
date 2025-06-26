@@ -1,22 +1,24 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import FileListTitle from '../components/file/FileListTitle';
-import FileListFilter from '../components/file/FileListFilter';
-import FilePrefixCard from '../components/file/FilePrefixCard';
-import FileListTable from '../components/file/FileListTable';
 import FileEntity from '../components/file/FileEntity';
+import FileListFilter from '../components/file/FileListFilter';
+import FileListTable from '../components/file/FileListTable';
+import FileListTitle from '../components/file/FileListTitle';
+import FilePrefixCard from '../components/file/FilePrefixCard';
+import withCard from '../hoc/withCard';
 import withFormActions from '../hoc/withFormActions';
 import withFormSelectors from '../hoc/withFormSelectors';
-import withCard from '../hoc/withCard';
 import withPaginationForm from '../hoc/withPaginationForm';
+import withUI from '../hoc/withUI';
 
 const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
 
 const FILE_FILTER_FORM = 'FILE_FILTER_FORM';
 const FILE_ENTITY_DIALOG = 'FILE_ENTITY_DIALOG';
 
-class FileList extends React.PureComponent {
+class FileList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -25,16 +27,8 @@ class FileList extends React.PureComponent {
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     this.onChangePrefix = this.onChangePrefix.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
-    const sort = orderBy
-      ? [{ field: orderBy, order: `${orderDirection}ending` }]
-      : [];
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
+    const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
         first,
@@ -51,8 +45,21 @@ class FileList extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'VidiCore Admin | File';
+    const { storageId } = this.props;
+    document.title = storageId
+      ? `VidiCore Admin | Storage | ${storageId} | File`
+      : 'VidiCore Admin | File';
     this.onRefresh();
+  }
+
+  async UNSAFE_componentWillReceiveProps({ storageId }) {
+    if (!storageId) return;
+    const { storageId: prevStorageId, changeForm } = this.props;
+    if (prevStorageId !== storageId) {
+      await changeForm(FILE_FILTER_FORM, 'storageId', storageId);
+      this.onRefresh();
+      document.title = `VidiCore Admin | Storage | ${storageId} | File`;
+    }
   }
 
   onRefresh() {
@@ -95,22 +102,47 @@ class FileList extends React.PureComponent {
 
   render() {
     const { fileListDocument, queryParams } = this.state;
-    const { history } = this.props;
+    const {
+      storageId,
+      history,
+      titleComponent: TitleComponent,
+      tabComponent: TabComponent,
+    } = this.props;
     return (
       <>
-        <FileListTitle
-          code={fileListDocument}
-          codeModal="FileListDocument"
-          createModal={FILE_ENTITY_DIALOG}
-          onRefresh={this.onRefresh}
+        {TitleComponent ? (
+          <TitleComponent
+            code={fileListDocument}
+            codeModal="FileListDocument"
+            onRefresh={this.onRefresh}
+            createModal={FILE_ENTITY_DIALOG}
+            iconList={null}
+            removeModal={null}
+            title="File"
+          />
+        ) : (
+          <FileListTitle
+            code={fileListDocument}
+            codeModal="FileListDocument"
+            createModal={FILE_ENTITY_DIALOG}
+            onRefresh={this.onRefresh}
+          />
+        )}
+        {TabComponent && <TabComponent />}
+
+        <FileListFilter
+          form={FILE_FILTER_FORM}
+          onSuccess={this.onSuccess}
+          initialValues={this.initialValues}
+          storageId={storageId}
         />
-        <FileListFilter form={FILE_FILTER_FORM} onSuccess={this.onSuccess} />
         {fileListDocument && (
           <>
             {fileListDocument.prefixes && (
               <FilePrefixCard
                 filePrefixType={fileListDocument.prefixes}
                 onChangePrefix={this.onChangePrefix}
+                storageId={storageId}
               />
             )}
             <FileListTableCard
@@ -118,16 +150,18 @@ class FileList extends React.PureComponent {
               queryParams={queryParams}
               form={FILE_FILTER_FORM}
               sortField="queryParams.sort"
+              storageId={storageId}
             />
           </>
         )}
         <FileEntity
           dialogName={FILE_ENTITY_DIALOG}
           onSuccess={(response) => history.push(`/file/${response.data.id}`)}
+          storageId={storageId}
         />
       </>
     );
   }
 }
 
-export default compose(withFormActions, withFormSelectors)(FileList, FILE_FILTER_FORM);
+export default compose(withUI, withFormActions, withFormSelectors)(FileList, FILE_FILTER_FORM);

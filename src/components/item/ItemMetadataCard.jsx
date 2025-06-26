@@ -1,16 +1,13 @@
-import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
 
-import SquareCard from '../ui/SquareCard';
 import MetadataDisplay from '../metadata/MetadataDisplay';
+import SquareCard from '../ui/SquareCard';
 
 export default function ItemMetadataCard({ ...props }) {
   return (
     <SquareCard>
       <CardContent>
-        <MetadataDisplay
-          {...props}
-        />
+        <MetadataDisplay {...props} />
       </CardContent>
     </SquareCard>
   );

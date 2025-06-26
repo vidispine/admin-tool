@@ -1,8 +1,8 @@
-import React from 'react';
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { projection as ProjectionApi } from '@vidispine/vdt-api';
+
 import { StatefulAsyncSelect } from '../ui/Select';
 
 const debouncedListProjection = debounce(ProjectionApi.listProjection, 500, {

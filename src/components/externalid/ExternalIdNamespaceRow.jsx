@@ -1,7 +1,6 @@
-import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Edit from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
 
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRow';

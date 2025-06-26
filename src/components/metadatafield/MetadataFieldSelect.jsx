@@ -1,7 +1,7 @@
-import React from 'react';
-import { Field } from 'redux-form';
-import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
+
+import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 
 import Select from '../ui/Select';
 
@@ -38,11 +38,10 @@ const TRANSIENT_FIELDS = [
   { name: '__deletion_lock_expiry' },
 ];
 
-const debouncedListMetadataField = debounce(
-  MetadataFieldApi.listMetadataField,
-  500,
-  { leading: true, trailing: false },
-);
+const debouncedListMetadataField = debounce(MetadataFieldApi.listMetadataField, 500, {
+  leading: true,
+  trailing: false,
+});
 
 export const loadMetadataFieldOptions = async (inputValue) => {
   const { data: fieldListType } = await debouncedListMetadataField();

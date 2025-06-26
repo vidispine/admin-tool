@@ -1,14 +1,14 @@
-import React from 'react';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import Table from '../ui/Table';
-import TableBody from '../ui/TableBody';
-import TableFooter from '../ui/TableFooter';
-import TableCell from '../ui/TableCell';
-import TableHead from '../ui/TableHead';
-import TableRow from '../ui/TableRow';
 import TableActions from '../ui/TableActions';
+import TableBody from '../ui/TableBody';
+import TableCell from '../ui/TableCell';
+import TableFooter from '../ui/TableFooter';
+import TableHead from '../ui/TableHead';
 import TablePagination from '../ui/TablePagination';
+import TableRow from '../ui/TableRow';
+
 import JobRow from './JobRow';
 
 export default function JobListTable({
@@ -24,7 +24,9 @@ export default function JobListTable({
 }) {
   const { job: jobList = [] } = jobListDocument;
   const rowsPerPageOptions = [10, 100, 250];
-  if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
+  if (!rowsPerPageOptions.includes(rowsPerPage)) {
+    rowsPerPageOptions.push(rowsPerPage);
+  }
   return (
     <Table>
       <TableHead>
@@ -89,10 +91,7 @@ export default function JobListTable({
       </TableHead>
       <TableBody>
         {jobList.map((jobDocument) => (
-          <JobRow
-            key={jobDocument.jobId}
-            jobDocument={jobDocument}
-          />
+          <JobRow key={jobDocument.jobId} jobDocument={jobDocument} />
         ))}
       </TableBody>
       <TableFooter>

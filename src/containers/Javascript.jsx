@@ -1,17 +1,19 @@
-import React from 'react';
-import { compose } from 'redux';
-import Button from '@material-ui/core/Button';
+import { PureComponent } from 'react';
 
+import Button from '@material-ui/core/Button';
 import PlayIcon from '@material-ui/icons/PlayArrow';
+import { compose } from 'redux';
+
 import TestCard from '../components/javascript/TestCard';
 import TitleHeader from '../components/ui/TitleHeader';
 import withFormActions from '../hoc/withFormActions';
 
 const TEST_FORM = 'TEST_FORM';
 
-class Javascript extends React.PureComponent {
+class Javascript extends PureComponent {
   constructor(props) {
     super(props);
+    document.title = 'VidiCore Admin | Javascript Test';
     this.onSuccess = this.onSuccess.bind(this);
     this.onFail = this.onFail.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
@@ -19,10 +21,6 @@ class Javascript extends React.PureComponent {
       result: undefined,
       error: undefined,
     };
-  }
-
-  componentDidMount() {
-    document.title = 'VidiCore Admin | Javascript Test';
   }
 
   onSuccess(response) {
@@ -33,7 +31,7 @@ class Javascript extends React.PureComponent {
   }
 
   onFail(errors) {
-    const error = errors?.['_error'];
+    const error = errors?._error;
     this.setState({ result: undefined, error });
   }
 
@@ -51,7 +49,7 @@ class Javascript extends React.PureComponent {
         <TitleHeader
           title="Javascript Test"
           helpTo="/system/integration/javascript.html"
-          actionComponent={(
+          actionComponent={
             <Button
               variant="outlined"
               color="primary"
@@ -60,7 +58,7 @@ class Javascript extends React.PureComponent {
             >
               RUN (ctrl-enter)
             </Button>
-          )}
+          }
         />
 
         <TestCard

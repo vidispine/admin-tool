@@ -1,26 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
+
+import * as actions from '../../actions';
+import * as formActions from '../../formactions/importsettings';
 
 import ImportSettingsForm from './ImportSettingsForm';
-import * as formActions from '../../formactions/importsettings';
-import * as actions from '../../actions';
 
 const EDIT_IMPORTSETTINGS_FORM = 'EDIT_IMPORTSETTINGS_FORM';
 
-function ImportSettingsDialog({
-  submitForm,
-  closeModal,
-  isOpen,
-  history,
-  openSnackBar,
-}) {
+function ImportSettingsDialog({ submitForm, closeModal, isOpen, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { importSettingsDocument } = response;
     const { id: settingsId } = importSettingsDocument;
@@ -46,18 +40,10 @@ function ImportSettingsDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={closeModal}
-        >
+        <Button size="small" color="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_IMPORTSETTINGS_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_IMPORTSETTINGS_FORM)}>
           Save
         </Button>
       </DialogActions>

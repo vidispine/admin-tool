@@ -19,11 +19,12 @@ const setWelcomeConsoleMessage = () => {
   window.VidiCore = Object.keys(VidiCoreApi).reduce((acc, cur) => {
     const val = Object.keys(VidiCoreApi[cur]).reduce((thisAcc, thisCur) => {
       const thisVal = VidiCoreApi[cur][thisCur];
-      const thisFunc = (args) => thisVal(args).then((resp) => {
-        // eslint-disable-next-line no-console
-        console.log(resp.data);
-        return resp;
-      });
+      const thisFunc = (args) =>
+        thisVal(args).then((resp) => {
+          // eslint-disable-next-line no-console
+          console.log(resp.data);
+          return resp;
+        });
       return { ...thisAcc, [thisCur]: thisFunc };
     }, {});
     return { ...acc, [cur]: val };

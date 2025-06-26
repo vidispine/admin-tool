@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "label": "prettier:check",
+      "script": "prettier:check"
+    },
+    {
+      "type": "npm",
+      "label": "prettier:write",
+      "script": "prettier:write"
+    },
+    {
+      "type": "npm",
+      "label": "lint:check",
+      "script": "lint:check",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "label": "lint:fix",
+      "script": "lint:fix",
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { file as api } from '@vidispine/vdt-api';
 
-import withUI from '../../hoc/withUI';
 import FileShapeOverview from '../../components/file/FileShapeOverview';
+import withUI from '../../hoc/withUI';
 
-class FileOverview extends React.PureComponent {
+class FileOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -36,7 +37,8 @@ class FileOverview extends React.PureComponent {
 
   onFetch(fileId) {
     try {
-      api.listFileShapes({ fileId })
+      api
+        .listFileShapes({ fileId })
         .then((response) => this.setState({ shapeListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -52,10 +54,7 @@ class FileOverview extends React.PureComponent {
 
   render() {
     const { shapeListDocument } = this.state;
-    const {
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     return (
       <>
         {TitleComponent && (
@@ -64,19 +63,14 @@ class FileOverview extends React.PureComponent {
             codeModal="ShapeListDocument"
             onRefresh={this.onRefresh}
             breadcrumbList={['Shape']}
-
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
-        {shapeListDocument && shapeListDocument.shape && (
+        {TabComponent && <TabComponent />}
+        {shapeListDocument &&
+          shapeListDocument.shape &&
           shapeListDocument.shape.map((shapeDocument) => (
-            <FileShapeOverview
-              shapeDocument={shapeDocument}
-            />
-          ))
-        )}
+            <FileShapeOverview shapeDocument={shapeDocument} />
+          ))}
       </>
     );
   }

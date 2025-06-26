@@ -23,9 +23,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build site
-        run: PUBLIC_URL=${PUBLIC_URL} GENERATE_SOURCEMAP=false npm run build
+        run: VITE_GIT_COMMIT=${VITE_GIT_COMMIT} BASE_URL=${BASE_URL} npm run build
         env:
-          PUBLIC_URL: ${{ github.event.inputs.public_url }}
+          BASE_URL: ${{ github.event.inputs.public_url }}
+          VITE_GIT_COMMIT: ${{ steps.artifact-vars.outputs.sha_short }}
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

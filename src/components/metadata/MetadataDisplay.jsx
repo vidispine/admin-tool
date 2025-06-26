@@ -1,32 +1,30 @@
-import React from 'react';
-
+import { TEXT_TIME } from '../../const/Time';
+import formatTimeRepresentation from '../../utils/formatTimeRepresentation';
 import TextGrid from '../ui/TextGrid';
 import TextGridArray from '../ui/TextGridArray';
-import TypeSection from '../ui/TypeSection';
 import TypeArray from '../ui/TypeArray';
-import formatTimeRepresentation from '../../utils/formatTimeRepresentation';
-import { TEXT_TIME } from '../../const/Time';
+import TypeSection from '../ui/TypeSection';
 
-export const MetadataFieldValueType = ({ value: metadataField = {}, onEdit }) => {
+export function MetadataFieldValueType({ value: metadataField = {}, onEdit }) {
   const { value: metadataFieldValueList = [] } = metadataField;
-  const canEdit = onEdit
-    && !metadataField.name.startsWith('__')
-    && metadataField.inheritance === undefined;
+  const canEdit =
+    onEdit && !metadataField.name.startsWith('__') && metadataField.inheritance === undefined;
   const handleOnEdit = canEdit
-    ? (newValue, metadataFieldValue) => onEdit({
-      field: [
-        {
-          name: metadataField.name,
-          uuid: metadataField.uuid,
-          value: [
+    ? (newValue, metadataFieldValue) =>
+        onEdit({
+          field: [
             {
-              uuid: metadataFieldValue.uuid,
-              value: newValue,
+              name: metadataField.name,
+              uuid: metadataField.uuid,
+              value: [
+                {
+                  uuid: metadataFieldValue.uuid,
+                  value: newValue,
+                },
+              ],
             },
           ],
-        },
-      ],
-    })
+        })
     : undefined;
   return (
     <TextGridArray
@@ -51,20 +49,21 @@ export const MetadataFieldValueType = ({ value: metadataField = {}, onEdit }) =>
       onEdit={handleOnEdit}
     />
   );
-};
+}
 
-export const MetadataGroupValueType = ({ value = {}, onEdit }) => {
+export function MetadataGroupValueType({ value = {}, onEdit }) {
   const canEdit = onEdit && value.inheritance === undefined;
   const handleOnEdit = canEdit
-    ? (newValue) => onEdit({
-      group: [
-        {
-          name: value.name,
-          uuid: value.uuid,
-          ...newValue,
-        },
-      ],
-    })
+    ? (newValue) =>
+        onEdit({
+          group: [
+            {
+              name: value.name,
+              uuid: value.uuid,
+              ...newValue,
+            },
+          ],
+        })
     : undefined;
   return (
     <div style={{ marginLeft: 10 }}>
@@ -88,12 +87,10 @@ export const MetadataGroupValueType = ({ value = {}, onEdit }) => {
       />
     </div>
   );
-};
+}
 
-export const MetadataTimespanType = ({ value = {}, timeRepresentation, onEdit }) => {
-  const {
-    start, end, field, group,
-  } = value;
+export function MetadataTimespanType({ value = {}, timeRepresentation, onEdit }) {
+  const { start, end, field, group } = value;
   const startTime = formatTimeRepresentation({
     from: TEXT_TIME,
     to: timeRepresentation?.to,
@@ -107,15 +104,16 @@ export const MetadataTimespanType = ({ value = {}, timeRepresentation, onEdit })
     value: end,
   });
   const handleOnEdit = onEdit
-    ? (newValue) => onEdit({
-      timespan: [
-        {
-          start,
-          end,
-          ...newValue,
-        },
-      ],
-    })
+    ? (newValue) =>
+        onEdit({
+          timespan: [
+            {
+              start,
+              end,
+              ...newValue,
+            },
+          ],
+        })
     : undefined;
 
   return (
@@ -146,10 +144,10 @@ export const MetadataTimespanType = ({ value = {}, timeRepresentation, onEdit })
       />
     </>
   );
-};
+}
 
-export const MetadataType = ({ value = {}, timeRepresentation, onEdit }) => (
-  <>
+export function MetadataType({ value = {}, timeRepresentation, onEdit }) {
+  return (
     <TypeArray
       arrayTitle="Timespans"
       value={value.timespan}
@@ -158,18 +156,16 @@ export const MetadataType = ({ value = {}, timeRepresentation, onEdit }) => (
       timeRepresentation={timeRepresentation}
       onEdit={onEdit}
     />
-  </>
-);
+  );
+}
 
 export default function MetadataDisplay({ metadataDocument, timeRepresentation, onEdit }) {
   return (
-    <>
-      <TypeSection
-        value={metadataDocument}
-        component={MetadataType}
-        timeRepresentation={timeRepresentation}
-        onEdit={onEdit}
-      />
-    </>
+    <TypeSection
+      value={metadataDocument}
+      component={MetadataType}
+      timeRepresentation={timeRepresentation}
+      onEdit={onEdit}
+    />
   );
 }

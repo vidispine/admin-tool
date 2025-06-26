@@ -1,31 +1,29 @@
-import React from 'react';
-import startCase from 'lodash.startcase';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import startCase from 'lodash.startcase';
 
 import { reindex as api } from '@vidispine/vdt-api';
+
+import withSnackbar from '../../hoc/withUI';
 import SquareCard from '../ui/SquareCard';
+
 import ReindexDisplay from './ReindexDisplay';
 import ReindexStatus from './ReindexStatus';
 
-import withSnackbar from '../../hoc/withUI';
-
-function ReindexCard({
-  indexName,
-  reindexRequestDocument,
-  onSuccess,
-  openSnackBar,
-}) {
+function ReindexCard({ indexName, reindexRequestDocument, onSuccess, openSnackBar }) {
   const onUpdateReindex = (queryParams) => {
-    api.updateReindex({ indexName, queryParams })
+    api
+      .updateReindex({ indexName, queryParams })
       .then(() => {
         const messageContent = `Reindex Request ${indexName} Updated`;
         openSnackBar({ messageContent });
-        if (onSuccess) { onSuccess(indexName); }
+        if (onSuccess) {
+          onSuccess(indexName);
+        }
       })
       .catch(() => {
         const messageContent = `Error Updating Reindex ${indexName} Request`;
@@ -41,9 +39,7 @@ function ReindexCard({
           action={<ReindexStatus reindexRequestDocument={reindexRequestDocument} />}
         />
         <CardContent>
-          <ReindexDisplay
-            reindexRequestDocument={reindexRequestDocument}
-          />
+          <ReindexDisplay reindexRequestDocument={reindexRequestDocument} />
         </CardContent>
         <Divider />
         <DialogActions>

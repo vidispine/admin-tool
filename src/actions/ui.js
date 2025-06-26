@@ -6,9 +6,9 @@ export const SNACKBAR_RECEIVE = 'SNACKBAR_RECEIVE';
 export const LOADING_RECEIVE = 'LOADING_RECEIVE';
 
 export function closeModal() {
-  return ({
+  return {
     type: MODAL_RESET,
-  });
+  };
 }
 
 export function openModal({ modalName, ...props }) {
@@ -40,14 +40,14 @@ export function toggleMainMenu() {
 }
 
 export function closeSnackBar() {
-  return ({
+  return {
     type: SNACKBAR_RESET,
-  });
+  };
 }
 
 export function openSnackBar({ ...props }) {
-  return ({
+  return {
     type: SNACKBAR_RECEIVE,
     ...props,
-  });
+  };
 }

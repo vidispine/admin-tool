@@ -1,26 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
+
+import * as actions from '../../actions';
+import * as formActions from '../../formactions/quota';
 
 import QuotaForm from './QuotaForm';
-import * as formActions from '../../formactions/quota';
-import * as actions from '../../actions';
 
 const EDIT_QUOTA_FORM = 'EDIT_QUOTA_FORM';
 
-function QuotaDialog({
-  submitForm,
-  closeModal,
-  isOpen,
-  onRefresh,
-  openSnackBar,
-}) {
+function QuotaDialog({ submitForm, closeModal, isOpen, onRefresh, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { quotaRuleDocument } = response;
     const { id: ruleId } = quotaRuleDocument;
@@ -52,18 +46,10 @@ function QuotaDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={closeModal}
-        >
+        <Button size="small" color="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_QUOTA_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_QUOTA_FORM)}>
           Save
         </Button>
       </DialogActions>

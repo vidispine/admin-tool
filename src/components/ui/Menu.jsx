@@ -1,11 +1,12 @@
-import React from 'react';
+import { Children, isValidElement, cloneElement, PureComponent } from 'react';
+
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MUIMenu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export { MenuItem };
-export default class Menu extends React.PureComponent {
+export default class Menu extends PureComponent {
   constructor(props) {
     super(props);
     this.openMenu = this.openMenu.bind(this);
@@ -25,15 +26,19 @@ export default class Menu extends React.PureComponent {
   }
 
   renderChildren() {
-    return React.Children.map(this.props.children, (child) => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(child, {
+    const { children } = this.props;
+    return Children.map(children, (child) => {
+      if (isValidElement(child)) {
+        return cloneElement(child, {
           onClick: (...args) => {
-            if (child.props.onClick) { child.props.onClick(...args); }
+            if (child.props.onClick) {
+              child.props.onClick(...args);
+            }
             this.closeMenu();
           },
         });
-      } return child;
+      }
+      return child;
     });
   }
 
@@ -41,25 +46,21 @@ export default class Menu extends React.PureComponent {
     const { menuAnchor } = this.state;
     const { icon, children = [], iconProps = {} } = this.props;
     const wrappedChildren = this.renderChildren(children);
-    return (
+    return wrappedChildren.length === 0 ? (
+      <div />
+    ) : (
       <>
-        { wrappedChildren.length === 0
-          ? <div />
-          : (
-            <>
-              <IconButton onClick={this.openMenu} {...iconProps}>
-                {icon || <MoreVertIcon />}
-              </IconButton>
-              <MUIMenu
-                id="simple-menu"
-                anchorEl={menuAnchor}
-                open={Boolean(menuAnchor)}
-                onClose={this.closeMenu}
-              >
-                { wrappedChildren }
-              </MUIMenu>
-            </>
-          )}
+        <IconButton onClick={this.openMenu} {...iconProps}>
+          {icon || <MoreVertIcon />}
+        </IconButton>
+        <MUIMenu
+          id="simple-menu"
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={this.closeMenu}
+        >
+          {wrappedChildren}
+        </MUIMenu>
       </>
     );
   }

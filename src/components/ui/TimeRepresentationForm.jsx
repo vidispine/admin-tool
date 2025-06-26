@@ -1,14 +1,10 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import { RadioGroup, TextField } from '../form';
-import { formatNumber } from '../form/utils';
-import Field from './Field';
 import {
   TEXT_TIME,
   SMPTE_TIME,
@@ -19,67 +15,32 @@ import {
   F2398_TIMEBASE,
   F24_TIMEBASE,
 } from '../../const/Time';
+import { RadioGroup, TextField } from '../form';
+import { formatNumber } from '../form/utils';
 
-function TimeRepresentationForm({
-  error,
-  handleSubmit,
-}) {
+import Field from './Field';
+
+function TimeRepresentationForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <FormControl component="fieldset">
         <FormLabel component="legend">Display</FormLabel>
         <Field name="to" component={RadioGroup}>
-          <FormControlLabel
-            value={TEXT_TIME}
-            control={<Radio />}
-            label="Text"
-          />
-          <FormControlLabel
-            value={SMPTE_TIME}
-            control={<Radio />}
-            label="SMPTE"
-          />
-          <FormControlLabel
-            value={SECONDS_TIME}
-            control={<Radio />}
-            label="Seconds"
-          />
+          <FormControlLabel value={TEXT_TIME} control={<Radio />} label="Text" />
+          <FormControlLabel value={SMPTE_TIME} control={<Radio />} label="SMPTE" />
+          <FormControlLabel value={SECONDS_TIME} control={<Radio />} label="Seconds" />
         </Field>
       </FormControl>
       <FormControl component="fieldset">
         <FormLabel component="legend">Conform</FormLabel>
         <Field name="conform" component={RadioGroup}>
-          <FormControlLabel
-            value=""
-            control={<Radio />}
-            label="As Original"
-          />
-          <FormControlLabel
-            value={PAL_TIMEBASE}
-            control={<Radio />}
-            label="PAL"
-          />
-          <FormControlLabel
-            value={NTSC_TIMEBASE}
-            control={<Radio />}
-            label="NTSC"
-          />
-          <FormControlLabel
-            value={NTSC30_TIMEBASE}
-            control={<Radio />}
-            label="NTSC30"
-          />
-          <FormControlLabel
-            value={F2398_TIMEBASE}
-            control={<Radio />}
-            label="23.98"
-          />
-          <FormControlLabel
-            value={F24_TIMEBASE}
-            control={<Radio />}
-            label="24"
-          />
+          <FormControlLabel value="" control={<Radio />} label="As Original" />
+          <FormControlLabel value={PAL_TIMEBASE} control={<Radio />} label="PAL" />
+          <FormControlLabel value={NTSC_TIMEBASE} control={<Radio />} label="NTSC" />
+          <FormControlLabel value={NTSC30_TIMEBASE} control={<Radio />} label="NTSC30" />
+          <FormControlLabel value={F2398_TIMEBASE} control={<Radio />} label="23.98" />
+          <FormControlLabel value={F24_TIMEBASE} control={<Radio />} label="24" />
         </Field>
       </FormControl>
       <FormControl component="fieldset">

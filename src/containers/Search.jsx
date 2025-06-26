@@ -1,23 +1,20 @@
-import React from 'react';
-import { compose } from 'redux';
-import Grid from '@material-ui/core/Grid';
+import { PureComponent } from 'react';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import SearchParams from '../components/search/SearchParams';
+import Grid from '@material-ui/core/Grid';
+import { compose } from 'redux';
+
 import SearchDocument from '../components/search/SearchDocument';
 import SearchListTable from '../components/search/SearchListTable';
-
-import withFormActions from '../hoc/withFormActions';
+import SearchParams from '../components/search/SearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withCard from '../hoc/withCard';
+import withFormActions from '../hoc/withFormActions';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const SEARCH_FORM = 'SEARCH_FORM';
-const SearchListTableCard = compose(
-  withCard,
-  withPaginationForm,
-)(SearchListTable);
+const SearchListTableCard = compose(withCard, withPaginationForm)(SearchListTable);
 
-class Search extends React.PureComponent {
+class Search extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -25,13 +22,7 @@ class Search extends React.PureComponent {
     this.onSetUrlParams = this.onSetUrlParams.bind(this);
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
@@ -68,10 +59,7 @@ class Search extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -81,15 +69,14 @@ class Search extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      searchResultDocument,
-      queryParams,
-    } = this.state;
+    const { searchResultDocument, queryParams } = this.state;
     return (
       <>
         <TitleHeader

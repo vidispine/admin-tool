@@ -1,21 +1,20 @@
-import React from 'react';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
+import Step from '@material-ui/core/Step';
+import StepContent from '@material-ui/core/StepContent';
+import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from '@material-ui/core/Stepper';
 import { compose } from 'redux';
 
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import AccordionActions from '@material-ui/core/AccordionActions';
-
-import SquareCard from '../ui/SquareCard';
-import ImportSidecarForm from './ImportSidecarForm';
 import * as formActions from '../../formactions/import';
 import withFormActions from '../../hoc/withFormActions';
-import withUI from '../../hoc/withUI';
 import withStepper from '../../hoc/withStepper';
+import withUI from '../../hoc/withUI';
+import SquareCard from '../ui/SquareCard';
 import TitleHeader from '../ui/TitleHeader';
+
+import ImportSidecarForm from './ImportSidecarForm';
 
 export const EDIT_IMPORTSIDECAR_FORM = 'EDIT_IMPORTSIDECAR_FORM';
 
@@ -31,12 +30,16 @@ function ImportSidecarWizard({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Job Started';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Starting Job';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <>

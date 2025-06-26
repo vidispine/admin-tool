@@ -1,6 +1,7 @@
 import { SubmissionError } from 'redux-form';
 
 import { item as ItemApi, metadata as MetadataApi, debug as DebugApi } from '@vidispine/vdt-api';
+
 import withSubmissionError from './withSubmissionError';
 
 export function onCreateExport(form, dispatch, props) {
@@ -9,14 +10,13 @@ export function onCreateExport(form, dispatch, props) {
   return ItemApi.createExport({
     itemId,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
+  }).catch((error) => {
+    let errorMessage = error.message;
+    if (error.response) {
+      errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+    }
+    throw new SubmissionError({ _error: errorMessage });
+  });
 }
 
 export function onCreateExportImp(form, dispatch, props) {
@@ -25,14 +25,13 @@ export function onCreateExportImp(form, dispatch, props) {
   return ItemApi.createExportImp({
     itemId,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
+  }).catch((error) => {
+    let errorMessage = error.message;
+    if (error.response) {
+      errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+    }
+    throw new SubmissionError({ _error: errorMessage });
+  });
 }
 
 export function onRemoveItem(form, dispatch, props) {
@@ -41,14 +40,13 @@ export function onRemoveItem(form, dispatch, props) {
   return ItemApi.removeItem({
     itemId,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
+  }).catch((error) => {
+    let errorMessage = error.message;
+    if (error.response) {
+      errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+    }
+    throw new SubmissionError({ _error: errorMessage });
+  });
 }
 
 export function onUpdateMetadata(form, dispatch, props) {
@@ -124,10 +122,7 @@ export function onGet(form, dispatch, props) {
 }
 
 export function onSearch(form) {
-  const {
-    queryParams = {},
-    itemSearchDocument = {},
-  } = form;
+  const { queryParams = {}, itemSearchDocument = {} } = form;
   return ItemApi.searchItem({
     itemSearchDocument,
     queryParams,
@@ -229,7 +224,9 @@ export function onListItemRelation(form, dispatch, props) {
   const itemId = props.itemId || form.itemId;
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
-  relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
+  relationMetadata.forEach((metadata) => {
+    queryParams[metadata.key] = metadata.value;
+  });
   return ItemApi.listItemRelation({
     itemId,
     queryParams,
@@ -249,7 +246,9 @@ export function onCreateItemRelation(form, dispatch, props) {
   const relationItemId = props.relationItemId || form.relationItemId;
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
-  relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
+  relationMetadata.forEach((metadata) => {
+    queryParams[metadata.key] = metadata.value;
+  });
   return ItemApi.createItemRelation({
     itemId,
     relationItemId,
@@ -269,18 +268,19 @@ export function onUpdateItemRelation(form, dispatch, props) {
   const relationId = props.relationId || form.relationId;
   const { queryParams: formQueryParams = {} } = form;
   const { relationMetadata = [], ...queryParams } = formQueryParams;
-  relationMetadata.forEach((metadata) => { queryParams[metadata.key] = metadata.value; });
+  relationMetadata.forEach((metadata) => {
+    queryParams[metadata.key] = metadata.value;
+  });
   return ItemApi.updateRelation({
     relationId,
     queryParams,
-  })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
+  }).catch((error) => {
+    let errorMessage = error.message;
+    if (error.response) {
+      errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
+    }
+    throw new SubmissionError({ _error: errorMessage });
+  });
 }
 
 export function onCreateItemAnalyze(form, dispatch, props) {

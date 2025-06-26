@@ -1,23 +1,22 @@
-import React from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField, Select } from '../form';
 
-import ChipInput from '../ui/ChipInput';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
-import FieldTypeArray from '../ui/FieldTypeArray';
 import JobPriority from '../../const/JobPriority';
-import { KeyValuePairType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
+import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import ChipInput from '../ui/ChipInput';
+import Field from '../ui/Field';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
+import { KeyValuePairType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -45,20 +44,9 @@ const queryParams = () => (
       control={<Field name="createThumbnails" component={BoolCheckbox} />}
       label="Create Thumbnails"
     />
-    <Field
-      name="createPosters"
-      label="Poster Timecodes"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
+    <Field name="createPosters" label="Poster Timecodes" component={ChipInput} simple fullWidth />
     <Field name="destinationItem" component={TextField} fullWidth />
-    <Field
-      name="original"
-      label="Reset Original"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="original" label="Reset Original" component={TextField} fullWidth />
     <FieldTypeArray
       name="jobmetadata"
       component={KeyValuePairType}
@@ -77,18 +65,8 @@ const queryParams = () => (
       dense
     />
     <Field name="thumbnailService" component={TextField} fullWidth />
-    <Field
-      name="resourceId"
-      label="Resource ID"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="resourceTag"
-      label="Resource Tag"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="resourceId" label="Resource ID" component={TextField} fullWidth />
+    <Field name="resourceTag" label="Resource Tag" component={TextField} fullWidth />
     <Field
       name="storageId"
       label="Storage ID"
@@ -115,27 +93,12 @@ const queryParams = () => (
   </>
 );
 
-function ItemTranscodeForm({
-  error,
-  handleSubmit,
-  itemId,
-}) {
+function ItemTranscodeForm({ error, handleSubmit, itemId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      {!itemId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        label="queryParams"
-        component={queryParams}
-      />
+      {!itemId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      <FormSection name="queryParams" label="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

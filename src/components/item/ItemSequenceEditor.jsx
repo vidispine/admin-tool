@@ -1,23 +1,14 @@
-import React from 'react';
-
 import * as formActions from '../../formactions/sequence';
-
-import Editor from '../ui/Editor';
 import withUI from '../../hoc/withUI';
+import formatXML from '../../utils/formatXML';
+import Editor from '../ui/Editor';
+
 import ItemSequenceDisplay from './ItemSequenceDisplay';
 import ItemSequenceForm from './ItemSequenceForm';
-import formatXML from '../../utils/formatXML';
 
 const EDIT_ITEM_SEQUENCE_FORM = 'EDIT_ITEM_SEQUENCE_FORM';
 
-function ItemSequenceEditor({
-  body,
-  openSnackBar,
-  onRefresh,
-  contentType,
-  itemId,
-  format,
-}) {
+function ItemSequenceEditor({ body, openSnackBar, onRefresh, contentType, itemId, format }) {
   const onSubmitSuccess = () => {
     const messageContent = 'Sequence Saved';
     openSnackBar({ messageContent });

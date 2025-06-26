@@ -1,17 +1,16 @@
-import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import { loadGroupOptions } from '../group/GroupSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import { loadGroupOptions } from '../group/GroupSelect';
 import { StatefulAsyncSelect } from '../ui/Select';
 
-const GroupType = () => (
-  <>
+function GroupType() {
+  return (
     <Field
       name="groupName"
       label="Group"
@@ -20,44 +19,26 @@ const GroupType = () => (
       cacheOptions
       isClearable
     />
-  </>
-);
+  );
+}
 
-const GroupListType = () => (
-  <FieldTypeArray
-    name="group"
-    label="Group"
-    component={GroupType}
-  />
-);
+function GroupListType() {
+  return <FieldTypeArray name="group" label="Group" component={GroupType} />;
+}
 
 const queryParams = () => (
   <FormControlLabel
-    control={(
-      <Field
-        name="move"
-        component={BoolCheckbox}
-      />
-    )}
+    control={<Field name="move" component={BoolCheckbox} />}
     label="Move All Groups"
   />
 );
 
-function UserGroupForm({
-  error,
-  handleSubmit,
-}) {
+function UserGroupForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
-      <FormSection
-        name="groupListDocument"
-        component={GroupListType}
-      />
+      <FormSection name="queryParams" component={queryParams} />
+      <FormSection name="groupListDocument" component={GroupListType} />
       <button type="submit" hidden />
     </form>
   );

@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import * as actions from '../../actions';
 
 import StorageGroupStorageDisplay from './StorageGroupStorageDisplay';
 import StorageGroupStorageRemove from './StorageGroupStorageRemove';
-import * as actions from '../../actions';
 
 const STORAGEGROUP_STORAGE_REMOVE_MODAL = 'STORAGEGROUP_STORAGE_REMOVE_MODAL';
 
@@ -27,21 +27,17 @@ function StorageGroupStorageEditor({
     <>
       <CardHeader
         subheader={storageDocument.id}
-        action={(
-          <IconButton
-            onClick={() => openModal({ modalName: STORAGEGROUP_STORAGE_REMOVE_MODAL })}
-          >
+        action={
+          <IconButton onClick={() => openModal({ modalName: STORAGEGROUP_STORAGE_REMOVE_MODAL })}>
             <Delete />
           </IconButton>
-        )}
+        }
       />
       <CardContent onClick={() => history.push(`/storage/${storageId}`)}>
-        <StorageGroupStorageDisplay
-          storageDocument={storageDocument}
-        />
+        <StorageGroupStorageDisplay storageDocument={storageDocument} />
       </CardContent>
       <StorageGroupStorageRemove
-        isOpen={(modalName === STORAGEGROUP_STORAGE_REMOVE_MODAL)}
+        isOpen={modalName === STORAGEGROUP_STORAGE_REMOVE_MODAL}
         groupName={groupName}
         storageId={storageId}
         openSnackBar={openSnackBar}
@@ -53,7 +49,9 @@ function StorageGroupStorageEditor({
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

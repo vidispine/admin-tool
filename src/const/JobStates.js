@@ -10,41 +10,16 @@ const JobStates = [
   'ABORTED',
 ];
 
-export const OK_STATES = [
-  'READY',
-  'STARTED',
-  'VIDINET_JOB',
-  'FINISHED',
-];
+export const OK_STATES = ['READY', 'STARTED', 'VIDINET_JOB', 'FINISHED'];
 
-export const WARNING_STATES = [
-  'WAITING',
-  'FINISHED_WARNING',
-  'ABORT_PENDING',
-];
+export const WARNING_STATES = ['WAITING', 'FINISHED_WARNING', 'ABORT_PENDING'];
 
-export const WAITING_STATES = [
-  'WAITING',
-];
+export const WAITING_STATES = ['WAITING'];
 
-export const ERROR_STATES = [
-  'FAILED_TOTAL',
-  'ABORTED',
-];
+export const ERROR_STATES = ['FAILED_TOTAL', 'ABORTED'];
 
-export const RUNNING_STATES = [
-  'READY',
-  'STARTED',
-  'VIDINET_JOB',
-  'WAITING',
-  'ABORT_PENDING',
-];
+export const RUNNING_STATES = ['READY', 'STARTED', 'VIDINET_JOB', 'WAITING', 'ABORT_PENDING'];
 
-export const INACTIVE_STATES = [
-  'FINISHED',
-  'FINISHED_WARNING',
-  'FAILED_TOTAL',
-  'ABORTED',
-];
+export const INACTIVE_STATES = ['FINISHED', 'FINISHED_WARNING', 'FAILED_TOTAL', 'ABORTED'];
 
 export default JobStates;

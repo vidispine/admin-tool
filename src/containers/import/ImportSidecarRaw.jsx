@@ -1,33 +1,36 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
+
 import ImportSidecarRawWizard, {
   EDIT_IMPORTSIDECARRAW_FORM,
 } from '../../components/import/ImportSidecarRawWizard';
 import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportSidecarRaw extends React.PureComponent {
-  componentDidMount() {
+function ImportSidecarRaw({ destroyForm, history, location, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Sidecar Upload';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTSIDECARRAW_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTSIDECARRAW_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, location, ...props } = this.props;
-    const query = new URLSearchParams(location.search);
-    const itemId = query.get('itemId');
-    return (
-      <ImportSidecarRawWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        initialValues={{ itemId, queryParams: { } }}
-        {...props}
-      />
-    );
-  }
+  const query = new URLSearchParams(location.search);
+  const itemId = query.get('itemId');
+
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return (
+    <ImportSidecarRawWizard
+      onSuccess={onSuccess}
+      initialValues={{ itemId, queryParams: {} }}
+      {...props}
+    />
+  );
 }
 
 export default compose(withRouterProps, withFormActions)(ImportSidecarRaw);

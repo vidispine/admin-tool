@@ -1,16 +1,16 @@
-import React from 'react';
-import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { compose } from 'redux';
 
-import AccessControlForm from './AccessControlForm';
 import * as formActions from '../../formactions/access';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
+
+import AccessControlForm from './AccessControlForm';
 
 const EDIT_ACCESSCONTROL_FORM = 'EDIT_ACCESSCONTROL_FORM';
 
@@ -54,18 +54,10 @@ function AccessControlDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_ACCESSCONTROL_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_ACCESSCONTROL_FORM)}>
           Save
         </Button>
       </DialogActions>
@@ -73,4 +65,9 @@ function AccessControlDialog({
   );
 }
 
-export default compose(withUI, withFormActions)(AccessControlDialog);
+const AccessControlDialogWithUiWithFormActions = compose(
+  withUI,
+  withFormActions,
+)(AccessControlDialog);
+
+export default AccessControlDialogWithUiWithFormActions;

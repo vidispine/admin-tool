@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatadataset as api } from '@vidispine/vdt-api';
-import MetadataDatasetListCard from '../components/metadatadataset/MetadataDatasetListCard';
-import MetadataDatasetDialog from '../components/metadatadataset/MetadataDatasetDialog';
-import MetadataDatasetListTitle from '../components/metadatadataset/MetadataDatasetListTitle';
 
+import MetadataDatasetDialog from '../components/metadatadataset/MetadataDatasetDialog';
+import MetadataDatasetListCard from '../components/metadatadataset/MetadataDatasetListCard';
+import MetadataDatasetListTitle from '../components/metadatadataset/MetadataDatasetListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const METADATADATASETLIST_CREATE_MODAL = 'METADATADATASETLIST_CREATE_MODAL';
 
-class MetadataDatasetList extends React.PureComponent {
+class MetadataDatasetList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,7 +26,8 @@ class MetadataDatasetList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listMetadataDataset()
+      api
+        .listMetadataDataset()
         .then((response) => this.setState({ metadataDatasetListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Metadata Dataset List';
@@ -44,16 +45,13 @@ class MetadataDatasetList extends React.PureComponent {
           code={metadataDatasetListDocument}
           codeModal="MetadataDatasetListDocument"
         />
-        {metadataDatasetListDocument
-        && (
+        {metadataDatasetListDocument && (
           <MetadataDatasetListCard
             metadataDatasetListDocument={metadataDatasetListDocument}
             onRefresh={this.onRefresh}
           />
         )}
-        <MetadataDatasetDialog
-          dialogName={METADATADATASETLIST_CREATE_MODAL}
-        />
+        <MetadataDatasetDialog dialogName={METADATADATASETLIST_CREATE_MODAL} />
       </>
     );
   }

@@ -1,13 +1,13 @@
-import React from 'react';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import startCase from 'lodash.startcase';
 
-import CodeMirror from './CodeMirror';
-import formatXML from '../../utils/formatXML';
-import formatJSON from '../../utils/formatJSON';
 import withErrorBoundary from '../../hoc/withErrorBoundary';
+import formatJSON from '../../utils/formatJSON';
+import formatXML from '../../utils/formatXML';
+
+import CodeMirror from './CodeMirror';
 
 function TextGridCode({
   title,
@@ -60,9 +60,7 @@ function TextGridCode({
           </Grid>
           {hideCode === true && (
             <Button onClick={toggleHideValue} size="small" variant="outlined">
-              {`${isValueHidden ? 'Show' : 'Hide'} ${
-                titleStartCase ? startCase(title) : title
-              }`}
+              {`${isValueHidden ? 'Show' : 'Hide'} ${titleStartCase ? startCase(title) : title}`}
             </Button>
           )}
         </Grid>

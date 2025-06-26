@@ -1,11 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
-import LibraryContentParams, { LIBRARY_CONTENT_PARAMS_FORM } from '../../components/library/LibraryContentParams';
+
 import ItemListContent from '../../components/item/ItemListContent';
+import LibraryContentParams, {
+  LIBRARY_CONTENT_PARAMS_FORM,
+} from '../../components/library/LibraryContentParams';
 import withFormActions from '../../hoc/withFormActions';
 import withFormSelectors from '../../hoc/withFormSelectors';
 
-class LibraryList extends React.PureComponent {
+class LibraryList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -54,11 +58,7 @@ class LibraryList extends React.PureComponent {
   }
 
   render() {
-    const {
-      libraryId,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { libraryId, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { itemListDocument, expanded } = this.state;
     return (
       <>
@@ -69,9 +69,7 @@ class LibraryList extends React.PureComponent {
             onRefresh={this.onRefresh}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <LibraryContentParams
           libraryId={libraryId}
           onSuccess={(response) => this.setState({ itemListDocument: response.data })}
@@ -84,20 +82,13 @@ class LibraryList extends React.PureComponent {
             },
           }}
         />
-        {itemListDocument && (
-          <ItemListContent
-            itemListDocument={itemListDocument}
-          />
-        )}
+        {itemListDocument && <ItemListContent itemListDocument={itemListDocument} />}
       </>
     );
   }
 }
 
-export default compose(
-  withFormActions,
-  withFormSelectors,
-)(
+export default compose(withFormActions, withFormSelectors)(
   LibraryList,
   LIBRARY_CONTENT_PARAMS_FORM,
 );

@@ -1,24 +1,13 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, FieldArray, FormSection } from 'redux-form';
 
 import { SimpleMetadataFieldArray, SimpleMetadataFieldRemove } from './SimpleMetadataField';
 
-export const SimpleMetadataType = (props) => (
-  <FieldArray
-    {...props}
-    name="field"
-    component={SimpleMetadataFieldArray}
-  />
-);
+export function SimpleMetadataType(props) {
+  return <FieldArray {...props} name="field" component={SimpleMetadataFieldArray} />;
+}
 
-function SimpleMetadataForm({
-  error,
-  handleSubmit,
-  onAdd,
-  array,
-  initialValues,
-}) {
+function SimpleMetadataForm({ error, handleSubmit, onAdd, array, initialValues }) {
   const onRemove = (value) => {
     if (value) {
       const { simpleMetadataDocument = {} } = initialValues;
@@ -30,7 +19,9 @@ function SimpleMetadataForm({
     }
   };
   const onRestore = (value) => {
-    if (value) { array.push('simpleMetadataDocument.field', value); }
+    if (value) {
+      array.push('simpleMetadataDocument.field', value);
+    }
   };
   return (
     <form onSubmit={handleSubmit} style={{ padding: '10px' }}>
@@ -41,11 +32,7 @@ function SimpleMetadataForm({
         onAdd={onAdd}
         onRemove={onRemove}
       />
-      <FieldArray
-        name="removedKeys"
-        component={SimpleMetadataFieldRemove}
-        onRestore={onRestore}
-      />
+      <FieldArray name="removedKeys" component={SimpleMetadataFieldRemove} onRestore={onRestore} />
 
       <button type="submit" hidden />
     </form>

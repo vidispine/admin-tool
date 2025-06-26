@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,7 +13,8 @@ export default function StorageGroupRemove({
   openSnackBar,
 }) {
   const onRemove = () => {
-    api.removeStorageGroup({ groupName })
+    api
+      .removeStorageGroup({ groupName })
       .then(() => {
         const messageContent = `Storage Group ${groupName} Removed`;
         openSnackBar({ messageContent });
@@ -28,19 +28,12 @@ export default function StorageGroupRemove({
   };
   return (
     <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Storage Group "${groupName}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Storage Group "${groupName}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

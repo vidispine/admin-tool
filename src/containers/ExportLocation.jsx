@@ -1,17 +1,17 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import update from 'immutability-helper';
 
 import { exportlocation as api } from '@vidispine/vdt-api';
 
-import ExportLocationTitle from '../components/exportlocation/ExportLocationTitle';
 import ExportLocationCard from '../components/exportlocation/ExportLocationCard';
 import ExportLocationRemove from '../components/exportlocation/ExportLocationRemove';
-
+import ExportLocationTitle from '../components/exportlocation/ExportLocationTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const EXPORTLOCATION_REMOVE_MODAL = 'EXPORTLOCATION_REMOVE_MODAL';
 
-class ExportLocation extends React.PureComponent {
+class ExportLocation extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -29,10 +29,11 @@ class ExportLocation extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, locationName } = this.props;
     try {
-      api.getExportLocation({ locationName })
-        .then((response) => this.setState({
+      api.getExportLocation({ locationName }).then((response) =>
+        this.setState({
           exportLocationDocument: update(response.data, { $unset: ['uri'] }),
-        }));
+        }),
+      );
     } catch (error) {
       const messageContent = 'Error Getting Export Location';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -40,9 +41,7 @@ class ExportLocation extends React.PureComponent {
   }
 
   render() {
-    const {
-      locationName,
-    } = this.props;
+    const { locationName } = this.props;
     const { exportLocationDocument } = this.state;
     return (
       <>
@@ -53,12 +52,11 @@ class ExportLocation extends React.PureComponent {
           code={exportLocationDocument}
           codeModal="ExportLocationDocument"
         />
-        {exportLocationDocument
-        && (
-        <ExportLocationCard
-          exportLocationDocument={exportLocationDocument}
-          onRefresh={this.onRefresh}
-        />
+        {exportLocationDocument && (
+          <ExportLocationCard
+            exportLocationDocument={exportLocationDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
         <ExportLocationRemove
           dialogName={EXPORTLOCATION_REMOVE_MODAL}

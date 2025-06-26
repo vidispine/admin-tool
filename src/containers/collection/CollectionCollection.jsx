@@ -1,13 +1,14 @@
-import React from 'react';
-import { collection as api } from '@vidispine/vdt-api';
-import MetadataCollectionTable from '../../components/collection/MetadataCollectionTable';
+import { PureComponent } from 'react';
 
-import withSnackbar from '../../hoc/withSnackbar';
+import { collection as api } from '@vidispine/vdt-api';
+
+import MetadataCollectionTable from '../../components/collection/MetadataCollectionTable';
 import withCard from '../../hoc/withCard';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const MetadataCollectionCard = withCard(MetadataCollectionTable);
 
-class CollectionCollection extends React.PureComponent {
+class CollectionCollection extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -38,10 +39,11 @@ class CollectionCollection extends React.PureComponent {
   onFetch(collectionId) {
     const queryParams = { field: '__collection,__ancestor_collection,__parent_collection' };
     try {
-      api.getCollectionMetadata({
-        collectionId,
-        queryParams: Object.entries(queryParams),
-      })
+      api
+        .getCollectionMetadata({
+          collectionId,
+          queryParams: Object.entries(queryParams),
+        })
         .then((response) => this.setState({ metadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -73,9 +75,7 @@ class CollectionCollection extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {metadataDocument && (
           <MetadataCollectionCard
             metadataDocument={metadataDocument}

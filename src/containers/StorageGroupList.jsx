@@ -1,18 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { storagegroup as api } from '@vidispine/vdt-api';
-import StorageGroupListTitle from '../components/storagegroup/StorageGroupListTitle';
-import StorageGroupListCard from '../components/storagegroup/StorageGroupListCard';
-import StorageGroupDialog from '../components/storagegroup/StorageGroupDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import StorageGroupDialog from '../components/storagegroup/StorageGroupDialog';
+import StorageGroupListCard from '../components/storagegroup/StorageGroupListCard';
+import StorageGroupListTitle from '../components/storagegroup/StorageGroupListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const STORAGEGROUP_LIST_CODE_MODAL = 'STORAGEGROUP_LIST_CODE_MODAL';
 const STORAGEGROUP_CREATE_MODAL = 'STORAGEGROUP_CREATE_MODAL';
 
-class StorageGroupList extends React.PureComponent {
+class StorageGroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -29,7 +30,8 @@ class StorageGroupList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listStorageGroup()
+      api
+        .listStorageGroup()
         .then((response) => this.setState({ storageGroupListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Storage Group List';
@@ -38,15 +40,8 @@ class StorageGroupList extends React.PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      history,
-    } = this.props;
-    const {
-      storageGroupListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, history } = this.props;
+    const { storageGroupListDocument } = this.state;
     return (
       <>
         <StorageGroupListTitle
@@ -54,20 +49,17 @@ class StorageGroupList extends React.PureComponent {
           openCreate={() => openModal({ modalName: STORAGEGROUP_CREATE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        { storageGroupListDocument
-        && (
-        <StorageGroupListCard
-          storageGroupListDocument={storageGroupListDocument}
-        />
+        {storageGroupListDocument && (
+          <StorageGroupListCard storageGroupListDocument={storageGroupListDocument} />
         )}
         <CodeModal
-          isOpen={(modalName === STORAGEGROUP_LIST_CODE_MODAL)}
+          isOpen={modalName === STORAGEGROUP_LIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={storageGroupListDocument}
           title="StorageGroupListDocument"
         />
         <StorageGroupDialog
-          isOpen={(modalName === STORAGEGROUP_CREATE_MODAL)}
+          isOpen={modalName === STORAGEGROUP_CREATE_MODAL}
           closeModal={closeModal}
           history={history}
         />
@@ -77,7 +69,9 @@ class StorageGroupList extends React.PureComponent {
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

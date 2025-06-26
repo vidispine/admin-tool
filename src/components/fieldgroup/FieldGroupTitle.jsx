@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 
 export default function FieldGroupTitle(props) {
@@ -7,9 +5,9 @@ export default function FieldGroupTitle(props) {
     <TitleHeader
       parentTitle="Metadata Field Group"
       parentTo="/field-group/"
-      title={props.groupName}
+      title={props?.groupName}
       helpTo="/ref/metadata/field-group.html"
-      entityId={props.groupName}
+      entityId={props?.groupName}
       entityType="field-group"
       {...props}
     />

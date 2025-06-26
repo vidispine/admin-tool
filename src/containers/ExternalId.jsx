@@ -1,17 +1,17 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { externalid as api } from '@vidispine/vdt-api';
-import ExternalIdTitle from '../components/externalid/ExternalIdTitle';
+
 import ExternalIdCard from '../components/externalid/ExternalIdCard';
 import ExternalIdDialog from '../components/externalid/ExternalIdDialog';
 import ExternalIdRemoveAll from '../components/externalid/ExternalIdRemoveAll';
-
+import ExternalIdTitle from '../components/externalid/ExternalIdTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const EXTERNALID_CREATE_MODAL = 'EXTERNALID_CREATE_MODAL';
 const EXTERNALID_REMOVEALL_MODAL = 'EXTERNALID_REMOVEALL_MODAL';
 
-class ExternalId extends React.PureComponent {
+class ExternalId extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -29,10 +29,11 @@ class ExternalId extends React.PureComponent {
   onRefresh() {
     const { entityType, entityId, entitySubType } = this.props;
     try {
-      api.listExternalId({
-        entityType: entitySubType ? `${entityType}/${entitySubType}` : entityType,
-        entityId,
-      })
+      api
+        .listExternalId({
+          entityType: entitySubType ? `${entityType}/${entitySubType}` : entityType,
+          entityId,
+        })
         .then((response) => this.setState({ externalIdentifierListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -60,14 +61,13 @@ class ExternalId extends React.PureComponent {
           entityType={entitySubType ? `${entityType}/${entitySubType}` : entityType}
           entityId={entityId}
         />
-        {externalIdentifierListDocument
-        && (
-        <ExternalIdCard
-          externalIdentifierListDocument={externalIdentifierListDocument}
-          onRefresh={this.onRefresh}
-          entityType={entitySubType ? `${entityType}/${entitySubType}` : entityType}
-          entityId={entityId}
-        />
+        {externalIdentifierListDocument && (
+          <ExternalIdCard
+            externalIdentifierListDocument={externalIdentifierListDocument}
+            onRefresh={this.onRefresh}
+            entityType={entitySubType ? `${entityType}/${entitySubType}` : entityType}
+            entityId={entityId}
+          />
         )}
         <ExternalIdDialog
           dialogName={EXTERNALID_CREATE_MODAL}

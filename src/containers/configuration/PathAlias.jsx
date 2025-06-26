@@ -1,11 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import withSnackbar from '../../hoc/withSnackbar';
-import TitleHeader from '../../components/ui/TitleHeader';
-import PathAliasCard from '../../components/configuration/pathalias/PathAliasCard';
 
-class PathAlias extends React.PureComponent {
+import PathAliasCard from '../../components/configuration/pathalias/PathAliasCard';
+import TitleHeader from '../../components/ui/TitleHeader';
+import withSnackbar from '../../hoc/withSnackbar';
+
+class PathAlias extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -21,7 +22,8 @@ class PathAlias extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.getPathAliasConfiguration()
+      api
+        .getPathAliasConfiguration()
         .then((response) => this.setState({ pathAliasConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -48,12 +50,11 @@ class PathAlias extends React.PureComponent {
           code={pathAliasConfigurationDocument}
           codeModal="PathAliasConfigurationDocument"
         />
-        {pathAliasConfigurationDocument
-        && (
-        <PathAliasCard
-          pathAliasConfigurationDocument={pathAliasConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {pathAliasConfigurationDocument && (
+          <PathAliasCard
+            pathAliasConfigurationDocument={pathAliasConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
       </>
     );

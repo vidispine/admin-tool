@@ -1,11 +1,10 @@
-import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
 import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
 
 export const queryParams = () => (
   <>
@@ -24,12 +23,7 @@ function AccessControlParamsForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        label="queryParams"
-        component={queryParams}
-        fullWidth
-      />
+      <FormSection name="queryParams" label="queryParams" component={queryParams} fullWidth />
     </form>
   );
 }

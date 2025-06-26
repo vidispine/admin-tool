@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
-import FieldGroupListCard from '../components/fieldgroup/FieldGroupListCard';
-import FieldGroupDialog from '../components/fieldgroup/FieldGroupDialog';
-import FieldGroupListTitle from '../components/fieldgroup/FieldGroupListTitle';
 
+import FieldGroupDialog from '../components/fieldgroup/FieldGroupDialog';
+import FieldGroupListCard from '../components/fieldgroup/FieldGroupListCard';
+import FieldGroupListTitle from '../components/fieldgroup/FieldGroupListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const FIELDGROUPLIST_CREATE_MODAL = 'FIELDGROUPLIST_CREATE_MODAL';
 
-class FieldGroupList extends React.PureComponent {
+class FieldGroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,7 +26,8 @@ class FieldGroupList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listFieldGroup()
+      api
+        .listFieldGroup()
         .then((response) => this.setState({ metadataFieldGroupListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Field Group List';
@@ -44,16 +45,13 @@ class FieldGroupList extends React.PureComponent {
           code={metadataFieldGroupListDocument}
           codeModal="FieldGroupListDocument"
         />
-        {metadataFieldGroupListDocument
-        && (
-        <FieldGroupListCard
-          metadataFieldGroupListDocument={metadataFieldGroupListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {metadataFieldGroupListDocument && (
+          <FieldGroupListCard
+            metadataFieldGroupListDocument={metadataFieldGroupListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
-        <FieldGroupDialog
-          dialogName={FIELDGROUPLIST_CREATE_MODAL}
-        />
+        <FieldGroupDialog dialogName={FIELDGROUPLIST_CREATE_MODAL} />
       </>
     );
   }

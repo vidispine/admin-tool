@@ -1,16 +1,16 @@
-import React from 'react';
-import { access as api } from '@vidispine/vdt-api';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
 import AccessControlList from '../components/access/AccessControlList';
-import AccessControlRemove from '../components/access/AccessControlRemove';
 import AccessControlParams, { ACCESS_PARAMS_FORM } from '../components/access/AccessControlParams';
+import AccessControlRemove from '../components/access/AccessControlRemove';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 
 const ACCESSCONTROL_REMOVE_MODAL = 'ACCESSCONTROL_REMOVE_MODAL';
 
-class AccessControl extends React.PureComponent {
+class AccessControl extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);

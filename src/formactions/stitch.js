@@ -17,13 +17,10 @@ export const onGetStitch = (form) => {
   const urlBase = '/APInoauth/stitch/';
   const { queryParams: allQueryParams } = form;
   const { uri, ...queryParams } = allQueryParams;
-  const uriString = uri.reduce(
-    (a, c, i) => {
-      const separator = i > 0 ? '&' : '';
-      return `${a}${separator}uri=${encodeURIComponent(c)}`;
-    },
-    '',
-  );
+  const uriString = uri.reduce((a, c, i) => {
+    const separator = i > 0 ? '&' : '';
+    return `${a}${separator}uri=${encodeURIComponent(c)}`;
+  }, '');
   const qpString = setQueryParams(queryParams);
   const url = `${urlBase}${qpString || '?'}&${uriString}`;
   return url;

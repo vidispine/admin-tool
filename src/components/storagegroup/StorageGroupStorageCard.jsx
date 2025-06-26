@@ -1,6 +1,5 @@
-import React from 'react';
-
 import SquareCard from '../ui/SquareCard';
+
 import StorageGroupStorageEditor from './StorageGroupStorageEditor';
 
 export default function StorageGroupStorageCard({

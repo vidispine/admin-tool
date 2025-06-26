@@ -1,13 +1,11 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import { withRouter } from 'react-router-dom';
 
-import SquareCard from '../ui/SquareCard';
 import PlaceholderThumbnail from '../ui/PlaceholderThumbnail';
+import SquareCard from '../ui/SquareCard';
 
-const ItemGridListTile = ({ itemType = {}, history }) => {
+function ItemGridListTile({ itemType = {}, history }) {
   const { thumbnails = {}, id: itemId } = itemType;
   const { uri: uriList = [] } = thumbnails;
   const [thumbnailUri] = uriList;
@@ -21,11 +19,9 @@ const ItemGridListTile = ({ itemType = {}, history }) => {
           <PlaceholderThumbnail />
         </SquareCard>
       )}
-      <GridListTileBar
-        title={itemId}
-      />
+      <GridListTileBar title={itemId} />
     </GridListTile>
   );
-};
+}
 
 export default withRouter(ItemGridListTile);

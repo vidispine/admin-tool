@@ -1,13 +1,9 @@
-import React from 'react';
-import { reduxForm, Field } from 'redux-form';
 import Typography from '@material-ui/core/Typography';
+import { reduxForm, Field } from 'redux-form';
 
 import CodeField from '../ui/CodeField';
 
-function ProjectionForm({
-  error,
-  handleSubmit,
-}) {
+function ProjectionForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}

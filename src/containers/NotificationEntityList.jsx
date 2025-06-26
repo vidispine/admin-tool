@@ -1,16 +1,16 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import NotificationListCard from '../components/notification/NotificationListCard';
-import NotificationCreate from '../components/notification/NotificationCreate';
 
+import NotificationCreate from '../components/notification/NotificationCreate';
+import NotificationListCard from '../components/notification/NotificationListCard';
+import TitleHeader from '../components/ui/TitleHeader';
 import withUI from '../hoc/withUI';
 import capitalizeString from '../utils/capitalizeString';
 
 const NOTIFICATION_CREATE_DIALOG = 'NOTIFICATION_CREATE_DIALOG';
 
-class NotificationEntityList extends React.PureComponent {
+class NotificationEntityList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -53,7 +53,8 @@ class NotificationEntityList extends React.PureComponent {
 
   onFetch(entityType, entityId) {
     try {
-      api.listNotificationEntity({ entityType, entityId })
+      api
+        .listNotificationEntity({ entityType, entityId })
         .then((response) => this.setState({ uriListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -62,11 +63,7 @@ class NotificationEntityList extends React.PureComponent {
   }
 
   render() {
-    const {
-      entityType,
-      entityId,
-      history,
-    } = this.props;
+    const { entityType, entityId, history } = this.props;
     const { uriListDocument } = this.state;
     return (
       <>

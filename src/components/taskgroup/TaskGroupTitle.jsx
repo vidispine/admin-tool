@@ -1,15 +1,9 @@
-import React from 'react';
-import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import TitleHeader from '../ui/TitleHeader';
 
-export default function TaskGroupTitle({
-  openCode,
-  onRefresh,
-  groupName,
-  openRemove,
-}) {
+export default function TaskGroupTitle({ openCode, onRefresh, groupName, openRemove }) {
   return (
     <TitleHeader
       title={groupName}
@@ -17,11 +11,11 @@ export default function TaskGroupTitle({
       parentTo="/task-group/"
       openCode={openCode}
       onRefresh={onRefresh}
-      actionComponent={(
+      actionComponent={
         <IconButton onClick={openRemove}>
           <DeleteForever />
         </IconButton>
-      )}
+      }
     />
   );
 }

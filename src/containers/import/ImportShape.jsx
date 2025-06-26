@@ -1,34 +1,37 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
-import withFormActions from '../../hoc/withFormActions';
+
 import ImportShapeWizard, {
   EDIT_IMPORTSHAPE_FORM,
 } from '../../components/import/ImportShapeWizard';
+import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportShape extends React.PureComponent {
-  componentDidMount() {
+function ImportShape({ destroyForm, history, location, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Shape';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTSHAPE_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTSHAPE_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, location, ...props } = this.props;
-    const query = new URLSearchParams(location.search);
-    const fileId = query.get('fileId');
-    const itemId = query.get('itemId');
-    return (
-      <ImportShapeWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        initialValues={{ itemId, queryParams: { fileId } }}
-        {...props}
-      />
-    );
-  }
+  const query = new URLSearchParams(location.search);
+  const fileId = query.get('fileId');
+  const itemId = query.get('itemId');
+
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return (
+    <ImportShapeWizard
+      onSuccess={onSuccess}
+      initialValues={{ itemId, queryParams: { fileId } }}
+      {...props}
+    />
+  );
 }
 
 export default compose(withRouterProps, withFormActions)(ImportShape);

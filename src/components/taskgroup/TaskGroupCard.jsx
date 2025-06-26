@@ -1,14 +1,9 @@
-import React from 'react';
-
-import SquareCard from '../ui/SquareCard';
-import TaskGroupEditor from './TaskGroupEditor';
 import SimpleMetadataGrid from '../ui/SimpleMetadataGrid';
+import SquareCard from '../ui/SquareCard';
 
-export default function TaskGroupCard({
-  groupName,
-  taskGroupDocument,
-  onRefresh,
-}) {
+import TaskGroupEditor from './TaskGroupEditor';
+
+export default function TaskGroupCard({ groupName, taskGroupDocument, onRefresh }) {
   const { metadata: simpleMetadataList = {} } = taskGroupDocument;
   return (
     <>
@@ -19,17 +14,16 @@ export default function TaskGroupCard({
           onRefresh={onRefresh}
         />
       </SquareCard>
-      {simpleMetadataList
-      && (
-      <SquareCard>
-        <SimpleMetadataGrid
-          simpleMetadataList={simpleMetadataList.field}
-          entityType="task-group"
-          entityId={groupName}
-          onSuccess={onRefresh}
-          editable
-        />
-      </SquareCard>
+      {simpleMetadataList && (
+        <SquareCard>
+          <SimpleMetadataGrid
+            simpleMetadataList={simpleMetadataList.field}
+            entityType="task-group"
+            entityId={groupName}
+            onSuccess={onRefresh}
+            editable
+          />
+        </SquareCard>
       )}
     </>
   );

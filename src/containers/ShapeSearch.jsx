@@ -1,22 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import ShapeSearchParams from '../components/shape/ShapeSearchParams';
-import ShapeSearchDocument from '../components/shape/ShapeSearch';
 import ShapeListTable from '../components/shape/ShapeListTable';
-
-import withFormActions from '../hoc/withFormActions';
+import ShapeSearchDocument from '../components/shape/ShapeSearch';
+import ShapeSearchParams from '../components/shape/ShapeSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withCard from '../hoc/withCard';
+import withFormActions from '../hoc/withFormActions';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const SHAPE_SEARCH_FORM = 'SHAPE_SEARCH_FORM';
-const ShapeListTableCard = compose(
-  withCard,
-  withPaginationForm,
-)(ShapeListTable);
+const ShapeListTableCard = compose(withCard, withPaginationForm)(ShapeListTable);
 
-class ShapeSearch extends React.PureComponent {
+class ShapeSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -24,13 +21,7 @@ class ShapeSearch extends React.PureComponent {
     this.onSetUrlParams = this.onSetUrlParams.bind(this);
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
@@ -67,10 +58,7 @@ class ShapeSearch extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -80,15 +68,14 @@ class ShapeSearch extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      shapeListDocument,
-      queryParams,
-    } = this.state;
+    const { shapeListDocument, queryParams } = this.state;
     return (
       <>
         <TitleHeader

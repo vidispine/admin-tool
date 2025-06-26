@@ -1,19 +1,14 @@
-import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import FieldGroupForm from './FieldGroupForm';
 import * as formActions from '../../formactions/fieldgroup';
-import WizardForm from '../ui/WizardForm';
 import withUI from '../../hoc/withUI';
+import WizardForm from '../ui/WizardForm';
 
-function FieldGroupDialog({
-  open,
-  onClose,
-  openSnackBar,
-  history,
-}) {
+import FieldGroupForm from './FieldGroupForm';
+
+function FieldGroupDialog({ open, onClose, openSnackBar, history }) {
   const onSubmitSuccess = (response) => {
     const { groupName } = response;
     const messageContent = `Field Group ${groupName} Created`;
@@ -26,12 +21,7 @@ function FieldGroupDialog({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>New Field Group</DialogTitle>
       <DialogContent>
         <WizardForm

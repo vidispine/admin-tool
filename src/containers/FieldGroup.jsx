@@ -1,16 +1,16 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
 
-import FieldGroupTitle from '../components/fieldgroup/FieldGroupTitle';
 import FieldGroupCard from '../components/fieldgroup/FieldGroupCard';
 import FieldGroupRemove from '../components/fieldgroup/FieldGroupRemove';
-import withSnackbar from '../hoc/withSnackbar';
+import FieldGroupTitle from '../components/fieldgroup/FieldGroupTitle';
 import SimpleMetadataCard from '../components/ui/SimpleMetadataCard';
+import withSnackbar from '../hoc/withSnackbar';
 
 const FIELDGROUP_REMOVE_MODAL = 'FIELDGROUP_REMOVE_MODAL';
 
-class FieldGroup extends React.PureComponent {
+class FieldGroup extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -43,9 +43,11 @@ class FieldGroup extends React.PureComponent {
   onFetch(groupName) {
     const { openSnackBar } = this.props;
     try {
-      api.getFieldGroup({ groupName })
+      api
+        .getFieldGroup({ groupName })
         .then((response) => this.setState({ metadataFieldGroupDocument: response.data }));
-      api.getSimpleMetadata({ groupName })
+      api
+        .getSimpleMetadata({ groupName })
         .then((response) => this.setState({ simpleMetadataDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Metadata Field';
@@ -54,9 +56,7 @@ class FieldGroup extends React.PureComponent {
   }
 
   render() {
-    const {
-      groupName,
-    } = this.props;
+    const { groupName } = this.props;
     const { simpleMetadataDocument, metadataFieldGroupDocument } = this.state;
     return (
       <>
@@ -67,27 +67,22 @@ class FieldGroup extends React.PureComponent {
           code={metadataFieldGroupDocument}
           codeModal="MetadataFieldGroupDocument"
         />
-        {metadataFieldGroupDocument
-        && (
-        <FieldGroupCard
-          metadataFieldGroupDocument={metadataFieldGroupDocument}
-          groupName={groupName}
-          onRefresh={this.onRefresh}
-        />
+        {metadataFieldGroupDocument && (
+          <FieldGroupCard
+            metadataFieldGroupDocument={metadataFieldGroupDocument}
+            groupName={groupName}
+            onRefresh={this.onRefresh}
+          />
         )}
-        {simpleMetadataDocument
-        && (
-        <SimpleMetadataCard
-          simpleMetadataList={simpleMetadataDocument.field || []}
-          onSuccess={this.onRefresh}
-          entityType="metadata-field/field-group"
-          entityId={groupName}
-        />
+        {simpleMetadataDocument && (
+          <SimpleMetadataCard
+            simpleMetadataList={simpleMetadataDocument.field || []}
+            onSuccess={this.onRefresh}
+            entityType="metadata-field/field-group"
+            entityId={groupName}
+          />
         )}
-        <FieldGroupRemove
-          dialogName={FIELDGROUP_REMOVE_MODAL}
-          groupName={groupName}
-        />
+        <FieldGroupRemove dialogName={FIELDGROUP_REMOVE_MODAL} groupName={groupName} />
       </>
     );
   }

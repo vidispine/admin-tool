@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import PathAliasRow from './PathAliasRow';
 
-export default function PathAliasTable({
-  pathAliasConfigurationDocument,
-}) {
+export default function PathAliasTable({ pathAliasConfigurationDocument }) {
   const { alias: pathAliasList = [] } = pathAliasConfigurationDocument;
   return (
     <Table>
@@ -21,10 +18,7 @@ export default function PathAliasTable({
       </TableHead>
       <TableBody>
         {pathAliasList.map((pathAlias) => (
-          <PathAliasRow
-            key={pathAlias}
-            pathAlias={pathAlias}
-          />
+          <PathAliasRow key={pathAlias} pathAlias={pathAlias} />
         ))}
       </TableBody>
     </Table>

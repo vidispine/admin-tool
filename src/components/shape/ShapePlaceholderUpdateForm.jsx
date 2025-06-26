@@ -1,12 +1,11 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field } from 'redux-form';
-import { TextField } from '../form';
 
-import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
 import { required } from '../../utils/FieldValidation';
+import { TextField } from '../form';
+import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import FormSection from '../ui/FormSection';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -62,12 +61,7 @@ const queryParams = () => (
   </>
 );
 
-function ShapePlaceholderUpdateForm({
-  error,
-  handleSubmit,
-  itemId,
-  shapeId,
-}) {
+function ShapePlaceholderUpdateForm({ error, handleSubmit, itemId, shapeId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -91,10 +85,7 @@ function ShapePlaceholderUpdateForm({
           fullWidth
         />
       ) : null}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

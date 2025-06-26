@@ -1,15 +1,16 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { notification as api } from '@vidispine/vdt-api';
+
 import NotificationCard from '../components/notification/NotificationCard';
 import NotificationRemove from '../components/notification/NotificationRemove';
-import capitalizeString from '../utils/capitalizeString';
-import withSnackbar from '../hoc/withSnackbar';
 import TitleHeader from '../components/ui/TitleHeader';
+import withSnackbar from '../hoc/withSnackbar';
+import capitalizeString from '../utils/capitalizeString';
 
 const NOTIFICATION_REMOVE_DIALOG = 'NOTIFICATION_REMOVE_DIALOG';
 
-class Notification extends React.PureComponent {
+class Notification extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -28,12 +29,10 @@ class Notification extends React.PureComponent {
   }
 
   onRefresh() {
-    const {
-      entityType,
-      notificationId,
-    } = this.props;
+    const { entityType, notificationId } = this.props;
     try {
-      api.getNotification({ notificationId, entityType })
+      api
+        .getNotification({ notificationId, entityType })
         .then((response) => this.setState({ notificationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -53,15 +52,8 @@ class Notification extends React.PureComponent {
   }
 
   render() {
-    const {
-      notificationId,
-      entityType,
-      history,
-    } = this.props;
-    const {
-      notificationDocument,
-      isEditing,
-    } = this.state;
+    const { notificationId, entityType, history } = this.props;
+    const { notificationDocument, isEditing } = this.state;
     return (
       <>
         <TitleHeader

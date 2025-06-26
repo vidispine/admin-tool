@@ -1,18 +1,17 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import GroupListTitle from '../components/group/GroupListTitle';
 import GroupListCard from '../components/group/GroupListCard';
+import GroupListParams, { GROUP_LIST_PARAMS_FORM } from '../components/group/GroupListParams';
+import GroupListTitle from '../components/group/GroupListTitle';
 import GroupWizard from '../components/group/GroupWizard';
-import GroupListParams, {
-  GROUP_LIST_PARAMS_FORM,
-} from '../components/group/GroupListParams';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 
 const GROUP_CREATE_MODAL = 'GROUP_CREATE_MODAL';
 
-class GroupList extends React.PureComponent {
+class GroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -62,9 +61,7 @@ class GroupList extends React.PureComponent {
   }
 
   render() {
-    const {
-      groupListDocument, rowsPerPage, page,
-    } = this.state;
+    const { groupListDocument, rowsPerPage, page } = this.state;
     const { history } = this.props;
     const first = page * rowsPerPage + 1;
     return (

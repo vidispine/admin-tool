@@ -1,32 +1,37 @@
-import React from 'react';
+import { useState } from 'react';
+
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import IconButton from '@material-ui/core/IconButton';
-import Delete from '@material-ui/icons/Delete';
-import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import Switch from '@material-ui/core/Switch';
+import Delete from '@material-ui/icons/Delete';
 
 import SquareCard from './SquareCard';
 
-export const DefaultToggleComponent = ({ isEditing, toggleEdit }) => (
-  <FormControlLabel
-    control={<Switch color="primary" />}
-    label="Edit"
-    checked={isEditing}
-    onChange={toggleEdit}
-  />
-);
+export function DefaultToggleComponent({ isEditing, toggleEdit }) {
+  return (
+    <FormControlLabel
+      control={<Switch color="primary" />}
+      label="Edit"
+      checked={isEditing}
+      onChange={toggleEdit}
+    />
+  );
+}
 
-export const DefaultRemoveComponent = ({ onRemove }) => (
-  <IconButton onClick={onRemove}>
-    <Delete />
-  </IconButton>
-);
+export function DefaultRemoveComponent({ onRemove }) {
+  return (
+    <IconButton onClick={onRemove}>
+      <Delete />
+    </IconButton>
+  );
+}
 
-export const DefaultActionComponent = ({
+export function DefaultActionComponent({
   toggleComponent: ToggleComponent = DefaultToggleComponent,
   toggleProps = {},
   removeComponent: RemoveComponent = DefaultRemoveComponent,
@@ -35,27 +40,23 @@ export const DefaultActionComponent = ({
   toggleEdit,
   onRemove,
   ...props
-}) => (
-  <>
-    {onRemove && (
-      <RemoveComponent
-        onRemove={onRemove}
-        {...removeProps}
-        {...props}
-      />
-    )}
-    {toggleEdit && (
-      <ToggleComponent
-        isEditing={isEditing}
-        toggleEdit={toggleEdit}
-        {...toggleProps}
-        {...props}
-      />
-    )}
-  </>
-);
+}) {
+  return (
+    <>
+      {onRemove && <RemoveComponent onRemove={onRemove} {...removeProps} {...props} />}
+      {toggleEdit && (
+        <ToggleComponent
+          isEditing={isEditing}
+          toggleEdit={toggleEdit}
+          {...toggleProps}
+          {...props}
+        />
+      )}
+    </>
+  );
+}
 
-export const DefaultCardHeaderComponent = ({
+export function DefaultCardHeaderComponent({
   actionComponent: ActionComponent = DefaultActionComponent,
   actionProps = {},
   isEditing,
@@ -63,72 +64,69 @@ export const DefaultCardHeaderComponent = ({
   onRemove,
   cardHeaderProps = {},
   ...props
-}) => (
-  <CardHeader
-    action={(
-      <ActionComponent
-        isEditing={isEditing}
-        toggleEdit={toggleEdit}
-        onRemove={onRemove}
-        {...actionProps}
-        {...props}
-      />
-    )}
-    {...cardHeaderProps}
-  />
-);
+}) {
+  return (
+    <CardHeader
+      action={
+        <ActionComponent
+          isEditing={isEditing}
+          toggleEdit={toggleEdit}
+          onRemove={onRemove}
+          {...actionProps}
+          {...props}
+        />
+      }
+      {...cardHeaderProps}
+    />
+  );
+}
 
-export const DefaultCardContentComponent = ({
+export function DefaultCardContentComponent({
   editComponent: EditComponent,
   editProps = {},
   displayComponent: DisplayComponent,
   displayProps = {},
   isEditing,
   ...props
-}) => (
-  <CardContent>
-    {isEditing ? (
-      <EditComponent {...editProps} {...props} />
-    ) : (
-      <DisplayComponent {...displayProps} {...props} />
-    )}
-  </CardContent>
-);
+}) {
+  return (
+    <CardContent>
+      {isEditing ? (
+        <EditComponent {...editProps} {...props} />
+      ) : (
+        <DisplayComponent {...displayProps} {...props} />
+      )}
+    </CardContent>
+  );
+}
 
-export const DefaultCardComponent = ({ children }) => <SquareCard>{children}</SquareCard>;
+export function DefaultCardComponent({ children }) {
+  return <SquareCard>{children}</SquareCard>;
+}
 
-export const DefaultCardActionComponent = ({
+export function DefaultCardActionComponent({
   isEditing = false,
   toggleEdit,
   onSave,
   saveProps = {},
   cancelProps = {},
-}) => (
-  isEditing ? (
+}) {
+  return isEditing ? (
     <>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={toggleEdit}
-          {...cancelProps}
-        >
+        <Button size="small" onClick={toggleEdit} {...cancelProps}>
           Cancel
         </Button>
-        <Button
-          onClick={onSave}
-          size="small"
-          color="primary"
-          {...saveProps}
-        >
+        <Button onClick={onSave} size="small" color="primary" {...saveProps}>
           Save
         </Button>
       </AccordionActions>
     </>
-  ) : null
-);
+  ) : null;
+}
 
-const EditorCard = ({
+function EditorCard({
   initialState = false,
   editComponent: EditComponent,
   editProps = {},
@@ -145,8 +143,8 @@ const EditorCard = ({
   onRemove,
   onSave,
   ...props
-}) => {
-  const [isEditing, setIsEditing] = React.useState(initialState);
+}) {
+  const [isEditing, setIsEditing] = useState(initialState);
   const toggleEdit = () => setIsEditing(!isEditing);
   return (
     <CardComponent {...cardProps} {...props}>
@@ -176,6 +174,6 @@ const EditorCard = ({
       />
     </CardComponent>
   );
-};
+}
 
 export default EditorCard;

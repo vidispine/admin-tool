@@ -1,17 +1,17 @@
-import React from 'react';
-import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { compose } from 'redux';
+
+import * as formActions from '../../formactions/user';
+import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+import TextGrid from '../ui/TextGrid';
 
 import UserKeyForm from './UserKeyForm';
-import TextGrid from '../ui/TextGrid';
-import * as formActions from '../../formactions/user';
-import withUI from '../../hoc/withUI';
-import withFormActions from '../../hoc/withFormActions';
 
 export const EDIT_USERKEY_FORM = 'EDIT_USERKEY_FORM';
 
@@ -30,7 +30,9 @@ function UserKeyDialog({
     onSetAccessKey(newAccessKeyDocument);
     const messageContent = 'User Key Created';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Creating User Key';
@@ -47,27 +49,13 @@ function UserKeyDialog({
           <DialogTitle>Success!</DialogTitle>
           <DialogContent>
             <>
-              <TextGrid
-                title="ID"
-                value={accessKeyDocument.id}
-                hideNoValue
-                hover
-              />
-              <TextGrid
-                title="Secret"
-                value={accessKeyDocument.secret}
-                hideNoValue
-                hover
-              />
+              <TextGrid title="ID" value={accessKeyDocument.id} hideNoValue hover />
+              <TextGrid title="Secret" value={accessKeyDocument.secret} hideNoValue hover />
             </>
           </DialogContent>
           <Divider />
           <DialogActions>
-            <Button
-              size="small"
-              color="secondary"
-              onClick={onCloseSuccess}
-            >
+            <Button size="small" color="secondary" onClick={onCloseSuccess}>
               Close
             </Button>
           </DialogActions>
@@ -86,18 +74,10 @@ function UserKeyDialog({
           </DialogContent>
           <Divider />
           <DialogActions>
-            <Button
-              size="small"
-              color="secondary"
-              onClick={onClose}
-            >
+            <Button size="small" color="secondary" onClick={onClose}>
               Close
             </Button>
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => submitForm(EDIT_USERKEY_FORM)}
-            >
+            <Button size="small" color="primary" onClick={() => submitForm(EDIT_USERKEY_FORM)}>
               Create
             </Button>
           </DialogActions>

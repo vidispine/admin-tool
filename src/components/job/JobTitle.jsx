@@ -1,21 +1,20 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
-import { withModalNoRouter } from '../../hoc/withModal';
-import JobStatus from './JobStatus';
 import { RUNNING_STATES } from '../../const/JobStates';
+import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
 
-const RunningMenuItem = ({
-  jobDocument,
-  priorityDialog,
-  abortDialog,
-  onOpen,
-}) => {
-  if (jobDocument === undefined) { return null; }
+import JobStatus from './JobStatus';
+
+function RunningMenuItem({ jobDocument, priorityDialog, abortDialog, onOpen }) {
+  if (jobDocument === undefined) {
+    return null;
+  }
   const { status } = jobDocument;
-  if (!RUNNING_STATES.includes(status)) { return null; }
+  if (!RUNNING_STATES.includes(status)) {
+    return null;
+  }
   return (
     <>
       <MenuItem onClick={() => onOpen({ modalName: priorityDialog })}>
@@ -26,7 +25,7 @@ const RunningMenuItem = ({
       </MenuItem>
     </>
   );
-};
+}
 
 function JobTitle({
   onOpen,
@@ -42,7 +41,7 @@ function JobTitle({
       parentTo="/job/"
       helpTo="/ref/job.html"
       codeModal="JobDocument"
-      iconList={(
+      iconList={
         <>
           <JobStatus jobDocument={props.code} />
           <Menu>
@@ -60,7 +59,7 @@ function JobTitle({
             </MenuItem>
           </Menu>
         </>
-      )}
+      }
       {...props}
     />
   );

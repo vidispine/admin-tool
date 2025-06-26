@@ -23,7 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import React from 'react';
+import { forwardRef } from 'react';
+
 import { Link, NavLink } from 'react-router-dom';
 
 let hashFragment = '';
@@ -44,8 +45,8 @@ function isInteractiveElement(element) {
   const formTags = ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'];
   const linkTags = ['A', 'AREA'];
   return (
-    (formTags.includes(element.tagName) && !element.hasAttribute('disabled'))
-    || (linkTags.includes(element.tagName) && element.hasAttribute('href'))
+    (formTags.includes(element.tagName) && !element.hasAttribute('disabled')) ||
+    (linkTags.includes(element.tagName) && element.hasAttribute('href'))
   );
 }
 
@@ -113,46 +114,42 @@ function hashLinkScroll(timeout) {
 }
 
 export function genericHashLink(As) {
-  return React.forwardRef((props, ref) => {
+  return forwardRef((props, ref) => {
     let linkHash = '';
     if (typeof props.to === 'string' && props.to.includes('#')) {
       linkHash = `#${props.to.split('#').slice(1).join('#')}`;
-    } else if (
-      typeof props.to === 'object'
-      && typeof props.to.hash === 'string'
-    ) {
+    } else if (typeof props.to === 'object' && typeof props.to.hash === 'string') {
       linkHash = props.to.hash;
     }
 
     const passDownProps = {};
     if (As === NavLink) {
-      passDownProps.isActive = (match, location) => match && match.isExact && location.hash === linkHash;
+      passDownProps.isActive = (match, location) =>
+        match && match.isExact && location.hash === linkHash;
     }
 
-    function handleClick(e) {
+    const handleClick = (e) => {
       reset();
       hashFragment = props.elementId ? `#${props.elementId}` : linkHash;
       if (props.onClick) props.onClick(e);
       if (
-        hashFragment !== ''
+        hashFragment !== '' &&
         // ignore non-vanilla click events, same as react-router
         // below logic adapted from react-router: https://github.com/ReactTraining/react-router/blob/fc91700e08df8147bd2bb1be19a299cbb14dbcaa/packages/react-router-dom/modules/Link.js#L43-L48
-        && !e.defaultPrevented // onClick prevented default
-        && e.button === 0 // ignore everything but left clicks
-        && (!props.target || props.target === '_self') // let browser handle "target=_blank" etc
-        && !(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) // ignore clicks with modifier keys
+        !e.defaultPrevented && // onClick prevented default
+        e.button === 0 && // ignore everything but left clicks
+        (!props.target || props.target === '_self') && // let browser handle "target=_blank" etc
+        !(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) // ignore clicks with modifier keys
       ) {
-        scrollFunction = props.scroll
+        scrollFunction =
+          props.scroll ||
           // eslint-disable-next-line no-confusing-arrow
-          || ((el) => props.smooth
-            ? el.scrollIntoView({ behavior: 'smooth' })
-            : el.scrollIntoView());
+          ((el) =>
+            props.smooth ? el.scrollIntoView({ behavior: 'smooth' }) : el.scrollIntoView());
         hashLinkScroll(props.timeout);
       }
-    }
-    const {
-      scroll, smooth, timeout, elementId, ...filteredProps
-    } = props;
+    };
+    const { scroll, smooth, timeout, elementId, ...filteredProps } = props;
     return (
       <As {...passDownProps} {...filteredProps} onClick={handleClick} ref={ref}>
         {props.children}

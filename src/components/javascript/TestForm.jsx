@@ -1,13 +1,8 @@
-import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 
 import CodeField from '../ui/CodeField';
 
-function TestForm({
-  handleSubmit,
-  className,
-  style,
-}) {
+function TestForm({ handleSubmit, className, style }) {
   return (
     <form onSubmit={handleSubmit} className={className} style={style}>
       <Field

@@ -1,15 +1,15 @@
-import React from 'react';
-import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Typography from '@material-ui/core/Typography';
+import { compose } from 'redux';
+
+import * as formActions from '../../formactions/projection';
+import withFormActions from '../../hoc/withFormActions';
+import withSnackbar from '../../hoc/withSnackbar';
+import SquareCard from '../ui/SquareCard';
 
 import ProjectionForm from './ProjectionForm';
-import * as formActions from '../../formactions/projection';
-import SquareCard from '../ui/SquareCard';
-import withSnackbar from '../../hoc/withSnackbar';
-import withFormActions from '../../hoc/withFormActions';
 
 export const EDIT_PROJECTION_INCOMING_FORM = 'EDIT_PROJECTION_INCOMING_FORM';
 export const EDIT_PROJECTION_OUTGOING_FORM = 'EDIT_PROJECTION_OUTGOING_FORM';
@@ -25,7 +25,9 @@ function ProjectionCard({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Projection Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Projection';
@@ -37,7 +39,7 @@ function ProjectionCard({
         <CardHeader
           title={<Typography variant="subtitle1">Incoming</Typography>}
           disableTypography
-          action={(
+          action={
             <Button
               color="primary"
               size="small"
@@ -46,7 +48,7 @@ function ProjectionCard({
             >
               Save Incoming
             </Button>
-          )}
+          }
         />
         <CardContent>
           <ProjectionForm
@@ -64,7 +66,7 @@ function ProjectionCard({
         <CardHeader
           title={<Typography variant="subtitle1">Outgoing</Typography>}
           disableTypography
-          action={(
+          action={
             <Button
               color="primary"
               size="small"
@@ -73,7 +75,7 @@ function ProjectionCard({
             >
               Save Outgoing
             </Button>
-          )}
+          }
         />
         <CardContent>
           <ProjectionForm

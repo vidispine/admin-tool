@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatafield as api } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
 import MetadataFieldAllowedValuesCard from '../../components/metadatafield/MetadataFieldAllowedValuesCard';
 import MetadataFieldAllowedValuesParams from '../../components/metadatafield/MetadataFieldAllowedValuesParams';
+import withSnackbar from '../../hoc/withSnackbar';
 
-class MetadataFieldAllowedValues extends React.PureComponent {
+class MetadataFieldAllowedValues extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -24,7 +24,8 @@ class MetadataFieldAllowedValues extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, fieldName } = this.props;
     try {
-      api.getMetadataFieldAllowedValues({ fieldName })
+      api
+        .getMetadataFieldAllowedValues({ fieldName })
         .then((response) => this.setState({ constraintValueListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Metadata Field';
@@ -33,11 +34,7 @@ class MetadataFieldAllowedValues extends React.PureComponent {
   }
 
   render() {
-    const {
-      fieldName,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { fieldName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { constraintValueListDocument } = this.state;
     return (
       <>
@@ -48,21 +45,20 @@ class MetadataFieldAllowedValues extends React.PureComponent {
             onRefresh={this.onRefresh}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <MetadataFieldAllowedValuesParams
           fieldName={fieldName}
-          onSuccess={(response) => this.setState({
-            constraintValueListDocument: response.constraintValueListDocument,
-          })}
+          onSuccess={(response) =>
+            this.setState({
+              constraintValueListDocument: response.constraintValueListDocument,
+            })
+          }
         />
-        {constraintValueListDocument
-        && (
-        <MetadataFieldAllowedValuesCard
-          constraintValueListDocument={constraintValueListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {constraintValueListDocument && (
+          <MetadataFieldAllowedValuesCard
+            constraintValueListDocument={constraintValueListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
       </>
     );

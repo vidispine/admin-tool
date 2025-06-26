@@ -1,4 +1,5 @@
 import { group as GroupApi } from '@vidispine/vdt-api';
+
 import withSubmissionError from './withSubmissionError';
 
 export const onUpdateGroup = withSubmissionError((form, dispatch, props) => {
@@ -8,7 +9,8 @@ export const onUpdateGroup = withSubmissionError((form, dispatch, props) => {
     groupName,
     groupDocument,
     queryParams,
-  }).then((response) => ({ // create user does not return a response body
+  }).then((response) => ({
+    // create user does not return a response body
     ...response,
     data: { groupName, ...groupDocument },
   }));

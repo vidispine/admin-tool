@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { externalid as api } from '@vidispine/vdt-api';
-import ExternalIdNamespaceTitle from '../components/externalid/ExternalIdNamespaceTitle';
-import ExternalIdNamespaceCard from '../components/externalid/ExternalIdNamespaceCard';
-import ExternalIdNamespaceWizard from '../components/externalid/ExternalIdNamespaceWizard';
 
+import ExternalIdNamespaceCard from '../components/externalid/ExternalIdNamespaceCard';
+import ExternalIdNamespaceTitle from '../components/externalid/ExternalIdNamespaceTitle';
+import ExternalIdNamespaceWizard from '../components/externalid/ExternalIdNamespaceWizard';
 import withSnackbar from '../hoc/withSnackbar';
 
 const EXTERNALID_NAMESPACE_CREATE_MODAL = 'EXTERNALID_NAMESPACE_CREATE_MODAL';
 
-class ExternalIdNamespace extends React.PureComponent {
+class ExternalIdNamespace extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,10 +26,13 @@ class ExternalIdNamespace extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.listExternalIdNamespace()
-        .then((response) => this.setState({
-          externalIdentifierNamespaceListDocument: response.data,
-        }))
+      api
+        .listExternalIdNamespace()
+        .then((response) =>
+          this.setState({
+            externalIdentifierNamespaceListDocument: response.data,
+          }),
+        )
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
       this.onRefreshError(error);
@@ -52,12 +55,11 @@ class ExternalIdNamespace extends React.PureComponent {
           code={externalIdentifierNamespaceListDocument}
           codeModal="ExternalIdentifierNamespaceListDocument"
         />
-        {externalIdentifierNamespaceListDocument
-        && (
-        <ExternalIdNamespaceCard
-          externalIdentifierNamespaceListDocument={externalIdentifierNamespaceListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {externalIdentifierNamespaceListDocument && (
+          <ExternalIdNamespaceCard
+            externalIdentifierNamespaceListDocument={externalIdentifierNamespaceListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
         <ExternalIdNamespaceWizard
           dialogName={EXTERNALID_NAMESPACE_CREATE_MODAL}

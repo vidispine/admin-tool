@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
+
+import * as actions from '../../actions';
+import * as formActions from '../../formactions/access';
 
 import ImportAccessForm from './ImportAccessForm';
-import * as formActions from '../../formactions/access';
-import * as actions from '../../actions';
 
 const EDIT_IMPORTACCESS_FORM = 'EDIT_IMPORTACCESS_FORM';
 
@@ -26,7 +26,9 @@ function ImportAccessDialog({
   const onSubmitSuccess = () => {
     const messageContent = 'Import Access Created';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
     closeModal();
   };
   const onSubmitFail = () => {
@@ -55,18 +57,10 @@ function ImportAccessDialog({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={closeModal}
-        >
+        <Button size="small" color="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(EDIT_IMPORTACCESS_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(EDIT_IMPORTACCESS_FORM)}>
           Save
         </Button>
       </DialogActions>

@@ -5,10 +5,11 @@ import { taskgroup as api } from '@vidispine/vdt-api';
 export function onUpdate(form) {
   const { taskGroupDocument } = form;
   const { name: groupName } = taskGroupDocument;
-  return api.updateTaskGroup({
-    groupName,
-    taskGroupDocument,
-  })
+  return api
+    .updateTaskGroup({
+      groupName,
+      taskGroupDocument,
+    })
     .then((response) => ({ taskGroupDocument: response.data }))
     .catch((error) => {
       let errorMessage = error.message;

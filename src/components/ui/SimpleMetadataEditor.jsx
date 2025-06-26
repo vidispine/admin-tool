@@ -1,20 +1,22 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { PureComponent } from 'react';
+
+import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
-import SimpleMetadataForm from './SimpleMetadataForm';
-import SimpleMetadataDisplay from './SimpleMetadataDisplay';
 import * as formActions from '../../formactions/metadata';
+
+import SimpleMetadataDisplay from './SimpleMetadataDisplay';
+import SimpleMetadataForm from './SimpleMetadataForm';
 
 const EDIT_SIMPLE_METADATA_FORM = 'EDIT_SIMPLE_METADATA_FORM';
 
@@ -28,7 +30,7 @@ const styles = () => ({
   CardHeaderTypography: {},
 });
 
-class SimpleMetadataEditor extends React.PureComponent {
+class SimpleMetadataEditor extends PureComponent {
   constructor(props) {
     super(props);
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -54,9 +56,7 @@ class SimpleMetadataEditor extends React.PureComponent {
       CardHeaderProps = {},
       classes,
     } = this.props;
-    const {
-      isEditing,
-    } = this.state;
+    const { isEditing } = this.state;
     let { simpleMetadataList } = this.props;
     let initialValues = {
       simpleMetadataDocument: {
@@ -70,13 +70,15 @@ class SimpleMetadataEditor extends React.PureComponent {
     const onSubmitSuccess = (response, dispatch, props) => {
       formActions.onUpdateSimpleMetadataSubmitSuccess(response, dispatch, props);
       this.toggleEdit();
-      if (onSuccess) { onSuccess(response, dispatch, props); }
+      if (onSuccess) {
+        onSuccess(response, dispatch, props);
+      }
     };
     return (
       <>
         <CardHeader
           className={classes.CardHeader}
-          title={(
+          title={
             <Typography
               variant="subtitle1"
               className={classes.CardHeaderTypography}
@@ -84,7 +86,7 @@ class SimpleMetadataEditor extends React.PureComponent {
             >
               {title}
             </Typography>
-          )}
+          }
           disableTypography
           action={
             entityId !== undefined ? (

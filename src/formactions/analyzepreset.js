@@ -1,4 +1,5 @@
 import { analyzepreset as AnalyzePresetApi } from '@vidispine/vdt-api';
+
 import withSubmissionError from './withSubmissionError';
 
 export const onListAnalyzePreset = withSubmissionError((form) => {

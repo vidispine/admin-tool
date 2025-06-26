@@ -1,6 +1,5 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   button: {
@@ -9,19 +8,12 @@ const styles = {
   },
 };
 
-const TextButton = ({
-  classes,
-  children,
-  ...props
-}) => (
-  <Button
-    className={classes.button}
-    disableFocusRipple
-    disableRipple
-    {...props}
-  >
-    {children}
-  </Button>
-);
+function TextButton({ classes, children, ...props }) {
+  return (
+    <Button className={classes.button} disableFocusRipple disableRipple {...props}>
+      {children}
+    </Button>
+  );
+}
 
 export default withStyles(styles)(TextButton);

@@ -1,17 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { notification as api } from '@vidispine/vdt-api';
 
-import { withRouterProps } from '../hoc/withRouterProps';
 import NotificationCard from '../components/notification/NotificationCard';
 import NotificationRemove from '../components/notification/NotificationRemove';
-import capitalizeString from '../utils/capitalizeString';
-import withSnackbar from '../hoc/withSnackbar';
 import TitleHeader from '../components/ui/TitleHeader';
+import { withRouterProps } from '../hoc/withRouterProps';
+import withSnackbar from '../hoc/withSnackbar';
+import capitalizeString from '../utils/capitalizeString';
 
 const NOTIFICATION_REMOVE_DIALOG = 'NOTIFICATION_REMOVE_DIALOG';
 
-class NotificationEntity extends React.PureComponent {
+class NotificationEntity extends PureComponent {
   constructor(props) {
     super(props);
     this.onSetTitle = this.onSetTitle.bind(this);
@@ -35,13 +37,10 @@ class NotificationEntity extends React.PureComponent {
   }
 
   onRefresh() {
-    const {
-      entityType,
-      entityId,
-      notificationId,
-    } = this.props;
+    const { entityType, entityId, notificationId } = this.props;
     try {
-      api.getNotificationEntity({ notificationId, entityType, entityId })
+      api
+        .getNotificationEntity({ notificationId, entityType, entityId })
         .then((response) => this.setState({ notificationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -61,16 +60,8 @@ class NotificationEntity extends React.PureComponent {
   }
 
   render() {
-    const {
-      notificationId,
-      entityType,
-      entityId,
-      history,
-    } = this.props;
-    const {
-      notificationDocument,
-      isEditing,
-    } = this.state;
+    const { notificationId, entityType, entityId, history } = this.props;
+    const { notificationDocument, isEditing } = this.state;
     return (
       <>
         <TitleHeader

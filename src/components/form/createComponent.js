@@ -1,4 +1,5 @@
 import { Component, createElement } from 'react';
+
 import { isStateLess } from './utils';
 
 /**
@@ -10,6 +11,7 @@ import { isStateLess } from './utils';
  */
 export default function createComponent(MaterialUIComponent, mapProps) {
   class InputComponent extends Component {
+    // eslint-disable-next-line react/no-unused-class-component-methods
     getRenderedComponent() {
       return this.component;
     }
@@ -18,7 +20,7 @@ export default function createComponent(MaterialUIComponent, mapProps) {
       return createElement(MaterialUIComponent, {
         ...mapProps(this.props),
         // eslint-disable-next-line no-return-assign
-        ref: (!isStateLess(MaterialUIComponent) ? (el) => this.component = el : null),
+        ref: !isStateLess(MaterialUIComponent) ? (el) => (this.component = el) : null,
       });
     }
   }

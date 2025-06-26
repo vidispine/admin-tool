@@ -1,12 +1,11 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
-import orange from '@material-ui/core/colors/orange';
 import Avatar from '@material-ui/core/Avatar';
-import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
-import CheckIcon from '@material-ui/icons/Check';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
+import red from '@material-ui/core/colors/red';
+import { withStyles } from '@material-ui/core/styles';
+import CheckIcon from '@material-ui/icons/Check';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
 const styles = {
   greenAvatar: {
@@ -46,19 +45,13 @@ const styles = {
   },
 };
 
-export const OnlineIcon = withStyles(styles)(({
-  classes,
-}) => (
+export const OnlineIcon = withStyles(styles)(({ classes }) => (
   <Avatar className={classes.greenAvatar}>
     <CheckIcon className={classes.icon} />
   </Avatar>
 ));
 
-export const LoadingIcon = withStyles(styles)(({
-  classes,
-  children,
-  isLoading = true,
-}) => (
+export const LoadingIcon = withStyles(styles)(({ classes, children, isLoading = true }) => (
   <Avatar className={classes.baseAvatar}>
     {isLoading ? (
       <div style={{ position: 'relative' }}>
@@ -87,17 +80,13 @@ export const LoadingIcon = withStyles(styles)(({
   </Avatar>
 ));
 
-export const OfflineIcon = withStyles(styles)(({
-  classes,
-}) => (
+export const OfflineIcon = withStyles(styles)(({ classes }) => (
   <Avatar className={classes.redAvatar}>
     <PriorityHighIcon className={classes.icon} />
   </Avatar>
 ));
 
-export const WarningIcon = withStyles(styles)(({
-  classes,
-}) => (
+export const WarningIcon = withStyles(styles)(({ classes }) => (
   <Avatar className={classes.orangeAvatar}>
     <PriorityHighIcon className={classes.icon} />
   </Avatar>

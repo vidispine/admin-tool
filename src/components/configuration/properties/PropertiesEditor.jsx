@@ -1,26 +1,22 @@
-import React from 'react';
-import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
-import PropertiesTable from './PropertiesTable';
-import PropertiesDialog from './PropertiesDialog';
 import withModal from '../../../hoc/withModal';
+
+import PropertiesDialog from './PropertiesDialog';
+import PropertiesTable from './PropertiesTable';
 
 const ADD_CONFIGURATIONPROPERTIES = 'ADD_CONFIGURATIONPROPERTIES';
 
-function PropertiesEditor({
-  onRefresh,
-  configurationPropertyListDocument,
-  onOpen,
-}) {
+function PropertiesEditor({ onRefresh, configurationPropertyListDocument, onOpen }) {
   return (
     <>
       <CardHeader
-        action={(
+        action={
           <Grid container direction="row-reverse" alignItems="center">
             <Grid item>
               <Tooltip title="New">
@@ -30,7 +26,7 @@ function PropertiesEditor({
               </Tooltip>
             </Grid>
           </Grid>
-        )}
+        }
       />
       <CardContent>
         <PropertiesTable
@@ -38,10 +34,7 @@ function PropertiesEditor({
           onRefresh={onRefresh}
         />
       </CardContent>
-      <PropertiesDialog
-        dialogName={ADD_CONFIGURATIONPROPERTIES}
-        onSuccess={onRefresh}
-      />
+      <PropertiesDialog dialogName={ADD_CONFIGURATIONPROPERTIES} onSuccess={onRefresh} />
     </>
   );
 }

@@ -1,11 +1,11 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
+
 import { TextField } from '../form';
-import Field from '../ui/Field';
-import InitialDisabledTextField from '../ui/InitialDisabledTextField';
-import FormSection from '../ui/FormSection';
 import CodeField from '../ui/CodeField';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import InitialDisabledTextField from '../ui/InitialDisabledTextField';
 
 const queryParams = () => (
   <Field
@@ -22,40 +22,28 @@ const headers = () => (
   <Field name="contentType" label="Content Type" component={TextField} fullWidth />
 );
 
-const ItemSequenceForm = ({
-  error,
-  handleSubmit,
-  codeFieldMode = 'application/xml',
-}) => (
-  <form onSubmit={handleSubmit}>
-    {error && <Typography color="error">{error}</Typography>}
-    <Field
-      name="itemId"
-      label="Item ID"
-      component={InitialDisabledTextField}
-      fullWidth
-    />
-    <Field
-      name="format"
-      label="Format"
-      component={InitialDisabledTextField}
-      fullWidth
-    />
-    <FormSection name="headers" component={headers} />
-    <FormSection name="queryParams" component={queryParams} />
-    <Field
-      name="body"
-      label="body"
-      component={CodeField}
-      options={{
-        theme: 'material',
-        mode: codeFieldMode,
-        lineWrapping: true,
-        lineNumbers: true,
-      }}
-    />
-    <button type="submit" hidden />
-  </form>
-);
+function ItemSequenceForm({ error, handleSubmit, codeFieldMode = 'application/xml' }) {
+  return (
+    <form onSubmit={handleSubmit}>
+      {error && <Typography color="error">{error}</Typography>}
+      <Field name="itemId" label="Item ID" component={InitialDisabledTextField} fullWidth />
+      <Field name="format" label="Format" component={InitialDisabledTextField} fullWidth />
+      <FormSection name="headers" component={headers} />
+      <FormSection name="queryParams" component={queryParams} />
+      <Field
+        name="body"
+        label="body"
+        component={CodeField}
+        options={{
+          theme: 'material',
+          mode: codeFieldMode,
+          lineWrapping: true,
+          lineNumbers: true,
+        }}
+      />
+      <button type="submit" hidden />
+    </form>
+  );
+}
 
 export default reduxForm()(ItemSequenceForm);

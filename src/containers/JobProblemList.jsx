@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { job as JobApi } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import JobProblemListCard from '../components/job/JobProblemListCard';
 
+import JobProblemListCard from '../components/job/JobProblemListCard';
+import TitleHeader from '../components/ui/TitleHeader';
 import withSnackbar from '../hoc/withSnackbar';
 
-class JobProblemList extends React.PureComponent {
+class JobProblemList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,8 +23,9 @@ class JobProblemList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      JobApi.listJob({ path: '/API/job/problem' })
-        .then((response) => this.setState({ jobProblemListDocument: response.data }));
+      JobApi.listJob({ path: '/API/job/problem' }).then((response) =>
+        this.setState({ jobProblemListDocument: response.data }),
+      );
     } catch (error) {
       const messageContent = 'Error Loading Job Problems';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -42,11 +43,8 @@ class JobProblemList extends React.PureComponent {
           code={jobProblemListDocument}
           codeModal="JobProblemListDocument"
         />
-        {jobProblemListDocument
-        && (
-        <JobProblemListCard
-          jobProblemListDocument={jobProblemListDocument}
-        />
+        {jobProblemListDocument && (
+          <JobProblemListCard jobProblemListDocument={jobProblemListDocument} />
         )}
       </>
     );

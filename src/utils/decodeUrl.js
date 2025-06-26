@@ -11,7 +11,8 @@ const decodeUrl = (urlString = '') => {
     direct = true;
     url = url.replace('direct+', '');
   }
-  const re = /(?:([^:]*):\/\/)?(?:([^:@]*)(?::([^@]*))?@)?(?:([^/:]*)\.(?=[^./:]*\.[^./:]*))?([^./:]*)(?:\.([^/.:]*))?(?::([0-9]*))?(\/[^?#]*(?=.*?\/)\/)?([^?#]*)?(?:\?([^#]*))?(?:#(.*))?/;
+  const re =
+    /(?:([^:]*):\/\/)?(?:([^:@]*)(?::([^@]*))?@)?(?:([^/:]*)\.(?=[^./:]*\.[^./:]*))?([^./:]*)(?:\.([^/.:]*))?(?::([0-9]*))?(\/[^?#]*(?=.*?\/)\/)?([^?#]*)?(?:\?([^#]*))?(?:#(.*))?/;
   const [
     href,
     protocol,
@@ -30,17 +31,26 @@ const decodeUrl = (urlString = '') => {
   let host;
   if (subdomain === '') {
     host = `${host}.`;
-  } else if (subdomain !== undefined) { host = `${subdomain}.`; }
-  if (domain) { host = `${host || ''}${domain}`; }
+  } else if (subdomain !== undefined) {
+    host = `${subdomain}.`;
+  }
+  if (domain) {
+    host = `${host || ''}${domain}`;
+  }
   if (tld === '') {
     host = `${host}.`;
-  } else if (tld !== undefined) { host = `${host}.${tld}`; }
+  } else if (tld !== undefined) {
+    host = `${host}.${tld}`;
+  }
 
   let queryParams = {};
   if (queryString) {
-    queryParams = queryString.split('&').map((p) => p.split('=')).reduce((i, e) => ({ ...i, [e[0]]: e[1] }), {});
+    queryParams = queryString
+      .split('&')
+      .map((p) => p.split('='))
+      .reduce((i, e) => ({ ...i, [e[0]]: e[1] }), {});
   }
-  const fullPath = `${path || ''}${(file && file !== '/') ? file : ''}`;
+  const fullPath = `${path || ''}${file && file !== '/' ? file : ''}`;
   return {
     href,
     protocol,

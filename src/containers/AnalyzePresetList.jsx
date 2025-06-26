@@ -1,16 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import AnalyzePresetListCard from '../components/analyzepreset/AnalyzePresetListCard';
-import AnalyzePresetListParams, { ANALYSEPRESETLISTPARAMS_FORM } from '../components/analyzepreset/AnalyzePresetListParams';
 import AnalyzePresetDialog from '../components/analyzepreset/AnalyzePresetDialog';
-import withSnackbar from '../hoc/withSnackbar';
+import AnalyzePresetListCard from '../components/analyzepreset/AnalyzePresetListCard';
+import AnalyzePresetListParams, {
+  ANALYSEPRESETLISTPARAMS_FORM,
+} from '../components/analyzepreset/AnalyzePresetListParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withFormActions from '../hoc/withFormActions';
+import withSnackbar from '../hoc/withSnackbar';
 
 const ANALYZEPRESET_CREATE_MODAL = 'ANALYZEPRESET_CREATE_MODAL';
 
-class AnalyzePresetList extends React.PureComponent {
+class AnalyzePresetList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -50,15 +53,9 @@ class AnalyzePresetList extends React.PureComponent {
           codeModal="AnalyzePresetListDocument"
           createModal={ANALYZEPRESET_CREATE_MODAL}
         />
-        <AnalyzePresetListParams
-          form={ANALYSEPRESETLISTPARAMS_FORM}
-          onSuccess={this.onSuccess}
-        />
-        { analyzePresetListDocument
-        && (
-        <AnalyzePresetListCard
-          analyzePresetListDocument={analyzePresetListDocument}
-        />
+        <AnalyzePresetListParams form={ANALYSEPRESETLISTPARAMS_FORM} onSuccess={this.onSuccess} />
+        {analyzePresetListDocument && (
+          <AnalyzePresetListCard analyzePresetListDocument={analyzePresetListDocument} />
         )}
         <AnalyzePresetDialog
           dialogName={ANALYZEPRESET_CREATE_MODAL}

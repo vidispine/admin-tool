@@ -5,10 +5,11 @@ import { exportlocation as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { exportLocationDocument } = form;
   const locationName = props.locationName || exportLocationDocument.name;
-  return api.updateExportLocation({
-    locationName,
-    exportLocationDocument,
-  })
+  return api
+    .updateExportLocation({
+      locationName,
+      exportLocationDocument,
+    })
     .then((response) => ({ exportLocationDocument: response.data, locationName }))
     .catch((error) => {
       let errorMessage = error.message;

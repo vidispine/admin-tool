@@ -10,7 +10,7 @@ function unitToSize(unit, sizes) {
   }
   const i = parseInt(Math.floor(Math.log(positiveUnit) / Math.log(1024)), 10);
   if (i === 0) return `${unit} ${sizes[i]}`;
-  return `${isNegative ? '-' : ''}${(unit / (1024 ** i)).toFixed(1)} ${sizes[i]}`;
+  return `${isNegative ? '-' : ''}${(unit / 1024 ** i).toFixed(1)} ${sizes[i]}`;
 }
 
 export default function bytesToSize(bytes) {

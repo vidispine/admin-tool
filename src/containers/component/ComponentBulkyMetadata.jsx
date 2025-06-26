@@ -1,17 +1,18 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import { generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
-import withSnackbar from '../../hoc/withSnackbar';
-import { withRouterProps } from '../../hoc/withRouterProps';
 import BulkyMetadataDisplay from '../../components/bulkymetadata/BulkyMetadataDisplay';
 import BulkyMetadataDownloadDialog from '../../components/bulkymetadata/BulkyMetadataDownloadDialog';
+import { withRouterProps } from '../../hoc/withRouterProps';
+import withSnackbar from '../../hoc/withSnackbar';
 
 const BULKYMETADATA_COMPONENT_DOWNLOAD_DIALOG = 'BULKYMETADATA_COMPONENT_DOWNLOAD_DIALOG';
 
-class ComponentBulkyMetadata extends React.PureComponent {
+class ComponentBulkyMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -26,9 +27,7 @@ class ComponentBulkyMetadata extends React.PureComponent {
     this.onRefresh();
   }
 
-  UNSAFE_componentWillReceiveProps({
-    shapeId, itemId, componentId, bulkyMetadataKey,
-  }) {
+  UNSAFE_componentWillReceiveProps({ shapeId, itemId, componentId, bulkyMetadataKey }) {
     const { componentId: prevComponentId, bulkyMetadataKey: prevKey } = this.props;
     if (prevComponentId !== componentId || prevKey !== bulkyMetadataKey) {
       this.onFetch(itemId, shapeId, componentId, bulkyMetadataKey);
@@ -37,16 +36,17 @@ class ComponentBulkyMetadata extends React.PureComponent {
   }
 
   onRefresh() {
-    const {
-      itemId, shapeId, componentId, bulkyMetadataKey,
-    } = this.props;
+    const { itemId, shapeId, componentId, bulkyMetadataKey } = this.props;
     this.onFetch(itemId, shapeId, componentId, bulkyMetadataKey);
   }
 
   onFetch(itemId, shapeId, componentId, bulkyMetadataKey) {
     try {
       BulkyMetadataApi.getComponentBulkyMetadata({
-        itemId, shapeId, componentId, key: bulkyMetadataKey,
+        itemId,
+        shapeId,
+        componentId,
+        key: bulkyMetadataKey,
       })
         .then((response) => this.setState({ bulkyMetadataDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
@@ -78,14 +78,21 @@ class ComponentBulkyMetadata extends React.PureComponent {
             code={bulkyMetadataDocument}
             codeModal="BulkyMetadataDocument"
             onRefresh={this.onRefresh}
-            breadcrumbList={[{ title: 'Bulky Metadata', to: generatePath('/item/:itemId/shape/:shapeId/component/:componentId/bulky-metadata/', { itemId, shapeId, componentId }) }, bulkyMetadataKey]}
+            breadcrumbList={[
+              {
+                title: 'Bulky Metadata',
+                to: generatePath(
+                  '/item/:itemId/shape/:shapeId/component/:componentId/bulky-metadata/',
+                  { itemId, shapeId, componentId },
+                ),
+              },
+              bulkyMetadataKey,
+            ]}
             downloadModal={BULKYMETADATA_COMPONENT_DOWNLOAD_DIALOG}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
-        { bulkyMetadataDocument && (
+        {TabComponent && <TabComponent />}
+        {bulkyMetadataDocument && (
           <BulkyMetadataDisplay bulkyMetadataDocument={bulkyMetadataDocument} />
         )}
         <BulkyMetadataDownloadDialog

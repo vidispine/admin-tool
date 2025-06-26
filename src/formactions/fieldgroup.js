@@ -5,10 +5,11 @@ import { fieldgroup as api } from '@vidispine/vdt-api';
 export function onUpdate(form, dispatch, props) {
   const { metadataFieldGroupDocument } = form;
   const groupName = props.groupName || metadataFieldGroupDocument.name;
-  return api.updateFieldGroup({
-    groupName,
-    metadataFieldGroupDocument,
-  })
+  return api
+    .updateFieldGroup({
+      groupName,
+      metadataFieldGroupDocument,
+    })
     .then((response) => ({ metadataFieldGroupDocument: response.data, groupName }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -22,7 +23,8 @@ export function onUpdate(form, dispatch, props) {
 export function onUpdateFieldGroupChild(form, dispatch, props) {
   const { childGroupName } = form;
   const { groupName } = props;
-  return api.updateFieldGroupChild({ groupName, childGroupName })
+  return api
+    .updateFieldGroupChild({ groupName, childGroupName })
     .then(() => ({ childGroupName, groupName }))
     .catch((error) => {
       let errorMessage = error.message;
@@ -36,10 +38,11 @@ export function onUpdateFieldGroupChild(form, dispatch, props) {
 export function onUpdateFieldGroupField(form, dispatch, props) {
   const groupName = props.groupName || form.groupName;
   const fieldName = props.fieldName || form.fieldName;
-  return api.updateFieldGroupField({
-    groupName,
-    fieldName,
-  })
+  return api
+    .updateFieldGroupField({
+      groupName,
+      fieldName,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -50,14 +53,12 @@ export function onUpdateFieldGroupField(form, dispatch, props) {
 }
 
 export function onSearch(form) {
-  const {
-    queryParams = {},
-    metadataFieldGroupSearchDocument = {},
-  } = form;
-  return api.searchFieldGroup({
-    metadataFieldGroupSearchDocument,
-    queryParams,
-  })
+  const { queryParams = {}, metadataFieldGroupSearchDocument = {} } = form;
+  return api
+    .searchFieldGroup({
+      metadataFieldGroupSearchDocument,
+      queryParams,
+    })
     .then((response) => ({
       queryParams,
       metadataFieldGroupSearchDocument,

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { group as GroupApi } from '@vidispine/vdt-api';
+
 import { StatefulAsyncSelect } from '../ui/Select';
 
 const debouncedListGroup = debounce(GroupApi.listGroup, 500, {
@@ -14,7 +14,9 @@ export const loadGroupOptions = async (inputValue) => {
   const { data: groupListType } = await debouncedListGroup();
   const { group = [] } = groupListType;
   let filterOps = group;
-  if (inputValue && inputValue !== '*') { filterOps = group.filter((f) => f.groupName.toLowerCase().includes(inputValue.toLowerCase())); }
+  if (inputValue && inputValue !== '*') {
+    filterOps = group.filter((f) => f.groupName.toLowerCase().includes(inputValue.toLowerCase()));
+  }
   const options = filterOps.map((f) => ({
     label: f.groupName,
     value: f.groupName,

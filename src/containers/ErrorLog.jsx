@@ -1,11 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { errorlog as api } from '@vidispine/vdt-api';
-import ErrorLogTitle from '../components/errorlog/ErrorLogTitle';
+
 import ErrorLogCard from '../components/errorlog/ErrorLogCard';
+import ErrorLogTitle from '../components/errorlog/ErrorLogTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
-class ErrorLog extends React.PureComponent {
+class ErrorLog extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -22,7 +23,8 @@ class ErrorLog extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.listErrorLogs()
+      api
+        .listErrorLogs()
         .then((response) => this.setState({ errorLogListDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -37,9 +39,7 @@ class ErrorLog extends React.PureComponent {
   }
 
   render() {
-    const {
-      errorLogListDocument,
-    } = this.state;
+    const { errorLogListDocument } = this.state;
     return (
       <>
         <ErrorLogTitle
@@ -47,12 +47,7 @@ class ErrorLog extends React.PureComponent {
           codeModal="ErrorLogListDocument"
           onRefresh={this.onRefresh}
         />
-        {errorLogListDocument
-        && (
-        <ErrorLogCard
-          errorLogListDocument={errorLogListDocument}
-        />
-        )}
+        {errorLogListDocument && <ErrorLogCard errorLogListDocument={errorLogListDocument} />}
       </>
     );
   }

@@ -1,16 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { analyzepreset as AnalyzePresetApi } from '@vidispine/vdt-api';
 
-import TitleHeader from '../components/ui/TitleHeader';
 import AnalyzePresetCard from '../components/analyzepreset/AnalyzePresetCard';
 import AnalyzePresetRemove from '../components/analyzepreset/AnalyzePresetRemove';
-
+import TitleHeader from '../components/ui/TitleHeader';
 import withSnackbar from '../hoc/withSnackbar';
 
 const ANALYZEPRESET_REMOVE_MODAL = 'ANALYZEPRESET_REMOVE_MODAL';
 
-class AnalyzePreset extends React.PureComponent {
+class AnalyzePreset extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -28,10 +27,11 @@ class AnalyzePreset extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, preset } = this.props;
     try {
-      AnalyzePresetApi.getAnalyzePreset({ preset })
-        .then((response) => this.setState({
+      AnalyzePresetApi.getAnalyzePreset({ preset }).then((response) =>
+        this.setState({
           analyzePresetDocument: response.data,
-        }));
+        }),
+      );
     } catch (error) {
       const messageContent = 'Error Getting Analyze Preset';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -54,13 +54,12 @@ class AnalyzePreset extends React.PureComponent {
           removeModal={ANALYZEPRESET_REMOVE_MODAL}
         />
 
-        {analyzePresetDocument
-        && (
-        <AnalyzePresetCard
-          preset={preset}
-          analyzePresetDocument={analyzePresetDocument}
-          onRefresh={this.onRefresh}
-        />
+        {analyzePresetDocument && (
+          <AnalyzePresetCard
+            preset={preset}
+            analyzePresetDocument={analyzePresetDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
         <AnalyzePresetRemove
           dialogName={ANALYZEPRESET_REMOVE_MODAL}

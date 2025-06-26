@@ -1,167 +1,74 @@
-import React from 'react';
-
 import { TextField } from '../form';
-import ChipInput from './ChipInput';
-import FormSection from './FormSection';
-import Field from './Field';
-import FieldTypeArray from './FieldTypeArray';
 import { OtifPresetType } from '../shapetag/ShapeTagForm';
 
-const AnalyzeAudioJobType = () => (
-  <>
-    <FieldTypeArray
-      name="otif"
-      label="otif"
-      component={OtifPresetType}
-    />
-  </>
-);
-const AnalyzeVideoJobType = () => (
-  <>
-    <FieldTypeArray
-      name="otif"
-      label="otif"
-      component={OtifPresetType}
-    />
-  </>
-);
-const HighlighterType = () => (
-  <>
-    <Field
-      name="model"
-      component={TextField}
-      fullWidth
-    />
-  </>
-);
-const SmartCropType = () => (
-  <>
-    <Field
-      name="aspect"
-      component={TextField}
-      fullWidth
-    />
-  </>
-);
+import ChipInput from './ChipInput';
+import Field from './Field';
+import FieldTypeArray from './FieldTypeArray';
+import FormSection from './FormSection';
 
-const AnalyzeAudioChannelType = () => (
-  <>
-    <Field
-      name="tone"
-      label="tone"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
-    <Field
-      name="stream"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="channel"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="thresh"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-  </>
-);
+function AnalyzeAudioJobType() {
+  return <FieldTypeArray name="otif" label="otif" component={OtifPresetType} />;
+}
+function AnalyzeVideoJobType() {
+  return <FieldTypeArray name="otif" label="otif" component={OtifPresetType} />;
+}
+function HighlighterType() {
+  return <Field name="model" component={TextField} fullWidth />;
+}
+function SmartCropType() {
+  return <Field name="aspect" component={TextField} fullWidth />;
+}
 
-const AnalyzeJobType = () => (
-  <>
-    <FormSection
-      name="black"
-      label="Black"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="percentage"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FormSection
-      name="bars"
-      label="Bars"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="percentage"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FormSection
-      name="freeze"
-      label="Freeze"
-      component={() => (
-        <>
-          <Field
-            name="threshold"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-          <Field
-            name="time"
-            component={TextField}
-            type="number"
-            fullWidth
-          />
-        </>
-      )}
-    />
-    <FieldTypeArray
-      name="channel"
-      label="channel"
-      component={AnalyzeAudioChannelType}
-    />
-    <FormSection
-      name="audio"
-      label="Audio"
-      component={AnalyzeAudioJobType}
-    />
-    <FormSection
-      name="video"
-      label="Video"
-      component={AnalyzeVideoJobType}
-    />
-    <FormSection
-      name="highlighter"
-      label="Highlighter"
-      component={HighlighterType}
-    />
-    <FormSection
-      name="smartcrop"
-      label="SmartCrop"
-      component={SmartCropType}
-    />
-  </>
-);
+function AnalyzeAudioChannelType() {
+  return (
+    <>
+      <Field name="tone" label="tone" component={ChipInput} simple fullWidth />
+      <Field name="stream" component={TextField} type="number" fullWidth />
+      <Field name="channel" component={TextField} type="number" fullWidth />
+      <Field name="thresh" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
+
+function AnalyzeJobBlackType() {
+  return (
+    <>
+      <Field name="threshold" component={TextField} type="number" fullWidth />
+      <Field name="percentage" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
+
+function AnalyzeJobBarsType() {
+  return (
+    <>
+      <Field name="threshold" component={TextField} type="number" fullWidth />
+      <Field name="percentage" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
+function AnalyzeJobFreezeType() {
+  return (
+    <>
+      <Field name="threshold" component={TextField} type="number" fullWidth />
+      <Field name="time" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
+
+function AnalyzeJobType() {
+  return (
+    <>
+      <FormSection name="black" label="Black" component={AnalyzeJobBlackType} />
+      <FormSection name="bars" label="Bars" component={AnalyzeJobBarsType} />
+      <FormSection name="freeze" label="Freeze" component={AnalyzeJobFreezeType} />
+      <FieldTypeArray name="channel" label="channel" component={AnalyzeAudioChannelType} />
+      <FormSection name="audio" label="Audio" component={AnalyzeAudioJobType} />
+      <FormSection name="video" label="Video" component={AnalyzeVideoJobType} />
+      <FormSection name="highlighter" label="Highlighter" component={HighlighterType} />
+      <FormSection name="smartcrop" label="SmartCrop" component={SmartCropType} />
+    </>
+  );
+}
 
 export default AnalyzeJobType;

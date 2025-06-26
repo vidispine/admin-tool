@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatafield as api } from '@vidispine/vdt-api';
 
 import MetadataFieldCard from '../../components/metadatafield/MetadataFieldCard';
-import withSnackbar from '../../hoc/withSnackbar';
 import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
+import withSnackbar from '../../hoc/withSnackbar';
 
-class MetadataFieldOverview extends React.PureComponent {
+class MetadataFieldOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -25,9 +25,11 @@ class MetadataFieldOverview extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, fieldName } = this.props;
     try {
-      api.getMetadataField({ fieldName, queryParams: { includeValues: true } })
+      api
+        .getMetadataField({ fieldName, queryParams: { includeValues: true } })
         .then((response) => this.setState({ metadataFieldDocument: response.data }));
-      api.getSimpleMetadata({ fieldName })
+      api
+        .getSimpleMetadata({ fieldName })
         .then((response) => this.setState({ simpleMetadataDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Metadata Field';
@@ -36,11 +38,7 @@ class MetadataFieldOverview extends React.PureComponent {
   }
 
   render() {
-    const {
-      fieldName,
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-    } = this.props;
+    const { fieldName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
     const { simpleMetadataDocument = {}, metadataFieldDocument } = this.state;
     const { field: simpleMetadataList = [] } = simpleMetadataDocument;
     return (
@@ -52,24 +50,20 @@ class MetadataFieldOverview extends React.PureComponent {
             onRefresh={this.onRefresh}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
+        {TabComponent && <TabComponent />}
+        {metadataFieldDocument && (
+          <MetadataFieldCard
+            metadataFieldDocument={metadataFieldDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
-        {metadataFieldDocument
-        && (
-        <MetadataFieldCard
-          metadataFieldDocument={metadataFieldDocument}
-          onRefresh={this.onRefresh}
-        />
-        )}
-        {simpleMetadataList
-        && (
-        <SimpleMetadataCard
-          simpleMetadataList={simpleMetadataList}
-          onSuccess={this.onRefresh}
-          entityType="metadata-field"
-          entityId={fieldName}
-        />
+        {simpleMetadataList && (
+          <SimpleMetadataCard
+            simpleMetadataList={simpleMetadataList}
+            onSuccess={this.onRefresh}
+            entityType="metadata-field"
+            entityId={fieldName}
+          />
         )}
       </>
     );

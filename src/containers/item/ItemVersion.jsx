@@ -1,7 +1,7 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import EssenceVersionList from './EssenceVersionList';
+
 import EssenceVersion from './EssenceVersion';
+import EssenceVersionList from './EssenceVersionList';
 
 function ItemVersion({ titleComponent }) {
   return (

@@ -1,21 +1,23 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
 
-import withTabs from '../hoc/withTabs';
-import ImportUri from './import/ImportUri';
-import ImportPlaceholder from './import/ImportPlaceholder';
-import ImportComponent from './import/ImportComponent';
-import ImportRaw from './import/ImportRaw';
-import ImportFile from './import/ImportFile';
-import ImportShapePlaceholder from './import/ImportShapePlaceholder';
-import ImportShape from './import/ImportShape';
-import ImportCollection from './import/ImportCollection';
-import ImportShapeEssence from './import/ImportShapeEssence';
-import ImportSidecar from './import/ImportSidecar';
-import ImportSidecarRaw from './import/ImportSidecarRaw';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import withTabs from '../hoc/withTabs';
+
+import ImportCollection from './import/ImportCollection';
+import ImportComponent from './import/ImportComponent';
+import ImportFile from './import/ImportFile';
+import ImportPlaceholder from './import/ImportPlaceholder';
+import ImportRaw from './import/ImportRaw';
+import ImportShape from './import/ImportShape';
+import ImportShapeEssence from './import/ImportShapeEssence';
+import ImportShapePlaceholder from './import/ImportShapePlaceholder';
+import ImportSidecar from './import/ImportSidecar';
+import ImportSidecarRaw from './import/ImportSidecarRaw';
+import ImportUri from './import/ImportUri';
 
 const IMPORTURI_TAB = 'IMPORTURI_TAB';
 const IMPORTPLACEHOLDER_TAB = 'IMPORTPLACEHOLDER_TAB';
@@ -127,32 +129,19 @@ const listComponentRoute = ({ itemId }) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(
-      ({
-        path,
-        component: RenderComponent,
-        listText,
-        exact,
-        ...renderProps
-      }) => (
-        <Route
-          key={path}
-          path={path}
-          exact={exact}
-          render={() => (
-            <RenderComponent {...props} {...renderProps} title={listText} />
-          )}
-        />
-      ),
-    )}
-    <Route
-      path="*"
-      render={() => <ImportPlaceholder {...props} title="Item Placeholder" />}
-    />
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact, ...renderProps }) => (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={() => <RenderComponent {...props} {...renderProps} title={listText} />}
+      />
+    ))}
+    <Route path="*" render={() => <ImportPlaceholder {...props} title="Item Placeholder" />} />
   </Switch>
 );
 
-class Import extends React.PureComponent {
+class Import extends PureComponent {
   render() {
     const { onChangeTab, tabValue } = this.props;
     return (

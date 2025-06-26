@@ -1,32 +1,28 @@
-import React from 'react';
-import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { compose } from 'redux';
 
-import ProjectionNameForm from './ProjectionNameForm';
-import ProjectionForm from './ProjectionForm';
 import * as formActions from '../../formactions/projection';
-import withUI from '../../hoc/withUI';
 import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+
+import ProjectionForm from './ProjectionForm';
+import ProjectionNameForm from './ProjectionNameForm';
 
 export const EDIT_PROJECTION_OUTGOING_FORM = 'EDIT_PROJECTION_OUTGOING_FORM';
 
-function ProjectionCreateOutgoing({
-  submitForm,
-  openSnackBar,
-  onClose,
-  onSuccess,
-  open,
-}) {
+function ProjectionCreateOutgoing({ submitForm, openSnackBar, onClose, onSuccess, open }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Projection Created';
     openSnackBar({ messageContent });
     onClose();
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Creating Projection';
@@ -51,11 +47,7 @@ function ProjectionCreateOutgoing({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
         <Button

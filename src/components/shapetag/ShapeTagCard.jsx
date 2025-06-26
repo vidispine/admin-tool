@@ -1,6 +1,14 @@
-import React from 'react';
-
 import SquareCard from '../ui/SquareCard';
+
+import {
+  ShapeTagContainerDisplay,
+  ShapeTagAudioDisplay,
+  ShapeTagVideoDisplay,
+  ShapeTagThumbnailDisplay,
+  ShapeTagAdvancedDisplay,
+  ShapeTagOverlayDisplay,
+  ShapeTagScriptDisplay,
+} from './ShapeTagDisplay';
 import ShapeTagEditor from './ShapeTagEditor';
 import {
   ShapeTagContainerForm,
@@ -11,15 +19,6 @@ import {
   ShapeTagOverlayForm,
   ShapeTagScriptForm,
 } from './ShapeTagForm';
-import {
-  ShapeTagContainerDisplay,
-  ShapeTagAudioDisplay,
-  ShapeTagVideoDisplay,
-  ShapeTagThumbnailDisplay,
-  ShapeTagAdvancedDisplay,
-  ShapeTagOverlayDisplay,
-  ShapeTagScriptDisplay,
-} from './ShapeTagDisplay';
 
 export default function ShapeTagCard(props) {
   return (

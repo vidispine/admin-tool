@@ -1,36 +1,37 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
+import AccessControlDialog from '../components/access/AccessControlDialog';
+import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import CollectionExport from '../components/collection/CollectionExport';
+import CollectionFolderMap from '../components/collection/CollectionFolderMap';
+import CollectionRemove from '../components/collection/CollectionRemove';
+import CollectionRename from '../components/collection/CollectionRename';
+import DrawerContainer from '../components/ui/DrawerContainer';
+import ListItemLink from '../components/ui/ListItemLink';
+import Menu, { MenuItem } from '../components/ui/Menu';
+import TitleHeader from '../components/ui/TitleHeader';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
 
-import CollectionMetadata from './collection/CollectionMetadata';
-import CollectionContent from './collection/CollectionContent';
-import CollectionCollection from './collection/CollectionCollection';
-import CollectionMetadataChangeSetList from './collection/CollectionMetadataChangeSetList';
 import AccessControl from './AccessControl';
 import AccessControlMerged from './AccessControlMerged';
-import StorageRule from './StorageRule';
-import DeletionLockList from './DeletionLockList';
-import NotificationEntityList from './NotificationEntityList';
-import NotificationEntity from './NotificationEntity';
 import AccessGraph from './AccessGraph';
+import CollectionCollection from './collection/CollectionCollection';
+import CollectionContent from './collection/CollectionContent';
+import CollectionMetadata from './collection/CollectionMetadata';
+import CollectionMetadataChangeSetList from './collection/CollectionMetadataChangeSetList';
+import CollectionSequence from './collection/CollectionSequence';
+import DeletionLockList from './DeletionLockList';
+import ExternalId from './ExternalId';
 import MetadataGraph from './MetadataGraph';
-
-import TitleHeader from '../components/ui/TitleHeader';
-import CollectionRemove from '../components/collection/CollectionRemove';
-import CollectionExport from '../components/collection/CollectionExport';
-import AccessControlDialog from '../components/access/AccessControlDialog';
-import DrawerContainer from '../components/ui/DrawerContainer';
-import ListItemLink from '../components/ui/ListItemLink';
-
-import CollectionRename from '../components/collection/CollectionRename';
-import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
-import CollectionFolderMap from '../components/collection/CollectionFolderMap';
-import Menu, { MenuItem } from '../components/ui/Menu';
+import NotificationEntity from './NotificationEntity';
+import NotificationEntityList from './NotificationEntityList';
+import StorageRule from './StorageRule';
 
 const COLLECTION_METADATA_TAB = 'COLLECTION_METADATA_TAB';
 const COLLECTION_COLLECTION_TAB = 'COLLECTION_COLLECTION_TAB';
@@ -49,6 +50,8 @@ const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
 const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
+const SEQUENCE_TAB = 'SEQUENCE_TAB';
+const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
   {
@@ -122,6 +125,20 @@ const TAB_TITLE = [
     path: '/collection/:collectionId/metadata/graph/',
     entity: 'collection',
   },
+  {
+    tab: SEQUENCE_TAB,
+    listText: 'Sequence',
+    component: CollectionSequence,
+    path: '/collection/:collectionId/sequence-document/',
+    entity: 'collection',
+  },
+  {
+    tab: EXTERNALID_TAB,
+    listText: 'External ID',
+    component: ExternalId,
+    path: '/collection/:collectionId/external-id/',
+    entity: 'collection',
+  },
 ];
 
 const listComponentRoute = ({ collectionId }) => (
@@ -148,9 +165,7 @@ const mainComponentRoute = (props) => (
       render={() => <NotificationEntity {...props} />}
       {...props}
     />
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact, ...renderProps
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact, ...renderProps }) => (
       <Route
         key={path}
         path={path}
@@ -158,14 +173,11 @@ const mainComponentRoute = (props) => (
         render={() => <RenderComponent {...props} {...renderProps} title={listText} />}
       />
     ))}
-    <Route
-      path="*"
-      render={() => <CollectionMetadata {...props} title="Metadata" />}
-    />
+    <Route path="*" render={() => <CollectionMetadata {...props} title="Metadata" />} />
   </Switch>
 );
 
-class Collection extends React.PureComponent {
+class Collection extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -184,7 +196,9 @@ class Collection extends React.PureComponent {
 
   onRefresh(...args) {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(...args); }
+    if (onRefresh) {
+      onRefresh(...args);
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -196,13 +210,7 @@ class Collection extends React.PureComponent {
   }
 
   render() {
-    const {
-      onChangeTab,
-      tabValue,
-      collectionId,
-      history,
-      onOpen,
-    } = this.props;
+    const { onChangeTab, tabValue, collectionId, history, onOpen } = this.props;
     const { collectionName } = this.state;
     const titleComponent = (props) => (
       <TitleHeader
@@ -216,30 +224,22 @@ class Collection extends React.PureComponent {
         addAccessControl={COLLECTION_ACCESSCONTROL_ADD_DIALOG}
         exportModal={COLLECTION_EXPORT_DIALOG}
         titleChip={collectionName}
-        actionComponent={(
+        actionComponent={
           <Menu>
-            <MenuItem
-              onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}>
               <Typography>Add Entity</Typography>
             </MenuItem>
-            <MenuItem
-              onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
               <Typography>Rename</Typography>
             </MenuItem>
-            <MenuItem
-              onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}>
               <Typography>Map To Folder</Typography>
             </MenuItem>
-            <MenuItem
-              onClick={() => onOpen({ modalName: COLLECTION_REMOVE_DIALOG })}
-            >
+            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_REMOVE_DIALOG })}>
               <Typography color="secondary">Delete Collection</Typography>
             </MenuItem>
           </Menu>
-        )}
+        }
         {...props}
       />
     );

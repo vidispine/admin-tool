@@ -1,19 +1,14 @@
-import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import Dialog from '@material-ui/core/Dialog';
-import ExportLocationForm from './ExportLocationForm';
 import * as formActions from '../../formactions/exportlocation';
-import WizardForm from '../ui/WizardForm';
 import withUI from '../../hoc/withUI';
 import DialogContent from '../ui/DialogContent';
+import WizardForm from '../ui/WizardForm';
 
-function ExportLocationDialog({
-  open,
-  onClose,
-  openSnackBar,
-  history,
-}) {
+import ExportLocationForm from './ExportLocationForm';
+
+function ExportLocationDialog({ open, onClose, openSnackBar, history }) {
   const onSubmitSuccess = (response) => {
     const { locationName } = response;
     const messageContent = `Export Location ${locationName} Created`;
@@ -26,12 +21,7 @@ function ExportLocationDialog({
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>New Export Location</DialogTitle>
       <DialogContent>
         <WizardForm

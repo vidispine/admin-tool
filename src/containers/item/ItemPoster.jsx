@@ -1,13 +1,14 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
+
 import ItemPosterGrid from '../../components/item/ItemPosterGrid';
 import ItemThumbnailDeleteDialog, {
   DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG,
 } from '../../components/item/ItemThumbnailDeleteDialog';
-
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemPoster extends React.PureComponent {
+class ItemPoster extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -36,11 +37,11 @@ class ItemPoster extends React.PureComponent {
   }
 
   onFetch(itemId) {
-    const baseUrl = api.defaultClient.defaults.baseURL || '';
+    const baseURL = api.defaultClient.defaults.baseURL || '';
     const queryParams = {
       content: 'poster',
       'noauth-url': true,
-      baseURI: `${baseUrl}/APInoauth/`,
+      baseURI: `${baseURL}/APInoauth/`,
     };
     try {
       ItemApi.getItem({ itemId, queryParams })
@@ -58,11 +59,7 @@ class ItemPoster extends React.PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      title,
-    } = this.props;
+    const { titleComponent: TitleComponent, tabComponent: TabComponent, title } = this.props;
     const { itemDocument } = this.state;
     return (
       <>
@@ -75,12 +72,8 @@ class ItemPoster extends React.PureComponent {
           />
         )}
         {TabComponent && <TabComponent />}
-        {itemDocument && (
-          <>
-            {itemDocument.posters && (
-              <ItemPosterGrid uriListDocument={itemDocument.posters} />
-            )}
-          </>
+        {itemDocument && itemDocument.posters && (
+          <ItemPosterGrid uriListDocument={itemDocument.posters} />
         )}
         <ItemThumbnailDeleteDialog
           dialogName={ITEMTHUMBNAILDELETE_DIALOG}

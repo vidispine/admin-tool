@@ -1,6 +1,5 @@
-import React from 'react';
-import MetadataEditor from '../metadata/MetadataEditor';
 import * as formActions from '../../formactions/item';
+import MetadataEditor from '../metadata/MetadataEditor';
 
 export default function ItemMetadataEditor({ metadataDocument, ...props }) {
   return (

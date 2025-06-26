@@ -1,7 +1,6 @@
-import React from 'react';
-import startCase from 'lodash.startcase';
-import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import startCase from 'lodash.startcase';
 
 import TitleHeader from '../ui/TitleHeader';
 
@@ -18,14 +17,16 @@ export default function ResourceTitle({
       grandParentTo="/resource/"
       parentTitle={startCase(resourceType)}
       parentTo={`/resource/${resourceType}/`}
+      entityId={resourceId}
+      entityType={`resource/${resourceType}`}
       title={resourceId}
       onRefresh={onRefresh}
       openCode={openCode}
-      actionComponent={(
+      actionComponent={
         <IconButton onClick={openRemove}>
           <DeleteForever />
         </IconButton>
-      )}
+      }
     />
   );
 }

@@ -1,14 +1,14 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { taskdefinition as api } from '@vidispine/vdt-api';
-import TaskDefinitionListCard from '../../components/taskdefinition/TaskDefinitionListCard';
-import TaskDefinitionDialog from '../../components/taskdefinition/TaskDefinitionDialog';
 
+import TaskDefinitionDialog from '../../components/taskdefinition/TaskDefinitionDialog';
+import TaskDefinitionListCard from '../../components/taskdefinition/TaskDefinitionListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
 const TASKDEFINITION_DIALOG = 'TASKDEFINITION_DIALOG';
 
-class TaskDefinition extends React.PureComponent {
+class TaskDefinition extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,7 +26,8 @@ class TaskDefinition extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, taskDefinitionType } = this.props;
     try {
-      api.getTaskDefinitionType({ taskDefinitionType })
+      api
+        .getTaskDefinitionType({ taskDefinitionType })
         .then((response) => this.setState({ taskDefinitionListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Job Type';
@@ -48,13 +49,12 @@ class TaskDefinition extends React.PureComponent {
             createModal={TASKDEFINITION_DIALOG}
           />
         )}
-        { taskDefinitionListDocument
-          && (
+        {taskDefinitionListDocument && (
           <TaskDefinitionListCard
             onRefresh={this.onRefresh}
             taskDefinitionListDocument={taskDefinitionListDocument}
           />
-          )}
+        )}
         <TaskDefinitionDialog
           dialogName={TASKDEFINITION_DIALOG}
           jobType={taskDefinitionType}

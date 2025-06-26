@@ -1,13 +1,6 @@
-import React from 'react';
-
 import SimpleMetadataEditor from '../ui/SimpleMetadataEditor';
 
-export default function StorageMetadataEditor({
-  storageDocument,
-  storageId,
-  onRefresh,
-  ...props
-}) {
+export default function StorageMetadataEditor({ storageDocument, storageId, onRefresh, ...props }) {
   return (
     <SimpleMetadataEditor
       entityType="storage"

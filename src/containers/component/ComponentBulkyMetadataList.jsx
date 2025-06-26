@@ -1,10 +1,11 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { bulkymetadata as BulkyMetadataApi } from '@vidispine/vdt-api';
 
 import UriListCard from '../../components/ui/UriListCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ComponentBulkyMetadataList extends React.PureComponent {
+class ComponentBulkyMetadataList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -67,13 +68,13 @@ class ComponentBulkyMetadataList extends React.PureComponent {
             breadcrumbList={['Bulky Metadata']}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         {uriListDocument && (
           <UriListCard
             uriListDocument={uriListDocument}
-            linkTo={(uri) => `/item/${itemId}/shape/${shapeId}/component/${componentId}/bulky-metadata/${uri}/`}
+            linkTo={(uri) =>
+              `/item/${itemId}/shape/${shapeId}/component/${componentId}/bulky-metadata/${uri}/`
+            }
           />
         )}
       </>

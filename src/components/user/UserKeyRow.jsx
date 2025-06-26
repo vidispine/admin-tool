@@ -1,19 +1,10 @@
-import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 
-export default function UserKeyRow({
-  accessKeyDocument = {},
-  onOpenRemove,
-}) {
-  const {
-    id: keyId,
-    name,
-    status,
-    created,
-  } = accessKeyDocument;
+export default function UserKeyRow({ accessKeyDocument = {}, onOpenRemove }) {
+  const { id: keyId, name, status, created } = accessKeyDocument;
   return (
     <TableRow>
       <TableCell>{keyId}</TableCell>
@@ -22,9 +13,9 @@ export default function UserKeyRow({
       <TableCell>{status}</TableCell>
       <TableCell>
         {onOpenRemove && (
-        <IconButton onClick={() => onOpenRemove({ keyId })}>
-          <DeleteForever />
-        </IconButton>
+          <IconButton onClick={() => onOpenRemove({ keyId })}>
+            <DeleteForever />
+          </IconButton>
         )}
       </TableCell>
     </TableRow>

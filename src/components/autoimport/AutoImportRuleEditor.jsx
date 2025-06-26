@@ -1,22 +1,19 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
-import AutoImportRuleForm from './AutoImportRuleForm';
-import AutoImportRuleDisplay from './AutoImportRuleDisplay';
-import * as formActions from '../../formactions/autoimport';
 import * as actions from '../../actions';
+import * as formActions from '../../formactions/autoimport';
 import Editor from '../ui/Editor';
 
-function AutoImportRuleEditor({
-  autoImportRuleDocument,
-  storageId,
-  openSnackBar,
-  onRefresh,
-}) {
+import AutoImportRuleDisplay from './AutoImportRuleDisplay';
+import AutoImportRuleForm from './AutoImportRuleForm';
+
+function AutoImportRuleEditor({ autoImportRuleDocument, storageId, openSnackBar, onRefresh }) {
   const onSubmitSuccess = () => {
     const messageContent = 'Auto Import Rule Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Auto Import Rule';

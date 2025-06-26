@@ -1,19 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import FileSearchParams from '../components/file/FileSearchParams';
-import FileSearchDocument from '../components/file/FileSearch';
 import FileListTable from '../components/file/FileListTable';
-
-import withFormActions from '../hoc/withFormActions';
+import FileSearchDocument from '../components/file/FileSearch';
+import FileSearchParams from '../components/file/FileSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withCard from '../hoc/withCard';
+import withFormActions from '../hoc/withFormActions';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const FILE_SEARCH_FORM = 'FILE_SEARCH_FORM';
 const FileListTableCard = compose(withCard, withPaginationForm)(FileListTable);
 
-class FileSearch extends React.PureComponent {
+class FileSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -21,16 +21,8 @@ class FileSearch extends React.PureComponent {
     this.onSetUrlParams = this.onSetUrlParams.bind(this);
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
-    const sort = orderBy
-      ? [{ field: orderBy, order: `${orderDirection}ending` }]
-      : [];
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
+    const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
         first,

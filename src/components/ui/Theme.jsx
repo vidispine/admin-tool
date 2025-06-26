@@ -1,8 +1,10 @@
-import React from 'react';
+import { createContext, useReducer, useEffect, useMemo, useContext, useCallback } from 'react';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import getCookie from '../../utils/getCookie';
 
 import '@fontsource/open-sans';
@@ -11,7 +13,7 @@ import '@fontsource/open-sans/600.css';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/open-sans/800.css';
 
-export const DispatchContext = React.createContext(() => {
+export const DispatchContext = createContext(() => {
   throw new Error('Forgot to wrap component in `ThemeProvider`');
 });
 
@@ -34,7 +36,7 @@ export const fontFamily = [
 export default function ThemeProvider({ children }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredMode = prefersDarkMode ? 'dark' : 'light';
-  const [themeOptions, dispatch] = React.useReducer((state, action) => {
+  const [themeOptions, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'CHANGE':
         return {
@@ -46,136 +48,129 @@ export default function ThemeProvider({ children }) {
     }
   }, {});
   const { paletteType = preferredMode } = themeOptions;
-  React.useEffect(() => {
+  useEffect(() => {
     const nextPaletteType = getCookie('paletteType') || preferredMode;
     dispatch({
       type: 'CHANGE',
       payload: { paletteType: nextPaletteType },
     });
   }, [preferredMode]);
-  const theme = React.useMemo(
-    () => createTheme({
-      overrides: {
-        MuiAccordion: {
-          root: {
-            marginTop: 4,
-            marginBottom: 4,
+  const theme = useMemo(
+    () =>
+      createTheme({
+        overrides: {
+          MuiAccordion: {
+            root: {
+              marginTop: 4,
+              marginBottom: 4,
+            },
+          },
+          MuiTablePagination: {
+            root: { overflow: 'visible' },
+          },
+          MuiButton: {
+            textSecondary: {
+              color: red,
+            },
+          },
+          WAMuiChipInput: {
+            root: {
+              marginBottom: (props) => (props.helperText ? 20 : undefined),
+            },
+          },
+          MuiFormHelperText: {
+            root: {
+              fontStyle: 'italic',
+              marginBottom: 8,
+            },
           },
         },
-        MuiTablePagination: {
-          root: { overflow: 'visible' },
-        },
-        MuiButton: {
-          textSecondary: {
-            color: red,
+        props: {
+          MuiTextField: {
+            InputLabelProps: { shrink: true },
           },
-        },
-        WAMuiChipInput: {
-          root: {
-            marginBottom: (props) => (props.helperText ? 20 : undefined),
-          },
-        },
-        MuiFormHelperText: {
-          root: {
-            fontStyle: 'italic',
-            marginBottom: 8,
-          },
-        },
-      },
-      props: {
-        MuiTextField: {
-          InputLabelProps: { shrink: true },
-        },
-        MuiInputLabel: {
-          shrink: true,
-        },
-        MuiPaper: {
-          square: true,
-          elevation: 0,
-        },
-        MuiCard: {
-          square: true,
-          elevation: 0,
-          variant: 'outlined',
-        },
-        MuiTable: {
-          component: 'div',
-        },
-        MuiTableBody: {
-          component: 'div',
-        },
-        MuiTableCell: {
-          component: 'div',
-        },
-        MuiTableFooter: {
-          component: 'div',
-        },
-        MuiTableHead: {
-          component: 'div',
-        },
-        MuiTablePagination: {
-          component: 'div',
-        },
-        MuiTableRow: {
-          component: 'div',
-        },
-        MuiAccordion: {
-          square: true,
-          elevation: 0,
-        },
-        MuiAccordionSummary: {
-          expandIcon: <ExpandMoreIcon />,
-        },
-        WAMuiChipInput: {
-          InputLabelProps: {
+          MuiInputLabel: {
             shrink: true,
           },
+          MuiPaper: {
+            square: true,
+            elevation: 0,
+          },
+          MuiCard: {
+            square: true,
+            elevation: 0,
+            variant: 'outlined',
+          },
+          MuiTable: {
+            component: 'div',
+          },
+          MuiTableBody: {
+            component: 'div',
+          },
+          MuiTableCell: {
+            component: 'div',
+          },
+          MuiTableFooter: {
+            component: 'div',
+          },
+          MuiTableHead: {
+            component: 'div',
+          },
+          MuiTablePagination: {
+            component: 'div',
+          },
+          MuiTableRow: {
+            component: 'div',
+          },
+          MuiAccordion: {
+            square: true,
+            elevation: 0,
+          },
+          MuiAccordionSummary: {
+            expandIcon: <ExpandMoreIcon />,
+          },
+          WAMuiChipInput: {
+            InputLabelProps: {
+              shrink: true,
+            },
+          },
         },
-      },
-      palette: {
-        type: paletteType,
-        primary: {
-          main: vsBlue,
-        },
-        secondary: {
-          main: vsPurple,
-        },
-        success: {
-          light: vsTealLight,
-          main: vsTeal,
-        },
-        error: {
-          main: red,
-        },
-        background: {
-          default: { light: 'rgb(246, 248, 250)', dark: 'rgb(9, 12, 16)' }[
-            paletteType
-          ],
-          paper: { light: 'rgb(255, 255, 255)', dark: 'rgb(13, 17, 23)' }[
-            paletteType
-          ],
-        },
-        text: {
+        palette: {
+          type: paletteType,
           primary: {
-            light: 'rgba(0, 0, 0, 0.87)',
-            dark: 'rgb(201, 209, 217)',
-          }[paletteType],
+            main: vsBlue,
+          },
           secondary: {
-            light: 'rgba(0, 0, 0, 0.54)',
-            dark: 'rgb(139, 148, 158)',
-          }[paletteType],
+            main: vsPurple,
+          },
+          success: {
+            light: vsTealLight,
+            main: vsTeal,
+          },
+          error: {
+            main: red,
+          },
+          background: {
+            default: { light: 'rgb(246, 248, 250)', dark: 'rgb(9, 12, 16)' }[paletteType],
+            paper: { light: 'rgb(255, 255, 255)', dark: 'rgb(13, 17, 23)' }[paletteType],
+          },
+          text: {
+            primary: {
+              light: 'rgba(0, 0, 0, 0.87)',
+              dark: 'rgb(201, 209, 217)',
+            }[paletteType],
+            secondary: {
+              light: 'rgba(0, 0, 0, 0.54)',
+              dark: 'rgb(139, 148, 158)',
+            }[paletteType],
+          },
         },
-      },
-      action: {
-        active: { light: 'rgba(0, 0, 0, 0.54)', dark: 'rgb(201, 209, 217)' }[
-          paletteType
-        ],
-      },
-      divider: { light: 'rgba(0, 0, 0, 0.12)', dark: 'rgb(48, 54, 61)' }[
-        paletteType
-      ],
-      typography: { fontFamily },
-    }),
+        action: {
+          active: { light: 'rgba(0, 0, 0, 0.54)', dark: 'rgb(201, 209, 217)' }[paletteType],
+        },
+        divider: { light: 'rgba(0, 0, 0, 0.12)', dark: 'rgb(48, 54, 61)' }[paletteType],
+        typography: { fontFamily },
+      }),
     [paletteType],
   );
   return (
@@ -187,6 +182,6 @@ export default function ThemeProvider({ children }) {
 }
 
 export function useChangeTheme() {
-  const dispatch = React.useContext(DispatchContext);
-  return React.useCallback((options) => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
+  const dispatch = useContext(DispatchContext);
+  return useCallback((options) => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
 }

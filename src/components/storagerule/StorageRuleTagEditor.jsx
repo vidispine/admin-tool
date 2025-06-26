@@ -1,28 +1,23 @@
-import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import * as formActions from '../../formactions/storagerule';
+import withUI from '../../hoc/withUI';
+import Editor from '../ui/Editor';
+
 import StorageRuleDisplay from './StorageRuleDisplay';
 import { StorageRuleTagForm } from './StorageRuleForm';
 import StorageRuleRemove from './StorageRuleRemove';
 
-import Editor from '../ui/Editor';
-import withUI from '../../hoc/withUI';
-
-function StorageRuleTagEditor({
-  storageRuleDocument,
-  tagName,
-  openSnackBar,
-  onRefresh,
-  onOpen,
-}) {
+function StorageRuleTagEditor({ storageRuleDocument, tagName, openSnackBar, onRefresh, onOpen }) {
   const EDIT_STORAGERULE_TAG_FORM = 'EDIT_STORAGERULE_TAG_FORM';
   const REMOVE_STORAGERULE_DIALOG = 'REMOVE_STORAGERULE_DIALOG';
   const onSubmitSuccess = () => {
     const messageContent = 'Storage Rule Saved';
     openSnackBar({ messageContent });
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Storage Rule';
@@ -45,11 +40,10 @@ function StorageRuleTagEditor({
         formComponent={StorageRuleTagForm}
         title="Storage Rule"
         iconList={
-          storageRuleDocument
-          && (
-          <IconButton onClick={() => onOpen({ modalName: REMOVE_STORAGERULE_DIALOG })}>
-            <DeleteForever />
-          </IconButton>
+          storageRuleDocument && (
+            <IconButton onClick={() => onOpen({ modalName: REMOVE_STORAGERULE_DIALOG })}>
+              <DeleteForever />
+            </IconButton>
           )
         }
       />
@@ -59,7 +53,6 @@ function StorageRuleTagEditor({
         storageRuleDocument={storageRuleDocument}
       />
     </>
-
   );
 }
 

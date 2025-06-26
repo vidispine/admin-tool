@@ -1,19 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import { PureComponent } from 'react';
+
 import startCase from 'lodash.startcase';
+import { connect } from 'react-redux';
 
 import { resource as api } from '@vidispine/vdt-api';
-import ResourceListTitle from '../components/resource/ResourceListTitle';
-import ResourceListCard from '../components/resource/ResourceListCard';
-import ResourceDialog from '../components/resource/ResourceDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import ResourceDialog from '../components/resource/ResourceDialog';
+import ResourceListCard from '../components/resource/ResourceListCard';
+import ResourceListTitle from '../components/resource/ResourceListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const RESOURCELIST_CODE_MODAL = 'RESOURCELIST_CODE_MODAL';
 const RESOURCE_CREATE_MODAL = 'RESOURCE_CREATE_MODAL';
 
-class ResourceList extends React.PureComponent {
+class ResourceList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -41,7 +42,8 @@ class ResourceList extends React.PureComponent {
   onFetch(resourceType) {
     const { openSnackBar } = this.props;
     try {
-      api.listResourceType({ resourceType })
+      api
+        .listResourceType({ resourceType })
         .then((response) => this.setState({ resourceListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Resource List';
@@ -55,16 +57,8 @@ class ResourceList extends React.PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      resourceType,
-      history,
-    } = this.props;
-    const {
-      resourceListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, resourceType, history } = this.props;
+    const { resourceListDocument } = this.state;
     return (
       <>
         <ResourceListTitle
@@ -73,22 +67,21 @@ class ResourceList extends React.PureComponent {
           onRefresh={this.onRefresh}
           resourceType={resourceType}
         />
-        { resourceListDocument
-        && (
-        <ResourceListCard
-          resourceType={resourceType}
-          resourceListDocument={resourceListDocument}
-        />
+        {resourceListDocument && (
+          <ResourceListCard
+            resourceType={resourceType}
+            resourceListDocument={resourceListDocument}
+          />
         )}
         <CodeModal
-          isOpen={(modalName === RESOURCELIST_CODE_MODAL)}
+          isOpen={modalName === RESOURCELIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={resourceListDocument}
           title="ResourceListDocument"
         />
         <ResourceDialog
           resourceType={resourceType}
-          isOpen={(modalName === RESOURCE_CREATE_MODAL)}
+          isOpen={modalName === RESOURCE_CREATE_MODAL}
           closeModal={closeModal}
           history={history}
         />
@@ -99,7 +92,9 @@ class ResourceList extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { resourceType } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     resourceType,

@@ -1,49 +1,58 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { compose } from 'redux';
 
-import { storage as api } from '@vidispine/vdt-api';
+import * as formActions from '../../formactions/storage';
+import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
+import DialogContent from '../ui/DialogContent';
 
-export default function StorageRemove({
-  closeModal,
-  isOpen,
-  storageId,
-  history,
-  openSnackBar,
-}) {
-  const onRemove = () => {
-    api.removeStorage({ storageId })
-      .then(() => {
-        const messageContent = `Storage ${storageId} Removed`;
-        openSnackBar({ messageContent });
-        history.push('/storage/');
-        closeModal();
-      })
-      .catch(() => {
-        const messageContent = 'Error Removing Storage';
-        openSnackBar({ messageContent, messageColor: 'secondary' });
-      });
+import StorageRemoveForm from './StorageRemoveForm';
+
+const STORAGE_REMOVE_FORM = 'STORAGE_REMOVE_FORM';
+
+function StorageRemove({ open, onClose, onSuccess, onFail, openSnackBar, submitForm, storageId }) {
+  const onSubmitSuccess = (response, dispatch, props) => {
+    const messageContent = 'Storage Deleted';
+    openSnackBar({ messageContent });
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
+    onClose();
+  };
+  const onSubmitFail = (error, dispatch, props) => {
+    const messageContent = 'Error Deleting Storage';
+    openSnackBar({ messageContent, messageColor: 'secondary' });
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
-    <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Storage "${storageId}"?`}
-      </DialogTitle>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
+      <DialogTitle>{`Delete Storage ${storageId}`}</DialogTitle>
+      <DialogContent>
+        <StorageRemoveForm
+          form={STORAGE_REMOVE_FORM}
+          onSubmit={formActions.onRemove}
+          onSubmitSuccess={onSubmitSuccess}
+          onSubmitFail={onSubmitFail}
+          storageId={storageId}
+        />
+      </DialogContent>
+      <Divider />
       <DialogActions>
-        <Button onClick={closeModal} color="primary">
-          Cancel
+        <Button size="small" onClick={onClose}>
+          Close
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
-          Remove
+        <Button size="small" color="secondary" onClick={() => submitForm(STORAGE_REMOVE_FORM)}>
+          Delete
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
+
+export default compose(withUI, withFormActions)(StorageRemove);

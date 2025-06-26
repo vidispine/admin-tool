@@ -1,57 +1,25 @@
-import React from 'react';
 import Chip from '@material-ui/core/Chip';
 
-import {
-  OnlineIcon,
-  OfflineIcon,
-  WarningIcon,
-  LoadingIcon,
-} from '../ui/StatusIcon';
+import { OnlineIcon, OfflineIcon, WarningIcon, LoadingIcon } from '../ui/StatusIcon';
 
-const SelfTestStatus = ({ selfTestDocument = {}, loading = false, ...chipProps }) => {
+function SelfTestStatus({ selfTestDocument = {}, loading = false, ...chipProps }) {
   if (loading === true) {
-    return (
-      <Chip
-        avatar={
-          <LoadingIcon />
-        }
-        label="Loading"
-        {...chipProps}
-      />
-    );
+    return <Chip avatar={<LoadingIcon />} label="Loading" {...chipProps} />;
   }
   const { status, took } = selfTestDocument;
   if (status === 'ok') {
     return (
-      <Chip
-        avatar={
-          <OnlineIcon />
-        }
-        label={`Online${took ? ` (${took})` : ''}`}
-        {...chipProps}
-      />
+      <Chip avatar={<OnlineIcon />} label={`Online${took ? ` (${took})` : ''}`} {...chipProps} />
     );
   }
   if (status === 'warning') {
     return (
-      <Chip
-        avatar={
-          <WarningIcon />
-        }
-        label={`Warning${took ? ` (${took})` : ''}`}
-        {...chipProps}
-      />
+      <Chip avatar={<WarningIcon />} label={`Warning${took ? ` (${took})` : ''}`} {...chipProps} />
     );
   }
   return (
-    <Chip
-      avatar={
-        <OfflineIcon />
-      }
-      label={`Failed${took ? ` (${took})` : ''}`}
-      {...chipProps}
-    />
+    <Chip avatar={<OfflineIcon />} label={`Failed${took ? ` (${took})` : ''}`} {...chipProps} />
   );
-};
+}
 
 export default SelfTestStatus;

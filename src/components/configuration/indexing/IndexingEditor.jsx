@@ -1,20 +1,18 @@
-import React from 'react';
 import * as formActions from '../../../formactions/configuration';
-import Editor from '../../ui/Editor';
-import IndexingForm from './IndexingForm';
-import IndexingDisplay from './IndexingDisplay';
 import withSnackbar from '../../../hoc/withSnackbar';
+import Editor from '../../ui/Editor';
 
-function IndexingEditor({
-  indexingConfigurationDocument,
-  openSnackBar,
-  onSuccess,
-}) {
+import IndexingDisplay from './IndexingDisplay';
+import IndexingForm from './IndexingForm';
+
+function IndexingEditor({ indexingConfigurationDocument, openSnackBar, onSuccess }) {
   const EDIT_INDEXING_FORM = 'EDIT_INDEXING_FORM';
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Indexing Configuration Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Updating Indexing Configuration';

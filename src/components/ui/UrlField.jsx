@@ -1,27 +1,32 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import update from 'immutability-helper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
-import encodeUrl from '../../utils/encodeUrl';
-import decodeUrl from '../../utils/decodeUrl';
 import * as scheme from '../../const/UrlScheme';
+import decodeUrl from '../../utils/decodeUrl';
+import encodeUrl from '../../utils/encodeUrl';
 
-const URIComponentTextField = ({ onChange, value, ...props }) => (
-  <TextField
-    value={decodeURIComponent(value)}
-    onChange={({ target: { value: newValue, ...target }, ...event }) => onChange({
-      ...event,
-      target: { ...target, value: encodeURIComponent(newValue) },
-    })}
-    {...props}
-  />
-);
+function URIComponentTextField({ onChange, value, ...props }) {
+  return (
+    <TextField
+      value={decodeURIComponent(value)}
+      onChange={({ target: { value: newValue, ...target }, ...event }) =>
+        onChange({
+          ...event,
+          target: { ...target, value: encodeURIComponent(newValue) },
+        })
+      }
+      {...props}
+    />
+  );
+}
 
-class DynamicSelect extends React.PureComponent {
+class DynamicSelect extends PureComponent {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
@@ -29,7 +34,7 @@ class DynamicSelect extends React.PureComponent {
 
   onChange(key) {
     return (event, checked) => {
-      const { name, value: prevValue } = this.props;
+      const { name, value: prevValue, onChange } = this.props;
       let newValue;
       if (key === name) {
         newValue = { [name]: event.target.value }; // Resets form
@@ -43,18 +48,12 @@ class DynamicSelect extends React.PureComponent {
         const updateCommand = subKeys.reduce(subKeyReducer, initialUpdateCommand);
         newValue = update(prevValue, updateCommand);
       }
-      this.props.onChange(newValue);
+      onChange(newValue);
     };
   }
 
   render() {
-    const {
-      children,
-      choices = {},
-      name = '',
-      value = {},
-      ...choiceProps
-    } = this.props;
+    const { children, choices = {}, name = '', value = {}, ...choiceProps } = this.props;
     const choiceValue = value[name];
     const ChoiceComponent = choiceValue ? choices[choiceValue] : null;
     return (
@@ -66,10 +65,11 @@ class DynamicSelect extends React.PureComponent {
           onChange={this.onChange(name)}
           fullWidth
         >
-          { children }
+          {children}
         </TextField>
-        {ChoiceComponent
-        && <ChoiceComponent {...choiceProps} value={value} onChange={this.onChange} />}
+        {ChoiceComponent && (
+          <ChoiceComponent {...choiceProps} value={value} onChange={this.onChange} />
+        )}
       </>
     );
   }
@@ -85,79 +85,75 @@ const onPathBlur = (blurKey, onKeyChange) => (event) => {
   }
 };
 
-const S3Form = ({
+function S3Form({
   value = {
     queryParams: {},
   },
   onChange,
-}) => (
-  <>
-    <FormControlLabel
-      control={(
-        <Checkbox
-          checked={value.direct}
-          onChange={onChange('direct')}
-          value={value.direct.toString()}
-        />
-      )}
-      label="Direct"
-    />
-    <TextField
-      label="Bucket"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Folder"
-      value={value.path || '/'}
-      onChange={onChange('path')}
-      onBlur={onPathBlur('path', onChange('path'))}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Access Key"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Secret Key"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Role ARN"
-      value={value.queryParams.roleArn || ''}
-      onChange={onChange('queryParams.roleArn')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Role External ID"
-      value={value.queryParams.roleExternalId || ''}
-      onChange={onChange('queryParams.roleExternalId')}
-      fullWidth
-    />
-    <TextField
-      label="Endpoint"
-      value={value.queryParams.endpoint || ''}
-      onChange={onChange('queryParams.endpoint')}
-      fullWidth
-    />
-    <TextField
-      label="Region"
-      value={value.queryParams.region || ''}
-      onChange={onChange('queryParams.region')}
-      fullWidth
-    />
-    <TextField
-      label="STS Region"
-      value={value.queryParams.stsRegion || ''}
-      onChange={onChange('queryParams.stsRegion')}
-      fullWidth
-    />
-    {/* <TextField
+}) {
+  return (
+    <>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={value.direct}
+            onChange={onChange('direct')}
+            value={value.direct.toString()}
+          />
+        }
+        label="Direct"
+      />
+      <TextField label="Bucket" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField
+        label="Folder"
+        value={value.path || '/'}
+        onChange={onChange('path')}
+        onBlur={onPathBlur('path', onChange('path'))}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Access Key"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Secret Key"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Role ARN"
+        value={value.queryParams.roleArn || ''}
+        onChange={onChange('queryParams.roleArn')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Role External ID"
+        value={value.queryParams.roleExternalId || ''}
+        onChange={onChange('queryParams.roleExternalId')}
+        fullWidth
+      />
+      <TextField
+        label="Endpoint"
+        value={value.queryParams.endpoint || ''}
+        onChange={onChange('queryParams.endpoint')}
+        fullWidth
+      />
+      <TextField
+        label="Region"
+        value={value.queryParams.region || ''}
+        onChange={onChange('queryParams.region')}
+        fullWidth
+      />
+      <TextField
+        label="STS Region"
+        value={value.queryParams.stsRegion || ''}
+        onChange={onChange('queryParams.stsRegion')}
+        fullWidth
+      />
+      {/* <TextField
       select
       fullWidth
       value={value.queryParams.signer || ''}
@@ -168,399 +164,334 @@ const S3Form = ({
       <MenuItem value="S3SignerType">S3 Signer</MenuItem>
       <MenuItem value="AWSS3V4SignerType">AWS S3 v4 Signer</MenuItem>
     </TextField> */}
-    <TextField
-      select
-      fullWidth
-      value={value.queryParams.storageClass || ''}
-      onChange={onChange('queryParams.storageClass')}
-      label="Storage Class"
-    >
-      <MenuItem value="" />
-      <MenuItem value="standard">Standard</MenuItem>
-      <MenuItem value="infrequent">Infrequent</MenuItem>
-      <MenuItem value="reduced">Reduced</MenuItem>
-      <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
-    </TextField>
-    <TextField
-      label="SSE Algorithm"
-      value={value.queryParams.sseAlgorithm || ''}
-      onChange={onChange('queryParams.sseAlgorithm')}
-      fullWidth
-    />
-    <TextField
-      label="SSE Key ID"
-      value={value.queryParams.sseKeyId || ''}
-      onChange={onChange('queryParams.sseKeyId')}
-      fullWidth
-    />
-    <TextField
-      label="Accelerate Transfer"
-      value={value.queryParams.accelerate || ''}
-      onChange={onChange('queryParams.accelerate')}
-      fullWidth
-    />
-    <TextField
-      label="Bucket Owner Full Control"
-      value={value.queryParams.bucketOwnerFullControl || ''}
-      onChange={onChange('queryParams.bucketOwnerFullControl')}
-      fullWidth
-    />
-    <TextField
-      select
-      fullWidth
-      value={value.queryParams.retrievalTier || ''}
-      onChange={onChange('queryParams.retrievalTier')}
-      label="Retrieval Tier"
-    >
-      <MenuItem value="" />
-      <MenuItem value="Expedited">Expedited</MenuItem>
-      <MenuItem value="Standard">Standard</MenuItem>
-      <MenuItem value="Bulk">Bulk</MenuItem>
-    </TextField>
-    {/* <TextField
+      <TextField
+        select
+        fullWidth
+        value={value.queryParams.storageClass || ''}
+        onChange={onChange('queryParams.storageClass')}
+        label="Storage Class"
+      >
+        <MenuItem value="" />
+        <MenuItem value="standard">Standard</MenuItem>
+        <MenuItem value="infrequent">Infrequent</MenuItem>
+        <MenuItem value="reduced">Reduced</MenuItem>
+        <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
+      </TextField>
+      <TextField
+        label="SSE Algorithm"
+        value={value.queryParams.sseAlgorithm || ''}
+        onChange={onChange('queryParams.sseAlgorithm')}
+        fullWidth
+      />
+      <TextField
+        label="SSE Key ID"
+        value={value.queryParams.sseKeyId || ''}
+        onChange={onChange('queryParams.sseKeyId')}
+        fullWidth
+      />
+      <TextField
+        label="Accelerate Transfer"
+        value={value.queryParams.accelerate || ''}
+        onChange={onChange('queryParams.accelerate')}
+        fullWidth
+      />
+      <TextField
+        label="Bucket Owner Full Control"
+        value={value.queryParams.bucketOwnerFullControl || ''}
+        onChange={onChange('queryParams.bucketOwnerFullControl')}
+        fullWidth
+      />
+      <TextField
+        select
+        fullWidth
+        value={value.queryParams.retrievalTier || ''}
+        onChange={onChange('queryParams.retrievalTier')}
+        label="Retrieval Tier"
+      >
+        <MenuItem value="" />
+        <MenuItem value="Expedited">Expedited</MenuItem>
+        <MenuItem value="Standard">Standard</MenuItem>
+        <MenuItem value="Bulk">Bulk</MenuItem>
+      </TextField>
+      {/* <TextField
       label="Use SSL"
       value={value.queryParams.ssl || ''}
       onChange={onChange('queryParams.ssl')}
       fullWidth
     /> */}
-  </>
-);
+    </>
+  );
+}
 
-const Ds3Form = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Bucket"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Folder"
-      value={value.path || '/'}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Access Key"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Secret Key"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-    <TextField
-      label="Endpoint"
-      value={value.queryParams.endpoint || ''}
-      onChange={onChange('queryParams.endpoint')}
-      fullWidth
-    />
-    <TextField
-      label="Chunk Ready Timeout"
-      value={value.queryParams.chunkReadyTimeout || ''}
-      onChange={onChange('queryParams.chunkReadyTimeout')}
-      fullWidth
-    />
-    <TextField
-      select
-      fullWidth
-      value={value.queryParams.checksumType || ''}
-      onChange={onChange('queryParams.checksumType')}
-      label="Checksum Type"
-    >
-      <MenuItem value="" />
-      <MenuItem value="md5">md5</MenuItem>
-      <MenuItem value="crc32">crc32</MenuItem>
-      <MenuItem value="crc32c">crc32c</MenuItem>
-    </TextField>
-  </>
-);
+function Ds3Form({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Bucket" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Folder" value={value.path || '/'} onChange={onChange('path')} fullWidth />
+      <URIComponentTextField
+        label="Access Key"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Secret Key"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+      <TextField
+        label="Endpoint"
+        value={value.queryParams.endpoint || ''}
+        onChange={onChange('queryParams.endpoint')}
+        fullWidth
+      />
+      <TextField
+        label="Chunk Ready Timeout"
+        value={value.queryParams.chunkReadyTimeout || ''}
+        onChange={onChange('queryParams.chunkReadyTimeout')}
+        fullWidth
+      />
+      <TextField
+        select
+        fullWidth
+        value={value.queryParams.checksumType || ''}
+        onChange={onChange('queryParams.checksumType')}
+        label="Checksum Type"
+      >
+        <MenuItem value="" />
+        <MenuItem value="md5">md5</MenuItem>
+        <MenuItem value="crc32">crc32</MenuItem>
+        <MenuItem value="crc32c">crc32c</MenuItem>
+      </TextField>
+    </>
+  );
+}
 
-const AzureForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Account Name"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Container"
-      value={value.path || '/'}
-      onBlur={onPathBlur('path', onChange('path'))}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Access Key"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-  </>
-);
+function AzureForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField
+        label="Account Name"
+        value={value.host || ''}
+        onChange={onChange('host')}
+        fullWidth
+      />
+      <TextField
+        label="Container"
+        value={value.path || '/'}
+        onBlur={onPathBlur('path', onChange('path'))}
+        onChange={onChange('path')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Access Key"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const GsForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Bucket"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Access Key"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <TextField
-      label="Project"
-      value={value.queryParams.project || ''}
-      onChange={onChange('queryParams.project')}
-      fullWidth
-    />
-    <TextField
-      label="Account"
-      value={value.queryParams.account || ''}
-      onChange={onChange('queryParams.account')}
-      fullWidth
-    />
-  </>
-);
+function GsForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Bucket" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <URIComponentTextField
+        label="Access Key"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <TextField
+        label="Project"
+        value={value.queryParams.project || ''}
+        onChange={onChange('queryParams.project')}
+        fullWidth
+      />
+      <TextField
+        label="Account"
+        value={value.queryParams.account || ''}
+        onChange={onChange('queryParams.account')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const VidinetForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Resource ID"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Access Key"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Secret Key"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-  </>
-);
+function VidinetForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField
+        label="Resource ID"
+        value={value.host || ''}
+        onChange={onChange('host')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Access Key"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Secret Key"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const FtpForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Host"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Path"
-      value={value.path || '/'}
-      onBlur={onPathBlur('path', onChange('path'))}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Username"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Password"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-  </>
-);
+function FtpForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField
+        label="Path"
+        value={value.path || '/'}
+        onBlur={onPathBlur('path', onChange('path'))}
+        onChange={onChange('path')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Username"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Password"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const SftpForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Host"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Path"
-      value={value.path || '/'}
-      onBlur={onPathBlur('path', onChange('path'))}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Username"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="Password"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-  </>
-);
+function SftpForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField
+        label="Path"
+        value={value.path || '/'}
+        onBlur={onPathBlur('path', onChange('path'))}
+        onChange={onChange('path')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Username"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Password"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const HttpForm = ({
-  value = {},
-  onChange,
-  showHttpCreds = false,
-}) => (
-  <>
-    <TextField
-      label="Host"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Port"
-      value={value.port || ''}
-      onChange={onChange('port')}
-      fullWidth
-    />
-    <TextField
-      label="Path"
-      value={value.path || '/'}
-      onChange={onChange('path')}
-      onBlur={onPathBlur('path', onChange('path'))}
-      fullWidth
-    />
-    { showHttpCreds
-      && (
-      <>
-        <URIComponentTextField
-          label="URL Username"
-          value={value.username || ''}
-          onChange={onChange('username')}
-          fullWidth
-        />
-        <URIComponentTextField
-          label="URL Password"
-          value={value.password || ''}
-          onChange={onChange('password')}
-          fullWidth
-        />
-      </>
+function HttpForm({ value = {}, onChange, showHttpCreds = false }) {
+  return (
+    <>
+      <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Port" value={value.port || ''} onChange={onChange('port')} fullWidth />
+      <TextField
+        label="Path"
+        value={value.path || '/'}
+        onChange={onChange('path')}
+        onBlur={onPathBlur('path', onChange('path'))}
+        fullWidth
+      />
+      {showHttpCreds && (
+        <>
+          <URIComponentTextField
+            label="URL Username"
+            value={value.username || ''}
+            onChange={onChange('username')}
+            fullWidth
+          />
+          <URIComponentTextField
+            label="URL Password"
+            value={value.password || ''}
+            onChange={onChange('password')}
+            fullWidth
+          />
+        </>
       )}
-  </>
-);
+    </>
+  );
+}
 
-const HttpsForm = ({
-  value = {},
-  onChange,
-  showHttpCreds = false,
-}) => (
-  <>
-    <TextField
-      label="Host"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Port"
-      value={value.port || ''}
-      onChange={onChange('port')}
-      fullWidth
-    />
-    <TextField
-      label="Path"
-      value={value.path || '/'}
-      onBlur={onPathBlur('path', onChange('path'))}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    { showHttpCreds
-      && (
-      <>
-        <URIComponentTextField
-          label="URL Username"
-          value={value.username || ''}
-          onChange={onChange('username')}
-          fullWidth
-        />
-        <URIComponentTextField
-          label="URL Password"
-          value={value.password || ''}
-          onChange={onChange('password')}
-          fullWidth
-        />
-      </>
+function HttpsForm({ value = {}, onChange, showHttpCreds = false }) {
+  return (
+    <>
+      <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Port" value={value.port || ''} onChange={onChange('port')} fullWidth />
+      <TextField
+        label="Path"
+        value={value.path || '/'}
+        onBlur={onPathBlur('path', onChange('path'))}
+        onChange={onChange('path')}
+        fullWidth
+      />
+      {showHttpCreds && (
+        <>
+          <URIComponentTextField
+            label="URL Username"
+            value={value.username || ''}
+            onChange={onChange('username')}
+            fullWidth
+          />
+          <URIComponentTextField
+            label="URL Password"
+            value={value.password || ''}
+            onChange={onChange('password')}
+            fullWidth
+          />
+        </>
       )}
-  </>
-);
+    </>
+  );
+}
 
-const OmmsForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Host"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="ClusterID/VaultID"
-      value={value.path || '/'}
-      onBlur={onPathBlur('path', onChange('path'))}
-      onChange={onChange('path')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="User ID"
-      value={value.username || ''}
-      onChange={onChange('username')}
-      fullWidth
-    />
-    <URIComponentTextField
-      label="User Key"
-      value={value.password || ''}
-      onChange={onChange('password')}
-      fullWidth
-    />
-  </>
-);
+function OmmsForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField
+        label="ClusterID/VaultID"
+        value={value.path || '/'}
+        onBlur={onPathBlur('path', onChange('path'))}
+        onChange={onChange('path')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="User ID"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="User Key"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
 
-const FileForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
+function FileForm({ value = {}, onChange }) {
+  return (
     <TextField
       label="Path"
       value={value.path || '/'}
@@ -568,41 +499,43 @@ const FileForm = ({
       onBlur={onPathBlur('path', onChange('path'))}
       fullWidth
     />
-  </>
-);
+  );
+}
 
-const VsaForm = ({
-  value = {},
-  onChange,
-}) => (
-  <>
-    <TextField
-      label="Agent UUID"
-      value={value.host || ''}
-      onChange={onChange('host')}
-      fullWidth
-    />
-    <TextField
-      label="Share"
-      value={value.path || '/'}
-      onChange={onChange('path')}
-      onBlur={onPathBlur('path', onChange('path'))}
-      fullWidth
-    />
-  </>
-);
+function VsaForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField
+        label="Agent UUID"
+        value={value.host || ''}
+        onChange={onChange('host')}
+        fullWidth
+      />
+      <TextField
+        label="Share"
+        value={value.path || '/'}
+        onChange={onChange('path')}
+        onBlur={onPathBlur('path', onChange('path'))}
+        fullWidth
+      />
+    </>
+  );
+}
 
 export default function UrlField(props) {
-  const { defaultValue, input: { value } } = props;
+  const {
+    defaultValue,
+    input: { value },
+  } = props;
   const decodedUrl = decodeUrl(value || defaultValue);
   const onChange = (newValue) => {
     const newUrl = encodeUrl(newValue);
-    props.input.onChange(newUrl);
+    props?.input?.onChange(newUrl);
   };
   const { path } = decodedUrl;
   return (
     <>
-      <FormHelperText>{`${props.label || 'URL'}: ${value || (defaultValue || '')}`}</FormHelperText>
+      <FormHelperText>{`${props?.label || 'URL'}: ${value || defaultValue || ''}`}</FormHelperText>
       <DynamicSelect
         choices={{
           [scheme.FILE_SCHEME]: FileForm,

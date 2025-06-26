@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import MetricsCard from '../../components/configuration/metrics/MetricsCard';
 
+import MetricsCard from '../../components/configuration/metrics/MetricsCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class Metrics extends React.PureComponent {
+class Metrics extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,7 +23,8 @@ class Metrics extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.getMetricsConfiguration()
+      api
+        .getMetricsConfiguration()
         .then((response) => this.setState({ metricsConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,12 +51,11 @@ class Metrics extends React.PureComponent {
           code={metricsConfigurationDocument}
           codeModal="MetricsConfigurationDocument"
         />
-        { metricsConfigurationDocument
-        && (
-        <MetricsCard
-          metricsConfigurationDocument={metricsConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {metricsConfigurationDocument && (
+          <MetricsCard
+            metricsConfigurationDocument={metricsConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
       </>
     );

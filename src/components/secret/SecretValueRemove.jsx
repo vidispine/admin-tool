@@ -1,21 +1,13 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { secret as SecretApi } from '@vidispine/vdt-api';
+
 import withUI from '../../hoc/withUI';
 
-function SecretValueRemove({
-  open,
-  alias,
-  secretKey,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  onError,
-}) {
+function SecretValueRemove({ open, alias, secretKey, onClose, openSnackBar, onSuccess, onError }) {
   const onRemove = async () => {
     try {
       await SecretApi.deleteSecretValue({ alias, key: secretKey });

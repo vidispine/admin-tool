@@ -1,13 +1,13 @@
-import React from 'react';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+
 import ItemThumbnailMenu from './ItemThumbnailMenu';
 
-export default function ItemPosterGrid({
-  uriListDocument,
-}) {
-  if (uriListDocument === undefined) { return null; }
+export default function ItemPosterGrid({ uriListDocument }) {
+  if (uriListDocument === undefined) {
+    return null;
+  }
   const { uri: uriList = [] } = uriListDocument;
   const splitUri = (thisUri) => {
     let [output] = thisUri.split('?');

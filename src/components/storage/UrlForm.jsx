@@ -1,9 +1,10 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import update from 'immutability-helper';
 import Typography from '@material-ui/core/Typography';
+import update from 'immutability-helper';
 
 import decodeUrl from '../../utils/decodeUrl';
 import encodeUrl from '../../utils/encodeUrl';
@@ -21,25 +22,11 @@ const GS_SCHEME = 'gs';
 const VSA_SCHEME = 'vxa';
 const UNIVERSAL_SCHEME = 'universal';
 
-function S3Form({
-  values = {},
-  onChange,
-  onQueryParamsChange,
-}) {
+function S3Form({ values = {}, onChange, onQueryParamsChange }) {
   return (
     <>
-      <TextField
-        label="Bucket"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Folder"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Bucket" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Folder" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Access Key"
         value={values.username || ''}
@@ -150,25 +137,11 @@ function S3Form({
   );
 }
 
-function Ds3Form({
-  values = {},
-  onChange,
-  onQueryParamsChange,
-}) {
+function Ds3Form({ values = {}, onChange, onQueryParamsChange }) {
   return (
     <>
-      <TextField
-        label="Bucket"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Folder"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Bucket" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Folder" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Access Key"
         value={values.username || ''}
@@ -209,10 +182,7 @@ function Ds3Form({
   );
 }
 
-function AzureForm({
-  values = {},
-  onChange,
-}) {
+function AzureForm({ values = {}, onChange }) {
   return (
     <>
       <TextField
@@ -237,19 +207,10 @@ function AzureForm({
   );
 }
 
-function GsForm({
-  values = {},
-  onChange,
-  onQueryParamsChange,
-}) {
+function GsForm({ values = {}, onChange, onQueryParamsChange }) {
   return (
     <>
-      <TextField
-        label="Bucket"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
+      <TextField label="Bucket" value={values.host || ''} onChange={onChange('host')} fullWidth />
       <TextField
         label="Access Key"
         value={values.username || ''}
@@ -272,24 +233,11 @@ function GsForm({
   );
 }
 
-function FtpForm({
-  values = {},
-  onChange,
-}) {
+function FtpForm({ values = {}, onChange }) {
   return (
     <>
-      <TextField
-        label="Host"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Path"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Username"
         value={values.username || ''}
@@ -306,24 +254,11 @@ function FtpForm({
   );
 }
 
-function SftpForm({
-  values = {},
-  onChange,
-}) {
+function SftpForm({ values = {}, onChange }) {
   return (
     <>
-      <TextField
-        label="Host"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Path"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Username"
         value={values.username || ''}
@@ -340,24 +275,11 @@ function SftpForm({
   );
 }
 
-function HttpForm({
-  values = {},
-  onChange,
-}) {
+function HttpForm({ values = {}, onChange }) {
   return (
     <>
-      <TextField
-        label="Host"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Path"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Username"
         value={values.username || ''}
@@ -374,24 +296,11 @@ function HttpForm({
   );
 }
 
-function HttpsForm({
-  values = {},
-  onChange,
-}) {
+function HttpsForm({ values = {}, onChange }) {
   return (
     <>
-      <TextField
-        label="Host"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
-      <TextField
-        label="Path"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
+      <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />
       <TextField
         label="Username"
         value={values.username || ''}
@@ -408,18 +317,10 @@ function HttpsForm({
   );
 }
 
-function OmmsForm({
-  values = {},
-  onChange,
-}) {
+function OmmsForm({ values = {}, onChange }) {
   return (
     <>
-      <TextField
-        label="Host"
-        value={values.host || ''}
-        onChange={onChange('host')}
-        fullWidth
-      />
+      <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
       <TextField
         label="ClusterID/VaultID"
         value={values.path || ''}
@@ -442,10 +343,7 @@ function OmmsForm({
   );
 }
 
-function VsaForm({
-  values = {},
-  onChange,
-}) {
+function VsaForm({ values = {}, onChange }) {
   return (
     <>
       <TextField
@@ -454,33 +352,16 @@ function VsaForm({
         onChange={onChange('host')}
         fullWidth
       />
-      <TextField
-        label="Share"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
+      <TextField label="Share" value={values.path || ''} onChange={onChange('path')} fullWidth />
     </>
   );
 }
 
-function FileForm({
-  values = {},
-  onChange,
-}) {
-  return (
-    <>
-      <TextField
-        label="Path"
-        value={values.path || ''}
-        onChange={onChange('path')}
-        fullWidth
-      />
-    </>
-  );
+function FileForm({ values = {}, onChange }) {
+  return <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />;
 }
 
-export default class UrlForm extends React.PureComponent {
+export default class UrlForm extends PureComponent {
   static renderUrl(props) {
     const { path, protocol } = props;
     if (protocol === UNIVERSAL_SCHEME) {
@@ -497,7 +378,7 @@ export default class UrlForm extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this);
     this.handleQueryParamsChange = this.handleQueryParamsChange.bind(this);
     const values = decodeUrl(props.url);
-    this.hasInitialProtocal = (values.protocol !== undefined);
+    this.hasInitialProtocal = values.protocol !== undefined;
     this.state = {
       ...values,
     };
@@ -521,7 +402,7 @@ export default class UrlForm extends React.PureComponent {
   handleQueryParamsChange(name) {
     return (event) => {
       let queryParams = { [name]: event.target.value };
-      const prevState = this.state.queryParams;
+      const { queryParams: prevState } = this.state;
       if (prevState) {
         queryParams = update(prevState, {
           [name]: {
@@ -534,7 +415,7 @@ export default class UrlForm extends React.PureComponent {
   }
 
   render() {
-    const { protocol } = this.state;
+    const { protocol = '' } = this.state;
     let SchemeForm;
     switch (protocol) {
       case FILE_SCHEME:
@@ -577,17 +458,13 @@ export default class UrlForm extends React.PureComponent {
     const displayUrl = UrlForm.renderUrl(this.state);
     return (
       <>
-        <Typography variant="subtitle2">
-          URI:
-          {' '}
-          {displayUrl}
-        </Typography>
+        <Typography variant="subtitle2">URI: {displayUrl}</Typography>
         <FormHelperText>Protocol</FormHelperText>
         <TextField
           select
           fullWidth
           disabled={this.hasInitialProtocal}
-          value={this.state.protocol || ''}
+          value={protocol}
           onChange={this.handleChange('protocol')}
         >
           <MenuItem value={FILE_SCHEME}>File</MenuItem>

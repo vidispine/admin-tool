@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatafield as api } from '@vidispine/vdt-api';
-import MetadataFieldListCard from '../components/metadatafield/MetadataFieldListCard';
-import MetadataFieldDialog from '../components/metadatafield/MetadataFieldDialog';
-import MetadataFieldListTitle from '../components/metadatafield/MetadataFieldListTitle';
 
+import MetadataFieldDialog from '../components/metadatafield/MetadataFieldDialog';
+import MetadataFieldListCard from '../components/metadatafield/MetadataFieldListCard';
+import MetadataFieldListTitle from '../components/metadatafield/MetadataFieldListTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const METADATAFIELDLIST_CREATE_MODAL = 'METADATAFIELDLIST_CREATE_MODAL';
 
-class MetadataFieldList extends React.PureComponent {
+class MetadataFieldList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,7 +26,8 @@ class MetadataFieldList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listMetadataField()
+      api
+        .listMetadataField()
         .then((response) => this.setState({ metadataFieldListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Metadata Field List';
@@ -44,16 +45,13 @@ class MetadataFieldList extends React.PureComponent {
           code={metadataFieldListDocument}
           codeModal="MetadataFieldListDocument"
         />
-        {metadataFieldListDocument
-        && (
-        <MetadataFieldListCard
-          metadataFieldListDocument={metadataFieldListDocument}
-          onRefresh={this.onRefresh}
-        />
+        {metadataFieldListDocument && (
+          <MetadataFieldListCard
+            metadataFieldListDocument={metadataFieldListDocument}
+            onRefresh={this.onRefresh}
+          />
         )}
-        <MetadataFieldDialog
-          dialogName={METADATAFIELDLIST_CREATE_MODAL}
-        />
+        <MetadataFieldDialog dialogName={METADATAFIELDLIST_CREATE_MODAL} />
       </>
     );
   }

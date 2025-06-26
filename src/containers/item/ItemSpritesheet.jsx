@@ -1,16 +1,16 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { item as ItemApi, debug as DebugApi, utils as VidiCoreApi } from '@vidispine/vdt-api';
 
-import ItemThumbnailSpritesheetParams from '../../components/item/ItemThumbnailSpritesheetParams';
-import ItemThumbnailSpritesheetImage from '../../components/item/ItemThumbnailSpritesheetImage';
 import ItemThumbnailSpritesheetDisplay from '../../components/item/ItemThumbnailSpritesheetDisplay';
+import ItemThumbnailSpritesheetImage from '../../components/item/ItemThumbnailSpritesheetImage';
+import ItemThumbnailSpritesheetParams from '../../components/item/ItemThumbnailSpritesheetParams';
 import CodeDisplay from '../../components/ui/CodeDisplay';
-
 import withFormActions from '../../hoc/withFormActions';
 
 const ITEM_THUMBNAILSPRITESHEET_FORM = 'ITEM_THUMBNAILSPRITESHEET_FORM';
 
-class ItemSpritesheet extends React.PureComponent {
+class ItemSpritesheet extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -38,9 +38,11 @@ class ItemSpritesheet extends React.PureComponent {
         if (isJson) return DebugApi.echo({ xmlDocument: response.data });
         return Promise.resolve(response);
       })
-      .then((response) => this.setState({
-        thumbnailSpriteSheetDocument: response.data,
-      }));
+      .then((response) =>
+        this.setState({
+          thumbnailSpriteSheetDocument: response.data,
+        }),
+      );
   }
 
   UNSAFE_componentWillReceiveProps({ itemId }) {
@@ -64,7 +66,8 @@ class ItemSpritesheet extends React.PureComponent {
       title,
     } = this.props;
     const { thumbnailSpriteSheetDocument, codeVariant } = this.state;
-    const isJson = typeof codeVariant === 'string' && codeVariant.toLowerCase() === 'application/json';
+    const isJson =
+      typeof codeVariant === 'string' && codeVariant.toLowerCase() === 'application/json';
     return (
       <>
         {TitleComponent && (
@@ -84,27 +87,26 @@ class ItemSpritesheet extends React.PureComponent {
             headers: { accept: codeVariant },
             queryParams: { 'noauth-url': true },
           }}
-          onSuccess={(response) => this.setState({
-            thumbnailSpriteSheetDocument: response.data,
-            codeVariant: response.headers['content-type'],
-          })}
+          onSuccess={(response) =>
+            this.setState({
+              thumbnailSpriteSheetDocument: response.data,
+              codeVariant: response.headers['content-type'],
+            })
+          }
         />
-        {thumbnailSpriteSheetDocument
-          && (isJson ? (
+        {thumbnailSpriteSheetDocument &&
+          (isJson ? (
             <>
               <ItemThumbnailSpritesheetImage
                 thumbnailSpriteSheetDocument={thumbnailSpriteSheetDocument}
-                baseUrl={VidiCoreApi?.defaultClient?.defaults?.baseURL}
+                baseURL={VidiCoreApi?.defaultClient?.defaults?.baseURL}
               />
               <ItemThumbnailSpritesheetDisplay
                 thumbnailSpriteSheetDocument={thumbnailSpriteSheetDocument}
               />
             </>
           ) : (
-            <CodeDisplay
-              code={thumbnailSpriteSheetDocument}
-              variant={codeVariant}
-            />
+            <CodeDisplay code={thumbnailSpriteSheetDocument} variant={codeVariant} />
           ))}
       </>
     );

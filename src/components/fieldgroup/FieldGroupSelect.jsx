@@ -1,8 +1,8 @@
-import React from 'react';
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { fieldgroup as FieldGroupApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
 const debouncedListFieldGroup = debounce(FieldGroupApi.listFieldGroup, 500, {

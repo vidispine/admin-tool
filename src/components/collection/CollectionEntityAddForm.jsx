@@ -1,39 +1,30 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
-import { TextField, Select } from '../form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
+import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import { required } from '../../utils/FieldValidation';
 
-const KeyValueType = () => (
-  <Grid container spacing={8}>
-    <Grid item sm={6}>
-      <Field
-        name="key"
-        label="key"
-        component={TextField}
-        fullWidth
-      />
+function KeyValueType() {
+  return (
+    <Grid container spacing={8}>
+      <Grid item sm={6}>
+        <Field name="key" label="key" component={TextField} fullWidth />
+      </Grid>
+      <Grid item sm={6}>
+        <Field name="value" label="value" component={TextField} fullWidth />
+      </Grid>
     </Grid>
-    <Grid item sm={6}>
-      <Field
-        name="value"
-        label="value"
-        component={TextField}
-        fullWidth
-      />
-    </Grid>
-  </Grid>
-);
+  );
+}
 
 const queryParams = () => (
   <>
@@ -46,12 +37,7 @@ const queryParams = () => (
       </Field>
     </FormControl>
     <FormControlLabel
-      control={(
-        <Field
-          name="addItems"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="addItems" component={BoolCheckbox} />}
       label="Add Items"
     />
     <FieldTypeArray
@@ -65,37 +51,15 @@ const queryParams = () => (
   </>
 );
 
-function CollectionEntityAddForm({
-  error,
-  handleSubmit,
-  collectionId,
-  entityId,
-  initialValues,
-}) {
+function CollectionEntityAddForm({ error, handleSubmit, collectionId, entityId, initialValues }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       {!collectionId && (
-        <Field
-          name="collectionId"
-          label="Collection ID"
-          component={TextField}
-          fullWidth
-        />
+        <Field name="collectionId" label="Collection ID" component={TextField} fullWidth />
       )}
-      {!entityId && (
-        <Field
-          name="entityId"
-          label="Entity ID"
-          component={TextField}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-        initialValues={initialValues}
-      />
+      {!entityId && <Field name="entityId" label="Entity ID" component={TextField} fullWidth />}
+      <FormSection name="queryParams" component={queryParams} initialValues={initialValues} />
       <button type="submit" hidden />
     </form>
   );

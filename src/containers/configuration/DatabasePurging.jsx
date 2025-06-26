@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as ConfigurationApi } from '@vidispine/vdt-api';
+
 import DatabasePurgingCard from '../../components/configuration/databasepurging/DatabasePurgingCard';
 import DatabasePurgingRemove from '../../components/configuration/databasepurging/DatabasePurgingRemove';
-
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
 const DATABASEPURGING_REMOVE_DIALOG = 'DATABASEPURGING_REMOVE_DIALOG';
 
-class DatabasePurging extends React.PureComponent {
+class DatabasePurging extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -54,12 +54,11 @@ class DatabasePurging extends React.PureComponent {
           codeModal="databasePurgingConfigurationDocument"
           removeModal={DATABASEPURGING_REMOVE_DIALOG}
         />
-        { databasePurgingConfigurationDocument
-        && (
-        <DatabasePurgingCard
-          databasePurgingConfigurationDocument={databasePurgingConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {databasePurgingConfigurationDocument && (
+          <DatabasePurgingCard
+            databasePurgingConfigurationDocument={databasePurgingConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
         <DatabasePurgingRemove
           dialogName={DATABASEPURGING_REMOVE_DIALOG}

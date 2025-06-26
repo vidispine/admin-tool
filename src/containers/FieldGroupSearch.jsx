@@ -1,13 +1,13 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import FieldGroupSearchParams from '../components/fieldgroup/FieldGroupSearchParams';
 import FieldGroupSearchDocument from '../components/fieldgroup/FieldGroupSearch';
 import FieldGroupSearchListTable from '../components/fieldgroup/FieldGroupSearchListTable';
-
-import withFormActions from '../hoc/withFormActions';
+import FieldGroupSearchParams from '../components/fieldgroup/FieldGroupSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withCard from '../hoc/withCard';
+import withFormActions from '../hoc/withFormActions';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const FIELDGROUP_SEARCH_FORM = 'FIELDGROUP_SEARCH_FORM';
@@ -16,7 +16,7 @@ const FieldGroupSearchListTableCard = compose(
   withPaginationForm,
 )(FieldGroupSearchListTable);
 
-class FieldGroupSearch extends React.PureComponent {
+class FieldGroupSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -24,13 +24,7 @@ class FieldGroupSearch extends React.PureComponent {
     this.onSetUrlParams = this.onSetUrlParams.bind(this);
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
@@ -68,10 +62,7 @@ class FieldGroupSearch extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -81,15 +72,14 @@ class FieldGroupSearch extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      metadataFieldResultDocument,
-      queryParams,
-    } = this.state;
+    const { metadataFieldResultDocument, queryParams } = this.state;
     return (
       <>
         <TitleHeader

@@ -1,27 +1,28 @@
-import React from 'react';
-import { compose } from 'redux';
-import { selftest as api } from '@vidispine/vdt-api';
+import { PureComponent } from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { compose } from 'redux';
 
+import { selftest as api } from '@vidispine/vdt-api';
+
+import InitDialog from '../components/login/InitDialog';
+import LoginCard from '../components/login/Login';
+import LoginHelpDialog from '../components/login/LoginHelpDialog';
+import SelfTestStatus from '../components/selftest/SelfTestStatus';
+import GitHubButton from '../components/ui/GitHubButton';
+import VidispineAltIcon from '../components/ui/VidispineAltIcon';
+import { getVidispineUrlFromPath } from '../const';
+import { PROXY_HEADER } from '../const/Auth';
 import { withModalNoRouter } from '../hoc/withModal';
 import { withSnackbarNoRouter } from '../hoc/withSnackbar';
-import SelfTestStatus from '../components/selftest/SelfTestStatus';
-import LoginCard from '../components/login/Login';
-import InitDialog from '../components/login/InitDialog';
-import LoginHelpDialog from '../components/login/LoginHelpDialog';
-import GitHubButton from '../components/ui/GitHubButton';
-
-import { APP_LOGO } from '../const/logos';
-import { getVidispineUrlFromPath } from '../const';
 
 const INIT_MODAL = 'INIT_MODAL';
 const HELP_DIALOG = 'HELP_DIALOG';
@@ -29,9 +30,10 @@ const HELP_DIALOG = 'HELP_DIALOG';
 const { VITE_VERSION } = import.meta.env;
 const theme = (outerTheme) => createTheme({ ...outerTheme, palette: { type: 'light' } });
 
-class Login extends React.PureComponent {
+class Login extends PureComponent {
   constructor(props) {
     super(props);
+    document.title = 'VidiCore Admin';
     this.onRefresh = this.onRefresh.bind(this);
     this.onRefreshError = this.onRefreshError.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
@@ -44,27 +46,24 @@ class Login extends React.PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'VidiCore Admin';
-    const { baseUrl } = this.props;
-    if (baseUrl) {
+    const { baseURL } = this.props;
+    if (baseURL) {
       this.onRefresh();
     }
   }
 
   async onRefresh() {
-    const { onOpen, useDevProxy, useContainerProxy } = this.props;
+    const { onOpen, useDevProxy, useContainerProxy, baseURL } = this.props;
     this.setState({ selfTestDocument: undefined });
     await this.setState({ loading: true });
-    let baseURL = useDevProxy ? window.location.origin : this.props.baseUrl;
-    if (useContainerProxy) baseURL = window.location.origin;
+    let proxyBaseURL = useDevProxy ? window.location.origin : baseURL;
+    if (useContainerProxy) proxyBaseURL = window.location.origin;
     try {
       api
         .listSelfTest({
           noAuth: true,
-          baseURL,
-          headers: useContainerProxy
-            ? { 'X-Proxy-URL': this.props.baseUrl }
-            : {},
+          baseURL: proxyBaseURL,
+          headers: useContainerProxy ? { [PROXY_HEADER]: baseURL } : {},
         })
         .then(({ data: selfTestDocument }) => {
           this.setState({ selfTestDocument, loading: false });
@@ -99,57 +98,49 @@ class Login extends React.PureComponent {
     openSnackBar({ messageContent, messageColor: 'secondary' });
   }
 
-  onSuccess({
-    data: token, userName: newUserName, runAs, baseUrl,
-  }) {
-    if (baseUrl) {
-      const encodedBaseUrl = encodeURIComponent(baseUrl);
+  onSuccess({ data: token, userName: newUserName, runAs, baseURL }) {
+    if (baseURL) {
+      const encodedBaseUrl = encodeURIComponent(baseURL);
       const encodedPathBaseUrl = getVidispineUrlFromPath()
-        ? encodeURIComponent(getVidispineUrlFromPath()) : undefined;
+        ? encodeURIComponent(getVidispineUrlFromPath())
+        : undefined;
       const pathname = window.location.pathname.replace(/(.+?)\/+$/, '$1');
       if (!pathname.includes(encodedBaseUrl)) {
         let newPath;
         if (encodedPathBaseUrl && pathname.includes(encodedPathBaseUrl)) {
           newPath = pathname.replace(encodedPathBaseUrl, encodedBaseUrl);
         } else {
-          newPath = pathname === '/' ? [encodedBaseUrl, '/'].join('') : [pathname, encodedBaseUrl, ''].join('/');
+          newPath =
+            pathname === '/'
+              ? [encodedBaseUrl, '/'].join('')
+              : [pathname, encodedBaseUrl, ''].join('/');
         }
         window.history.pushState({}, '', newPath);
       }
     }
-    const {
-      setUserName,
-      setToken,
-      setRunAs,
-      setResponseInterceptor,
-      setBaseUrl,
-    } = this.props;
+    const { setUserName, setToken, setRunAs, setResponseInterceptor, setBaseUrl } = this.props;
     if (runAs) {
-      setRunAs(runAs, baseUrl);
+      setRunAs(runAs, baseURL);
     }
     setResponseInterceptor();
-    setUserName(newUserName, baseUrl);
-    setToken(token, baseUrl);
-    setBaseUrl(baseUrl);
+    setUserName(newUserName, baseURL);
+    setToken(token, baseURL);
+    setBaseUrl(baseURL);
   }
 
-  onTestUrl(baseUrl) {
+  onTestUrl(baseURL) {
     const { setBaseUrl } = this.props;
-    setBaseUrl(baseUrl);
+    setBaseUrl(baseURL);
     this.onRefresh();
   }
 
   render() {
-    const {
-      selfTestDocument, loading, loadingInit,
-    } = this.state;
-    const {
-      userName, baseUrl, onOpen, useDevProxy,
-    } = this.props;
+    const { selfTestDocument, loading, loadingInit } = this.state;
+    const { userName, baseURL, onOpen, useDevProxy, useContainerProxy } = this.props;
     const initialValues = {
       headers: { username: userName, accept: 'text/plain' },
       queryParams: { autoRefresh: true, seconds: 604800 },
-      baseUrl,
+      baseURL,
     };
     const { status } = selfTestDocument || {};
     return (
@@ -187,6 +178,7 @@ class Login extends React.PureComponent {
                     onTestUrl={this.onTestUrl}
                     status={status}
                     useDevProxy={useDevProxy}
+                    useContainerProxy={useContainerProxy}
                   />
                 </Grid>
               </Grid>
@@ -233,21 +225,19 @@ class Login extends React.PureComponent {
             item
             sm={8}
             style={{
-              background:
-                'linear-gradient(-45deg,#b0c800,#0068a9 0,#0068a9 33%,#002749 100%,#b0c800 0)',
+              background: 'linear-gradient(rgba(22, 9, 31, 1), rgba(22, 9, 31, 1))',
             }}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
           >
-            <APP_LOGO
+            <VidispineAltIcon
               alt="VidiCore Admin Tool"
               style={{
                 height: 'inherit',
                 width: '25vw',
                 minWidth: '100px',
-                backgroundColor: '#fff',
               }}
             />
           </Grid>
@@ -258,7 +248,7 @@ class Login extends React.PureComponent {
           loadingInit={loadingInit}
           setLoadingInit={(newState) => this.setState({ loadingInit: newState })}
         />
-        <LoginHelpDialog dialogName={HELP_DIALOG} baseUrl={baseUrl} />
+        <LoginHelpDialog dialogName={HELP_DIALOG} baseURL={baseURL} />
       </ThemeProvider>
     );
   }

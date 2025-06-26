@@ -1,21 +1,15 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import { TextField } from '../form';
 
-import FormSection from '../ui/FormSection';
+import { TextField } from '../form';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
 
 const queryParams = () => (
   <>
-    <Field
-      name="keepShapeTagMedia"
-      label="Keep Shape-Tag Media"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="keepShapeTagMedia" label="Keep Shape-Tag Media" component={TextField} fullWidth />
     <Field
       name="keepShapeTagStorage"
       label="Keep Shape-Tag Storage"
@@ -33,17 +27,11 @@ const queryParams = () => (
   </>
 );
 
-function ItemDeleteForm({
-  error,
-  handleSubmit,
-}) {
+function ItemDeleteForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

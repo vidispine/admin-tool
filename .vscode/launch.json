@@ -3,15 +3,29 @@
     {
       "name": "start",
       "request": "launch",
-      "runtimeArgs": ["start"],
+      "runtimeArgs": [
+        "start"
+      ],
       "runtimeExecutable": "npm",
-      "skipFiles": ["<node_internals>/**"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "type": "node",
-      "env": { "VITE_VIDISPINE_URL": "${input:vidicoreUrl}"},
-      "stopOnEntry": true
+      "env": {
+        "VITE_VIDISPINE_URL": "${input:vidicoreUrl}"
+      },
+      "stopOnEntry": true,
+      "sourceMaps": true,
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "killOnServerStop": true,
+        "pattern": ".*Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "webRoot": "${workspaceFolder}"
+      }
     }
   ],
-    "inputs": [
+  "inputs": [
     {
       "id": "vidicoreUrl",
       "type": "promptString",

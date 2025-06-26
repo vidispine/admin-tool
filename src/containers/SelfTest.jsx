@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { selftest as api } from '@vidispine/vdt-api';
-import SelfTestTitle from '../components/selftest/SelfTestTitle';
-import SelfTestListCard from '../components/selftest/SelfTestListCard';
 
+import SelfTestListCard from '../components/selftest/SelfTestListCard';
+import SelfTestTitle from '../components/selftest/SelfTestTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
-class SelfTest extends React.PureComponent {
+class SelfTest extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,7 +23,8 @@ class SelfTest extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.listSelfTest()
+      api
+        .listSelfTest()
         .then((response) => this.setState({ selfTestDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -46,12 +47,7 @@ class SelfTest extends React.PureComponent {
           code={selfTestDocument}
           codeModal="SelfTestDocument"
         />
-        {selfTestDocument
-        && (
-        <SelfTestListCard
-          selfTestDocument={selfTestDocument}
-        />
-        )}
+        {selfTestDocument && <SelfTestListCard selfTestDocument={selfTestDocument} />}
       </>
     );
   }

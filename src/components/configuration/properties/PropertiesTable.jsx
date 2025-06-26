@@ -1,16 +1,14 @@
-import React from 'react';
-
+import withDialogProps from '../../../hoc/withDialogProps';
+import sortKeyCaseInsensitive from '../../../utils/sortKeyCaseInsensitive';
 import FixedTable from '../../ui/FixedTable';
 import TableBody from '../../ui/TableBody';
 import TableCell from '../../ui/TableCell';
 import TableHead from '../../ui/TableHead';
 import TableRow from '../../ui/TableRow';
 
-import withDialogProps from '../../../hoc/withDialogProps';
-import PropertiesRow from './PropertiesRow';
-import PropertiesRemove from './PropertiesRemove';
 import PropertiesDialog from './PropertiesDialog';
-import sortKeyCaseInsensitive from '../../../utils/sortKeyCaseInsensitive';
+import PropertiesRemove from './PropertiesRemove';
+import PropertiesRow from './PropertiesRow';
 
 const REMOVE_CONFIGURATIONPROPERTIES_DIALOG = 'REMOVE_CONFIGURATIONPROPERTIES_DIALOG';
 const CONFIGURATIONPROPERTIES_EDIT_MODAL = 'CONFIGURATIONPROPERTIES_EDIT_MODAL';

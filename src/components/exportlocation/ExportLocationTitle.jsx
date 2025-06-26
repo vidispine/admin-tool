@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 
 export default function ExportLocationTitle(props) {
@@ -7,7 +5,7 @@ export default function ExportLocationTitle(props) {
     <TitleHeader
       parentTitle="Export Location"
       parentTo="/export-location/"
-      title={props.locationName}
+      title={props?.locationName}
       helpTo="/ref/export-location.html"
       {...props}
     />

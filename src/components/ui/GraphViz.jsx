@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { useEffect, useMemo } from 'react';
-import { graphviz } from 'd3-graphviz';
+
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { graphviz } from 'd3-graphviz';
 
 const styles = (theme) => ({
   root: {
@@ -36,9 +36,7 @@ let counter = 0;
 // eslint-disable-next-line no-plusplus
 const getId = () => `graphviz${counter++}`;
 
-function Graphviz({
-  classes, className, dot, ...props
-}) {
+function Graphviz({ classes, className, dot, ...props }) {
   const id = useMemo(getId, []);
   useEffect(() => {
     graphviz(`#${id}`, {
@@ -47,7 +45,7 @@ function Graphviz({
       useWorker: false,
       ...props,
     }).renderDot(dot);
-  }, [dot, props]);
+  }, [dot, id, props]);
 
   return <div className={clsx([className, classes.root])} id={id} />;
 }

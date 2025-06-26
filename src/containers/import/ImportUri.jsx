@@ -1,28 +1,25 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
-import withFormActions from '../../hoc/withFormActions';
+
 import ImportUriWizard, { EDIT_IMPORTURI_FORM } from '../../components/import/ImportUriWizard';
+import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportUri extends React.PureComponent {
-  componentDidMount() {
+function ImportUri({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | URI';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTURI_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTURI_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, ...props } = this.props;
-    return (
-      <ImportUriWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        {...props}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return <ImportUriWizard onSuccess={onSuccess} {...props} />;
 }
 
 export default compose(withRouterProps, withFormActions)(ImportUri);

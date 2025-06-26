@@ -1,25 +1,24 @@
 /* eslint-disable max-len */
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { TextField, Select } from '../form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import Field from '../ui/Field';
+import JobPriority from '../../const/JobPriority';
+import { TextField, Select } from '../form';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import FieldTypeArray from '../ui/FieldTypeArray';
-import FormSection from '../ui/FormSection';
-import JobPriority from '../../const/JobPriority';
-import { KeyValuePairType } from '../ui/FormType';
 import BoolCheckbox from '../ui/BoolCheckbox';
 import ChipInput from '../ui/ChipInput';
+import Field from '../ui/Field';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
+import { KeyValuePairType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <FormGroup>
@@ -90,8 +89,8 @@ const queryParams = () => (
         fullWidth
       />
       <FormHelperText>
-        Use transcoder’s estimate of the duration for allocating header space in
-        MOV files and similar files
+        Use transcoder’s estimate of the duration for allocating header space in MOV files and
+        similar files
       </FormHelperText>
     </FormControl>
     <FormControl>
@@ -101,8 +100,8 @@ const queryParams = () => (
         fullWidth
       />
       <FormHelperText>
-        If true try to put the index tables (header) in front of the file, if
-        false put header at end of file
+        If true try to put the index tables (header) in front of the file, if false put header at
+        end of file
       </FormHelperText>
     </FormControl>
     <Field
@@ -160,12 +159,7 @@ const queryParams = () => (
       component={TextField}
       fullWidth
     />
-    <Field
-      name="notification"
-      label="Notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" label="Notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}
@@ -237,17 +231,11 @@ const queryParams = () => (
   </FormGroup>
 );
 
-function ImportUriForm({
-  error,
-  handleSubmit,
-}) {
+function ImportUriForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

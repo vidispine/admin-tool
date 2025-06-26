@@ -1,450 +1,341 @@
-import React from 'react';
-import { reduxForm } from 'redux-form';
-import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import { TextField, Select } from '../form';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import FormSection from '../ui/FormSection';
+import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
+import { TextField, Select } from '../form';
+import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
+import ChipInput from '../ui/ChipInput';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import ChipInput from '../ui/ChipInput';
+import FormSection from '../ui/FormSection';
 import { StatefulAsyncSelect } from '../ui/Select';
-import { loadMetadataFieldOptions } from '../metadatafield/MetadataFieldSelect';
-import { loadFieldGroupOptions } from '../fieldgroup/FieldGroupSelect';
+
 import {
   ItemSearchTextValueType,
   SearchFieldType,
   ItemCriterionType,
   SearchFilterType,
-  FacetFilterType,
   SearchFacetType,
   SearchHighlightType,
 } from './ItemSearchForm';
 
-const ItemSearchValueType = () => (
-  <Grid container>
-    <Grid item sm={6}>
+function SearchGroupType() {
+  return (
+    <>
       <Field
-        name="value"
-        component={TextField}
+        name="name"
+        label="Group Name"
+        component={StatefulAsyncSelect}
+        loadOptions={loadFieldGroupOptions}
+        cacheOptions
+        isClearable
+        required
         fullWidth
+        disableInitial
+        creatable
       />
-    </Grid>
-    <Grid item sm={2}>
-      <FormControlLabel
-        control={(
-          <Field
-            name="noescape"
-            component={BoolCheckbox}
-          />
-        )}
-        label="No Escape"
+      <FieldTypeArray
+        name="field"
+        component={SearchFieldType}
+        label="field"
+        withHeader={false}
+        arrayHeader
       />
-    </Grid>
-    <Grid item sm={2}>
-      <FormControlLabel
-        control={(
-          <Field
-            name="minimum"
-            component={BoolCheckbox}
-          />
-        )}
-        label="Minimum"
+      <FieldTypeArray
+        name="group"
+        component={SearchGroupType}
+        label="group"
+        withHeader={false}
+        arrayHeader
       />
-    </Grid>
-    <Grid item sm={2}>
-      <FormControlLabel
-        control={(
-          <Field
-            name="maximum"
-            component={BoolCheckbox}
-          />
-        )}
-        label="Maximum"
+      <Field name="reference" component={TextField} fullWidth />
+    </>
+  );
+}
+
+function SearchOperatorType() {
+  return (
+    <>
+      <FormControl fullWidth>
+        <InputLabel htmlFor="operation">Operation</InputLabel>
+        <Field name="operation" component={Select}>
+          <MenuItem value="AND">AND</MenuItem>
+          <MenuItem value="OR">OR</MenuItem>
+          <MenuItem value="NOT">NOT</MenuItem>
+        </Field>
+      </FormControl>
+      <FieldTypeArray
+        name="operator"
+        component={SearchOperatorType}
+        label="operator"
+        withHeader={false}
+        arrayHeader
       />
-    </Grid>
-  </Grid>
-);
+      <FieldTypeArray
+        name="text"
+        component={ItemSearchTextValueType}
+        label="Text"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="field"
+        component={SearchFieldType}
+        label="field"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="group"
+        component={SearchGroupType}
+        label="group"
+        withHeader={false}
+        arrayHeader
+      />
+      <Field name="reference" component={ChipInput} simple fullWidth />
+    </>
+  );
+}
 
-const ItemSearchRangeType = () => (
-  <>
-    <FormSection
-      name="value[0]"
-      component={ItemSearchValueType}
-      label="Start"
-      button
-      initialDisplay={false}
-    />
-    <FormSection
-      name="value[1]"
-      component={ItemSearchValueType}
-      label="End"
-    />
-    <FormControlLabel
-      control={(
-        <Field
-          name="exclusiveMinimum"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Exclusive Minimum"
-    />
-    <FormControlLabel
-      control={(
-        <Field
-          name="exclusiveMaximum"
-          component={BoolCheckbox}
-        />
-      )}
-      label="Exclusive Maximum"
-    />
-  </>
-);
+export function CriterionType() {
+  return (
+    <>
+      <FormSection
+        name="operator"
+        label="operator"
+        component={SearchOperatorType}
+        button
+        initialDisplay={false}
+      />
+      <FieldTypeArray
+        name="field"
+        component={SearchFieldType}
+        label="field"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="group"
+        component={SearchGroupType}
+        label="group"
+        withHeader={false}
+        arrayHeader
+      />
+    </>
+  );
+}
 
-const SearchGroupType = () => (
-  <>
-    <Field
-      name="name"
-      label="Group Name"
-      component={StatefulAsyncSelect}
-      loadOptions={loadFieldGroupOptions}
-      cacheOptions
-      isClearable
-      required
-      fullWidth
-      disableInitial
-      creatable
-    />
-    <FieldTypeArray
-      name="field"
-      component={SearchFieldType}
-      label="field"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="group"
-      component={SearchGroupType}
-      label="group"
-      withHeader={false}
-      arrayHeader
-    />
-    <Field
-      name="reference"
-      component={TextField}
-      fullWidth
-    />
-  </>
-);
+export function ShapeCriterionType() {
+  return (
+    <>
+      <CriterionType />
+      <FormSection
+        name="file"
+        component={CriterionType}
+        label="File Join"
+        button
+        initialDisplay={false}
+      />
+    </>
+  );
+}
 
-const SearchOperatorType = () => (
-  <>
-    <FormControl fullWidth>
-      <InputLabel htmlFor="operation">Operation</InputLabel>
-      <Field name="operation" component={Select}>
-        <MenuItem value="AND">AND</MenuItem>
-        <MenuItem value="OR">OR</MenuItem>
-        <MenuItem value="NOT">NOT</MenuItem>
-      </Field>
-    </FormControl>
-    <FieldTypeArray
-      name="operator"
-      component={SearchOperatorType}
-      label="operator"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="text"
-      component={ItemSearchTextValueType}
-      label="Text"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="field"
-      component={SearchFieldType}
-      label="field"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="group"
-      component={SearchGroupType}
-      label="group"
-      withHeader={false}
-      arrayHeader
-    />
-    <Field
-      name="reference"
-      component={ChipInput}
-      simple
-      fullWidth
-    />
-  </>
-);
+export function CollectionCriterionType() {
+  return (
+    <>
+      <CriterionType />
+      <FieldTypeArray
+        name="collection"
+        component={CollectionCriterionType}
+        label="Collection Join"
+        withHeader={false}
+        arrayHeader
+      />
+      <FormSection
+        name="item"
+        component={ItemCriterionType}
+        label="Item Join"
+        button
+        initialDisplay={false}
+      />
+      <FormControl fullWidth>
+        <InputLabel htmlFor="relation">Relation</InputLabel>
+        <Field name="relation" component={Select}>
+          <MenuItem value="" />
+          <MenuItem value="child">Child</MenuItem>
+          <MenuItem value="parent">Parent</MenuItem>
+          <MenuItem value="descendant">Descendant</MenuItem>
+          <MenuItem value="ancestor">Ancestor</MenuItem>
+        </Field>
+      </FormControl>
+    </>
+  );
+}
 
-export const CriterionType = () => (
-  <>
-    <FormSection
-      name="operator"
-      label="operator"
-      component={SearchOperatorType}
-      button
-      initialDisplay={false}
-    />
-    <FieldTypeArray
-      name="field"
-      component={SearchFieldType}
-      label="field"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="group"
-      component={SearchGroupType}
-      label="group"
-      withHeader={false}
-      arrayHeader
-    />
-  </>
-);
+export function FacetRangeType() {
+  return (
+    <>
+      <Field name="start" component={TextField} fullWidth />
+      <Field name="end" component={TextField} fullWidth />
+    </>
+  );
+}
 
-export const ShapeCriterionType = () => (
-  <>
-    <CriterionType />
-    <FormSection
-      name="file"
-      component={CriterionType}
-      label="File Join"
-      button
-      initialDisplay={false}
-    />
-  </>
-);
+export function SearchFacetFilterType() {
+  return (
+    <>
+      <Field
+        name="field"
+        label="Field"
+        component={StatefulAsyncSelect}
+        loadOptions={loadMetadataFieldOptions}
+        cacheOptions
+        isClearable
+        required
+        fullWidth
+        disableInitial
+        creatable
+      />
+      <Field name="value" component={TextField} fullWidth />
+      <FormSection name="range" label="Range" component={FacetRangeType} />
+    </>
+  );
+}
 
-export const CollectionCriterionType = () => (
-  <>
-    <CriterionType />
-    <FieldTypeArray
-      name="collection"
-      component={CollectionCriterionType}
-      label="Collection Join"
-      withHeader={false}
-      arrayHeader
-    />
-    <FormSection
-      name="item"
-      component={ItemCriterionType}
-      label="Item Join"
-      button
-      initialDisplay={false}
-    />
-    <FormControl fullWidth>
-      <InputLabel htmlFor="relation">Relation</InputLabel>
-      <Field name="relation" component={Select}>
-        <MenuItem value="" />
-        <MenuItem value="child">Child</MenuItem>
-        <MenuItem value="parent">Parent</MenuItem>
-        <MenuItem value="descendant">Descendant</MenuItem>
-        <MenuItem value="ancestor">Ancestor</MenuItem>
-      </Field>
-    </FormControl>
-  </>
-);
+export function SearchSortType() {
+  return (
+    <>
+      <Field
+        name="field"
+        label="Field"
+        component={StatefulAsyncSelect}
+        loadOptions={loadMetadataFieldOptions}
+        cacheOptions
+        isClearable
+        required
+        fullWidth
+        disableInitial
+        creatable
+      />
+      <FormControl fullWidth>
+        <InputLabel htmlFor="order">order</InputLabel>
+        <Field name="order" component={Select}>
+          <MenuItem value="ascending">Ascending</MenuItem>
+          <MenuItem value="descending">Descending</MenuItem>
+        </Field>
+      </FormControl>
+    </>
+  );
+}
 
-export const FacetRangeType = () => (
-  <>
-    <Field
-      name="start"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="end"
-      component={TextField}
-      fullWidth
-    />
-  </>
-);
+export function SuggestionSearchType() {
+  return (
+    <>
+      <Field name="maximumSuggestions" component={TextField} type="number" fullWidth />
+      <Field name="accuracy" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
 
-export const SearchFacetFilterType = () => (
-  <>
-    <Field
-      name="field"
-      label="Field"
-      component={StatefulAsyncSelect}
-      loadOptions={loadMetadataFieldOptions}
-      cacheOptions
-      isClearable
-      required
-      fullWidth
-      disableInitial
-      creatable
-    />
-    <Field
-      name="value"
-      component={TextField}
-      fullWidth
-    />
-    <FormSection
-      name="range"
-      label="Range"
-      component={FacetRangeType}
-    />
-  </>
-);
+export function AutocompleteRequestType() {
+  return (
+    <>
+      <Field name="text" component={TextField} fullWidth />
+      <Field
+        name="field"
+        label="Field"
+        component={StatefulAsyncSelect}
+        loadOptions={loadMetadataFieldOptions}
+        cacheOptions
+        isClearable
+        required
+        fullWidth
+        disableInitial
+        creatable
+      />
+      <Field name="accuracy" component={TextField} type="number" fullWidth />
+    </>
+  );
+}
 
-export const SearchSortType = () => (
-  <>
-    <Field
-      name="field"
-      label="Field"
-      component={StatefulAsyncSelect}
-      loadOptions={loadMetadataFieldOptions}
-      cacheOptions
-      isClearable
-      required
-      fullWidth
-      disableInitial
-      creatable
-    />
-    <FormControl fullWidth>
-      <InputLabel htmlFor="order">order</InputLabel>
-      <Field name="order" component={Select}>
-        <MenuItem value="ascending">Ascending</MenuItem>
-        <MenuItem value="descending">Descending</MenuItem>
-      </Field>
-    </FormControl>
-  </>
-);
-
-export const SuggestionSearchType = () => (
-  <>
-    <Field
-      name="maximumSuggestions"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-    <Field
-      name="accuracy"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-  </>
-);
-
-export const AutocompleteRequestType = () => (
-  <>
-    <Field
-      name="text"
-      component={TextField}
-      fullWidth
-    />
-    <Field
-      name="field"
-      label="Field"
-      component={StatefulAsyncSelect}
-      loadOptions={loadMetadataFieldOptions}
-      cacheOptions
-      isClearable
-      required
-      fullWidth
-      disableInitial
-      creatable
-    />
-    <Field
-      name="accuracy"
-      component={TextField}
-      type="number"
-      fullWidth
-    />
-  </>
-);
-
-export const MetadataGroupSearchType = () => (
-  <>
-    <FieldTypeArray
-      name="text"
-      component={ItemSearchTextValueType}
-      label="Text"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="field"
-      component={SearchFieldType}
-      label="field"
-      withHeader={false}
-      arrayHeader
-    />
-    <FormSection
-      name="operator"
-      label="operator"
-      component={SearchOperatorType}
-      button
-      initialDisplay={false}
-    />
-    <FormSection
-      name="item"
-      label="item join"
-      component={ItemCriterionType}
-      button
-      initialDisplay={false}
-    />
-    <FieldTypeArray
-      name="filter"
-      component={SearchFilterType}
-      label="filter"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="facetFilter"
-      component={SearchFacetFilterType}
-      label="facetFilter"
-      withHeader={false}
-      arrayHeader
-    />
-    <FieldTypeArray
-      name="facet"
-      component={SearchFacetType}
-      label="facet"
-      withHeader={false}
-      arrayHeader
-    />
-    <FormSection
-      name="highlight"
-      label="highlight"
-      component={SearchHighlightType}
-      button
-      initialDisplay={false}
-    />
-    <FieldTypeArray
-      name="sort"
-      component={SearchSortType}
-      label="sort"
-      withHeader={false}
-      arrayHeader
-    />
-  </>
-);
+export function MetadataGroupSearchType() {
+  return (
+    <>
+      <FieldTypeArray
+        name="text"
+        component={ItemSearchTextValueType}
+        label="Text"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="field"
+        component={SearchFieldType}
+        label="field"
+        withHeader={false}
+        arrayHeader
+      />
+      <FormSection
+        name="operator"
+        label="operator"
+        component={SearchOperatorType}
+        button
+        initialDisplay={false}
+      />
+      <FormSection
+        name="item"
+        label="item join"
+        component={ItemCriterionType}
+        button
+        initialDisplay={false}
+      />
+      <FieldTypeArray
+        name="filter"
+        component={SearchFilterType}
+        label="filter"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="facetFilter"
+        component={SearchFacetFilterType}
+        label="facetFilter"
+        withHeader={false}
+        arrayHeader
+      />
+      <FieldTypeArray
+        name="facet"
+        component={SearchFacetType}
+        label="facet"
+        withHeader={false}
+        arrayHeader
+      />
+      <FormSection
+        name="highlight"
+        label="highlight"
+        component={SearchHighlightType}
+        button
+        initialDisplay={false}
+      />
+      <FieldTypeArray
+        name="sort"
+        component={SearchSortType}
+        label="sort"
+        withHeader={false}
+        arrayHeader
+      />
+    </>
+  );
+}
 
 function ItemMetadataGroupSearchForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormSection
-        name="metadataGroupSearchDocument"
-        component={MetadataGroupSearchType}
-      />
+      <FormSection name="metadataGroupSearchDocument" component={MetadataGroupSearchType} />
       <button type="submit" hidden />
     </form>
   );

@@ -1,21 +1,21 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
 import { user as api } from '@vidispine/vdt-api';
-import withTabs from '../hoc/withTabs';
-import withUI from '../hoc/withUI';
 
-import { withRouterProps } from '../hoc/withRouterProps';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
-
-import UserTitle from '../components/user/UserTitle';
-import UserPassword from '../components/user/UserPassword';
-import UserToken from '../components/user/UserToken';
 import UserDisableDialog from '../components/user/UserDisableDialog';
+import UserPassword from '../components/user/UserPassword';
+import UserTitle from '../components/user/UserTitle';
+import UserToken from '../components/user/UserToken';
 import UserUserNameDialog from '../components/user/UserUserNameDialog';
+import { withRouterProps } from '../hoc/withRouterProps';
+import withTabs from '../hoc/withTabs';
+import withUI from '../hoc/withUI';
 
 import UserDefault from './user/User';
 import UserKey from './user/UserKey';
@@ -63,9 +63,7 @@ const listComponentRoute = (props) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
         path={path}
@@ -76,7 +74,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class User extends React.PureComponent {
+class User extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -186,8 +184,4 @@ class User extends React.PureComponent {
   }
 }
 
-export default compose(
-  withTabs(USER_DEFAULT_TAB),
-  withRouterProps,
-  withUI,
-)(User);
+export default compose(withTabs(USER_DEFAULT_TAB), withRouterProps, withUI)(User);

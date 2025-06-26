@@ -1,4 +1,3 @@
-import React from 'react';
 import { withStyles, Typography } from '@material-ui/core';
 
 const styles = () => ({

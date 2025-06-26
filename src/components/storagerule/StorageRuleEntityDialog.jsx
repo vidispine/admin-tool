@@ -1,38 +1,28 @@
-import React from 'react';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-
 import Dialog from '@material-ui/core/Dialog';
-import { StorageRuleEntityForm } from './StorageRuleForm';
-import * as formActions from '../../formactions/storagerule';
-import WizardForm from '../ui/WizardForm';
-import withUI from '../../hoc/withUI';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-function StorageRuleEntityDialog({
-  open,
-  onClose,
-  openSnackBar,
-  onSuccess,
-  entityType,
-  entityId,
-}) {
+import * as formActions from '../../formactions/storagerule';
+import withUI from '../../hoc/withUI';
+import WizardForm from '../ui/WizardForm';
+
+import { StorageRuleEntityForm } from './StorageRuleForm';
+
+function StorageRuleEntityDialog({ open, onClose, openSnackBar, onSuccess, entityType, entityId }) {
   const onSubmitSuccess = (response) => {
     const messageContent = 'Storage Rule Created';
     openSnackBar({ messageContent });
     onClose();
-    if (onSuccess) { onSuccess(response); }
+    if (onSuccess) {
+      onSuccess(response);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Creating Storage Rule';
     openSnackBar({ messageContent, messageColor: 'secondary' });
   };
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth={false}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>New Storage Rule</DialogTitle>
       <DialogContent>
         <WizardForm

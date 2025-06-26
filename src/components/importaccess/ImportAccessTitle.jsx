@@ -1,13 +1,6 @@
-import React from 'react';
-
 import TitleHeader from '../ui/TitleHeader';
 
-export default function ImportAccessTitle({
-  openCode,
-  openCreate,
-  onRefresh,
-  userName,
-}) {
+export default function ImportAccessTitle({ openCode, openCreate, onRefresh, userName }) {
   return (
     <TitleHeader
       title="Import Access"

@@ -1,14 +1,10 @@
-import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
 
 import SquareCard from '../ui/SquareCard';
+
 import ImportSettingsEditor from './ImportSettingsEditor';
 
-export default function ImportSettingsCard({
-  settingsId,
-  importSettingsDocument,
-  onRefresh,
-}) {
+export default function ImportSettingsCard({ settingsId, importSettingsDocument, onRefresh }) {
   return (
     <SquareCard>
       <CardContent>

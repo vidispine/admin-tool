@@ -1,19 +1,20 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
 import { collection as api } from '@vidispine/vdt-api';
+
 import CollectionContentParams from '../../components/collection/CollectionContentParams';
 import CollectionContentTable from '../../components/collection/CollectionContentTable';
 import CollectionMetadataEditor from '../../components/collection/CollectionMetadataEditor';
-
+import withCard from '../../hoc/withCard';
 import withSnackbar from '../../hoc/withSnackbar';
 import withUI from '../../hoc/withUI';
-import withCard from '../../hoc/withCard';
 
 const CollectionContentCard = withCard(CollectionContentTable);
 const CollectionMetadataCard = withCard(CollectionMetadataEditor);
 
-class CollectionContent extends React.PureComponent {
+class CollectionContent extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -46,7 +47,8 @@ class CollectionContent extends React.PureComponent {
   onFetch(collectionId) {
     const { setName } = this.props;
     try {
-      api.getCollection({ collectionId })
+      api
+        .getCollection({ collectionId })
         .then((response) => {
           this.setState({ collectionDocument: response.data });
           if (setName) setName(response?.data?.name);
@@ -81,9 +83,7 @@ class CollectionContent extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <CollectionContentParams
           collectionId={collectionId}
           onSuccess={(response) => this.setState({ collectionDocument: response.data })}
@@ -104,7 +104,6 @@ class CollectionContent extends React.PureComponent {
             )}
           </>
         )}
-
       </>
     );
   }

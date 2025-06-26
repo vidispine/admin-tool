@@ -1,12 +1,14 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { utils as api, item as ItemApi } from '@vidispine/vdt-api';
 
+import ItemThumbnailDeleteDialog, {
+  DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG,
+} from '../../components/item/ItemThumbnailDeleteDialog';
 import ItemThumbnailGrid from '../../components/item/ItemThumbnailGrid';
-import ItemThumbnailDeleteDialog, { DIALOG_NAME as ITEMTHUMBNAILDELETE_DIALOG } from '../../components/item/ItemThumbnailDeleteDialog';
-
 import withSnackbar from '../../hoc/withSnackbar';
 
-class ItemThumbnail extends React.PureComponent {
+class ItemThumbnail extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);
@@ -35,11 +37,11 @@ class ItemThumbnail extends React.PureComponent {
   }
 
   onFetch(itemId) {
-    const baseUrl = api.defaultClient.defaults.baseURL || '';
+    const baseURL = api.defaultClient.defaults.baseURL || '';
     const queryParams = {
       content: 'thumbnail',
       'noauth-url': true,
-      baseURI: `${baseUrl}/APInoauth/`,
+      baseURI: `${baseURL}/APInoauth/`,
     };
     try {
       ItemApi.getItem({ itemId, queryParams })
@@ -57,11 +59,7 @@ class ItemThumbnail extends React.PureComponent {
   }
 
   render() {
-    const {
-      titleComponent: TitleComponent,
-      tabComponent: TabComponent,
-      title,
-    } = this.props;
+    const { titleComponent: TitleComponent, tabComponent: TabComponent, title } = this.props;
     const { itemDocument } = this.state;
     return (
       <>
@@ -74,12 +72,8 @@ class ItemThumbnail extends React.PureComponent {
           />
         )}
         {TabComponent && <TabComponent />}
-        {itemDocument && (
-          <>
-            {itemDocument.thumbnails && (
-              <ItemThumbnailGrid uriListDocument={itemDocument.thumbnails} />
-            )}
-          </>
+        {itemDocument && itemDocument.thumbnails && (
+          <ItemThumbnailGrid uriListDocument={itemDocument.thumbnails} />
         )}
         <ItemThumbnailDeleteDialog
           dialogName={ITEMTHUMBNAILDELETE_DIALOG}

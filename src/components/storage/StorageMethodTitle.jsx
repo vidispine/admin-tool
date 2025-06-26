@@ -1,6 +1,5 @@
-import React from 'react';
-import DeleteForever from '@material-ui/icons/DeleteForever';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import TitleHeader from '../ui/TitleHeader';
 
@@ -21,11 +20,11 @@ export default function StorageTitle({
       openCode={openCode}
       onRefresh={onRefresh}
       helpTo="/ref/storage/storage.html#storage-methods"
-      actionComponent={(
+      actionComponent={
         <IconButton onClick={openRemove}>
           <DeleteForever />
         </IconButton>
-      )}
+      }
     />
   );
 }

@@ -1,10 +1,10 @@
-import React from 'react';
-import ItemContentParams, { ITEM_PARAMS_FORM } from '../../components/item/ItemContentParams';
-import ItemContentDisplay from '../../components/item/ItemContent';
+import { PureComponent } from 'react';
 
+import ItemContentDisplay from '../../components/item/ItemContent';
+import ItemContentParams, { ITEM_PARAMS_FORM } from '../../components/item/ItemContentParams';
 import withFormActions from '../../hoc/withFormActions';
 
-class ItemContent extends React.PureComponent {
+class ItemContent extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -48,19 +48,12 @@ class ItemContent extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ItemContentParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ itemDocument: response.data })}
         />
-        {itemDocument && (
-          <ItemContentDisplay
-            itemId={itemId}
-            itemDocument={itemDocument}
-          />
-        )}
+        {itemDocument && <ItemContentDisplay itemId={itemId} itemDocument={itemDocument} />}
       </>
     );
   }

@@ -1,47 +1,44 @@
-import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
-import { withModalNoRouter } from '../../hoc/withModal';
 import routes from '../../const/routes';
+import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
 
-export const ShapeHeading = ({ shapeId, title }) => (
-  <Grid container alignItems="center">
-    <Grid item>
-      <Typography variant="h5" color="textSecondary">
-        Shape
-      </Typography>
+export function ShapeHeading({ shapeId, title }) {
+  return (
+    <Grid container alignItems="center">
+      <Grid item>
+        <Typography variant="h5" color="textSecondary">
+          Shape
+        </Typography>
+      </Grid>
+      <Grid item>
+        <IconButton disabled>
+          <ArrowForwardIos />
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <Typography variant="h5">{shapeId}</Typography>
+      </Grid>
+      {title && (
+        <>
+          <Grid item>
+            <IconButton disabled>
+              <ArrowForwardIos />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5">{title}</Typography>
+          </Grid>
+        </>
+      )}
     </Grid>
-    <Grid item>
-      <IconButton disabled>
-        <ArrowForwardIos />
-      </IconButton>
-    </Grid>
-    <Grid item>
-      <Typography variant="h5">
-        {shapeId}
-      </Typography>
-    </Grid>
-    {title && (
-      <>
-        <Grid item>
-          <IconButton disabled>
-            <ArrowForwardIos />
-          </IconButton>
-        </Grid>
-        <Grid item>
-          <Typography variant="h5">
-            {title}
-          </Typography>
-        </Grid>
-      </>
-    )}
-  </Grid>
-);
+  );
+}
 
 function ShapeTitle({
   title,
@@ -67,14 +64,18 @@ function ShapeTitle({
 }) {
   return (
     <TitleHeader
-      breadcrumbList={Array.isArray(breadcrumbList) ? [
-        { title: 'Item', to: routes.itemList() },
-        { title: itemId, to: routes.item({ itemId }) },
-        { title: 'Shape', to: routes.shapeList({ itemId }) },
-        { title: shapeId, to: routes.shape({ itemId, shapeId }) },
-        ...breadcrumbList]
-        : undefined}
-      actionComponent={(
+      breadcrumbList={
+        Array.isArray(breadcrumbList)
+          ? [
+              { title: 'Item', to: routes.itemList() },
+              { title: itemId, to: routes.item({ itemId }) },
+              { title: 'Shape', to: routes.shapeList({ itemId }) },
+              { title: shapeId, to: routes.shape({ itemId, shapeId }) },
+              ...breadcrumbList,
+            ]
+          : undefined
+      }
+      actionComponent={
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: transcodeModal })}>
             <Typography>Transcode</Typography>
@@ -103,12 +104,12 @@ function ShapeTitle({
           <MenuItem onClick={() => onOpen({ modalName: exportImpModal })}>
             <Typography>Export IMF Package</Typography>
           </MenuItem>
-          { createPlaceholderComponentModal ? (
+          {createPlaceholderComponentModal ? (
             <MenuItem onClick={() => onOpen({ modalName: createPlaceholderComponentModal })}>
               <Typography>Create Placeholder Component</Typography>
             </MenuItem>
           ) : null}
-          { createShapeModal ? (
+          {createShapeModal ? (
             <MenuItem onClick={() => onOpen({ modalName: createShapeModal })}>
               <Typography>Create Shape</Typography>
             </MenuItem>
@@ -123,7 +124,7 @@ function ShapeTitle({
             <Typography color="secondary">Delete</Typography>
           </MenuItem>
         </Menu>
-      )}
+      }
       {...props}
     />
   );

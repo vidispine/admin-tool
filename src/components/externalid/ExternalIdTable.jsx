@@ -1,13 +1,12 @@
-import React from 'react';
-
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
 import TableHead from '../ui/TableHead';
 import TableRow from '../ui/TableRow';
-import ExternalIdRow from './ExternalIdRow';
+
 import ExternalIdRemove from './ExternalIdRemove';
-import withDialogProps from '../../hoc/withDialogProps';
+import ExternalIdRow from './ExternalIdRow';
 
 const EXTERNALID_REMOVE_DIALOG = 'EXTERNALID_REMOVE_DIALOG';
 
@@ -19,9 +18,7 @@ function ExternalIdTable({
   entityType,
   entityId,
 }) {
-  const {
-    id: externalIdentifierList = [],
-  } = externalIdentifierListDocument;
+  const { id: externalIdentifierList = [] } = externalIdentifierListDocument;
   return (
     <>
       <Table>

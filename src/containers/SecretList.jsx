@@ -1,18 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
 
 import { secret as SecretApi } from '@vidispine/vdt-api';
-import TitleHeader from '../components/ui/TitleHeader';
-import routes from '../const/routes';
 
 import SecretCreate from '../components/secret/SecretCreate';
 import SecretListCard from '../components/secret/SecretListCard';
-import withSnackbar from '../hoc/withSnackbar';
+import TitleHeader from '../components/ui/TitleHeader';
+import routes from '../const/routes';
 import withFormActions from '../hoc/withFormActions';
+import withSnackbar from '../hoc/withSnackbar';
 
 const SECRET_CREATE_MODAL = 'SECRET_CREATE_MODAL';
 
-class SecretList extends React.PureComponent {
+class SecretList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -50,9 +51,7 @@ class SecretList extends React.PureComponent {
           codeModal="SecretListDocument"
           createModal={SECRET_CREATE_MODAL}
         />
-        {secretListDocument && (
-          <SecretListCard secretListDocument={secretListDocument} />
-        )}
+        {secretListDocument && <SecretListCard secretListDocument={secretListDocument} />}
         <SecretCreate
           dialogName={SECRET_CREATE_MODAL}
           onSuccess={({ data: { alias } }) => history.push(routes.secret({ alias }))}

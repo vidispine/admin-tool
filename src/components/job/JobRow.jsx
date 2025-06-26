@@ -1,13 +1,11 @@
-import React from 'react';
 import moment from 'moment';
 
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRowLink';
+
 import JobStatus from './JobStatus';
 
-export default function JobListRow({
-  jobDocument,
-}) {
+export default function JobListRow({ jobDocument }) {
   let durationHuman;
   const startMoment = moment(jobDocument.started);
   if (jobDocument.finished) {
@@ -24,13 +22,19 @@ export default function JobListRow({
       <TableCell>{jobDocument.jobId}</TableCell>
       <TableCell>{jobDocument.user}</TableCell>
       <TableCell>
-        {jobDocument.started ? moment(jobDocument.started).format('YYYY-MM-DD HH:mm').toString() : ''}
+        {jobDocument.started
+          ? moment(jobDocument.started).format('YYYY-MM-DD HH:mm').toString()
+          : ''}
       </TableCell>
       <TableCell>
-        {jobDocument.finished ? moment(jobDocument.finished).format('YYYY-MM-DD HH:mm').toString() : ''}
+        {jobDocument.finished
+          ? moment(jobDocument.finished).format('YYYY-MM-DD HH:mm').toString()
+          : ''}
       </TableCell>
       <TableCell>{durationHuman}</TableCell>
-      <TableCell><JobStatus jobDocument={jobDocument} /></TableCell>
+      <TableCell>
+        <JobStatus jobDocument={jobDocument} />
+      </TableCell>
       <TableCell>{jobDocument.type}</TableCell>
       <TableCell>{jobDocument.priority}</TableCell>
     </TableRow>

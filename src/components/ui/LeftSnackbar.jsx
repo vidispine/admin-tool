@@ -1,10 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
-import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
 
@@ -17,16 +15,15 @@ function LeftSnackbar({
 }) {
   const action = [
     actionButton,
-    <IconButton
-      key="close"
-      aria-label="Close"
-      color="inherit"
-      onClick={closeSnackBar}
-    >
+    <IconButton key="close" aria-label="Close" color="inherit" onClick={closeSnackBar}>
       <CloseIcon />
     </IconButton>,
   ];
-  const message = <Typography color={messageColor} id="message-id">{messageContent}</Typography>;
+  const message = (
+    <Typography color={messageColor} id="message-id">
+      {messageContent}
+    </Typography>
+  );
   return (
     <Snackbar
       open={isOpen}
@@ -40,7 +37,9 @@ function LeftSnackbar({
 }
 
 function mapStateToProps(state) {
-  const { ui: { snackBar } } = state;
+  const {
+    ui: { snackBar },
+  } = state;
   return {
     ...snackBar,
   };

@@ -1,26 +1,21 @@
-import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import DeletionLockForm from './DeletionLockForm';
-import WizardForm from '../ui/WizardForm';
 import * as formActions from '../../formactions/deletionlock';
 import withUI from '../../hoc/withUI';
+import WizardForm from '../ui/WizardForm';
 
-function DeletionLockWizard({
-  open,
-  onClose,
-  onSuccess,
-  openSnackBar,
-  entityId,
-  entityType,
-}) {
+import DeletionLockForm from './DeletionLockForm';
+
+function DeletionLockWizard({ open, onClose, onSuccess, openSnackBar, entityId, entityType }) {
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Deletion Lock Created';
     openSnackBar({ messageContent });
     onClose();
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Creating Deletion Lock';

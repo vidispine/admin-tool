@@ -1,19 +1,21 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { shapetag as api } from '@vidispine/vdt-api';
-import ShapeTagTitle from '../components/shapetag/ShapeTagTitle';
-import ShapeTagCard from '../components/shapetag/ShapeTagCard';
-import ShapeTagRemove from '../components/shapetag/ShapeTagRemove';
-import CodeModal from '../components/ui/CodeModal';
-import StorageRuleTag from './StorageRuleTag';
 
 import * as actions from '../actions';
+import ShapeTagCard from '../components/shapetag/ShapeTagCard';
+import ShapeTagRemove from '../components/shapetag/ShapeTagRemove';
+import ShapeTagTitle from '../components/shapetag/ShapeTagTitle';
+import CodeModal from '../components/ui/CodeModal';
+
+import StorageRuleTag from './StorageRuleTag';
 
 const SHAPETAG_CODE_MODAL = 'SHAPETAG_CODE_MODAL';
 const SHAPETAG_REMOVE_MODAL = 'SHAPETAG_REMOVE_MODAL';
 
-class ShapeTagRule extends React.PureComponent {
+class ShapeTagRule extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -31,7 +33,8 @@ class ShapeTagRule extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, tagName } = this.props;
     try {
-      api.getShapeTag({ tagName })
+      api
+        .getShapeTag({ tagName })
         .then((response) => this.setState({ transcodePresetDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Shape Tag';
@@ -40,17 +43,8 @@ class ShapeTagRule extends React.PureComponent {
   }
 
   render() {
-    const {
-      tagName,
-      modalName,
-      closeModal,
-      openModal,
-      openSnackBar,
-      history,
-    } = this.props;
-    const {
-      transcodePresetDocument,
-    } = this.state;
+    const { tagName, modalName, closeModal, openModal, openSnackBar, history } = this.props;
+    const { transcodePresetDocument } = this.state;
     return (
       <>
         <ShapeTagTitle
@@ -59,23 +53,22 @@ class ShapeTagRule extends React.PureComponent {
           onRefresh={this.onRefresh}
           tagName={tagName}
         />
-        {transcodePresetDocument
-        && (
-        <ShapeTagCard
-          onRefresh={this.onRefresh}
-          tagName={tagName}
-          transcodePresetDocument={transcodePresetDocument}
-        />
+        {transcodePresetDocument && (
+          <ShapeTagCard
+            onRefresh={this.onRefresh}
+            tagName={tagName}
+            transcodePresetDocument={transcodePresetDocument}
+          />
         )}
         <StorageRuleTag {...this.props} tagName={tagName} />
         <CodeModal
-          isOpen={(modalName === SHAPETAG_CODE_MODAL)}
+          isOpen={modalName === SHAPETAG_CODE_MODAL}
           toggleDialogue={closeModal}
           code={transcodePresetDocument}
           title="TranscodePresetDocument"
         />
         <ShapeTagRemove
-          isOpen={(modalName === SHAPETAG_REMOVE_MODAL)}
+          isOpen={modalName === SHAPETAG_REMOVE_MODAL}
           tagName={tagName}
           openSnackBar={openSnackBar}
           closeModal={closeModal}
@@ -88,7 +81,9 @@ class ShapeTagRule extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { tagName } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     tagName,

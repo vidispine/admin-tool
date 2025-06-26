@@ -1,13 +1,7 @@
-import capitalizeString from './capitalizeString';
 import bytesToSize from './bytesToSize';
-import formatXML from './formatXML';
+import capitalizeString from './capitalizeString';
 import downloadFile from './downloadFile';
+import formatXML from './formatXML';
 import fromNow from './fromNow';
 
-export {
-  capitalizeString,
-  bytesToSize,
-  formatXML,
-  downloadFile,
-  fromNow,
-};
+export { capitalizeString, bytesToSize, formatXML, downloadFile, fromNow };

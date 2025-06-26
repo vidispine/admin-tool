@@ -1,30 +1,27 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
+
 import ImportShapeEssenceWizard, {
   EDIT_IMPORTSHAPEESSENCE_FORM,
 } from '../../components/import/ImportShapeEssenceWizard';
 import withFormActions from '../../hoc/withFormActions';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportShapeEssence extends React.PureComponent {
-  componentDidMount() {
+function ImportShapeEssence({ destroyForm, history, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | Essence';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTSHAPEESSENCE_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTSHAPEESSENCE_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, ...props } = this.props;
-    return (
-      <ImportShapeEssenceWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        {...props}
-      />
-    );
-  }
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return <ImportShapeEssenceWizard onSuccess={onSuccess} {...props} />;
 }
 
 export default compose(withRouterProps, withFormActions)(ImportShapeEssence);

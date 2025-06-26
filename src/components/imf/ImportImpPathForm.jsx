@@ -1,29 +1,23 @@
-import React from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import { TextField, Select } from '../form';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import BoolCheckbox from '../ui/BoolCheckbox';
-import JobPriority from '../../const/JobPriority';
 import FileStates from '../../const/FileStates';
-import { StatefulAsyncSelect } from '../ui/Select';
+import JobPriority from '../../const/JobPriority';
+import { TextField, Select } from '../form';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
-    <Field
-      name="path"
-      component={TextField}
-      fullWidth
-      required
-    />
+    <Field name="path" component={TextField} fullWidth required />
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Field name="priority" component={Select}>
@@ -35,39 +29,19 @@ const queryParams = () => (
       </Field>
     </FormControl>
     <FormControlLabel
-      control={(
-        <Field
-          name="allowReimport"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="allowReimport" component={BoolCheckbox} />}
       label="Allow Reimport"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="createOnly"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="createOnly" component={BoolCheckbox} />}
       label="Create Only"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="no-transcode"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="no-transcode" component={BoolCheckbox} />}
       label="No Transcode"
     />
     <FormControlLabel
-      control={(
-        <Field
-          name="createThumbnails"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="createThumbnails" component={BoolCheckbox} />}
       label="Create Thumbnails"
     />
     <Field
@@ -93,10 +67,7 @@ const queryParams = () => (
   </>
 );
 
-function ImportImpPathForm({
-  error,
-  handleSubmit,
-}) {
+function ImportImpPathForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -111,10 +82,7 @@ function ImportImpPathForm({
         fullWidth
         disableInitial
       />
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

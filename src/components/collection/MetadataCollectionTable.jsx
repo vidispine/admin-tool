@@ -1,15 +1,15 @@
-import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 
-import UnstyledLink from '../ui/UnstyledLink';
-import CollectionEntityRemove from './CollectionEntityRemove';
 import withDialogProps from '../../hoc/withDialogProps';
+import UnstyledLink from '../ui/UnstyledLink';
+
+import CollectionEntityRemove from './CollectionEntityRemove';
 
 const COLLECTION_TRANSIENT_FIELDS = [
   '__collection',
@@ -30,15 +30,20 @@ function MetadataCollectionTable({
 }) {
   const itemCollection = [];
   const { timespan: metadataTimespanList = [] } = metadataDocument;
-  const infTimeSpan = metadataTimespanList.find((thisTimespan) => (thisTimespan.start === '-INF' && thisTimespan.end === '+INF'));
+  const infTimeSpan = metadataTimespanList.find(
+    (thisTimespan) => thisTimespan.start === '-INF' && thisTimespan.end === '+INF',
+  );
   if (infTimeSpan) {
     const { field: fieldList = [] } = infTimeSpan;
     fieldList.forEach((thisField) => {
       if (COLLECTION_TRANSIENT_FIELDS.includes(thisField.name)) {
         const { value: allValues = [] } = thisField;
-        const firstValue = allValues.find((thisValue) => (thisValue.value));
+        const firstValue = allValues.find((thisValue) => thisValue.value);
         if (firstValue) {
-          const relation = (thisField.name === '__collection' || thisField.name === '__parent_collection') ? PARENT : ANCESTOR;
+          const relation =
+            thisField.name === '__collection' || thisField.name === '__parent_collection'
+              ? PARENT
+              : ANCESTOR;
           itemCollection.push({
             relation,
             id: firstValue.value,
@@ -60,14 +65,9 @@ function MetadataCollectionTable({
         </TableHead>
         <TableBody>
           {itemCollection.map((collection) => (
-            <TableRow
-              key={`${collection.relation}_${collection.id}`}
-              hover
-            >
+            <TableRow key={`${collection.relation}_${collection.id}`} hover>
               <TableCell>
-                <UnstyledLink to={`/collection/${collection.id}/`}>
-                  {collection.id}
-                </UnstyledLink>
+                <UnstyledLink to={`/collection/${collection.id}/`}>{collection.id}</UnstyledLink>
               </TableCell>
               <TableCell>
                 <UnstyledLink to={`/collection/${collection.id}/`}>
@@ -78,9 +78,11 @@ function MetadataCollectionTable({
                 {collection.relation === PARENT ? (
                   <IconButton
                     size="small"
-                    onClick={() => onOpenRemove({
-                      collectionId: collection.id,
-                    })}
+                    onClick={() =>
+                      onOpenRemove({
+                        collectionId: collection.id,
+                      })
+                    }
                   >
                     <DeleteForever />
                   </IconButton>

@@ -1,23 +1,23 @@
-import React from 'react';
-import { Field } from 'redux-form';
 import debounce from 'lodash.debounce';
+import { Field } from 'redux-form';
 
 import { exportlocation as ExportLocationApi } from '@vidispine/vdt-api';
+
 import Select from '../ui/Select';
 
-const debounceListExportLocation = debounce(
-  ExportLocationApi.listExportLocation,
-  500,
-  { leading: true, trailing: false },
-);
+const debounceListExportLocation = debounce(ExportLocationApi.listExportLocation, 500, {
+  leading: true,
+  trailing: false,
+});
 
 export const loadExportLocationOptions = async (inputValue) => {
   const { data: exportLocationListType } = await debounceListExportLocation();
   const { exportLocation = [] } = exportLocationListType;
   let filterExportLocation = exportLocation;
   if (inputValue && inputValue !== '*') {
-    filterExportLocation = exportLocation
-      .filter((f) => f.name.toLowerCase().includes(inputValue.toLowerCase()));
+    filterExportLocation = exportLocation.filter((f) =>
+      f.name.toLowerCase().includes(inputValue.toLowerCase()),
+    );
   }
   const options = filterExportLocation.map((f) => ({
     label: f.name,

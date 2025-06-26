@@ -1,16 +1,15 @@
-import React from 'react';
-
+import withDialogProps from '../../hoc/withDialogProps';
 import Table from '../ui/Table';
+import TableActions from '../ui/TableActions';
 import TableBody from '../ui/TableBody';
 import TableCell from '../ui/TableCell';
-import TableHead from '../ui/TableHead';
-import TableRow from '../ui/TableRow';
-import UserRow from './UserRow';
-import TableActions from '../ui/TableActions';
-import TablePagination from '../ui/TablePagination';
 import TableFooter from '../ui/TableFooter';
+import TableHead from '../ui/TableHead';
+import TablePagination from '../ui/TablePagination';
+import TableRow from '../ui/TableRow';
+
 import UserGroupRemove from './UserGroupRemove';
-import withDialogProps from '../../hoc/withDialogProps';
+import UserRow from './UserRow';
 
 const REMOVE_USER_DIALOG = 'REMOVE_USER_DIALOG';
 
@@ -29,7 +28,9 @@ function UserTable({
 }) {
   const { user: userList = [] } = userListDocument;
   const rowsPerPageOptions = [100, 250, 500];
-  if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
+  if (!rowsPerPageOptions.includes(rowsPerPage)) {
+    rowsPerPageOptions.push(rowsPerPage);
+  }
   return (
     <>
       <Table>
@@ -50,32 +51,30 @@ function UserTable({
             />
           ))}
         </TableBody>
-        {count
-        && (
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              count={count}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onPageChange={onChangePage}
-              onRowsPerPageChange={onChangeRowsPerPage}
-              ActionsComponent={TableActions}
-              rowsPerPageOptions={rowsPerPageOptions}
-            />
-          </TableRow>
-        </TableFooter>
+        {count && (
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={count}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                onPageChange={onChangePage}
+                onRowsPerPageChange={onChangeRowsPerPage}
+                ActionsComponent={TableActions}
+                rowsPerPageOptions={rowsPerPageOptions}
+              />
+            </TableRow>
+          </TableFooter>
         )}
       </Table>
-      {groupName
-        && (
+      {groupName && (
         <UserGroupRemove
           {...dialogProps}
           dialogName={REMOVE_USER_DIALOG}
           groupName={groupName}
           onSuccess={onSuccess}
         />
-        )}
+      )}
     </>
   );
 }

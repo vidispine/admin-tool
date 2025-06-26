@@ -1,23 +1,22 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import { TextField, Select } from '../form';
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import { required } from '../../utils/FieldValidation';
-import BoolCheckbox from '../ui/BoolCheckbox';
 import JobPriority from '../../const/JobPriority';
-import { KeyValuePairType } from '../ui/FormType';
-import FieldTypeArray from '../ui/FieldTypeArray';
-import { StatefulAsyncSelect } from '../ui/Select';
+import { required } from '../../utils/FieldValidation';
+import { TextField, Select } from '../form';
 import { loadStorageOptions } from '../storage/StorageSelect';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
+import { KeyValuePairType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
 import UploadButton from '../ui/UploadButton';
 
 const queryParams = () => (
@@ -52,9 +51,7 @@ const queryParams = () => (
         control={<Field name="componentImport" component={BoolCheckbox} />}
         label="Component Import"
       />
-      <FormHelperText>
-        Import sidecar file as a subtitle component
-      </FormHelperText>
+      <FormHelperText>Import sidecar file as a subtitle component</FormHelperText>
     </FormControl>
     <Field
       name="notification"
@@ -112,18 +109,8 @@ function ImportSidecarRawForm({ error, handleSubmit, itemId }) {
         fullWidth
       />
 
-      {!itemId && (
-        <Field
-          name="itemId"
-          component={TextField}
-          validate={[required]}
-          fullWidth
-        />
-      )}
-      <FormSection
-        name="queryParams"
-        component={queryParams}
-      />
+      {!itemId && <Field name="itemId" component={TextField} validate={[required]} fullWidth />}
+      <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

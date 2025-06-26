@@ -1,17 +1,16 @@
-import React from 'react';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'redux';
 
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import * as formActions from '../../formactions/component';
+import withFormActions from '../../hoc/withFormActions';
+import withUI from '../../hoc/withUI';
 
 import ShapeComponentRemoveFileForm from './ShapeComponentRemoveFileForm';
-import * as formActions from '../../formactions/component';
-import withUI from '../../hoc/withUI';
-import withFormActions from '../../hoc/withFormActions';
 
 const SHAPE_COMPONENT_UNASSOCIATEFILE_FORM = 'SHAPE_COMPONENT_UNASSOCIATEFILE_FORM';
 
@@ -31,13 +30,17 @@ function ShapeComponentRemoveFile({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'File Unassociated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Unassociating File';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
@@ -56,18 +59,10 @@ function ShapeComponentRemoveFile({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={onClose}
-        >
+        <Button size="small" color="primary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={() => submitForm(form)}
-        >
+        <Button size="small" color="secondary" onClick={() => submitForm(form)}>
           Unassociate File
         </Button>
       </DialogActions>

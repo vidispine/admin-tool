@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -15,7 +14,8 @@ export default function StorageMethodRemove({
   openSnackBar,
 }) {
   const onRemove = () => {
-    api.removeStorageMethod({ storageId, storageMethodId })
+    api
+      .removeStorageMethod({ storageId, storageMethodId })
       .then(() => {
         const messageContent = `Storage Method ${storageMethodId} Removed`;
         openSnackBar({ messageContent });
@@ -29,19 +29,12 @@ export default function StorageMethodRemove({
   };
   return (
     <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
-      <DialogTitle>
-        {`Remove Storage Method "${storageMethodId}"?`}
-      </DialogTitle>
+      <DialogTitle>{`Remove Storage Method "${storageMethodId}"?`}</DialogTitle>
       <DialogActions>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button
-          variant="text"
-          onClick={onRemove}
-          color="secondary"
-          autoFocus
-        >
+        <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
           Remove
         </Button>
       </DialogActions>

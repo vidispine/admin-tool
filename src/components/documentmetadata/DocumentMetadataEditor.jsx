@@ -1,9 +1,9 @@
-import React from 'react';
 import * as formActions from '../../formactions/documentmetadata';
-import Editor from '../ui/Editor';
-import DocumentMetadataForm from './DocumentMetadataForm';
-import MetadataDisplay from '../metadata/MetadataDisplay';
 import withSnackbar from '../../hoc/withSnackbar';
+import MetadataDisplay from '../metadata/MetadataDisplay';
+import Editor from '../ui/Editor';
+
+import DocumentMetadataForm from './DocumentMetadataForm';
 
 function DocumentMetadataEditor({
   metadataDocument,
@@ -16,12 +16,16 @@ function DocumentMetadataEditor({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Document Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Document';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Editor

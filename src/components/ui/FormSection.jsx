@@ -1,8 +1,9 @@
-import React from 'react';
-import { FormSection } from 'redux-form';
+import { useState } from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import startCase from 'lodash.startcase';
+import { FormSection } from 'redux-form';
 
 import TextButton from './TextButton';
 
@@ -30,7 +31,7 @@ const hoverStyle = (theme) => ({
   },
 });
 
-const WrappedFormSection = ({
+function WrappedFormSection({
   label,
   hover = false,
   classes,
@@ -38,33 +39,30 @@ const WrappedFormSection = ({
   button = false,
   initialDisplay = true,
   ...props
-}) => {
-  const [isDisplayed, setIsDisplayed] = React.useState(initialDisplay);
+}) {
+  const [isDisplayed, setIsDisplayed] = useState(initialDisplay);
   const toggleText = isDisplayed === true ? 'Hide' : 'Show';
   return (
     <div>
-      <div
-        className={hover ? classes.onHover : classes.noHover}
-      >
+      <div className={hover ? classes.onHover : classes.noHover}>
         <div className={classes.header}>
-          { label && (
+          {label && (
             <Typography variant="subtitle2">{labelStartCase ? startCase(label) : label}</Typography>
           )}
-          { button === true && (
+          {button === true && (
             <TextButton onClick={() => setIsDisplayed((prevValue) => !prevValue)} color="primary">
               {toggleText}
             </TextButton>
           )}
         </div>
         {isDisplayed === true && (
-        <div className={label ? classes.withLabel : undefined}>
-          <FormSection {...props} />
-        </div>
+          <div className={label ? classes.withLabel : undefined}>
+            <FormSection {...props} />
+          </div>
         )}
       </div>
-
     </div>
   );
-};
+}
 
 export default withStyles(hoverStyle)(WrappedFormSection);

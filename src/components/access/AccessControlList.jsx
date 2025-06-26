@@ -1,4 +1,3 @@
-import React from 'react';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
@@ -18,25 +17,23 @@ export default function AccessControlListCard({
     <>
       {openCreate && (
         <CardHeader
-          action={(
+          action={
             <IconButton onClick={openCreate}>
               <PlaylistAdd />
             </IconButton>
-          )}
+          }
         />
       )}
-      {
-        accessList.map((accessControlDocument) => (
-          <AccessControlCard
-            accessControlDocument={accessControlDocument}
-            key={accessControlDocument.id}
-            onRefresh={onRefresh}
-            entityType={entityType}
-            entityId={entityId}
-            openRemove={openRemove}
-          />
-        ))
-      }
+      {accessList.map((accessControlDocument) => (
+        <AccessControlCard
+          accessControlDocument={accessControlDocument}
+          key={accessControlDocument.id}
+          onRefresh={onRefresh}
+          entityType={entityType}
+          entityId={entityId}
+          openRemove={openRemove}
+        />
+      ))}
     </>
   );
 }

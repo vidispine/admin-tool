@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
+
 import FtpPoolCard from '../../components/configuration/ftppool/FtpPoolCard';
 import FtpPoolRemove from '../../components/configuration/ftppool/FtpPoolRemove';
-
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
 const FTPPOOL_REMOVE_DIALOG = 'FTPPOOL_REMOVE_DIALOG';
 
-class FtpPool extends React.PureComponent {
+class FtpPool extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -26,7 +26,8 @@ class FtpPool extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.getFtpPoolConfiguration()
+      api
+        .getFtpPoolConfiguration()
         .then((response) => this.setState({ ftpPoolConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -54,17 +55,13 @@ class FtpPool extends React.PureComponent {
           codeModal="FtpPoolConfigurationDocument"
           removeModal={FTPPOOL_REMOVE_DIALOG}
         />
-        { ftpPoolConfigurationDocument
-        && (
-        <FtpPoolCard
-          ftpPoolConfigurationDocument={ftpPoolConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {ftpPoolConfigurationDocument && (
+          <FtpPoolCard
+            ftpPoolConfigurationDocument={ftpPoolConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
-        <FtpPoolRemove
-          dialogName={FTPPOOL_REMOVE_DIALOG}
-          onSuccess={this.onRefresh}
-        />
+        <FtpPoolRemove dialogName={FTPPOOL_REMOVE_DIALOG} onSuccess={this.onRefresh} />
       </>
     );
   }

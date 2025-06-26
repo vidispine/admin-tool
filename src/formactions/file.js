@@ -5,10 +5,11 @@ import { file as api } from '@vidispine/vdt-api';
 export function onUpdateFileState(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { state } = form;
-  return api.updateFileState({
-    fileId,
-    state,
-  })
+  return api
+    .updateFileState({
+      fileId,
+      state,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -21,11 +22,12 @@ export function onUpdateFileState(form, dispatch, props) {
 export function onUpdateFileHash(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { hash, queryParams } = form;
-  return api.updateFileHash({
-    fileId,
-    hash,
-    queryParams,
-  })
+  return api
+    .updateFileHash({
+      fileId,
+      hash,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -38,11 +40,12 @@ export function onUpdateFileHash(form, dispatch, props) {
 export function onFileMove(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { targetStorageId, queryParams } = form;
-  return api.createFileMove({
-    fileId,
-    targetStorageId,
-    queryParams,
-  })
+  return api
+    .createFileMove({
+      fileId,
+      targetStorageId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -55,10 +58,11 @@ export function onFileMove(form, dispatch, props) {
 export function onFileDelete(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { queryParams } = form;
-  return api.removeFile({
-    fileId,
-    queryParams,
-  })
+  return api
+    .removeFile({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -71,10 +75,11 @@ export function onFileDelete(form, dispatch, props) {
 export function onFilePath(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { queryParams } = form;
-  return api.createFilePath({
-    fileId,
-    queryParams,
-  })
+  return api
+    .createFilePath({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -87,11 +92,12 @@ export function onFilePath(form, dispatch, props) {
 export function onFileOverwrite(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { queryParams, file } = form;
-  return api.updateFileRaw({
-    fileId,
-    file: file[0],
-    queryParams,
-  })
+  return api
+    .updateFileRaw({
+      fileId,
+      file: file[0],
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -104,10 +110,11 @@ export function onFileOverwrite(form, dispatch, props) {
 export function onGetFile(form, dispatch, props) {
   const fileId = props.fileId || form.fileId;
   const { queryParams } = form;
-  return api.getFile({
-    fileId,
-    queryParams,
-  })
+  return api
+    .getFile({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -120,10 +127,26 @@ export function onGetFile(form, dispatch, props) {
 export function onFileList(form, dispatch, props) {
   const { storageId } = props;
   const { queryParams } = form;
-  return api.listFile({
-    storageId,
-    queryParams,
-  })
+  if (storageId) {
+    return api
+      .listFileStorage({
+        storageId,
+        queryParams,
+      })
+      .catch((error) => {
+        let errorMessage = error.message;
+        if (error.response) {
+          errorMessage = JSON.stringify(error.response.data, (k, v) =>
+            v === null ? undefined : v,
+          );
+        }
+        throw new SubmissionError({ _error: errorMessage });
+      });
+  }
+  return api
+    .listFile({
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -135,11 +158,12 @@ export function onFileList(form, dispatch, props) {
 
 export function onFileCreateEntity(form) {
   const { fileDocument, queryParams, storageId } = form;
-  return api.createFileEntity({
-    storageId,
-    fileDocument,
-    queryParams,
-  })
+  return api
+    .createFileEntity({
+      storageId,
+      fileDocument,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -152,11 +176,12 @@ export function onFileCreateEntity(form) {
 export function onFileImport(form, dispatch, props) {
   const { metadataDocument, queryParams } = form;
   const fileId = props.fileId || form.fileId;
-  return api.createFileImport({
-    fileId,
-    metadataDocument,
-    queryParams,
-  })
+  return api
+    .createFileImport({
+      fileId,
+      metadataDocument,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -169,11 +194,12 @@ export function onFileImport(form, dispatch, props) {
 export function onFileImportAssetMap(form, dispatch, props) {
   const { metadataDocument, queryParams } = form;
   const fileId = props.fileId || form.fileId;
-  return api.createFileImportAssetMap({
-    fileId,
-    metadataDocument,
-    queryParams,
-  })
+  return api
+    .createFileImportAssetMap({
+      fileId,
+      metadataDocument,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -186,10 +212,11 @@ export function onFileImportAssetMap(form, dispatch, props) {
 export function onFileAnalyze(form, dispatch, props) {
   const { queryParams } = form;
   const fileId = props.fileId || form.fileId;
-  return api.analyzeFile({
-    fileId,
-    queryParams,
-  })
+  return api
+    .analyzeFile({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -202,10 +229,11 @@ export function onFileAnalyze(form, dispatch, props) {
 export function onFileImpAnalyze(form, dispatch, props) {
   const { queryParams } = form;
   const fileId = props.fileId || form.fileId;
-  return api.analyzeFileImp({
-    fileId,
-    queryParams,
-  })
+  return api
+    .analyzeFileImp({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {
@@ -217,10 +245,11 @@ export function onFileImpAnalyze(form, dispatch, props) {
 export function onCreateFileTemporaryCredentials(form, dispatch, props) {
   const { queryParams } = form;
   const fileId = props.fileId || form.fileId;
-  return api.createFileTemporaryCredentials({
-    fileId,
-    queryParams,
-  })
+  return api
+    .createFileTemporaryCredentials({
+      fileId,
+      queryParams,
+    })
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

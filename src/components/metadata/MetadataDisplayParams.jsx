@@ -1,17 +1,16 @@
-import React from 'react';
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import MetadataDisplayParamsForm from './MetadataDisplayParamsForm';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
+
+import MetadataDisplayParamsForm from './MetadataDisplayParamsForm';
 
 export const METADATA_DISPLAY_FORM = 'METADATA_DISPLAY_FORM';
 
@@ -27,12 +26,16 @@ function MetadataDisplayParams({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Display Updated';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Updating Display';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
     <Accordion>
@@ -52,17 +55,10 @@ function MetadataDisplayParams({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(METADATA_DISPLAY_FORM)}
-        >
+        <Button size="small" onClick={() => resetForm(METADATA_DISPLAY_FORM)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(METADATA_DISPLAY_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(METADATA_DISPLAY_FORM)}>
           Update
         </Button>
       </AccordionActions>

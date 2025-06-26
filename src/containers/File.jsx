@@ -1,17 +1,19 @@
-import React from 'react';
-import List from '@material-ui/core/List';
-import { compose } from 'redux';
-import { Route, Switch, generatePath } from 'react-router-dom';
+import { PureComponent } from 'react';
 
-import { withRouterProps } from '../hoc/withRouterProps';
+import List from '@material-ui/core/List';
+import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
+
 import FileTitle from '../components/file/FileTitle';
-import FileOverview from './file/FileOverview';
-import FileShape from './file/FileShape';
 import DrawerContainer from '../components/ui/DrawerContainer';
+import ListItemLink from '../components/ui/ListItemLink';
+import { withRouterProps } from '../hoc/withRouterProps';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
-import ListItemLink from '../components/ui/ListItemLink';
+
 import DeletionLockList from './DeletionLockList';
+import FileOverview from './file/FileOverview';
+import FileShape from './file/FileShape';
 
 const FILE_OVERVIEW_TAB = 'FILE_OVERVIEW_TAB';
 const FILE_SHAPE_TAB = 'FILE_SHAPE_TAB';
@@ -19,13 +21,23 @@ const DELETIONLOCK_TAB = 'DELETIONLOCK_TAB';
 
 const TAB_TITLE = [
   {
-    tab: FILE_OVERVIEW_TAB, listText: 'Overview', component: FileOverview, path: '/file/:fileId/', exact: true,
+    tab: FILE_OVERVIEW_TAB,
+    listText: 'Overview',
+    component: FileOverview,
+    path: '/file/:fileId/',
+    exact: true,
   },
   {
-    tab: FILE_SHAPE_TAB, listText: 'Shape', component: FileShape, path: '/file/:fileId/shape/',
+    tab: FILE_SHAPE_TAB,
+    listText: 'Shape',
+    component: FileShape,
+    path: '/file/:fileId/shape/',
   },
   {
-    tab: DELETIONLOCK_TAB, listText: 'Deletion Locks', component: DeletionLockList, path: '/file/:fileId/deletion-locks/',
+    tab: DELETIONLOCK_TAB,
+    listText: 'Deletion Locks',
+    component: DeletionLockList,
+    path: '/file/:fileId/deletion-locks/',
   },
 ];
 
@@ -35,7 +47,7 @@ const listComponentRoute = (props) => (
       <ListItemLink
         key={path}
         primary={listText}
-        to={generatePath(path, props)}
+        to={generatePath(props.storageId ? `/storage/:storageId${path}` : path, props)}
         exact={exact}
         dense
         style={{ paddingLeft: 8 }}
@@ -47,12 +59,10 @@ const listComponentRoute = (props) => (
 
 const mainComponentRoute = (props) => (
   <Switch>
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
-        path={path}
+        path={props.storageId ? `/storage/:storageId${path}` : path}
         exact={exact}
         render={() => <RenderComponent {...props} title={listText} />}
       />
@@ -60,7 +70,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class File extends React.PureComponent {
+class File extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -78,7 +88,9 @@ class File extends React.PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -86,16 +98,9 @@ class File extends React.PureComponent {
   }
 
   render() {
-    const {
-      fileId,
-      onChangeTab,
-      tabValue,
-    } = this.props;
+    const { storageId, fileId, onChangeTab, tabValue } = this.props;
     const titleComponent = (props) => (
-      <FileTitle
-        fileId={fileId}
-        {...props}
-      />
+      <FileTitle fileId={fileId} storageId={storageId} {...props} />
     );
     return (
       <DrawerContainer
@@ -105,6 +110,7 @@ class File extends React.PureComponent {
         onChangeTab={onChangeTab}
         tabValue={tabValue}
         titleComponent={titleComponent}
+        storageId={storageId}
         fileId={fileId}
         entityId={fileId}
         entityType="file"

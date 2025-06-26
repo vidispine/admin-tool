@@ -1,12 +1,12 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { configuration as api } from '@vidispine/vdt-api';
-import IndexingCard from '../../components/configuration/indexing/IndexingCard';
 
+import IndexingCard from '../../components/configuration/indexing/IndexingCard';
 import TitleHeader from '../../components/ui/TitleHeader';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class Indexing extends React.PureComponent {
+class Indexing extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,7 +23,8 @@ class Indexing extends React.PureComponent {
 
   onRefresh() {
     try {
-      api.getIndexingConfiguration()
+      api
+        .getIndexingConfiguration()
         .then((response) => this.setState({ indexingConfigurationDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -50,12 +51,11 @@ class Indexing extends React.PureComponent {
           code={indexingConfigurationDocument}
           codeModal="IndexingConfigurationDocument"
         />
-        { indexingConfigurationDocument
-        && (
-        <IndexingCard
-          indexingConfigurationDocument={indexingConfigurationDocument}
-          onSuccess={this.onRefresh}
-        />
+        {indexingConfigurationDocument && (
+          <IndexingCard
+            indexingConfigurationDocument={indexingConfigurationDocument}
+            onSuccess={this.onRefresh}
+          />
         )}
       </>
     );

@@ -1,14 +1,12 @@
-import React from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import ReactCodeMirror from 'react-codemirror';
-import CodeMirrorInstance from 'codemirror';
+import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-
+import CodeMirrorInstance from 'codemirror';
+import { JSHINT } from 'jshint';
+import ReactCodeMirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
-
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/lint/lint.css';
@@ -21,7 +19,6 @@ import 'codemirror/addon/fold/xml-fold';
 import 'codemirror/addon/fold/indent-fold';
 import 'codemirror/addon/fold/comment-fold';
 import 'codemirror/addon/fold/foldgutter.css';
-import { JSHINT } from 'jshint';
 
 import 'codemirror/theme/material.css';
 import 'codemirror/lib/codemirror.css';
@@ -53,16 +50,14 @@ function CodeField({
   meta = {},
 }) {
   // eslint-disable-next-line max-len
-  if (options.mode === 'javascript' && options.lint !== false && options.lint !== undefined) window.JSHINT = JSHINT;
+  if (options.mode === 'javascript' && options.lint !== false && options.lint !== undefined)
+    window.JSHINT = JSHINT;
   return (
     <div className={clsx([className, classes.root])} style={style}>
       {label && (
-      <InputLabel
-        error={Boolean(error || warning)}
-        className={classes.label}
-      >
-        {label}
-      </InputLabel>
+        <InputLabel error={Boolean(error || warning)} className={classes.label}>
+          {label}
+        </InputLabel>
       )}
       <ReactCodeMirror
         codeMirrorInstance={CodeMirrorInstance}

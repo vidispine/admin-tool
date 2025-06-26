@@ -1,12 +1,11 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
-import TitleHeader from '../ui/TitleHeader';
-import Menu, { MenuItem } from '../ui/Menu';
 import { withModalNoRouter } from '../../hoc/withModal';
+import Menu, { MenuItem } from '../ui/Menu';
+import TitleHeader from '../ui/TitleHeader';
 
 function LibraryTitle({
   libraryId,
@@ -31,18 +30,16 @@ function LibraryTitle({
       entityType="library"
       removeModal={removeModal}
       exportModal={exportModal}
-      iconList={(
-        <>
-          {createModal && (
+      iconList={
+        createModal ? (
           <Tooltip title={createTooltip}>
             <IconButton onClick={() => onOpen({ modalName: createModal })}>
               <PlaylistAdd />
             </IconButton>
           </Tooltip>
-          )}
-        </>
-      )}
-      actionComponent={(
+        ) : null
+      }
+      actionComponent={
         <Menu>
           <MenuItem onClick={() => onOpen({ modalName: updateModal })}>
             <Typography>Add Item</Typography>
@@ -60,7 +57,7 @@ function LibraryTitle({
             <Typography color="secondary">Delete</Typography>
           </MenuItem>
         </Menu>
-      )}
+      }
       {...props}
     />
   );

@@ -1,18 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { taskgroup as TaskGroupApi } from '@vidispine/vdt-api';
-import TaskGroupTitle from '../components/taskgroup/TaskGroupTitle';
-import TaskGroupCard from '../components/taskgroup/TaskGroupCard';
-import TaskGroupRemove from '../components/taskgroup/TaskGroupRemove';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import TaskGroupCard from '../components/taskgroup/TaskGroupCard';
+import TaskGroupRemove from '../components/taskgroup/TaskGroupRemove';
+import TaskGroupTitle from '../components/taskgroup/TaskGroupTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const TASKGROUP_CODE_MODAL = 'TASKGROUP_CODE_MODAL';
 const TASKGROUP_REMOVE_MODAL = 'TASKGROUP_REMOVE_MODAL';
 
-class TaskGroup extends React.PureComponent {
+class TaskGroup extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -40,11 +41,7 @@ class TaskGroup extends React.PureComponent {
   }
 
   onRemove({ groupName }) {
-    const {
-      openSnackBar,
-      history,
-      closeModal,
-    } = this.props;
+    const { openSnackBar, history, closeModal } = this.props;
     try {
       TaskGroupApi.removeTaskGroup({ groupName }).then(() => {
         const messageContent = `Task Group ${groupName} Removed`;
@@ -59,15 +56,8 @@ class TaskGroup extends React.PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      groupName,
-    } = this.props;
-    const {
-      taskGroupDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, groupName } = this.props;
+    const { taskGroupDocument } = this.state;
     return (
       <>
         <TaskGroupTitle
@@ -76,22 +66,21 @@ class TaskGroup extends React.PureComponent {
           openRemove={() => openModal({ modalName: TASKGROUP_REMOVE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        {taskGroupDocument
-          && (
+        {taskGroupDocument && (
           <TaskGroupCard
             groupName={groupName}
             taskGroupDocument={taskGroupDocument}
             onRefresh={this.onRefresh}
           />
-          )}
+        )}
         <CodeModal
-          isOpen={(modalName === TASKGROUP_CODE_MODAL)}
+          isOpen={modalName === TASKGROUP_CODE_MODAL}
           toggleDialogue={closeModal}
           code={taskGroupDocument}
           title="TaskGroupDocument"
         />
         <TaskGroupRemove
-          isOpen={(modalName === TASKGROUP_REMOVE_MODAL)}
+          isOpen={modalName === TASKGROUP_REMOVE_MODAL}
           closeModal={closeModal}
           onRemove={this.onRemove}
           groupName={groupName}
@@ -103,7 +92,9 @@ class TaskGroup extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { groupName } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     groupName,
     modalName,

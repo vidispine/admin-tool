@@ -1,14 +1,14 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { storagerule as api } from '@vidispine/vdt-api';
-import StorageRuleListCard from '../components/storagerule/StorageRuleListCard';
-import StorageRuleEntityDialog from '../components/storagerule/StorageRuleEntityDialog';
 
+import StorageRuleEntityDialog from '../components/storagerule/StorageRuleEntityDialog';
+import StorageRuleListCard from '../components/storagerule/StorageRuleListCard';
 import withSnackbar from '../hoc/withSnackbar';
 
 const STORAGERULE_DIALOG = 'STORAGERULE_DIALOG';
 
-class StorageRule extends React.PureComponent {
+class StorageRule extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -24,7 +24,8 @@ class StorageRule extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, entityId, entityType } = this.props;
     try {
-      api.getEntityStorageRule({ entityId, entityType })
+      api
+        .getEntityStorageRule({ entityId, entityType })
         .then((response) => this.setState({ storageRulesDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Getting Storage Rule List';
@@ -52,10 +53,8 @@ class StorageRule extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
-        { storageRulesDocument && (
+        {TabComponent && <TabComponent />}
+        {storageRulesDocument && (
           <StorageRuleListCard
             onRefresh={this.onRefresh}
             storageRulesDocument={storageRulesDocument}

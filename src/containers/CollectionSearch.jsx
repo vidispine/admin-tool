@@ -1,25 +1,22 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import Grid from '@material-ui/core/Grid';
+import { compose } from 'redux';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import CollectionSearchParams from '../components/collection/CollectionSearchParams';
-import CollectionSearchDocument from '../components/collection/CollectionSearch';
-import CollectionListTable from '../components/collection/CollectionListTable';
 import CollectionCreate from '../components/collection/CollectionCreate';
-
-import withFormActions from '../hoc/withFormActions';
+import CollectionListTable from '../components/collection/CollectionListTable';
+import CollectionSearchDocument from '../components/collection/CollectionSearch';
+import CollectionSearchParams from '../components/collection/CollectionSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import withCard from '../hoc/withCard';
+import withFormActions from '../hoc/withFormActions';
 import withPaginationForm from '../hoc/withPaginationForm';
 
 const COLLECTION_CREATE_DIALOG = 'COLLECTION_CREATE_DIALOG';
 const COLLECTION_SEARCH_FORM = 'COLLECTION_SEARCH_FORM';
-const CollectionListTableCard = compose(
-  withCard,
-  withPaginationForm,
-)(CollectionListTable);
+const CollectionListTableCard = compose(withCard, withPaginationForm)(CollectionListTable);
 
-class CollectionSearch extends React.PureComponent {
+class CollectionSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -27,13 +24,7 @@ class CollectionSearch extends React.PureComponent {
     this.onSetUrlParams = this.onSetUrlParams.bind(this);
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
@@ -70,10 +61,7 @@ class CollectionSearch extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -83,15 +71,14 @@ class CollectionSearch extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      collectionListDocument,
-      queryParams,
-    } = this.state;
+    const { collectionListDocument, queryParams } = this.state;
     const { history } = this.props;
     return (
       <>

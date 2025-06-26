@@ -1,13 +1,12 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field } from 'redux-form';
-import { TextField } from '../form';
 
-import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { SimpleMetadataType } from '../ui/FormType';
 import { required } from '../../utils/FieldValidation';
+import { TextField } from '../form';
+import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import FormSection from '../ui/FormSection';
+import { SimpleMetadataType } from '../ui/FormType';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <>
@@ -71,10 +70,7 @@ const queryParams = () => (
   </>
 );
 
-function ImportShapePlaceholderForm({
-  error,
-  handleSubmit,
-}) {
+function ImportShapePlaceholderForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}

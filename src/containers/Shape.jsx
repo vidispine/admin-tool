@@ -1,33 +1,33 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
+import { compose } from 'redux';
 
-import { withRouterProps } from '../hoc/withRouterProps';
-
-import ShapeOverview from './shape/ShapeOverview';
-import ShapeBulkyMetadata from './shape/ShapeBulkyMetadata';
-import ShapeBulkyMetadataList from './shape/ShapeBulkyMetadataList';
-import ShapeGraph from './shape/ShapeGraph';
-import ShapeCpl from './shape/ShapeCpl';
-import ShapeFileList from './shape/ShapeFileList';
-
-import ShapeTitle from '../components/shape/ShapeTitle';
-import ShapeDelete from '../components/shape/ShapeDelete';
-import ShapeTranscode from '../components/shape/ShapeTranscode';
-import ShapeDeduction from '../components/shape/ShapeDeduction';
-import ShapeAnalyze from '../components/shape/ShapeAnalyze';
 import ShapeAddComponent from '../components/shape/ShapeAddComponent';
-import ShapeCreateComponentPlaceholder from '../components/shape/ShapeCreateComponentPlaceholder';
-import ShapeAddTag from '../components/shape/ShapeAddTag';
-import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
 import ShapeAddMimeType from '../components/shape/ShapeAddMimeType';
-import ShapeRemoveMimeType from '../components/shape/ShapeRemoveMimeType';
+import ShapeAddTag from '../components/shape/ShapeAddTag';
+import ShapeAnalyze from '../components/shape/ShapeAnalyze';
+import ShapeCreateComponentPlaceholder from '../components/shape/ShapeCreateComponentPlaceholder';
+import ShapeDeduction from '../components/shape/ShapeDeduction';
+import ShapeDelete from '../components/shape/ShapeDelete';
 import ShapeExport from '../components/shape/ShapeExport';
 import ShapeImpExport from '../components/shape/ShapeImpExport';
 import ShapePlaceholderUpdate from '../components/shape/ShapePlaceholderUpdate';
+import ShapeRemoveMimeType from '../components/shape/ShapeRemoveMimeType';
+import ShapeRemoveTag from '../components/shape/ShapeRemoveTag';
+import ShapeTitle from '../components/shape/ShapeTitle';
+import ShapeTranscode from '../components/shape/ShapeTranscode';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import { withRouterProps } from '../hoc/withRouterProps';
+
+import ShapeBulkyMetadata from './shape/ShapeBulkyMetadata';
+import ShapeBulkyMetadataList from './shape/ShapeBulkyMetadataList';
+import ShapeCpl from './shape/ShapeCpl';
+import ShapeFileList from './shape/ShapeFileList';
+import ShapeGraph from './shape/ShapeGraph';
+import ShapeOverview from './shape/ShapeOverview';
 
 const SHAPE_REMOVE_DIALOG = 'SHAPE_REMOVE_DIALOG';
 const SHAPE_TRANSCODE_DIALOG = 'SHAPE_TRANSCODE_DIALOG';
@@ -96,9 +96,7 @@ const mainComponentRoute = (props) => (
       render={() => <ShapeBulkyMetadata {...props} title="Bulky Metadata" />}
       {...props}
     />
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
         path={path}
@@ -109,7 +107,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class Shape extends React.PureComponent {
+class Shape extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -126,7 +124,9 @@ class Shape extends React.PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -134,11 +134,7 @@ class Shape extends React.PureComponent {
   }
 
   render() {
-    const {
-      itemId,
-      shapeId,
-      history,
-    } = this.props;
+    const { itemId, shapeId, history } = this.props;
     const titleComponent = (props) => (
       <ShapeTitle
         onRefresh={this.onRefresh}

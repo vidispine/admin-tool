@@ -1,19 +1,14 @@
-import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import AutoImportRuleForm from './AutoImportRuleForm';
-import WizardForm from '../ui/WizardForm';
 import * as formActions from '../../formactions/autoimport';
 import withUI from '../../hoc/withUI';
+import WizardForm from '../ui/WizardForm';
 
-function AutoImportRuleDialog({
-  open,
-  onClose,
-  history,
-  openSnackBar,
-}) {
+import AutoImportRuleForm from './AutoImportRuleForm';
+
+function AutoImportRuleDialog({ open, onClose, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { autoImportRuleDocument } = response;
     const { storage: storageId } = autoImportRuleDocument;

@@ -1,20 +1,20 @@
-import React from 'react';
-import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { compose } from 'redux';
 
-import withUI from '../../hoc/withUI';
+import * as formActions from '../../formactions/notification';
 import withFormActions from '../../hoc/withFormActions';
 import withFormSelectors from '../../hoc/withFormSelectors';
+import withUI from '../../hoc/withUI';
+import capitalizeString from '../../utils/capitalizeString';
+
 import NotificationActionForm from './NotificationActionForm';
 import NotificationTriggerForm from './NotificationTriggerForm';
-import * as formActions from '../../formactions/notification';
-import capitalizeString from '../../utils/capitalizeString';
 
 export const NOTIFICATION_CREATE_FORM = 'NOTIFICATION_CREATE_FORM';
 
@@ -31,7 +31,9 @@ function NotificationCreate({
   const onSubmitSuccess = (response, dispatch, props) => {
     const messageContent = 'Notification Created';
     openSnackBar({ messageContent });
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
     onClose();
   };
   const onSubmitFail = () => {
@@ -47,7 +49,8 @@ function NotificationCreate({
   };
   if (entityType) {
     initialValues.notificationDocument.trigger = {};
-    if (entityType === 'deletion-lock') initialValues.notificationDocument.trigger.deletionLock = {};
+    if (entityType === 'deletion-lock')
+      initialValues.notificationDocument.trigger.deletionLock = {};
     else initialValues.notificationDocument.trigger[entityType] = {};
   }
   return (
@@ -58,11 +61,7 @@ function NotificationCreate({
       <DialogContent>
         {entityType && (
           <>
-            <Typography
-              variant="h5"
-              color="textSecondary"
-              style={{ textDecoration: 'none' }}
-            >
+            <Typography variant="h5" color="textSecondary" style={{ textDecoration: 'none' }}>
               Trigger
             </Typography>
             <NotificationTriggerForm
@@ -76,11 +75,7 @@ function NotificationCreate({
             />
           </>
         )}
-        <Typography
-          variant="h5"
-          color="textSecondary"
-          style={{ textDecoration: 'none' }}
-        >
+        <Typography variant="h5" color="textSecondary" style={{ textDecoration: 'none' }}>
           Action
         </Typography>
         <NotificationActionForm
@@ -95,18 +90,10 @@ function NotificationCreate({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          color="secondary"
-          onClick={onClose}
-        >
+        <Button size="small" color="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(NOTIFICATION_CREATE_FORM)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(NOTIFICATION_CREATE_FORM)}>
           Save
         </Button>
       </DialogActions>

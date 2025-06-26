@@ -1,8 +1,10 @@
-import React from 'react';
+import { forwardRef } from 'react';
+
 import IconButton from '@material-ui/core/IconButton';
+
 import VidispineIcon from './VidispineIcon';
 
-const VidispineButton = React.forwardRef(({ IconButtonProps = {}, IconProps = {} }, ref) => (
+const VidispineButton = forwardRef(({ IconButtonProps = {}, IconProps = {} }, ref) => (
   <IconButton
     color="inherit"
     href="https://vidispine.com"

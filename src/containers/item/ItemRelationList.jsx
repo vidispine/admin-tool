@@ -1,17 +1,20 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { compose } from 'redux';
+
 import { item as itemApi } from '@vidispine/vdt-api';
 
-import ItemRelationListParams, { ITEM_RELATION_LIST_PARAMS_FORM } from '../../components/item/ItemRelationListParams';
 import ItemRelationListDisplay from '../../components/item/ItemRelationList';
+import ItemRelationListParams, {
+  ITEM_RELATION_LIST_PARAMS_FORM,
+} from '../../components/item/ItemRelationListParams';
 import ItemRelationRemove from '../../components/item/ItemRelationRemove';
-
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
 
 const ITEM_RELATION_REMOVE_MODAL = 'ITEM_RELATION_REMOVE_MODAL';
 
-class ItemRelation extends React.PureComponent {
+class ItemRelation extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -43,12 +46,10 @@ class ItemRelation extends React.PureComponent {
   }
 
   onRemove(relationId) {
-    const {
-      openSnackBar,
-      onClose,
-    } = this.props;
+    const { openSnackBar, onClose } = this.props;
     return () => {
-      itemApi.removeRelation({ relationId })
+      itemApi
+        .removeRelation({ relationId })
         .then(() => {
           const messageContent = `Relation "${relationId}" Removed`;
           openSnackBar({ messageContent });
@@ -65,10 +66,7 @@ class ItemRelation extends React.PureComponent {
   openRemove(currentRelationId) {
     const { onOpen } = this.props;
     return () => {
-      this.setState(
-        { currentRelationId },
-        () => onOpen({ modalName: ITEM_RELATION_REMOVE_MODAL }),
-      );
+      this.setState({ currentRelationId }, () => onOpen({ modalName: ITEM_RELATION_REMOVE_MODAL }));
     };
   }
 
@@ -81,10 +79,7 @@ class ItemRelation extends React.PureComponent {
       modalName,
       title,
     } = this.props;
-    const {
-      itemRelationListDocument,
-      currentRelationId,
-    } = this.state;
+    const { itemRelationListDocument, currentRelationId } = this.state;
     return (
       <>
         {TitleComponent && (
@@ -95,9 +90,7 @@ class ItemRelation extends React.PureComponent {
             title={title}
           />
         )}
-        {TabComponent && (
-          <TabComponent />
-        )}
+        {TabComponent && <TabComponent />}
         <ItemRelationListParams
           itemId={itemId}
           onSuccess={(response) => this.setState({ itemRelationListDocument: response.data })}
@@ -111,7 +104,7 @@ class ItemRelation extends React.PureComponent {
           />
         )}
         <ItemRelationRemove
-          isOpen={(modalName === ITEM_RELATION_REMOVE_MODAL)}
+          isOpen={modalName === ITEM_RELATION_REMOVE_MODAL}
           onClose={onClose}
           onRemove={this.onRemove}
           relationId={currentRelationId}

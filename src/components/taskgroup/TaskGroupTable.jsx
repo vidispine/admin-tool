@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,9 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import TaskGroupRow from './TaskGroupRow';
 
-export default function TaskGroupTable({
-  taskGroupListDocument = {},
-}) {
+export default function TaskGroupTable({ taskGroupListDocument = {} }) {
   const { group: groupList = [] } = taskGroupListDocument;
   return (
     <Table>
@@ -21,10 +18,7 @@ export default function TaskGroupTable({
       </TableHead>
       <TableBody>
         {groupList.map((group) => (
-          <TaskGroupRow
-            key={group.name}
-            group={group}
-          />
+          <TaskGroupRow key={group.name} group={group} />
         ))}
       </TableBody>
     </Table>

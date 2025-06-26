@@ -1,16 +1,17 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { resource as api } from '@vidispine/vdt-api';
-import ResourceTypeListTitle from '../components/resource/ResourceTypeListTitle';
-import ResourceTypeListCard from '../components/resource/ResourceTypeListCard';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import ResourceTypeListCard from '../components/resource/ResourceTypeListCard';
+import ResourceTypeListTitle from '../components/resource/ResourceTypeListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const RESOURCETYPELIST_CODE_MODAL = 'RESOURCETYPELIST_CODE_MODAL';
 
-class ResourceTypeList extends React.PureComponent {
+class ResourceTypeList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -27,7 +28,8 @@ class ResourceTypeList extends React.PureComponent {
   onRefresh() {
     const { openSnackBar } = this.props;
     try {
-      api.listResource()
+      api
+        .listResource()
         .then((response) => this.setState({ resourceTypeListDocument: response.data }));
     } catch (error) {
       const messageContent = 'Error Loading Resource Types';
@@ -36,28 +38,19 @@ class ResourceTypeList extends React.PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-    } = this.props;
-    const {
-      resourceTypeListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal } = this.props;
+    const { resourceTypeListDocument } = this.state;
     return (
       <>
         <ResourceTypeListTitle
           openCode={() => openModal({ modalName: RESOURCETYPELIST_CODE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        { resourceTypeListDocument
-        && (
-        <ResourceTypeListCard
-          resourceTypeListDocument={resourceTypeListDocument}
-        />
+        {resourceTypeListDocument && (
+          <ResourceTypeListCard resourceTypeListDocument={resourceTypeListDocument} />
         )}
         <CodeModal
-          isOpen={(modalName === RESOURCETYPELIST_CODE_MODAL)}
+          isOpen={modalName === RESOURCETYPELIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={resourceTypeListDocument}
           title="ResourceTypeListDocument"
@@ -69,7 +62,9 @@ class ResourceTypeList extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
   const { resourceType } = ownProps.match.params;
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
     resourceType,

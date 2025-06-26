@@ -1,18 +1,19 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 
 import { taskgroup as TaskGroupApi } from '@vidispine/vdt-api';
-import TaskGroupListTitle from '../components/taskgroup/TaskGroupListTitle';
-import TaskGroupListCard from '../components/taskgroup/TaskGroupListCard';
-import TaskGroupDialog from '../components/taskgroup/TaskGroupDialog';
-import CodeModal from '../components/ui/CodeModal';
 
 import * as actions from '../actions';
+import TaskGroupDialog from '../components/taskgroup/TaskGroupDialog';
+import TaskGroupListCard from '../components/taskgroup/TaskGroupListCard';
+import TaskGroupListTitle from '../components/taskgroup/TaskGroupListTitle';
+import CodeModal from '../components/ui/CodeModal';
 
 const TASKGROUPLIST_CODE_MODAL = 'TASKGROUPLIST_CODE_MODAL';
 const TASKGROUPLIST_CREATE_MODAL = 'TASKGROUPLIST_CREATE_MODAL';
 
-class TaskGroupList extends React.PureComponent {
+class TaskGroupList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -38,15 +39,8 @@ class TaskGroupList extends React.PureComponent {
   }
 
   render() {
-    const {
-      modalName,
-      closeModal,
-      openModal,
-      history,
-    } = this.props;
-    const {
-      taskGroupListDocument,
-    } = this.state;
+    const { modalName, closeModal, openModal, history } = this.props;
+    const { taskGroupListDocument } = this.state;
     return (
       <>
         <TaskGroupListTitle
@@ -54,20 +48,17 @@ class TaskGroupList extends React.PureComponent {
           openCreate={() => openModal({ modalName: TASKGROUPLIST_CREATE_MODAL })}
           onRefresh={this.onRefresh}
         />
-        {taskGroupListDocument
-          && (
-          <TaskGroupListCard
-            taskGroupListDocument={taskGroupListDocument}
-          />
-          )}
+        {taskGroupListDocument && (
+          <TaskGroupListCard taskGroupListDocument={taskGroupListDocument} />
+        )}
         <CodeModal
-          isOpen={(modalName === TASKGROUPLIST_CODE_MODAL)}
+          isOpen={modalName === TASKGROUPLIST_CODE_MODAL}
           toggleDialogue={closeModal}
           code={taskGroupListDocument}
           title="TaskGroupListDocument"
         />
         <TaskGroupDialog
-          isOpen={(modalName === TASKGROUPLIST_CREATE_MODAL)}
+          isOpen={modalName === TASKGROUPLIST_CREATE_MODAL}
           closeModal={closeModal}
           history={history}
         />
@@ -77,7 +68,9 @@ class TaskGroupList extends React.PureComponent {
 }
 
 function mapStateToProps(state) {
-  const { ui: { modalName } } = state;
+  const {
+    ui: { modalName },
+  } = state;
   return {
     modalName,
   };

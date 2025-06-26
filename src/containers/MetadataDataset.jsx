@@ -1,15 +1,15 @@
-import React from 'react';
+import { PureComponent } from 'react';
 
 import { metadatadataset as api } from '@vidispine/vdt-api';
 
-import MetadataDatasetTitle from '../components/metadatadataset/MetadataDatasetTitle';
 import MetadataDatasetCard from '../components/metadatadataset/MetadataDatasetCard';
 import MetadataDatasetRemove from '../components/metadatadataset/MetadataDatasetRemove';
+import MetadataDatasetTitle from '../components/metadatadataset/MetadataDatasetTitle';
 import withSnackbar from '../hoc/withSnackbar';
 
 const METADATADATASET_REMOVE_MODAL = 'METADATADATASET_REMOVE_MODAL';
 
-class MetadataDataset extends React.PureComponent {
+class MetadataDataset extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -27,7 +27,8 @@ class MetadataDataset extends React.PureComponent {
   onRefresh() {
     const { openSnackBar, datasetId } = this.props;
     try {
-      api.getMetadataDataset({ datasetId, headers: { accept: 'application/ld+json' } })
+      api
+        .getMetadataDataset({ datasetId, headers: { accept: 'application/ld+json' } })
         .then((response) => this.setState({ body: response.request.responseText }));
     } catch (error) {
       const messageContent = 'Error Getting Metadata Dataset';
@@ -47,18 +48,10 @@ class MetadataDataset extends React.PureComponent {
           code={body ? JSON.parse(body) : undefined}
           codeModal="body"
         />
-        {body
-        && (
-          <MetadataDatasetCard
-            body={body}
-            datasetId={datasetId}
-            onRefresh={this.onRefresh}
-          />
+        {body && (
+          <MetadataDatasetCard body={body} datasetId={datasetId} onRefresh={this.onRefresh} />
         )}
-        <MetadataDatasetRemove
-          dialogName={METADATADATASET_REMOVE_MODAL}
-          datasetId={datasetId}
-        />
+        <MetadataDatasetRemove dialogName={METADATADATASET_REMOVE_MODAL} datasetId={datasetId} />
       </>
     );
   }

@@ -4,10 +4,11 @@ import { debug as api } from '@vidispine/vdt-api';
 
 export function onParseXML(form) {
   const { xmlDocument } = form;
-  return api.echo({
-    xmlDocument,
-  })
-    .then((response) => (response.data))
+  return api
+    .echo({
+      xmlDocument,
+    })
+    .then((response) => response.data)
     .catch((error) => {
       let errorMessage = error.message;
       if (error.response) {

@@ -1,8 +1,7 @@
-import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-import SquareCard from './SquareCard';
 import SimpleMetadataEditor from './SimpleMetadataEditor';
+import SquareCard from './SquareCard';
 
 const styles = (theme) => ({
   root: {
@@ -16,9 +15,7 @@ const styles = (theme) => ({
 function SimpleMetadataCard({ classes, ...props }) {
   return (
     <SquareCard classes={classes}>
-      <SimpleMetadataEditor
-        {...props}
-      />
+      <SimpleMetadataEditor {...props} />
     </SquareCard>
   );
 }

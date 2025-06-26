@@ -1,17 +1,17 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { metadata as MetadataApi } from '@vidispine/vdt-api';
+
 import ItemMetadataChangeSetListCard from '../../components/item/ItemMetadataChangeSetListCard';
 import ItemMetadataChangeSetListParams from '../../components/item/ItemMetadataChangeSetListParams';
-
 import MetadataChangeSetDelete from '../../components/metadata/MetadataChangeSetDelete';
 import MetadataChangeSetTrim from '../../components/metadata/MetadataChangeSetTrim';
-
 import withSnackbar from '../../hoc/withSnackbar';
 
 const ITEM_METADATACHANGESET_DELETE_DIALOG = 'ITEM_METADATACHANGESET_DELETE_DIALOG';
 const ITEM_METADATACHANGESET_TRIM_DIALOG = 'ITEM_METADATACHANGESET_TRIM_DIALOG';
 
-class ItemMetadataChangeSetList extends React.PureComponent {
+class ItemMetadataChangeSetList extends PureComponent {
   constructor(props) {
     super(props);
     this.onFetch = this.onFetch.bind(this);

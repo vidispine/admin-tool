@@ -1,6 +1,5 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -13,27 +12,14 @@ const styles = (theme) => ({
   },
 });
 
-function TableActions({
-  classes,
-  count,
-  page,
-  rowsPerPage,
-  onChangePage,
-  onPageChange,
-}) {
+function TableActions({ classes, count, page, rowsPerPage, onChangePage, onPageChange }) {
   const onClick = onPageChange || onChangePage;
   return (
     <div className={classes.root}>
-      <IconButton
-        onClick={() => onClick({ page: 0 })}
-        disabled={page === 0}
-      >
+      <IconButton onClick={() => onClick({ page: 0 })} disabled={page === 0}>
         <FirstPageIcon />
       </IconButton>
-      <IconButton
-        onClick={() => onClick({ page: page - 1 })}
-        disabled={page === 0}
-      >
+      <IconButton onClick={() => onClick({ page: page - 1 })} disabled={page === 0}>
         <KeyboardArrowLeft />
       </IconButton>
       <IconButton

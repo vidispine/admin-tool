@@ -1,24 +1,23 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { reduxForm } from 'redux-form';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import { reduxForm } from 'redux-form';
 
-import Field from '../ui/Field';
+import JobPriority from '../../const/JobPriority';
+import { required } from '../../utils/FieldValidation';
 import { TextField, Select } from '../form';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
-import { StatefulAsyncSelect } from '../ui/Select';
-import { required } from '../../utils/FieldValidation';
-import FormSection from '../ui/FormSection';
 import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
+import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
-import JobPriority from '../../const/JobPriority';
+import { StatefulAsyncSelect } from '../ui/Select';
 
 const queryParams = () => (
   <FormGroup>
@@ -42,10 +41,9 @@ const queryParams = () => (
         label="Allow Reimport"
       />
       <FormHelperText>
-        True - import the file to this shape even if the file is already
-        importing or is already part of another item. False - Reject the request
-        if the file with the given id has already been imported or is currently
-        importing
+        True - import the file to this shape even if the file is already importing or is already
+        part of another item. False - Reject the request if the file with the given id has already
+        been imported or is currently importing
       </FormHelperText>
     </FormControl>
     <Field
@@ -69,12 +67,7 @@ const queryParams = () => (
       isClearable
       fullWidth
     />
-    <Field
-      name="notification"
-      label="Notification"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="notification" label="Notification" component={TextField} fullWidth />
     <FieldTypeArray
       name="notificationData"
       component={KeyValuePairType}

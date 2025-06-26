@@ -1,19 +1,18 @@
-import React from 'react';
-import { compose } from 'redux';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Accordion from '@material-ui/core/Accordion';
+import { compose } from 'redux';
 
-import SearchParamsForm from './SearchParamsForm';
+import * as formActions from '../../formactions/search';
+import withExpansion from '../../hoc/withExpansion';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import withExpansion from '../../hoc/withExpansion';
-import * as formActions from '../../formactions/search';
+
+import SearchParamsForm from './SearchParamsForm';
 
 export const SEARCH_PARAMS_FORM = 'SEARCH_PARAMS_FORM';
 
@@ -30,19 +29,22 @@ function SearchParams({
   ...formProps
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    if (onChangeExpansion) { onChangeExpansion(null, false); }
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onChangeExpansion) {
+      onChangeExpansion(null, false);
+    }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = (error, dispatch, props) => {
     const messageContent = 'Error Searching';
     openSnackBar({ messageContent, messageColor: 'secondary' });
-    if (onFail) { onFail(error, dispatch, props); }
+    if (onFail) {
+      onFail(error, dispatch, props);
+    }
   };
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={onChangeExpansion}
-    >
+    <Accordion expanded={expanded} onChange={onChangeExpansion}>
       <AccordionSummary>
         <Typography variant="subtitle2" color="textSecondary">
           Search Params
@@ -59,17 +61,10 @@ function SearchParams({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(form)}
-        >
+        <Button size="small" onClick={() => resetForm(form)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => submitForm(form)}
-        >
+        <Button size="small" color="primary" onClick={() => submitForm(form)}>
           Update
         </Button>
       </AccordionActions>

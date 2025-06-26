@@ -1,19 +1,18 @@
-import React from 'react';
-import { compose } from 'redux';
-
-import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
+import { compose } from 'redux';
 
-import AccessControlParamsForm from './AccessControlParamsForm';
+import * as formActions from '../../formactions/access';
 import withFormActions from '../../hoc/withFormActions';
 import withSnackbar from '../../hoc/withSnackbar';
-import * as formActions from '../../formactions/access';
+
+import AccessControlParamsForm from './AccessControlParamsForm';
 
 export const ACCESS_PARAMS_FORM = 'ACCESS_PARAMS_FORM';
 
@@ -76,4 +75,9 @@ function AccessControlParams({
   );
 }
 
-export default compose(withSnackbar, withFormActions)(AccessControlParams);
+const AccessControlParamsWithSnackbarWithFormActions = compose(
+  withSnackbar,
+  withFormActions,
+)(AccessControlParams);
+
+export default AccessControlParamsWithSnackbarWithFormActions;

@@ -1,6 +1,7 @@
 import { SubmissionError } from 'redux-form';
 
 import { conform as ConformApi } from '@vidispine/vdt-api';
+
 import * as actions from '../actions';
 
 export const onCreateSubmit = async (form) => {

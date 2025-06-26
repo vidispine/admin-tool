@@ -1,38 +1,25 @@
-import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { TextField } from '../form';
 
-import FormSection from '../ui/FormSection';
-import Field from '../ui/Field';
-import InitialDisabledTextField from '../ui/InitialDisabledTextField';
-import BoolCheckbox from '../ui/BoolCheckbox';
+import { TextField } from '../form';
 import { MetadataType } from '../metadata/MetadataForm';
+import BoolCheckbox from '../ui/BoolCheckbox';
+import Field from '../ui/Field';
+import FormSection from '../ui/FormSection';
+import InitialDisabledTextField from '../ui/InitialDisabledTextField';
 
 const queryParams = () => (
   <>
-    <Field
-      name="revision"
-      component={TextField}
-      fullWidth
-    />
+    <Field name="revision" component={TextField} fullWidth />
     <FormControlLabel
-      control={(
-        <Field
-          name="skipForbidden"
-          component={BoolCheckbox}
-        />
-      )}
+      control={<Field name="skipForbidden" component={BoolCheckbox} />}
       label="Skip Forbidden"
     />
   </>
 );
 
-function DocumentMetadataForm({
-  error,
-  handleSubmit,
-}) {
+function DocumentMetadataForm({ error, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
@@ -42,16 +29,8 @@ function DocumentMetadataForm({
         component={InitialDisabledTextField}
         fullWidth
       />
-      <FormSection
-        name="metadataDocument"
-        label="metadataDocument"
-        component={MetadataType}
-      />
-      <FormSection
-        name="queryParams"
-        label="queryParams"
-        component={queryParams}
-      />
+      <FormSection name="metadataDocument" label="metadataDocument" component={MetadataType} />
+      <FormSection name="queryParams" label="queryParams" component={queryParams} />
       <button type="submit" hidden />
     </form>
   );

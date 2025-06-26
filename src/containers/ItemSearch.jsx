@@ -1,20 +1,20 @@
-import React from 'react';
-import { compose } from 'redux';
-import Grid from '@material-ui/core/Grid';
+import { PureComponent } from 'react';
 
-import TitleHeader from '../components/ui/TitleHeader';
-import ItemSearchDocument from '../components/item/ItemSearch';
-import ItemSearchParams from '../components/item/ItemSearchParams';
-import ItemListTableCard from '../components/item/ItemListTableCard';
+import Grid from '@material-ui/core/Grid';
+import { compose } from 'redux';
+
 import ItemListCard from '../components/item/ItemListCard';
 import ItemListGrid from '../components/item/ItemListGrid';
+import ItemListTableCard from '../components/item/ItemListTableCard';
+import ItemSearchDocument from '../components/item/ItemSearch';
+import ItemSearchParams from '../components/item/ItemSearchParams';
+import TitleHeader from '../components/ui/TitleHeader';
 import ViewSelect, { CARD_VIEW, GRID_VIEW, ROW_VIEW } from '../components/ui/ViewSelect';
-
 import withFormActions from '../hoc/withFormActions';
 
 const ITEM_SEARCH_FORM = 'ITEM_SEARCH_FORM';
 
-class ItemSearch extends React.PureComponent {
+class ItemSearch extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -23,13 +23,7 @@ class ItemSearch extends React.PureComponent {
     this.onGetUrlParams = this.onGetUrlParams.bind(this);
     this.onChangeView = this.onChangeView.bind(this);
     const params = this.onGetUrlParams();
-    const {
-      first = 1,
-      number = 10,
-      orderBy,
-      orderDirection = 'desc',
-      ...queryParams
-    } = params;
+    const { first = 1, number = 10, orderBy, orderDirection = 'desc', ...queryParams } = params;
     const sort = orderBy ? [{ field: orderBy, order: `${orderDirection}ending` }] : [];
     this.initialValues = {
       queryParams: {
@@ -71,10 +65,7 @@ class ItemSearch extends React.PureComponent {
   }
 
   onSetUrlParams(params) {
-    const {
-      location,
-      history,
-    } = this.props;
+    const { location, history } = this.props;
     const urlParams = new URLSearchParams(location.search);
     Object.entries(params).forEach(([k, v]) => urlParams.set(k, v));
     history.push({ search: urlParams.toString() });
@@ -84,16 +75,14 @@ class ItemSearch extends React.PureComponent {
     const { location } = this.props;
     const urlParams = new URLSearchParams(location.search);
     const params = {};
-    Array.from(urlParams).forEach(([k, v]) => { params[k] = v; });
+    Array.from(urlParams).forEach(([k, v]) => {
+      params[k] = v;
+    });
     return params;
   }
 
   render() {
-    const {
-      itemListDocument,
-      queryParams,
-      viewLayout,
-    } = this.state;
+    const { itemListDocument, queryParams, viewLayout } = this.state;
     return (
       <>
         <TitleHeader
@@ -123,25 +112,22 @@ class ItemSearch extends React.PureComponent {
             />
           </Grid>
         </Grid>
-        <ViewSelect
-          onChange={this.onChangeView}
-          isActive={viewLayout}
-        />
-        { viewLayout === ROW_VIEW && (
+        <ViewSelect onChange={this.onChangeView} isActive={viewLayout} />
+        {viewLayout === ROW_VIEW && (
           <ItemListTableCard
             form={ITEM_SEARCH_FORM}
             itemListDocument={itemListDocument}
             queryParams={queryParams}
           />
         )}
-        { viewLayout === CARD_VIEW && (
+        {viewLayout === CARD_VIEW && (
           <ItemListCard
             form={ITEM_SEARCH_FORM}
             itemListDocument={itemListDocument}
             queryParams={queryParams}
           />
         )}
-        { viewLayout === GRID_VIEW && (
+        {viewLayout === GRID_VIEW && (
           <ItemListGrid
             form={ITEM_SEARCH_FORM}
             itemListDocument={itemListDocument}

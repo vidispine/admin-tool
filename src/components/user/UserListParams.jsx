@@ -1,7 +1,6 @@
-import React from 'react';
-
 import * as formActions from '../../formactions/user';
 import FormWrapper from '../ui/FormWrapper';
+
 import UserListParamsForm from './UserListParamsForm';
 import UserListSearchForm from './UserListSearchForm';
 

@@ -1,17 +1,17 @@
-import React from 'react';
-import { compose } from 'redux';
+import { PureComponent } from 'react';
+
 import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
-
-import { withRouterProps } from '../hoc/withRouterProps';
-
-import ComponentOverview from './component/ComponentOverview';
-import ComponentBulkyMetadata from './component/ComponentBulkyMetadata';
-import ComponentBulkyMetadataList from './component/ComponentBulkyMetadataList';
+import { compose } from 'redux';
 
 import ComponentTitle from '../components/component/ComponentTitle';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
+import { withRouterProps } from '../hoc/withRouterProps';
+
+import ComponentBulkyMetadata from './component/ComponentBulkyMetadata';
+import ComponentBulkyMetadataList from './component/ComponentBulkyMetadataList';
+import ComponentOverview from './component/ComponentOverview';
 
 const TAB_TITLE = [
   {
@@ -51,9 +51,7 @@ const mainComponentRoute = (props) => (
       render={() => <ComponentBulkyMetadata {...props} title="Bulky Metadata" />}
       {...props}
     />
-    {TAB_TITLE.map(({
-      path, component: RenderComponent, listText, exact,
-    }) => (
+    {TAB_TITLE.map(({ path, component: RenderComponent, listText, exact }) => (
       <Route
         key={path}
         path={path}
@@ -64,7 +62,7 @@ const mainComponentRoute = (props) => (
   </Switch>
 );
 
-class Component extends React.PureComponent {
+class Component extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -81,7 +79,9 @@ class Component extends React.PureComponent {
 
   onRefresh() {
     const { onRefresh } = this.state;
-    if (onRefresh) { onRefresh(); }
+    if (onRefresh) {
+      onRefresh();
+    }
   }
 
   setOnRefresh(onRefresh) {
@@ -89,11 +89,7 @@ class Component extends React.PureComponent {
   }
 
   render() {
-    const {
-      itemId,
-      shapeId,
-      componentId,
-    } = this.props;
+    const { itemId, shapeId, componentId } = this.props;
     const titleComponent = (props) => (
       <ComponentTitle
         onRefresh={this.onRefresh}
@@ -104,18 +100,16 @@ class Component extends React.PureComponent {
       />
     );
     return (
-      <>
-        <DrawerContainer
-          shapeId={shapeId}
-          itemId={itemId}
-          componentId={componentId}
-          mainComponent={mainComponentRoute}
-          listComponent={listComponentRoute}
-          defaultOpen
-          titleComponent={titleComponent}
-          setOnRefresh={this.setOnRefresh}
-        />
-      </>
+      <DrawerContainer
+        shapeId={shapeId}
+        itemId={itemId}
+        componentId={componentId}
+        mainComponent={mainComponentRoute}
+        listComponent={listComponentRoute}
+        defaultOpen
+        titleComponent={titleComponent}
+        setOnRefresh={this.setOnRefresh}
+      />
     );
   }
 }

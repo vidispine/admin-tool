@@ -1,14 +1,13 @@
-import React from 'react';
-
 import Table from '../ui/Table';
-import TableBody from '../ui/TableBody';
-import TableFooter from '../ui/TableFooter';
-import TableCell from '../ui/TableCell';
-import TableHead from '../ui/TableHead';
-import TableRow from '../ui/TableRow';
-import DeletionLockRow from './DeletionLockRow';
 import TableActions from '../ui/TableActions';
+import TableBody from '../ui/TableBody';
+import TableCell from '../ui/TableCell';
+import TableFooter from '../ui/TableFooter';
+import TableHead from '../ui/TableHead';
 import TablePagination from '../ui/TablePagination';
+import TableRow from '../ui/TableRow';
+
+import DeletionLockRow from './DeletionLockRow';
 
 export default function DeletionLockListTable({
   deletionLockListDocument,
@@ -20,7 +19,9 @@ export default function DeletionLockListTable({
 }) {
   const { lock: lockList = [] } = deletionLockListDocument;
   const rowsPerPageOptions = [100, 250, 500];
-  if (!rowsPerPageOptions.includes(rowsPerPage)) { rowsPerPageOptions.push(rowsPerPage); }
+  if (!rowsPerPageOptions.includes(rowsPerPage)) {
+    rowsPerPageOptions.push(rowsPerPage);
+  }
   return (
     <Table>
       <TableHead>
@@ -38,10 +39,7 @@ export default function DeletionLockListTable({
       </TableHead>
       <TableBody>
         {lockList.map((deletionLockType) => (
-          <DeletionLockRow
-            key={deletionLockType.id}
-            deletionLockType={deletionLockType}
-          />
+          <DeletionLockRow key={deletionLockType.id} deletionLockType={deletionLockType} />
         ))}
       </TableBody>
       <TableFooter>

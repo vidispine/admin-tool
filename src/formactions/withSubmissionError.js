@@ -10,13 +10,14 @@ const throwSubmissionError = (error) => {
   throw new SubmissionError({ _error: errorMessage });
 };
 
-const withSubmissionError = (submit) => (form, dispatch, props, ...args) => {
-  try {
-    return submit(form, dispatch, props, ...args)
-      .catch(throwSubmissionError);
-  } catch (error) {
-    throw throwSubmissionError(error);
-  }
-};
+const withSubmissionError =
+  (submit) =>
+  (form, dispatch, props, ...args) => {
+    try {
+      return submit(form, dispatch, props, ...args).catch(throwSubmissionError);
+    } catch (error) {
+      throw throwSubmissionError(error);
+    }
+  };
 
 export default withSubmissionError;

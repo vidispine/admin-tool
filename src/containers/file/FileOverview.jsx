@@ -1,21 +1,22 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { file as api } from '@vidispine/vdt-api';
 
+import FileAbandon from '../../components/file/FileAbandon';
+import FileAnalyze from '../../components/file/FileAnalyze';
 import FileCard from '../../components/file/FileCard';
+import FileDelete from '../../components/file/FileDelete';
+import FileEntityRemove from '../../components/file/FileEntityRemove';
+import FileHash from '../../components/file/FileHash';
+import FileImpAnalyze from '../../components/file/FileImpAnalyze';
+import FileMove from '../../components/file/FileMove';
+import FileOverwrite from '../../components/file/FileOverwrite';
 import FileParams from '../../components/file/FileParams';
+import FilePath from '../../components/file/FilePath';
+import FileState from '../../components/file/FileState';
+import FileUri from '../../components/file/FileUri';
 import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
 import withUI from '../../hoc/withUI';
-import FileDelete from '../../components/file/FileDelete';
-import FileAbandon from '../../components/file/FileAbandon';
-import FileState from '../../components/file/FileState';
-import FileMove from '../../components/file/FileMove';
-import FileEntityRemove from '../../components/file/FileEntityRemove';
-import FilePath from '../../components/file/FilePath';
-import FileOverwrite from '../../components/file/FileOverwrite';
-import FileAnalyze from '../../components/file/FileAnalyze';
-import FileImpAnalyze from '../../components/file/FileImpAnalyze';
-import FileHash from '../../components/file/FileHash';
-import FileUri from '../../components/file/FileUri';
 
 const FILE_DELETE_DIALOG = 'FILE_DELETE_DIALOG';
 const FILE_ABANDON_DIALOG = 'FILE_ABANDON_DIALOG';
@@ -30,7 +31,7 @@ const FILE_HASH_DIALOG = 'FILE_HASH_DIALOG';
 const FILE_URI_DIALOG = 'FILE_URI_DIALOG';
 const FILE_PARAMS_FORM = 'FILE_PARAMS_FORM';
 
-class FileOverview extends React.PureComponent {
+class FileOverview extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
@@ -64,7 +65,8 @@ class FileOverview extends React.PureComponent {
   onFetch(fileId) {
     const queryParams = { includeItem: true };
     try {
-      api.getFile({ fileId, queryParams })
+      api
+        .getFile({ fileId, queryParams })
         .then((response) => this.setState({ fileDocument: response.data }))
         .catch((error) => this.onRefreshError(error));
     } catch (error) {
@@ -87,10 +89,7 @@ class FileOverview extends React.PureComponent {
 
   render() {
     const { fileDocument } = this.state;
-    const {
-      fileId, titleComponent: TitleComponent,
-      history,
-    } = this.props;
+    const { fileId, titleComponent: TitleComponent, history } = this.props;
     return (
       <>
         {TitleComponent && (
@@ -112,81 +111,73 @@ class FileOverview extends React.PureComponent {
             hashModal={FILE_HASH_DIALOG}
           />
         )}
-        {fileDocument
-          && (
-            <>
-              <FileParams
-                form={FILE_PARAMS_FORM}
-                onSuccess={this.onSuccess}
-                fileId={fileId}
-              />
-              <FileCard
-                fileDocument={fileDocument}
-              />
-              <SimpleMetadataCard
-                simpleMetadataDocument={fileDocument.metadata}
-                onSuccess={this.onRefresh}
-                entityType="storage/file"
-                entityId={fileId}
-              />
-              <FileDelete
-                dialogName={FILE_DELETE_DIALOG}
-                onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-                fileDocument={fileDocument}
-              />
-              <FileAbandon
-                dialogName={FILE_ABANDON_DIALOG}
-                onSuccess={this.onRefresh}
-                fileDocument={fileDocument}
-              />
-              <FileState
-                dialogName={FILE_STATE_DIALOG}
-                onSuccess={this.onRefresh}
-                fileDocument={fileDocument}
-              />
-              <FileMove
-                dialogName={FILE_MOVE_DIALOG}
-                onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-                fileDocument={fileDocument}
-              />
-              <FilePath
-                dialogName={FILE_PATH_DIALOG}
-                onSuccess={(response) => history.push(`/file/${response.data.id}`)}
-                fileDocument={fileDocument}
-              />
-              <FileEntityRemove
-                dialogName={FILE_ENTITY_REMOVE_DIALOG}
-                onSuccess={() => history.push('/file/')}
-                fileDocument={fileDocument}
-              />
-              <FileOverwrite
-                dialogName={FILE_OVERWRITE_DIALOG}
-                onSuccess={this.onRefresh}
-                fileDocument={fileDocument}
-              />
-              <FileAnalyze
-                dialogName={FILE_ANALYZE_DIALOG}
-                onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-                fileDocument={fileDocument}
-              />
-              <FileImpAnalyze
-                dialogName={FILE_IMP_ANALYZE_DIALOG}
-                onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-                fileDocument={fileDocument}
-              />
-              <FileHash
-                dialogName={FILE_HASH_DIALOG}
-                onSuccess={this.onRefresh}
-                fileDocument={fileDocument}
-              />
-              <FileUri
-                dialogName={FILE_URI_DIALOG}
-                onSuccess={this.onRefresh}
-                fileDocument={fileDocument}
-              />
-            </>
-          )}
-
+        {fileDocument && (
+          <>
+            <FileParams form={FILE_PARAMS_FORM} onSuccess={this.onSuccess} fileId={fileId} />
+            <FileCard fileDocument={fileDocument} />
+            <SimpleMetadataCard
+              simpleMetadataDocument={fileDocument.metadata}
+              onSuccess={this.onRefresh}
+              entityType="storage/file"
+              entityId={fileId}
+            />
+            <FileDelete
+              dialogName={FILE_DELETE_DIALOG}
+              onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+              fileDocument={fileDocument}
+            />
+            <FileAbandon
+              dialogName={FILE_ABANDON_DIALOG}
+              onSuccess={this.onRefresh}
+              fileDocument={fileDocument}
+            />
+            <FileState
+              dialogName={FILE_STATE_DIALOG}
+              onSuccess={this.onRefresh}
+              fileDocument={fileDocument}
+            />
+            <FileMove
+              dialogName={FILE_MOVE_DIALOG}
+              onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+              fileDocument={fileDocument}
+            />
+            <FilePath
+              dialogName={FILE_PATH_DIALOG}
+              onSuccess={(response) => history.push(`/file/${response.data.id}`)}
+              fileDocument={fileDocument}
+            />
+            <FileEntityRemove
+              dialogName={FILE_ENTITY_REMOVE_DIALOG}
+              onSuccess={() => history.push('/file/')}
+              fileDocument={fileDocument}
+            />
+            <FileOverwrite
+              dialogName={FILE_OVERWRITE_DIALOG}
+              onSuccess={this.onRefresh}
+              fileDocument={fileDocument}
+            />
+            <FileAnalyze
+              dialogName={FILE_ANALYZE_DIALOG}
+              onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+              fileDocument={fileDocument}
+            />
+            <FileImpAnalyze
+              dialogName={FILE_IMP_ANALYZE_DIALOG}
+              onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
+              fileDocument={fileDocument}
+            />
+            <FileHash
+              dialogName={FILE_HASH_DIALOG}
+              onSuccess={this.onRefresh}
+              fileDocument={fileDocument}
+            />
+            <FileUri
+              dialogName={FILE_URI_DIALOG}
+              onSuccess={this.onRefresh}
+              fileDocument={fileDocument}
+            />
+          </>
+        )}
       </>
     );
   }

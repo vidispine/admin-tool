@@ -1,30 +1,31 @@
-import React from 'react';
-import { compose } from 'redux';
-import ReactJson from 'react-json-view';
-import { utils as api } from '@vidispine/vdt-api';
+import { PureComponent } from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import CloseIcon from '@material-ui/icons/Close';
+import ReactJson from 'react-json-view';
+import { compose } from 'redux';
 
+import { utils as api } from '@vidispine/vdt-api';
+
+import RequestToCurl from '../components/ui/RequestToCurl';
+import RequestToJavascript from '../components/ui/RequestToJavascript';
 import Table from '../components/ui/Table';
 import TableBody from '../components/ui/TableBody';
 import TableCell from '../components/ui/TableCell';
 import TableRow from '../components/ui/TableRow';
 import TextGrid from '../components/ui/TextGrid';
 import TypeArray from '../components/ui/TypeArray';
-import RequestToJavascript from '../components/ui/RequestToJavascript';
-import RequestToCurl from '../components/ui/RequestToCurl';
-import formatXML from '../utils/formatXML';
-
+import { PROXY_HEADER } from '../const/Auth';
 import withModal from '../hoc/withModal';
+import formatXML from '../utils/formatXML';
 
 const TRANSFORM_CURL = 'TRANSFORM_CURL';
 const TRANSFORM_JAVASCRIPTAPI = 'TRANSFORM_JAVASCRIPTAPI';
@@ -54,7 +55,23 @@ const styles = (theme) => ({
   },
 });
 
-class HistoryDialog extends React.PureComponent {
+function RequestParam({ value: [paramKey, paramValue] }) {
+  return <TextGrid title={paramKey} value={paramValue} hover titleStartCase={false} />;
+}
+
+function RequestHeader({ value: v }) {
+  const [headerKey] = v;
+  let [, headerValue] = v;
+  if (headerKey && ['authorization'].includes(headerKey.toLowerCase()))
+    headerValue = headerValue.replace(/[^*]/g, '•');
+  return <TextGrid title={headerKey} value={headerValue} hover titleStartCase={false} />;
+}
+
+function ResponseHeader({ value: v }) {
+  return <TextGrid title={v[0]} value={v[1]} hover titleStartCase={false} />;
+}
+
+class HistoryDialog extends PureComponent {
   constructor(props) {
     super(props);
     this.onRequest = this.onRequest.bind(this);
@@ -62,13 +79,11 @@ class HistoryDialog extends React.PureComponent {
     this.onClose = this.onClose.bind(this);
     this.onTransform = this.onTransform.bind(this);
     this.maxReponsesLength = 20;
-    this.requestInterceptor = api.defaultClient.interceptors.request.use(
-      (request) => {
-        request.requestId = Math.random().toString(36).substr(2, 12);
-        this.onRequest(request);
-        return request;
-      },
-    );
+    this.requestInterceptor = api.defaultClient.interceptors.request.use((request) => {
+      request.requestId = Math.random().toString(36).substr(2, 12);
+      this.onRequest(request);
+      return request;
+    });
     this.responseInterceptor = api.defaultClient.interceptors.response.use(
       (response) => {
         this.onResponse(response);
@@ -92,25 +107,21 @@ class HistoryDialog extends React.PureComponent {
   }
 
   onRequest(request) {
+    const { baseURL } = this.props;
     if (!request) {
       return;
     }
     const { recentResponses: prevResponses } = this.state;
-    const {
-      requestId,
-      headers = {},
-      data: requestData,
-      method,
-      url,
-      baseURL,
-    } = request;
+    const { requestId, headers = {}, data: requestData, method, url } = request;
     let { url: fullUrl } = request;
     if (baseURL) fullUrl = [baseURL, url].join('');
     const requestUrl = new URL(fullUrl);
     const requestParams = Array.from(requestUrl.searchParams);
     const requestHeaders = {};
     Object.entries(headers).forEach(([key, value]) => {
-      if (typeof value === 'string') { requestHeaders[key] = value; }
+      if (typeof value === 'string' && key !== PROXY_HEADER) {
+        requestHeaders[key] = value;
+      }
     });
     let requestDataString;
     let requestContentType;
@@ -159,15 +170,8 @@ class HistoryDialog extends React.PureComponent {
       return;
     }
     const { recentResponses: prevResponses } = this.state;
-    const {
-      config = {},
-      status,
-      headers: responseHeaders = {},
-      data: responseData,
-    } = response;
-    const {
-      requestId,
-    } = config;
+    const { config = {}, status, headers: responseHeaders = {}, data: responseData } = response;
+    const { requestId } = config;
     let responseDataString;
     let responseContentType;
     const findContentTypeKey = (headerKey) => headerKey.toLowerCase() === 'content-type';
@@ -223,16 +227,8 @@ class HistoryDialog extends React.PureComponent {
   }
 
   render() {
-    const {
-      classes,
-      open,
-      history,
-    } = this.props;
-    const {
-      recentResponses,
-      displayResponse,
-      transformResponse,
-    } = this.state;
+    const { classes, open, history } = this.props;
+    const { recentResponses, displayResponse, transformResponse } = this.state;
     if (open === false) return null;
     return (
       <Dialog
@@ -246,13 +242,15 @@ class HistoryDialog extends React.PureComponent {
       >
         <AppBar elevation={0} className={classes.appBar}>
           <Toolbar disableGutters variant="dense">
-            { displayResponse ? (
+            {displayResponse ? (
               <div className={classes.displayToolbar}>
                 <IconButton
-                  onClick={() => this.setState({
-                    displayResponse: undefined,
-                    transformResponse: undefined,
-                  })}
+                  onClick={() =>
+                    this.setState({
+                      displayResponse: undefined,
+                      transformResponse: undefined,
+                    })
+                  }
                   style={{ padding: 4 }}
                 >
                   <ArrowBackIcon />
@@ -263,7 +261,9 @@ class HistoryDialog extends React.PureComponent {
                     size="small"
                     onClick={() => this.onTransform(TRANSFORM_JAVASCRIPTAPI)}
                   >
-                    {transformResponse === TRANSFORM_JAVASCRIPTAPI ? 'Hide Javascript API' : 'Show Javascript API'}
+                    {transformResponse === TRANSFORM_JAVASCRIPTAPI
+                      ? 'Hide Javascript API'
+                      : 'Show Javascript API'}
                   </Button>
                   <Button
                     variant="outlined"
@@ -284,15 +284,16 @@ class HistoryDialog extends React.PureComponent {
         {displayResponse ? (
           <DialogContent>
             {transformResponse === TRANSFORM_CURL ? (
-              <RequestToCurl
-                request={displayResponse}
-              />
+              <RequestToCurl request={displayResponse} />
             ) : null}
             {transformResponse === TRANSFORM_JAVASCRIPTAPI ? (
               <RequestToJavascript
                 request={displayResponse}
                 onClick={(javascriptDocument) => {
-                  history.push({ pathname: '/javascript/test/', state: { initialValues: { javascriptDocument } } });
+                  history.push({
+                    pathname: '/javascript/test/',
+                    state: { initialValues: { javascriptDocument } },
+                  });
                   this.onClose();
                 }}
               />
@@ -305,33 +306,14 @@ class HistoryDialog extends React.PureComponent {
                 <TypeArray
                   arrayTitle="Request Params"
                   value={displayResponse.requestParams}
-                  component={({ value: [paramKey, paramValue] }) => (
-                    <TextGrid
-                      title={paramKey}
-                      value={paramValue}
-                      hover
-                      titleStartCase={false}
-                    />
-                  )}
+                  component={RequestParam}
                 />
                 <TypeArray
                   arrayTitle="Request Headers"
                   value={Object.entries(displayResponse.requestHeaders)}
-                  component={({ value: v }) => {
-                    const [headerKey] = v;
-                    let [, headerValue] = v;
-                    if (headerKey && ['authorization'].includes(headerKey.toLowerCase())) headerValue = headerValue.replace(/[^*]/g, '•');
-                    return (
-                      <TextGrid
-                        title={headerKey}
-                        value={headerValue}
-                        hover
-                        titleStartCase={false}
-                      />
-                    );
-                  }}
+                  component={RequestHeader}
                 />
-                { displayResponse.requestContentType === 'application/json' ? (
+                {displayResponse.requestContentType === 'application/json' ? (
                   <>
                     <Typography variant="subtitle2">Request Data</Typography>
                     <ReactJson
@@ -339,7 +321,9 @@ class HistoryDialog extends React.PureComponent {
                       theme="solarized"
                       displayDataTypes={false}
                       collapsed={false}
-                      enableClipboard={(copy) => navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))}
+                      enableClipboard={(copy) =>
+                        navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))
+                      }
                       displayObjectSize={false}
                       name={false}
                     />
@@ -354,17 +338,14 @@ class HistoryDialog extends React.PureComponent {
                   />
                 )}
                 {displayResponse.responseHeaders && (
-                <TypeArray
-                  arrayTitle="Response Headers"
-                  value={Object.entries(displayResponse.responseHeaders)}
-                  component={({ value: v }) => (
-                    <TextGrid title={v[0]} value={v[1]} hover titleStartCase={false} />
-                  )}
-                />
+                  <TypeArray
+                    arrayTitle="Response Headers"
+                    value={Object.entries(displayResponse.responseHeaders)}
+                    component={ResponseHeader}
+                  />
                 )}
-                {displayResponse.responseData && (
-                <>
-                  { displayResponse.responseContentType === 'application/json' ? (
+                {displayResponse.responseData &&
+                  (displayResponse.responseContentType === 'application/json' ? (
                     <>
                       <Typography variant="subtitle2">Response Data</Typography>
                       <ReactJson
@@ -372,7 +353,9 @@ class HistoryDialog extends React.PureComponent {
                         theme="solarized"
                         displayDataTypes={false}
                         collapsed={2}
-                        enableClipboard={(copy) => navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))}
+                        enableClipboard={(copy) =>
+                          navigator.clipboard.writeText(JSON.stringify(copy.src, null, '\t'))
+                        }
                         name={false}
                       />
                     </>
@@ -384,9 +367,7 @@ class HistoryDialog extends React.PureComponent {
                       hover
                       hideNoValue
                     />
-                  )}
-                </>
-                )}
+                  ))}
               </>
             ) : null}
           </DialogContent>
@@ -399,15 +380,9 @@ class HistoryDialog extends React.PureComponent {
                   hover
                   onClick={() => this.setState({ displayResponse: thisResponse })}
                 >
-                  <TableCell>
-                    {thisResponse.url}
-                  </TableCell>
-                  <TableCell>
-                    {thisResponse.method}
-                  </TableCell>
-                  <TableCell>
-                    {thisResponse.status || 'Pending'}
-                  </TableCell>
+                  <TableCell>{thisResponse.url}</TableCell>
+                  <TableCell>{thisResponse.method}</TableCell>
+                  <TableCell>{thisResponse.status || 'Pending'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

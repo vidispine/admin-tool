@@ -1,14 +1,14 @@
-import React from 'react';
-import CardContent from '@material-ui/core/CardContent';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'redux';
 
 import * as formActions from '../../formactions/deletionlock';
-import DeletionLockListFilterForm from './DeletionLockListFilterForm';
 import withFormActions from '../../hoc/withFormActions';
 import withUI from '../../hoc/withUI';
+
+import DeletionLockListFilterForm from './DeletionLockListFilterForm';
 
 function DeletionLockListFilter({
   onClose,
@@ -22,7 +22,9 @@ function DeletionLockListFilter({
   entityType,
 }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    if (onSuccess) { onSuccess(response, dispatch, props); }
+    if (onSuccess) {
+      onSuccess(response, dispatch, props);
+    }
   };
   const onSubmitFail = () => {
     const messageContent = 'Error Listing Deletion Lock list';
@@ -37,8 +39,9 @@ function DeletionLockListFilter({
       <CardContent>
         <DeletionLockListFilterForm
           form={form}
-          onSubmit={entityType
-            ? formActions.onListEntityDeletionLock : formActions.onListDeletionLock}
+          onSubmit={
+            entityType ? formActions.onListEntityDeletionLock : formActions.onListDeletionLock
+          }
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           onCancel={onClose}
@@ -49,17 +52,10 @@ function DeletionLockListFilter({
       </CardContent>
       <Divider />
       <DialogActions>
-        <Button
-          size="small"
-          onClick={() => resetForm(form)}
-        >
+        <Button size="small" onClick={() => resetForm(form)}>
           Reset
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={onClick}
-        >
+        <Button size="small" color="primary" onClick={onClick}>
           Filter
         </Button>
       </DialogActions>

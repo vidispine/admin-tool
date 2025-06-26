@@ -1,33 +1,34 @@
-import React from 'react';
+import { useEffect } from 'react';
+
 import { compose } from 'redux';
-import { withRouterProps } from '../../hoc/withRouterProps';
+
+import ImportFileWizard, { EDIT_IMPORTFILE_FORM } from '../../components/import/ImportFileWizard';
 import withFormActions from '../../hoc/withFormActions';
-import ImportFileWizard, {
-  EDIT_IMPORTFILE_FORM,
-} from '../../components/import/ImportFileWizard';
+import { withRouterProps } from '../../hoc/withRouterProps';
 
-class ImportFile extends React.PureComponent {
-  componentDidMount() {
+function ImportFile({ destroyForm, history, location, ...props }) {
+  useEffect(() => {
     document.title = 'VidiCore Admin | Import | File';
-  }
 
-  componentWillUnmount() {
-    const { destroyForm } = this.props;
-    destroyForm(EDIT_IMPORTFILE_FORM);
-  }
+    return () => {
+      destroyForm(EDIT_IMPORTFILE_FORM);
+    };
+  }, [destroyForm]);
 
-  render() {
-    const { history, location, ...props } = this.props;
-    const query = new URLSearchParams(location.search);
-    const fileId = query.get('fileId');
-    return (
-      <ImportFileWizard
-        onSuccess={(response) => history.push(`/job/${response.data.jobId}`)}
-        initialValues={{ fileId, metadataDocument: {} }}
-        {...props}
-      />
-    );
-  }
+  const query = new URLSearchParams(location.search);
+  const fileId = query.get('fileId');
+
+  const onSuccess = (response) => {
+    history.push(`/job/${response.data.jobId}`);
+  };
+
+  return (
+    <ImportFileWizard
+      onSuccess={onSuccess}
+      initialValues={{ fileId, metadataDocument: {} }}
+      {...props}
+    />
+  );
 }
 
 export default compose(withRouterProps, withFormActions)(ImportFile);
