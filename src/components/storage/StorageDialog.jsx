@@ -11,7 +11,7 @@ import StorageForm from './StorageForm';
 
 function StorageDialog({ open, onClose, onSuccess, openSnackBar }) {
   const onSubmitSuccess = (response, dispatch, props) => {
-    const { storageDocument } = response;
+    const { data: storageDocument } = response;
     const { id: storageId } = storageDocument;
     const messageContent = `Storage ${storageId} Created`;
     openSnackBar({ messageContent });
