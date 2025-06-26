@@ -1,13 +1,13 @@
 import TitleHeader from '../ui/TitleHeader';
 
-export default function StorageListTitle({ openCode, openCreate, onRefresh }) {
+export default function StorageListTitle({ openCode, openCreate, onRefresh, ...props }) {
   return (
     <TitleHeader
       title="Storage"
       onRefresh={onRefresh}
-      openCode={openCode}
       openAction={openCreate}
       helpTo="/ref/storage/storage.html"
+      {...props}
     />
   );
 }

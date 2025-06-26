@@ -12,7 +12,7 @@ import CodeField from '../ui/CodeField';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-import { SimpleMetadataType } from '../ui/FormType';
+import { SimpleMetadataType, KeyValuePairType } from '../ui/FormType';
 import UrlField from '../ui/UrlField';
 
 function StorageFileSequenceType() {
@@ -44,6 +44,12 @@ function StorageMethodType() {
       />
       <Field name="type" label="type" component={TextField} fullWidth />
       <FormSection name="metadata" label="metadata" component={SimpleMetadataType} />
+      <FieldTypeArray
+        name="resourceTag"
+        label="resourceTag"
+        component={KeyValuePairType}
+        fullWidth
+      />
     </>
   );
 }
@@ -78,6 +84,13 @@ function StorageSection() {
       />
       <Field name="capacity" label="capacity" component={TextField} type="number" fullWidth />
       <Field name="state" label="state" component={TextField} fullWidth disabled />
+      <Field name="priority" label="priority" component={TextField} fullWidth disabled />
+      <FieldTypeArray
+        name="resourceTag"
+        label="resourceTag"
+        component={KeyValuePairType}
+        fullWidth
+      />
     </>
   );
 }

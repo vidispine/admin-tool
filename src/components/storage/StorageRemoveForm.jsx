@@ -14,7 +14,7 @@ const queryParams = () => (
     <InputLabel htmlFor="safe">Safe</InputLabel>
     <Field name="safe" component={Select}>
       <MenuItem value="true">true</MenuItem>
-      <MenuItem value="true">false</MenuItem>
+      <MenuItem value="false">false</MenuItem>
     </Field>
   </FormControl>
 );

@@ -1,4 +1,4 @@
-import { SimpleMetadataType } from '../ui/DisplayType';
+import { SimpleMetadataType, KeyValuePairType } from '../ui/DisplayType';
 import TextGrid from '../ui/TextGrid';
 import TypeArray from '../ui/TypeArray';
 import TypeSection from '../ui/TypeSection';
@@ -17,9 +17,9 @@ export function StorageMethodType({ value = {} }) {
     <>
       <TextGrid title="id" value={value.id} />
       <TextGrid title="uri" value={value.uri} />
-      <TextGrid title="read" variant="boolean" value={value.read} />
-      <TextGrid title="write" variant="boolean" value={value.write} />
-      <TextGrid title="browse" variant="boolean" value={value.browse} />
+      <TextGrid title="read" variant="checkbox" value={value.read} />
+      <TextGrid title="write" variant="checkbox" value={value.write} />
+      <TextGrid title="browse" variant="checkbox" value={value.browse} />
       <TextGrid title="lastSuccess" value={value.lastSuccess} variant="timestamp" />
       <TextGrid title="lastFailure" value={value.lastFailure} variant="timestamp" />
       <TextGrid title="bandwidth" value={value.value} />
@@ -27,6 +27,7 @@ export function StorageMethodType({ value = {} }) {
       <TextGrid title="type" value={value.type} />
       <TextGrid title="loc" value={value.loc} />
       <TypeArray title="metadata" value={value.metadata} component={SimpleMetadataType} />
+      <TypeArray title="resourceTag" value={value.resourceTag} component={KeyValuePairType} />
     </>
   );
 }
@@ -34,13 +35,15 @@ export function StorageMethodType({ value = {} }) {
 function StorageSection({ value = {} }) {
   return (
     <>
-      <TextGrid title="id" value={value.id} hideNoValue hover />
+      {/* <TextGrid title="id" value={value.id} hideNoValue hover /> */}
       <TextGrid title="type" value={value.type} hideNoValue hover />
       <TextGrid title="state" value={value.state} hideNoValue hover />
+      <TextGrid title="priority" value={value.priority} hideNoValue hover />
       <TextGrid title="Last Scan" value={value.timestamp} variant="fromnow" hideNoValue hover />
       <TextGrid title="capacity" value={value.capacity} variant="bytes" hideNoValue hover />
-      <TextGrid title="autoDetect" value={value.autoDetect} variant="boolean" hover />
-      <TextGrid title="showImportables" value={value.showImportables} variant="boolean" hover />
+      <TextGrid title="autoDetect" value={value.autoDetect} hideNoValue hover />
+      <TextGrid title="showImportables" value={value.showImportables} hideNoValue hover />
+      <TextGrid title="timestamp" value={value.timestamp} variant="timestring" hideNoValue hover />
       <TextGrid
         title="scanInterval"
         value={value.scanInterval}
@@ -48,6 +51,7 @@ function StorageSection({ value = {} }) {
         hideNoValue
         hover
       />
+      <TypeArray title="resourceTag" value={value.resourceTag} component={KeyValuePairType} />
     </>
   );
 }

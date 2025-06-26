@@ -1,22 +1,23 @@
 import { PureComponent } from 'react';
 
-import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import { storage as api } from '@vidispine/vdt-api';
-
-import * as actions from '../actions';
 import StorageDialog from '../components/storage/StorageDialog';
 import StorageListCard from '../components/storage/StorageListCard';
+import StorageListParams from '../components/storage/StorageListParams';
 import StorageListTitle from '../components/storage/StorageListTitle';
-import CodeModal from '../components/ui/CodeModal';
+import withFormActions from '../hoc/withFormActions';
+import withFormSelectors from '../hoc/withFormSelectors';
+import withUI from '../hoc/withUI';
 
-const STORAGE_LIST_CODE_MODAL = 'STORAGE_LIST_CODE_MODAL';
 const STORAGE_CREATE_MODAL = 'STORAGE_CREATE_MODAL';
+const STORAGE_LIST_PARAMS_FORM = 'STORAGE_LIST_PARAMS_FORM';
 
 class StorageList extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
     this.state = {
       storageListDocument: undefined,
     };
@@ -28,55 +29,39 @@ class StorageList extends PureComponent {
   }
 
   onRefresh() {
-    const { openSnackBar } = this.props;
-    try {
-      api.listStorage().then((response) => this.setState({ storageListDocument: response.data }));
-    } catch (error) {
-      const messageContent = 'Error Loading Storage List';
-      openSnackBar({ messageContent, messageColor: 'secondary' });
-    }
+    const { submitForm } = this.props;
+    submitForm(STORAGE_LIST_PARAMS_FORM);
+  }
+
+  onSuccess(response) {
+    this.setState({ storageListDocument: response?.data });
   }
 
   render() {
-    const { modalName, closeModal, openModal, history } = this.props;
+    const { history } = this.props;
     const { storageListDocument } = this.state;
     return (
       <>
         <StorageListTitle
-          openCode={() => openModal({ modalName: STORAGE_LIST_CODE_MODAL })}
-          openCreate={() => openModal({ modalName: STORAGE_CREATE_MODAL })}
           onRefresh={this.onRefresh}
-        />
-        {storageListDocument && <StorageListCard storageListDocument={storageListDocument} />}
-        <CodeModal
-          isOpen={modalName === STORAGE_LIST_CODE_MODAL}
-          toggleDialogue={closeModal}
           code={storageListDocument}
-          title="StorageListDocument"
+          codeModal="storageListDocument"
+          createModal={STORAGE_CREATE_MODAL}
         />
+        <StorageListParams form={STORAGE_LIST_PARAMS_FORM} onSuccess={this.onSuccess} />
+
+        {storageListDocument && <StorageListCard storageListDocument={storageListDocument} />}
         <StorageDialog
-          isOpen={modalName === STORAGE_CREATE_MODAL}
-          closeModal={closeModal}
-          history={history}
+          dialogName={STORAGE_CREATE_MODAL}
+          onSuccess={(response) => history.push(`/storage/${response.data.storageId}`)}
         />
       </>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const {
-    ui: { modalName },
-  } = state;
-  return {
-    modalName,
-  };
-}
-
-const mapDispatchToProps = {
-  openSnackBar: actions.ui.openSnackBar,
-  closeModal: actions.ui.closeModal,
-  openModal: actions.ui.openModal,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StorageList);
+export default compose(
+  withUI,
+  withFormActions,
+  withFormSelectors,
+)(StorageList, STORAGE_LIST_PARAMS_FORM);
