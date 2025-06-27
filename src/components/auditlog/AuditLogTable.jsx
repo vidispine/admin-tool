@@ -43,7 +43,6 @@ export default function AuditLogTable({
           <TableCell>Method</TableCell>
           <TableCell>Path</TableCell>
           <TableCell>Query Parameters</TableCell>
-          <TableCell>Matrix Parameters</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

@@ -1,59 +1,33 @@
-import { SubmissionError } from 'redux-form';
+import { storage as StorageApi } from '@vidispine/vdt-api';
 
-import { storage as api } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
-export function onCreate(form) {
+export const onCreate = withSubmissionError((form) => {
   const { storageDocument } = form;
-  return api
-    .createStorage({
-      storageDocument,
-    })
-    .then((response) => ({ storageDocument: response.data }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.createStorage({
+    storageDocument,
+  });
+});
 
-export function onUpdate(form, dispatch, props) {
+export const onUpdate = withSubmissionError((form, dispatch, props) => {
   const { storageDocument } = form;
   const storageId = props.storageId || storageDocument.storageId;
-  return api
-    .modifyStorage({
-      storageId,
-      storageDocument,
-    })
-    .then((response) => ({ storageDocument: response.data }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.modifyStorage({
+    storageId,
+    storageDocument,
+  });
+});
 
-export function onRemove(form, dispatch, props) {
+export const onRemove = withSubmissionError((form, dispatch, props) => {
   const { queryParams } = form;
   const storageId = props.storageId || form.storageId;
-  return api
-    .removeStorage({
-      storageId,
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.removeStorage({
+    storageId,
+    queryParams,
+  });
+});
 
-export function onMethodUpdate(form, dispatch, props) {
+export const onMethodUpdate = withSubmissionError((form, dispatch, props) => {
   const { method } = form;
   const { storageId } = props;
   const storageMethodId = props.storageMethodId || method.storageMethodId;
@@ -65,23 +39,14 @@ export function onMethodUpdate(form, dispatch, props) {
     bandwidth: method.bandwidth,
     type: method.type,
   };
-  return api
-    .modifyStorageMethod({
-      storageId,
-      storageMethodId,
-      queryParams,
-    })
-    .then((response) => ({ storageMethodDocument: response.data }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.modifyStorageMethod({
+    storageId,
+    storageMethodId,
+    queryParams,
+  });
+});
 
-export function onMethodCreate(form, dispatch, props) {
+export const onMethodCreate = withSubmissionError((form, dispatch, props) => {
   const { method } = form;
   const { storageId } = props;
   const queryParams = {
@@ -92,49 +57,22 @@ export function onMethodCreate(form, dispatch, props) {
     bandwidth: method.bandwidth,
     type: method.type,
   };
-  return api
-    .createStorageMethod({
-      storageId,
-      queryParams,
-    })
-    .then((response) => ({ storageMethodDocument: response.data }))
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.createStorageMethod({
+    storageId,
+    queryParams,
+  });
+});
 
-export function onUpdateStorageType(form, dispatch, props) {
+export const onUpdateStorageType = withSubmissionError((form, dispatch, props) => {
   const { type: storageType } = form;
   const storageId = props.storageId || form.storageId;
-  return api
-    .updateStorageType({
-      storageId,
-      storageType,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.updateStorageType({
+    storageId,
+    storageType,
+  });
+});
 
-export function onList(form) {
+export const onList = withSubmissionError((form) => {
   const { queryParams } = form;
-  return api
-    .listStorage({
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return StorageApi.listStorage({ queryParams });
+});

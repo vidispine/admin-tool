@@ -10,6 +10,7 @@ import ListItemLink from '../components/ui/ListItemLink';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
 
+import AutoImportRule from './AutoImportRule';
 import ExternalId from './ExternalId';
 import FileList from './FileList';
 import StorageStorage from './storage/StorageStorage';
@@ -17,6 +18,7 @@ import StorageStorage from './storage/StorageStorage';
 const EXTERNALID_TAB = 'EXTERNALID_TAB';
 const STORAGE_TAB = 'STORAGE_TAB';
 const STORAGE_FILE_TAB = 'STORAGE_FILE_TAB';
+const STORAGE_AUTOIMPORT_TAB = 'STORAGE_AUTOIMPORT_TAB';
 
 const TAB_TITLE = [
   {
@@ -37,6 +39,13 @@ const TAB_TITLE = [
     listText: 'External ID',
     component: ExternalId,
     path: '/storage/:storageId/external-id/',
+    entity: 'storage',
+  },
+  {
+    tab: STORAGE_AUTOIMPORT_TAB,
+    listText: 'Auto Import',
+    component: AutoImportRule,
+    path: '/storage/:storageId/auto-import/',
     entity: 'storage',
   },
 ];

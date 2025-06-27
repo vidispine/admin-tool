@@ -8,7 +8,7 @@ import WizardForm from '../ui/WizardForm';
 
 import StorageRuleForm from './StorageRuleForm';
 
-function StorageRuleDialog({ open, onClose, openSnackBar, onSuccess }) {
+function StorageRuleDialog({ open, onClose, openSnackBar, onSuccess, tagName }) {
   const onSubmitSuccess = (response) => {
     const messageContent = 'Storage Rule Created';
     openSnackBar({ messageContent });

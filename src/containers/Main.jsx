@@ -169,7 +169,7 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
           <Route exact path="/storage/:storageId/file/:fileId/" component={File} />
           <Route path="/storage/:storageId/" component={Storage} />
           <Route exact path="/shape-tag/" component={ShapeTagList} />
-          <Route exact path="/shape-tag/:tagName/" component={ShapeTag} />
+          <Route path="/shape-tag/:tagName/" component={ShapeTag} />
           <Route exact path="/version/" component={Version} />
           <Route exact path="/swagger/" component={Swagger} />
           <Route exact path="/service/" component={Service} />

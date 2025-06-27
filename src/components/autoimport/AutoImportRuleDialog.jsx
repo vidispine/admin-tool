@@ -8,7 +8,7 @@ import WizardForm from '../ui/WizardForm';
 
 import AutoImportRuleForm from './AutoImportRuleForm';
 
-function AutoImportRuleDialog({ open, onClose, history, openSnackBar }) {
+function AutoImportRuleDialog({ storageId, open, onClose, history, openSnackBar }) {
   const onSubmitSuccess = (response) => {
     const { autoImportRuleDocument } = response;
     const { storage: storageId } = autoImportRuleDocument;
@@ -32,6 +32,7 @@ function AutoImportRuleDialog({ open, onClose, history, openSnackBar }) {
           onSubmitSuccess={onSubmitSuccess}
           onSubmitFail={onSubmitFail}
           onCancel={onClose}
+          storageId={storageId}
         />
       </DialogContent>
     </Dialog>

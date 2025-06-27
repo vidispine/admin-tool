@@ -53,7 +53,7 @@ class StorageList extends PureComponent {
         {storageListDocument && <StorageListCard storageListDocument={storageListDocument} />}
         <StorageDialog
           dialogName={STORAGE_CREATE_MODAL}
-          onSuccess={(response) => history.push(`/storage/${response.data.storageId}`)}
+          onSuccess={(response) => history.push(`/storage/${response.data.id}`)}
         />
       </>
     );

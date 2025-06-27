@@ -2,29 +2,32 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { compose } from 'redux';
 
-import { shapetag as api } from '@vidispine/vdt-api';
+import { shapetag as ShapeTagApi } from '@vidispine/vdt-api';
 
-export default function ShapeTagRemove({ closeModal, isOpen, tagName, history, openSnackBar }) {
+import withUI from '../../hoc/withUI';
+
+function ShapeTagRemove({ tagName, open, onClose, onSuccess, onFail, openSnackBar }) {
   const onRemove = () => {
-    api
-      .removeShapeTag({ tagName })
-      .then(() => {
+    ShapeTagApi.removeShapeTag({ tagName })
+      .then((response) => {
         const messageContent = `Shape Tag ${tagName} Removed`;
         openSnackBar({ messageContent });
-        history.push('/shape-tag/');
-        closeModal();
+        if (onSuccess) onSuccess(response);
+        onClose();
       })
-      .catch(() => {
+      .catch((error) => {
         const messageContent = 'Error Removing Shape Tag';
         openSnackBar({ messageContent, messageColor: 'secondary' });
+        if (onFail) onFail(error);
       });
   };
   return (
-    <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth={false}>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
       <DialogTitle>{`Remove Shape Tag "${tagName}"?`}</DialogTitle>
       <DialogActions>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
         <Button variant="text" onClick={onRemove} color="secondary" autoFocus>
@@ -34,3 +37,5 @@ export default function ShapeTagRemove({ closeModal, isOpen, tagName, history, o
     </Dialog>
   );
 }
+
+export default compose(withUI)(ShapeTagRemove);
