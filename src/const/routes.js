@@ -25,4 +25,6 @@ export default {
   storageFile: (params) => generatePath('/storage/:storageId/file/', params),
   secretList: (params) => generatePath('/secret/', params),
   secret: (params) => generatePath('/secret/:alias', params),
+  shapeTagList: (params) => generatePath('/shape-tag/', params),
+  shapeTag: (params) => generatePath('/shape-tag/:tagName', params),
 };

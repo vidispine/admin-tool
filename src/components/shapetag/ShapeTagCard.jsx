@@ -7,7 +7,6 @@ import {
   ShapeTagThumbnailDisplay,
   ShapeTagAdvancedDisplay,
   ShapeTagOverlayDisplay,
-  ShapeTagScriptDisplay,
 } from './ShapeTagDisplay';
 import ShapeTagEditor from './ShapeTagEditor';
 import {
@@ -17,7 +16,6 @@ import {
   ShapeTagThumbnailForm,
   ShapeTagAdvancedForm,
   ShapeTagOverlayForm,
-  ShapeTagScriptForm,
 } from './ShapeTagForm';
 
 export default function ShapeTagCard(props) {
@@ -68,14 +66,6 @@ export default function ShapeTagCard(props) {
           title="Advanced"
           formComponent={ShapeTagAdvancedForm}
           displayComponent={ShapeTagAdvancedDisplay}
-          {...props}
-        />
-      </SquareCard>
-      <SquareCard>
-        <ShapeTagEditor
-          title="Script"
-          formComponent={ShapeTagScriptForm}
-          displayComponent={ShapeTagScriptDisplay}
           {...props}
         />
       </SquareCard>
