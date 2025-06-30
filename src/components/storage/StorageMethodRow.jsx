@@ -3,6 +3,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
+import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +12,12 @@ import { Link } from 'react-router-dom';
 
 import { OnlineIcon, OfflineIcon } from '../ui/StatusIcon';
 
-export default function StorageMethodRow({ storageMethod, storageId, hidePermissions }) {
+const styles = () => ({
+  wordBreak: { wordBreak: 'break-word' },
+  noBreak: { whiteSpace: 'nowrap' },
+});
+
+function StorageMethodRow({ classes, storageMethod, storageId, hidePermissions }) {
   let isOnline = false;
   if (!storageMethod.lastFailure) {
     isOnline = true;
@@ -25,11 +31,12 @@ export default function StorageMethodRow({ storageMethod, storageId, hidePermiss
           component={Link}
           to={`/storage/${storageId}/method/${storageMethod.id}`}
           variant="text"
+          className={classes.noBreak}
         >
           {storageMethod.id}
         </Button>
       </TableCell>
-      <TableCell>{storageMethod.uri}</TableCell>
+      <TableCell className={classes.wordBreak}>{storageMethod.uri}</TableCell>
       {hidePermissions !== true ? (
         <TableCell padding="checkbox">
           <FormGroup row>
@@ -58,3 +65,5 @@ export default function StorageMethodRow({ storageMethod, storageId, hidePermiss
     </TableRow>
   );
 }
+
+export default withStyles(styles)(StorageMethodRow);

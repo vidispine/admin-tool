@@ -19,6 +19,7 @@ const styles = (theme) => ({
   overflowWrapAnywhere: { overflowWrap: 'anywhere' },
   fitContent: { width: 'fit-content' },
   overflowBreakWord: { overflowWrap: 'break-word' },
+  wordBreak: { wordBreak: 'break-all' },
   text: {
     ...theme.typography.subtitle2,
     color: theme.palette.text.primary,
@@ -46,6 +47,7 @@ const TextGridValue = forwardRef(
       inputRef,
       error,
       className: propsClassName,
+      wordBreak = true,
       ...props
     },
     ref,
@@ -54,7 +56,9 @@ const TextGridValue = forwardRef(
     if (value === undefined || null) {
       return null;
     }
-    const className = clsx(classes.overflowWrapAnywhere, classes.fitContent, propsClassName);
+    const className = clsx(classes.overflowWrapAnywhere, classes.fitContent, propsClassName, {
+      [classes.wordBreak]: wordBreak,
+    });
     let valueComponent;
     let editComponent;
     switch (variant) {

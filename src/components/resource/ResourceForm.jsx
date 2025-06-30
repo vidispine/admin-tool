@@ -12,7 +12,7 @@ import Field from '../ui/Field';
 import FieldArray from '../ui/FieldArray';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-import { SimpleMetadataType } from '../ui/FormType';
+import { SimpleMetadataType, KeyValuePairType } from '../ui/FormType';
 import UrlField from '../ui/UrlField';
 
 function TranscoderConfigurationType() {
@@ -256,6 +256,12 @@ export function TranscoderTypeForm() {
         name="directAccess"
         label="Direct Access"
         component={TranscoderDirectAccess}
+      />
+      <FieldTypeArray
+        name="resourceTag"
+        label="resourceTag"
+        component={KeyValuePairType}
+        fullWidth
       />
       <FormSection
         name="configuration"

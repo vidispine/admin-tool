@@ -322,8 +322,8 @@ function TitleHeader({
             {openLink}
             {openAddAccess}
             {openExternalId}
-            {openCodeComponent}
             {copyCodeComponent}
+            {openCodeComponent}
             {refeshAction}
             {iconList}
             {action}
