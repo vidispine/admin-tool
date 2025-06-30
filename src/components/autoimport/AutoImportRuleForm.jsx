@@ -2,6 +2,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field, FormSection } from 'redux-form';
 
+import { required } from '../../utils/FieldValidation';
 import { TextField } from '../form';
 import { MetadataType } from '../metadata/MetadataForm';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
@@ -25,17 +26,6 @@ function FilenameFilterTypeForm() {
 function AutoImportRuleTypeForm() {
   return (
     <>
-      <Field
-        name="storage"
-        label="Storage ID"
-        component={StatefulAsyncSelect}
-        loadOptions={loadStorageOptions}
-        cacheOptions
-        isClearable
-        required
-        fullWidth
-        disableInitial
-      />
       <FormControlLabel
         control={<Field name="enabled" component={BoolCheckbox} />}
         label="Enabled"
@@ -78,10 +68,24 @@ function AutoImportRuleTypeForm() {
   );
 }
 
-function AutoImportRuleForm({ error, handleSubmit }) {
+function AutoImportRuleForm({ error, handleSubmit, storageId }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
+      {!storageId && (
+        <Field
+          name="storageId"
+          label="Storage ID"
+          component={StatefulAsyncSelect}
+          loadOptions={loadStorageOptions}
+          cacheOptions
+          isClearable
+          required
+          fullWidth
+          disableInitial
+          validate={[required]}
+        />
+      )}
       <FormSection name="autoImportRuleDocument" component={AutoImportRuleTypeForm} />
       <button type="submit" hidden />
     </form>

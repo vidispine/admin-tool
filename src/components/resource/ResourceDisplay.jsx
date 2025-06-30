@@ -1,24 +1,18 @@
 import { Fragment } from 'react';
 
+import { SimpleMetadataType, KeyValuePairType } from '../ui/DisplayType';
 import TextGrid from '../ui/TextGrid';
-
-function SimpleMetadataType({ metadata }) {
-  return (
-    <>
-      <TextGrid title="Metadata" value="" />
-      {metadata.field &&
-        metadata.field.map((field) => (
-          <TextGrid key={field.key} title={field.key} value={field.value} />
-        ))}
-    </>
-  );
-}
+import TypeArray from '../ui/TypeArray';
 
 function ThumbnailServiceType({ thumbnail }) {
   return (
     <>
       <TextGrid title="Path" value={thumbnail.path} />
       <TextGrid title="Mode" value={thumbnail.mode} />
+      <TextGrid title="state" value={thumbnail.state} />
+      <TextGrid title="Last Success" value={thumbnail.lastSuccess} />
+      <TextGrid title="Last Failure" value={thumbnail.lastFailure} />
+      <TextGrid title="Failure Message" value={thumbnail.failureMessage} />
     </>
   );
 }
@@ -39,7 +33,7 @@ function FinalCutServerType({ finalcutserver }) {
       <TextGrid title="Tag" value={finalcutserver.tag} />
       <TextGrid title="State" value={finalcutserver.state} />
       <TextGrid title="Description" value={finalcutserver.description} />
-      <SimpleMetadataType metadata={finalcutserver.metadata} />
+      <TypeArray title="Metadata" value={finalcutserver.metadata} component={SimpleMetadataType} />
     </>
   );
 }
@@ -113,6 +107,7 @@ function TranscoderType({ transcoder }) {
       {/* <TextGrid title="Transcoder" value={transcoder.transcoder} /> */}
       <TextGrid title="Weight" value={transcoder.weight} />
       <TextGrid title="Max Job" value={transcoder.maxJob} />
+      <TypeArray title="Resource Tag" value={transcoder.resourceTag} component={KeyValuePairType} />
     </>
   );
 }
@@ -134,7 +129,7 @@ function MXFServerResourceType({ mxfserver }) {
       <TextGrid title="Detect Atom" variant="boolean" value={mxfserver.detectAtom} />
       <TextGrid title="Enforce Quota" variant="boolean" value={mxfserver.enforceQuota} />
       <TextGrid title="File Import Pattern" value={mxfserver.fileImportPattern} />
-      <SimpleMetadataType metadata={mxfserver.metadata} />
+      <TypeArray title="Metadata" value={mxfserver.metadata} component={SimpleMetadataType} />
     </>
   );
 }

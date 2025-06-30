@@ -52,7 +52,9 @@ function JobTaskType({ value = {} }) {
         titleKey="step"
         value={
           Array.isArray(value.subTask)
-            ? value.subTask.sort((a, b) => b.step - a.step)
+            ? value.subTask.sort((a, b) =>
+                b.step === a.step ? b.attempts - a.attempts : b.step - a.step,
+              )
             : value.subTask
         }
         component={JobTaskType}
@@ -95,7 +97,13 @@ function StepType({ value }) {
     <TypeArray
       title="Step"
       titleKey="step"
-      value={Array.isArray(value.task) ? value.task.sort((a, b) => b.step - a.step) : value.task}
+      value={
+        Array.isArray(value.task)
+          ? value.task.sort((a, b) =>
+              b.step === a.step ? b.attempts - a.attempts : b.step - a.step,
+            )
+          : value.task
+      }
       component={JobTaskType}
       hideNoValue
       hover

@@ -33,6 +33,7 @@ function AutoImportRuleEditor({ autoImportRuleDocument, storageId, openSnackBar,
       displayComponent={AutoImportRuleDisplay}
       displayProps={displayProps}
       initialValues={initialValues}
+      storageId={storageId}
     />
   );
 }

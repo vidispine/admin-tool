@@ -125,19 +125,22 @@ function StorageRuleType() {
   );
 }
 
-function EntityForm({ error, handleSubmit }) {
+function EntityForm({ error, handleSubmit, tagName }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <Field
-        name="tagName"
-        label="Shape Tag"
-        component={StatefulAsyncSelect}
-        loadOptions={loadShapeTagOptions}
-        cacheOptions
-        isClearable
-        fullWidth
-      />
+      {tagName === undefined ? (
+        <Field
+          name="tagName"
+          label="Shape Tag"
+          component={StatefulAsyncSelect}
+          loadOptions={loadShapeTagOptions}
+          cacheOptions
+          isClearable
+          fullWidth
+        />
+      ) : null}
+
       <FormSection name="storageRuleDocument" component={StorageRuleType} />
       <button type="submit" hidden />
     </form>
@@ -158,19 +161,24 @@ function TagForm({ error, handleSubmit }) {
 
 export const StorageRuleTagForm = reduxForm()(TagForm);
 
-function StorageRuleForm({ error, handleSubmit }) {
+function StorageRuleForm({ error, handleSubmit, tagName }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <FormControl fullWidth>
-        <InputLabel htmlFor="entityType">Type</InputLabel>
-        <Field name="entityType" component={Select}>
-          <MenuItem value="item">Item</MenuItem>
-          <MenuItem value="collection">Collection</MenuItem>
-          <MenuItem value="library">Library</MenuItem>
-        </Field>
-      </FormControl>
-      <Field name="entityId" component={TextField} fullWidth />
+      {tagName !== undefined ? (
+        <>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="entityType">Type</InputLabel>
+            <Field name="entityType" component={Select}>
+              <MenuItem value="item">Item</MenuItem>
+              <MenuItem value="collection">Collection</MenuItem>
+              <MenuItem value="library">Library</MenuItem>
+            </Field>
+          </FormControl>
+          <Field name="entityId" component={TextField} fullWidth />
+        </>
+      ) : null}
+
       <FormSection name="storageRuleDocument" component={StorageRuleType} />
       <button type="submit" hidden />
     </form>
