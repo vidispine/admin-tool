@@ -58,6 +58,13 @@ class MetadataField extends PureComponent {
     this.onRefresh();
   }
 
+  UNSAFE_componentWillReceiveProps({ fieldName }) {
+    const { fieldName: prevFieldName } = this.props;
+    if (prevFieldName !== fieldName) {
+      document.title = `VidiCore Admin | Metadata Field | ${fieldName}`;
+    }
+  }
+
   onRefresh() {
     const { onRefresh } = this.state;
     if (onRefresh) {
