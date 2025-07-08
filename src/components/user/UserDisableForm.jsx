@@ -34,6 +34,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      createable
     />
     <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray

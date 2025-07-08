@@ -42,9 +42,17 @@ const queryParams = () => (
       label="Wildcard"
     />
     <FormControlLabel
-      control={<Field name="performCount" component={BoolCheckbox} disabled />}
+      control={<Field name="performCount" component={BoolCheckbox} />}
       label="Perform Count"
     />
+    <FormControl fullWidth>
+      <InputLabel htmlFor="sort">Sort</InputLabel>
+      <Field name="sort" component={Select}>
+        <MenuItem value="desc">Descending</MenuItem>
+        <MenuItem value="asc">Ascending</MenuItem>
+      </Field>
+    </FormControl>
+    <FormControlLabel control={<Field name="body" component={BoolCheckbox} />} label="Body" />
   </>
 );
 

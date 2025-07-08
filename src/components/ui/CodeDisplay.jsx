@@ -6,9 +6,11 @@ import formatXML from '../../utils/formatXML';
 import CodeMirror from './CodeMirror';
 
 function JavascriptVariant({ code, ...props }) {
+  let src = code;
+  if (typeof src === 'string') src = JSON.parse(src);
   return (
     <ReactJson
-      src={code}
+      src={src}
       theme="solarized"
       displayDataTypes={false}
       collapsed={false}

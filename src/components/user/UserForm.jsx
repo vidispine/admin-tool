@@ -25,6 +25,7 @@ function GroupType() {
       loadOptions={loadGroupOptions}
       cacheOptions
       isClearable
+      createable
     />
   );
 }

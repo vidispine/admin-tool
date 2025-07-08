@@ -21,6 +21,7 @@ function ShapeTagAddForm({ error, handleSubmit, itemId, shapeId }) {
         cacheOptions
         isClearable
         fullWidth
+        creatable
       />
       <button type="submit" hidden />
     </form>

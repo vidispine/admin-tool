@@ -90,6 +90,7 @@ function JobArray({ fields }) {
                 cacheOptions
                 isClearable
                 fullWidth
+                createable
               />
               <Field
                 name={`${thisField}.priority`}

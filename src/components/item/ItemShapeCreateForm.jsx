@@ -21,6 +21,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <FormControlLabel
       control={<Field name="updateItemMetadata" component={BoolCheckbox} />}

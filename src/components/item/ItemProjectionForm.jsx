@@ -15,6 +15,7 @@ const queryParams = () => (
     cacheOptions
     isClearable
     fullWidth
+    creatable
   />
 );
 

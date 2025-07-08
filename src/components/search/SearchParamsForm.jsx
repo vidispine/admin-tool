@@ -24,6 +24,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="storageGroup"
@@ -34,6 +35,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <FormControlLabel control={<Field name="count" component={BoolCheckbox} />} label="Count" />
     <FormControlLabel control={<Field name="save" component={BoolCheckbox} />} label="Save" />

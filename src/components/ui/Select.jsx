@@ -1,17 +1,17 @@
-import { useMemo, useCallback, Component } from 'react';
+// eslint-disable-next-line max-classes-per-file
+import { Component } from 'react';
 
 import InputLabel from '@material-ui/core/InputLabel';
-import { useTheme, withTheme, alpha } from '@material-ui/core/styles';
+import { withTheme, alpha } from '@material-ui/core/styles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ClearIcon from '@material-ui/icons/Clear';
 import Select, { components as SelectComponents } from 'react-select';
 import Async from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
-import CreatableSelect from 'react-select/creatable';
 import { change } from 'redux-form';
 
-const stylesOverride = {
+export const styles = {
   container: (base, state) => ({
     ...base,
     fontSize: state?.selectProps?.typography?.htmlFontSize,
@@ -127,7 +127,7 @@ const stylesOverride = {
   },
 };
 
-function MultiValueRemove(props) {
+export function MultiValueRemove(props) {
   return (
     <SelectComponents.MultiValueRemove {...props}>
       <CancelIcon />
@@ -135,68 +135,18 @@ function MultiValueRemove(props) {
   );
 }
 
-function ClearIndicator(props) {
+export function ClearIndicator(props) {
   return (
     <SelectComponents.ClearIndicator {...props}>
       <ClearIcon />
     </SelectComponents.ClearIndicator>
   );
 }
-function DropdownIndicator(props) {
+export function DropdownIndicator(props) {
   return (
     <SelectComponents.DropdownIndicator {...props}>
       <ArrowDropDownIcon />
     </SelectComponents.DropdownIndicator>
-  );
-}
-
-export default function WrappedAsyncSelect({ input, meta, components = {}, ...props }) {
-  const { palette, typography } = useTheme();
-  const { value } = input;
-  const { optionLabelKey = 'label', optionValueKey = 'value', creatable = true } = props;
-  const AsyncSelect = useMemo(() => (creatable ? AsyncCreatableSelect : Async), [creatable]);
-  const parse = useCallback((v) => {
-    if (v) {
-      return v.value;
-    }
-    return undefined;
-  }, []);
-  const theme = useCallback(
-    (selectTheme) => ({
-      ...selectTheme,
-      borderRadius: 0,
-      spacing: {
-        ...selectTheme.spacing,
-        menuGutter: 0,
-      },
-      colors: {
-        ...selectTheme.colors,
-        primary: palette.text.primary,
-      },
-      fontFamily: typography.fontFamily,
-    }),
-    [palette, typography],
-  );
-  return (
-    <AsyncSelect
-      {...input}
-      {...props}
-      components={{
-        MultiValueRemove,
-        ClearIndicator,
-        DropdownIndicator,
-        ...components,
-      }}
-      parse={parse}
-      styles={stylesOverride}
-      placeholder={props.label}
-      getOptionLabel={(option) => option[optionLabelKey]}
-      getOptionValue={(option) => option[optionValueKey]}
-      value={value ? value[optionValueKey] : ''}
-      palette={palette}
-      typography={typography}
-      theme={theme}
-    />
   );
 }
 
@@ -207,9 +157,7 @@ class UnThemedStatefulAsyncSelect extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.theme = this.theme.bind(this);
-    const {
-      input: { value },
-    } = this.props;
+    const { input: { value } = {} } = this.props;
     const { optionLabelKey = 'label', optionValueKey = 'value', isMulti } = props;
     let valueOption;
     let inputValue;
@@ -239,6 +187,7 @@ class UnThemedStatefulAsyncSelect extends Component {
       meta: { dispatch, form },
       optionValueKey = 'value',
       isMulti,
+      multiResetToArray = false,
     } = this.props;
     let value = '';
     if (valueOption) {
@@ -246,8 +195,8 @@ class UnThemedStatefulAsyncSelect extends Component {
         if (valueOption.length > 0) {
           value = valueOption.map((v) => v[optionValueKey]);
         } else {
-          value = [];
-          this.handleInputChange([]); // fire when clearing value
+          value = multiResetToArray ? [] : '';
+          this.handleInputChange(value); // fire when clearing value
         }
       } else {
         value = valueOption[optionValueKey];
@@ -260,8 +209,6 @@ class UnThemedStatefulAsyncSelect extends Component {
     if (dispatch) {
       // Prefer dispatch as more reliable
       dispatch(change(form, name, value));
-    } else {
-      onChange(value);
     }
   }
 
@@ -296,7 +243,7 @@ class UnThemedStatefulAsyncSelect extends Component {
   }
 
   render() {
-    const { input, meta, theme, components = {}, ...props } = this.props;
+    const { input = {}, meta = {}, theme, components = {}, ...props } = this.props;
     const { palette, typography } = theme;
     const {
       optionLabelKey = 'label',
@@ -336,7 +283,7 @@ class UnThemedStatefulAsyncSelect extends Component {
             ...components,
           }}
           id={input.name}
-          styles={stylesOverride}
+          styles={styles}
           getOptionLabel={getOptionLabel}
           getOptionValue={getOptionValue}
           value={valueOption}
@@ -358,76 +305,4 @@ class UnThemedStatefulAsyncSelect extends Component {
 
 export const StatefulAsyncSelect = withTheme(UnThemedStatefulAsyncSelect);
 
-export function WrappedSelect({ input, meta, components = {}, ...props }) {
-  const { palette, typography } = useTheme();
-  const theme = useCallback(
-    (selectTheme) => ({
-      ...selectTheme,
-      borderRadius: 0,
-      spacing: {
-        ...selectTheme.spacing,
-        menuGutter: 0,
-      },
-      colors: {
-        ...selectTheme.colors,
-        primary: palette.text.primary,
-      },
-      fontFamily: typography.fontFamily,
-    }),
-    [palette, typography],
-  );
-  return (
-    <Select
-      {...input}
-      {...props}
-      components={{
-        MultiValueRemove,
-        ClearIndicator,
-        DropdownIndicator,
-        ...components,
-      }}
-      palette={palette}
-      typography={typography}
-      styles={stylesOverride}
-      placeholder={props.label}
-      theme={theme}
-    />
-  );
-}
-
-export function WrappedSelectCreatable({ input, meta, components = {}, ...props }) {
-  const { palette, typography } = useTheme();
-  const theme = useCallback(
-    (selectTheme) => ({
-      ...selectTheme,
-      borderRadius: 0,
-      spacing: {
-        ...selectTheme.spacing,
-        menuGutter: 0,
-      },
-      colors: {
-        ...selectTheme.colors,
-        primary: palette.text.primary,
-      },
-      fontFamily: typography.fontFamily,
-    }),
-    [palette, typography],
-  );
-  return (
-    <CreatableSelect
-      {...input}
-      {...props}
-      components={{
-        MultiValueRemove,
-        ClearIndicator,
-        DropdownIndicator,
-        ...components,
-      }}
-      palette={palette}
-      typography={typography}
-      styles={stylesOverride}
-      placeholder={props.label}
-      theme={theme}
-    />
-  );
-}
+export default StatefulAsyncSelect;

@@ -1,5 +1,6 @@
 import { SimpleMetadataType, KeyValuePairType } from '../ui/DisplayType';
 import TextGrid from '../ui/TextGrid';
+import TypeArray from '../ui/TypeArray';
 import TypeSection from '../ui/TypeSection';
 
 export function MetadataFieldFloatType({ value = {} }) {
@@ -81,7 +82,7 @@ export function MetadataFieldType({ value }) {
         hideNoValue
       />
       <TypeSection title="values" component={SimpleMetadataType} value={value.values} hideNoValue />
-      <TypeSection title="data" component={KeyValuePairType} value={value.data} hideNoValue />
+      <TypeArray title="data" component={KeyValuePairType} value={value.data} hideNoValue />
       <TypeSection
         title="floatRestriction"
         value={value.floatRestriction}

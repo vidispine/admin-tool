@@ -7,26 +7,6 @@ import TitleHeader from '../ui/TitleHeader';
 
 import JobStatus from './JobStatus';
 
-function RunningMenuItem({ jobDocument, priorityDialog, abortDialog, onOpen }) {
-  if (jobDocument === undefined) {
-    return null;
-  }
-  const { status } = jobDocument;
-  if (!RUNNING_STATES.includes(status)) {
-    return null;
-  }
-  return (
-    <>
-      <MenuItem onClick={() => onOpen({ modalName: priorityDialog })}>
-        <Typography color="inherit">Change Priority</Typography>
-      </MenuItem>
-      <MenuItem onClick={() => onOpen({ modalName: abortDialog })}>
-        <Typography color="secondary">Abort</Typography>
-      </MenuItem>
-    </>
-  );
-}
-
 function JobTitle({
   onOpen,
   priorityDialog,
@@ -45,14 +25,14 @@ function JobTitle({
         <>
           <JobStatus jobDocument={props.code} />
           <Menu>
-            <RunningMenuItem
-              jobDocument={props.code}
-              priorityDialog={priorityDialog}
-              abortDialog={abortDialog}
-              onOpen={onOpen}
-            />
+            <MenuItem onClick={() => onOpen({ modalName: priorityDialog })}>
+              <Typography color="inherit">Change Priority</Typography>
+            </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: duplicateDialog })}>
               <Typography color="inherit">Duplicate Job</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: abortDialog })}>
+              <Typography color="secondary">Abort</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: removeDialog })}>
               <Typography color="secondary">Delete</Typography>

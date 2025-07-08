@@ -36,6 +36,7 @@ const queryParams = ({ entityType }) => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field name="range" component={TextField} fullWidth />
     <FormControlLabel

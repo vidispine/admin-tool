@@ -56,6 +56,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="original"
@@ -67,6 +68,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti={false}
+      creatable
     />
     <FormControl>
       <FormControlLabel
@@ -192,6 +194,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="extractCc"

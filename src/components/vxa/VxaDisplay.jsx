@@ -1,182 +1,7 @@
+import { KeyValuePairType, SimpleMetadataType } from '../ui/DisplayType';
 import TextGrid from '../ui/TextGrid';
 import TypeArray from '../ui/TypeArray';
 import TypeSection from '../ui/TypeSection';
-
-// const TranscoderConfigurationType = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const JobLogEntryType = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const JobRequestChoiceType = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const JobInputProgressType = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const ThumbnailInfoType = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const ShapeDeductionResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const DurationResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const XMPResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const HashResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const TransferResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const AAFGeneratorResponse = ({ value = {} }) => (
-//   <React.Fragment>
-//   </React.Fragment>
-// );
-//
-// const JobStatusType = ({ value = {} }) => (
-//   <React.Fragment>
-//     <TextGrid
-//       title="statusUri"
-//       value={value.statusUri}
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="id"
-//       value={value.id}
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="isRunning"
-//       value={value.isRunning}
-//       variant="boolean"
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="isPaused"
-//       value={value.isPaused}
-//       variant="boolean"
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="walltime"
-//       value={value.walltime}
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="exitcode"
-//       value={value.exitcode}
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="message"
-//       value={value.message}
-//       hover
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="log"
-//       value={value.log}
-//       component={JobLogEntryType}
-//       hideNoValue
-//     />
-//     <TypeSection
-//       title="request"
-//       value={value.request}
-//       component={JobRequestChoiceType}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="inputProgress"
-//       value={value.inputProgress}
-//       component={JobInputProgressType}
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="progress"
-//       value={value.progress}
-//       hover
-//       hideNoValue
-//     />
-//     <TextGrid
-//       title="estimatedTimeLeft"
-//       value={value.estimatedTimeLeft}
-//       hover
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="thumbnail"
-//       value={value.thumbnail}
-//       component={ThumbnailInfoType}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="shapeDeductionResponse"
-//       value={value.shapeDeductionResponse}
-//       component={ShapeDeductionResponse}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="durationResponse"
-//       value={value.durationResponse}
-//       component={DurationResponse}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="xmpResponse"
-//       value={value.xmpResponse}
-//       component={XMPResponse}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="hashResponse"
-//       value={value.hashResponse}
-//       component={HashResponse}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="transferResponse"
-//       value={value.transferResponse}
-//       component={TransferResponse}
-//       hideNoValue
-//     />
-//     <TypeArray
-//       title="aafGeneratorResponse"
-//       value={value.aafGeneratorResponse}
-//       component={AAFGeneratorResponse}
-//       hideNoValue
-//     />
-//   </React.Fragment>
-// );
 
 function TranscoderType({ value = {} }) {
   return (
@@ -193,18 +18,6 @@ function TranscoderType({ value = {} }) {
       />
       <TextGrid title="directAccess" value={value.directAccess} hover hideNoValue variant="list" />
       <TextGrid title="state" value={value.state} hover hideNoValue />
-      {/* <TypeArray
-      title="job"
-      value={value.job}
-      component={JobStatusType}
-      hideNoValue
-    />
-    <TypeSection
-      title="configuration"
-      value={value.configuration}
-      component={TranscoderConfigurationType}
-      hideNoValue
-    /> */}
       <TypeArray
         title="transcoder"
         value={value.transcoder}
@@ -221,6 +34,15 @@ const s3CredentialType = ({ value = {} }) => (
   <TextGrid title="s3CredentialType" value={value} hover />
 );
 
+function ForwardServiceType({ value = {} }) {
+  return (
+    <>
+      <TextGrid title="id" value={value.id} hover />
+      <TextGrid title="uri" value={value.uri} hover />
+    </>
+  );
+}
+
 function VXAVSInstanceType({ value = {} }) {
   return (
     <>
@@ -228,6 +50,15 @@ function VXAVSInstanceType({ value = {} }) {
       <TextGrid title="uri" value={value.uri} hover hideNoValue />
       <TextGrid title="status" value={value.status} hover hideNoValue />
       <TextGrid title="lastSeen" value={value.lastSeen} variant="timestamp" hover hideNoValue />
+    </>
+  );
+}
+
+function VXASecretType({ value = {} }) {
+  return (
+    <>
+      <TextGrid title="alias" value={value.alias} hover />
+      <TypeSection value={value.value} component={SimpleMetadataType} />
     </>
   );
 }
@@ -276,6 +107,18 @@ function VXAType({ value = {} }) {
         component={TranscoderType}
         hideNoValue
       />
+      <TextGrid title="agentGroup" value={value.agentGroup} hover hideNoValue />
+      <TextGrid title="externalUri" value={value.externalUri} hover hideNoValue />
+      <TextGrid title="publicEndpointUri" value={value.publicEndpointUri} hover hideNoValue />
+      <TypeArray
+        title="Forward Service"
+        value={value.forwardService}
+        component={ForwardServiceType}
+        hideNoValue
+      />
+      <TypeArray title="resourceTag" value={value.resourceTag} component={KeyValuePairType} />
+      <TextGrid title="certificate" value={value.certificate} hover hideNoValue />
+      <TypeArray title="secret" value={value.secret} component={VXASecretType} />
     </>
   );
 }

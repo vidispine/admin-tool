@@ -1,84 +1,61 @@
-import { SubmissionError } from 'redux-form';
+import { job as JobApi } from '@vidispine/vdt-api';
 
-import { job as api } from '@vidispine/vdt-api';
+import withSubmissionError from './withSubmissionError';
 
-export function onJobList(form) {
+export const onJobList = withSubmissionError((form) => {
   const { queryParams } = form;
-  return api
-    .listJob({
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return JobApi.listJob({
+    queryParams,
+  });
+});
 
-export function onModifyJob(form, dispatch, props) {
+export const onJobSearch = withSubmissionError((form) => {
+  const { queryParams, jobSearchDocument } = form;
+  return JobApi.searchJob({
+    queryParams,
+    jobSearchDocument,
+  });
+});
+
+export const onGetJob = withSubmissionError((form, dispatch, props) => {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api
-    .modifyJob({
-      jobId,
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return JobApi.getJob({
+    jobId,
+    queryParams,
+  });
+});
 
-export function onDuplicateJob(form, dispatch, props) {
+export const onModifyJob = withSubmissionError((form, dispatch, props) => {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api
-    .duplicateJob({
-      jobId,
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return JobApi.modifyJob({
+    jobId,
+    queryParams,
+  });
+});
 
-export function onAbortJob(form, dispatch, props) {
+export const onDuplicateJob = withSubmissionError((form, dispatch, props) => {
   const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api
-    .abortJob({
-      jobId,
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return JobApi.duplicateJob({
+    jobId,
+    queryParams,
+  });
+});
 
-export function onCreateJob(form) {
+export const onAbortJob = withSubmissionError((form, dispatch, props) => {
+  const jobId = props.jobId || form.jobId;
   const { queryParams } = form;
-  return api
-    .createJob({
-      queryParams,
-    })
-    .catch((error) => {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = JSON.stringify(error.response.data, (k, v) => (v === null ? undefined : v));
-      }
-      throw new SubmissionError({ _error: errorMessage });
-    });
-}
+  return JobApi.abortJob({
+    jobId,
+    queryParams,
+  });
+});
+
+export const onCreateJob = withSubmissionError((form) => {
+  const { queryParams } = form;
+  return JobApi.createJob({
+    queryParams,
+  });
+});

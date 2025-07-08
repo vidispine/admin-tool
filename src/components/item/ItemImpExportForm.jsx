@@ -29,6 +29,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <FormControlLabel
       control={<Field name="metadata" component={BoolCheckbox} />}
@@ -42,6 +43,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field name="notification" component={TextField} fullWidth />
     <FieldTypeArray
@@ -86,6 +88,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field name="start" label="Start Timecode" component={TextField} fullWidth />
     <Field name="end" label="End Timecode" component={TextField} fullWidth />

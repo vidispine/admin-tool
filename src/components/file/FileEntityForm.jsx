@@ -55,6 +55,7 @@ function FileEntityForm({ error, handleSubmit }) {
         isClearable
         required
         fullWidth
+        creatable
       />
       <FormSection name="fileDocument" component={fileDocument} />
       <FormSection name="queryParams" component={queryParams} />

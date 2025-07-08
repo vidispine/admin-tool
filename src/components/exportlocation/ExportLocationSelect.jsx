@@ -35,6 +35,7 @@ export default function ExportLocationSelect(props) {
       loadOptions={loadExportLocationOptions}
       cacheOptions
       parse={parse}
+      createable
       {...props}
     />
   );

@@ -83,6 +83,7 @@ const queryParams = ({ variant }) => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field name="resourceId" label="Transcoder ID" component={TextField} fullWidth />
     <Field name="thumbnailService" label="Thumbnail Service ID" component={TextField} fullWidth />
