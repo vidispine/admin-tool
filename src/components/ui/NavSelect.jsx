@@ -9,7 +9,7 @@ import { components as SelectComponents } from 'react-select';
 import routes from '../../const/routes';
 import { optionListToScore } from '../../utils/similar';
 
-import { WrappedSelectCreatable } from './Select';
+import NavSelectCreateable from './NavSelectCreateable';
 
 const goToOptions = [
   {
@@ -211,7 +211,7 @@ function Option(props) {
   return SelectComponents.Option(props);
 }
 
-export default function NavSelect({ onChange: propsOnChange, ...props }) {
+function NavSelect({ onChange: propsOnChange, ...props }) {
   const history = useHistory();
   const fuzzyRef = useRef();
   const isValidNewOption = useCallback((inputValue) => {
@@ -261,8 +261,9 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
     [history, propsOnChange],
   );
   return (
-    <WrappedSelectCreatable
+    <NavSelectCreateable
       value=""
+      name="endpoint"
       options={linkOptions}
       label="Search for endpoint..."
       formatCreateLabel={formatCreateLabel}
@@ -271,7 +272,10 @@ export default function NavSelect({ onChange: propsOnChange, ...props }) {
       fuzzyRef={fuzzyRef}
       onChange={onChange}
       onCreateOption={onCreateOption}
+      creatable
       {...props}
     />
   );
 }
+
+export default NavSelect;
