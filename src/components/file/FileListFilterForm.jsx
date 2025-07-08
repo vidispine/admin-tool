@@ -66,6 +66,7 @@ const queryParams = () => (
       isClearable
       required
       fullWidth
+      creatable
     />
     <Field
       name="storageGroup"
@@ -75,6 +76,7 @@ const queryParams = () => (
       isClearable
       required
       fullWidth
+      creatable
     />
     <FormControl component="fieldset">
       <FormLabel component="legend">File Association</FormLabel>

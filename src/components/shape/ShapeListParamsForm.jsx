@@ -23,6 +23,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="placeholder">Placeholder</InputLabel>

@@ -56,6 +56,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="storageId"
@@ -66,6 +67,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field name="notification" label="Notification" component={TextField} fullWidth />
     <FieldTypeArray

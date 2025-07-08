@@ -39,6 +39,7 @@ function TaskDefinitionType() {
         cacheOptions
         isClearable
         fullWidth
+        createable
       />
       <Field
         name="step"

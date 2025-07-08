@@ -38,6 +38,7 @@ function StorageRuleStorageType() {
         isClearable
         fullWidth
         isMulti
+        createable
       />
       <Field
         name="group"
@@ -48,6 +49,7 @@ function StorageRuleStorageType() {
         isClearable
         fullWidth
         isMulti
+        createable
       />
     </>
   );
@@ -97,6 +99,7 @@ function StorageRuleType() {
         isClearable
         fullWidth
         isMulti
+        createable
       />
       <Field
         name="group"
@@ -107,6 +110,7 @@ function StorageRuleType() {
         isClearable
         fullWidth
         isMulti
+        createable
       />
       <FormSection name="not" label="not" component={StorageRuleNotType} />
       <FormSection name="pool" label="pool" component={StorageRuleStorageType} />
@@ -138,6 +142,7 @@ function EntityForm({ error, handleSubmit, tagName }) {
           cacheOptions
           isClearable
           fullWidth
+          createable
         />
       ) : null}
 

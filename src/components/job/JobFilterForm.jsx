@@ -49,6 +49,7 @@ const queryParams = () => (
       fullWidth
       isMulti
       options={JOB_PRIORITY_OPTIONS}
+      creatable
     />
     <Field
       name="state"
@@ -58,6 +59,7 @@ const queryParams = () => (
       fullWidth
       isMulti
       options={JOB_STATE_OPTIONS}
+      creatable
     />
     <Field
       name="type"
@@ -80,6 +82,7 @@ const queryParams = () => (
       fullWidth
       isMulti
       options={JOB_SORT_OPTIONS}
+      creatable
     />
     <FormControlLabel
       control={<Field name="user" component={BoolCheckbox} />}

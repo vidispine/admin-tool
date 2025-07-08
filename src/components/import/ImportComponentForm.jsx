@@ -57,6 +57,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="original"
@@ -68,6 +69,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti={false}
+      creatable
     />
     <FormControl>
       <FormControlLabel
@@ -107,6 +109,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field
       name="resourceId"

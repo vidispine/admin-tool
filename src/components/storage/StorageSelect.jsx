@@ -30,7 +30,7 @@ export default function StorageSelect(props) {
       loadOptions={loadStorageOptions}
       cacheOptions
       parse={parse}
-      creatable={false}
+      createable
       {...props}
     />
   );

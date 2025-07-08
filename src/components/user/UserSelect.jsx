@@ -35,7 +35,7 @@ export default function UserSelect(props) {
       loadOptions={loadUserOptions}
       cacheOptions
       parse={parse}
-      createable={false}
+      createable
       {...props}
     />
   );
