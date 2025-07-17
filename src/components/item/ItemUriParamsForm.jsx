@@ -25,6 +25,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field name="scheme" component={TextField} fullWidth />
     <FormControl fullWidth>

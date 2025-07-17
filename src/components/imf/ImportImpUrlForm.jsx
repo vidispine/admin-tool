@@ -47,6 +47,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
   </>
 );

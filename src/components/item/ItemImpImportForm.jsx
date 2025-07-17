@@ -29,6 +29,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="storageId"
@@ -37,6 +38,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <FormControlLabel
       control={
@@ -82,6 +84,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
   </>
 );

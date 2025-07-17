@@ -29,6 +29,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field
       name="fileExtension"

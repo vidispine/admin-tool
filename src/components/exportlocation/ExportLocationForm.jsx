@@ -25,6 +25,7 @@ function ExportLocationType() {
         isClearable
         fullWidth
         isMulti
+        creatable
       />
       <Field
         name="projection"
@@ -34,6 +35,7 @@ function ExportLocationType() {
         cacheOptions
         isClearable
         fullWidth
+        creatable
       />
       <Field
         name="script"

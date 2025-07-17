@@ -68,6 +68,7 @@ export default function MetadataFieldSelect(props) {
       loadOptions={loadMetadataFieldOptions}
       cacheOptions
       parse={parse}
+      createable
       {...props}
     />
   );

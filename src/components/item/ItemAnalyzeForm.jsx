@@ -26,6 +26,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field
       name="tag"
@@ -35,6 +36,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <Field name="callbackId" component={TextField} fullWidth />
     <Field name="notification" component={TextField} fullWidth />

@@ -30,7 +30,7 @@ export default function JobTypeSelect(props) {
       loadOptions={loadJobTypeOptions}
       cacheOptions
       parse={parse}
-      creatable={false}
+      createable
       {...props}
     />
   );

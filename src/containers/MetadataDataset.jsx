@@ -12,6 +12,7 @@ const METADATADATASET_REMOVE_MODAL = 'METADATADATASET_REMOVE_MODAL';
 class MetadataDataset extends PureComponent {
   constructor(props) {
     super(props);
+    this.onFetch = this.onFetch.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.state = {
       body: undefined,
@@ -24,8 +25,21 @@ class MetadataDataset extends PureComponent {
     this.onRefresh();
   }
 
+  UNSAFE_componentWillReceiveProps({ datasetId }) {
+    const { datasetId: prevDatasetId } = this.props;
+    if (prevDatasetId !== datasetId) {
+      this.onFetch(datasetId);
+      document.title = `VidiCore Admin | Metadata Dataset | ${datasetId}`;
+    }
+  }
+
   onRefresh() {
-    const { openSnackBar, datasetId } = this.props;
+    const { datasetId } = this.props;
+    this.onFetch(datasetId);
+  }
+
+  onFetch(datasetId) {
+    const { openSnackBar } = this.props;
     try {
       api
         .getMetadataDataset({ datasetId, headers: { accept: 'application/ld+json' } })

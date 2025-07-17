@@ -32,7 +32,7 @@ export default function StorageGroupSelect(props) {
       loadOptions={loadStorageGroupOptions}
       cacheOptions
       parse={parse}
-      creatable={false}
+      createable
       {...props}
     />
   );

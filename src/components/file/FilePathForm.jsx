@@ -24,6 +24,7 @@ const queryParams = () => (
       isClearable
       required
       fullWidth
+      creatable
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="state">State</InputLabel>

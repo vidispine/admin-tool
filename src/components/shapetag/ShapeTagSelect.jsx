@@ -30,7 +30,7 @@ export default function ShapeTagSelect(props) {
       loadOptions={loadShapeTagOptions}
       cacheOptions
       parse={parse}
-      creatable={false}
+      createable
       {...props}
     />
   );

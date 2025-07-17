@@ -77,6 +77,7 @@ export const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field name="version" component={TextField} fullWidth />
     <Field name="baseURI" component={TextField} fullWidth />
@@ -110,6 +111,7 @@ export const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field
       name="storageGroup"
@@ -120,6 +122,7 @@ export const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <Field name="includeConstraintValue" component={TextField} fullWidth />
     <FormControlLabel

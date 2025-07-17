@@ -29,6 +29,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
@@ -75,6 +76,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
 
     <FormControlLabel

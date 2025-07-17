@@ -30,6 +30,7 @@ export default function FieldGroupSelect(props) {
       loadOptions={loadFieldGroupOptions}
       cacheOptions
       parse={parse}
+      createable
       {...props}
     />
   );

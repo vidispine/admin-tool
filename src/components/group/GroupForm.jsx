@@ -23,6 +23,7 @@ function GroupLookup() {
       loadOptions={loadGroupOptions}
       cacheOptions
       isClearable
+      creatable
     />
   );
 }
@@ -36,6 +37,7 @@ function UserLookup() {
       loadOptions={loadUserOptions}
       cacheOptions
       isClearable
+      creatable
     />
   );
 }

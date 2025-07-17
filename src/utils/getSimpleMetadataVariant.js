@@ -60,7 +60,7 @@ export default function getSimpleMetadataVariant(key) {
     case 'sourceUris':
       return 'commaseparatedlist';
     case 'sourceFileIds':
-      return 'commaseparatedlist';
+      return 'fileIdList';
     case 'fileItemMapping':
       return 'commaseparatedlist';
     case 'shapeIds':

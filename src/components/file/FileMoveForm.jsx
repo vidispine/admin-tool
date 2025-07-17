@@ -63,6 +63,7 @@ function FileMoveForm({ error, handleSubmit }) {
         isClearable
         required
         fullWidth
+        creatable
       />
       <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />

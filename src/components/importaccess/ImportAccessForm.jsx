@@ -34,6 +34,7 @@ function ImportAccessForm({ error, handleSubmit }) {
         loadOptions={loadGroupOptions}
         cacheOptions
         isClearable
+        creatable
       />
       <FormSection name="queryParams" component={ImportAccessQueryParams} />
       <button type="submit" hidden />

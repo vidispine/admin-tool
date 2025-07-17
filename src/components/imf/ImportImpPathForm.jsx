@@ -53,6 +53,7 @@ const queryParams = () => (
       isClearable
       fullWidth
       isMulti
+      creatable
     />
     <FormControl fullWidth>
       <InputLabel htmlFor="state">State</InputLabel>
@@ -81,6 +82,7 @@ function ImportImpPathForm({ error, handleSubmit }) {
         required
         fullWidth
         disableInitial
+        creatable
       />
       <FormSection name="queryParams" component={queryParams} />
       <button type="submit" hidden />

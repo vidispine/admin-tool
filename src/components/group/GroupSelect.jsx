@@ -33,6 +33,7 @@ export default function GroupSelect(props) {
       loadOptions={loadGroupOptions}
       cacheOptions
       parse={parse}
+      createable
       {...props}
     />
   );

@@ -23,6 +23,7 @@ const queryParams = () => (
       cacheOptions
       isClearable
       fullWidth
+      creatable
     />
     <FieldTypeArray
       name="jobmetadata"

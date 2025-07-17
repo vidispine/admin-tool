@@ -10,6 +10,7 @@ class MetadataFieldAllowedValues extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
+    this.onFetch = this.onFetch.bind(this);
     this.state = {
       constraintValueListDocument: undefined,
     };
@@ -21,8 +22,20 @@ class MetadataFieldAllowedValues extends PureComponent {
     this.onRefresh();
   }
 
+  UNSAFE_componentWillReceiveProps({ fieldName }) {
+    const { fieldName: prevFieldName } = this.props;
+    if (prevFieldName !== fieldName) {
+      this.onFetch(fieldName);
+    }
+  }
+
   onRefresh() {
-    const { openSnackBar, fieldName } = this.props;
+    const { fieldName } = this.props;
+    this.onFetch(fieldName);
+  }
+
+  onFetch(fieldName) {
+    const { openSnackBar } = this.props;
     try {
       api
         .getMetadataFieldAllowedValues({ fieldName })
