@@ -47,9 +47,6 @@ function LibraryTitle({
           <MenuItem onClick={() => onOpen({ modalName: itemMetadataModal })}>
             <Typography>Update Item Metadata</Typography>
           </MenuItem>
-          <MenuItem onClick={() => onOpen({ modalName: itemMetadataModal })}>
-            <Typography>Update Item Metadata</Typography>
-          </MenuItem>
           <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
             <Typography>Export</Typography>
           </MenuItem>
