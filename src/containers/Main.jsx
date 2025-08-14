@@ -206,6 +206,8 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
           <Route exact path="/metadata-field/" component={MetadataFieldList} />
           <Route exact path="/field-group/" component={FieldGroupList} />
           <Route exact path="/field-group/:groupName" component={FieldGroup} />
+          <Route exact path="/import/settings/" component={ImportSettingsList} />
+          <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
           <Route path="/import/" component={Import} />
           <Route exact path="/import-imp" component={ImportImp} />
           <Route exact path="/file/" component={FileList} />
@@ -236,8 +238,6 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
             component={Notification}
           />
           <Route exact path="/notification/:notificationId" component={NotificationPlaceholder} />
-          <Route exact path="/import/settings/" component={ImportSettingsList} />
-          <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
           <Route exact path="/import/access/:userName" component={ImportAccess} />
           <Route exact path="/task-group/" component={TaskGroupList} />
           <Route exact path="/task-group/:groupName/" component={TaskGroup} />
