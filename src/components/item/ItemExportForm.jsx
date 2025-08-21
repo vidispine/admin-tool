@@ -73,8 +73,19 @@ const queryParams = () => (
       dense
     />
     <FormControlLabel
+      control={<Field name="holdJob" component={BoolCheckbox} />}
+      label="Hold Job"
+    />
+    <FormControlLabel
       control={<Field name="useOriginalFilename" component={BoolCheckbox} />}
       label="Use Original Filename"
+    />
+    <Field
+      name="resourceTag"
+      label="Resource Tag"
+      helperText="Criteria used to select transcoders for the job"
+      component={TextField}
+      fullWidth
     />
     <FormControlLabel
       control={<Field name="useOriginalComponentFilename" component={BoolCheckbox} />}
@@ -99,6 +110,10 @@ const queryParams = () => (
     />
     <Field name="track" component={TextField} fullWidth />
     <Field name="version" component={TextField} fullWidth />
+    <FormControlLabel
+      control={<Field name="exportDashMpd" component={BoolCheckbox} />}
+      label="Export Dash MPD"
+    />
   </>
 );
 

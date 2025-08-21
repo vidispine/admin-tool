@@ -399,7 +399,7 @@ function SftpForm({ value = {}, onChange }) {
   );
 }
 
-function HttpForm({ value = {}, onChange, showHttpCreds = false }) {
+function HttpForm({ value = {}, onChange }) {
   return (
     <>
       <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
@@ -411,27 +411,23 @@ function HttpForm({ value = {}, onChange, showHttpCreds = false }) {
         onBlur={onPathBlur('path', onChange('path'))}
         fullWidth
       />
-      {showHttpCreds && (
-        <>
-          <URIComponentTextField
-            label="URL Username"
-            value={value.username || ''}
-            onChange={onChange('username')}
-            fullWidth
-          />
-          <URIComponentTextField
-            label="URL Password"
-            value={value.password || ''}
-            onChange={onChange('password')}
-            fullWidth
-          />
-        </>
-      )}
+      <URIComponentTextField
+        label="URL Username"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="URL Password"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
     </>
   );
 }
 
-function HttpsForm({ value = {}, onChange, showHttpCreds = false }) {
+function HttpsForm({ value = {}, onChange }) {
   return (
     <>
       <TextField label="Host" value={value.host || ''} onChange={onChange('host')} fullWidth />
@@ -443,22 +439,18 @@ function HttpsForm({ value = {}, onChange, showHttpCreds = false }) {
         onChange={onChange('path')}
         fullWidth
       />
-      {showHttpCreds && (
-        <>
-          <URIComponentTextField
-            label="URL Username"
-            value={value.username || ''}
-            onChange={onChange('username')}
-            fullWidth
-          />
-          <URIComponentTextField
-            label="URL Password"
-            value={value.password || ''}
-            onChange={onChange('password')}
-            fullWidth
-          />
-        </>
-      )}
+      <URIComponentTextField
+        label="URL Username"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="URL Password"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
     </>
   );
 }
