@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import moment from 'moment';
 
+import routes from '../../const/routes';
 import { capitalizeString, bytesToSize, fromNow } from '../../utils';
 import { bitRateToSize, freqToSize } from '../../utils/bitsToSize';
 
@@ -242,14 +243,14 @@ const TextGridValue = forwardRef(
       case 'username':
         valueComponent = (
           <StyledTypography {...props} ref={ref} className={className}>
-            <UnstyledLink to={`/user/${value}/`}>{value}</UnstyledLink>
+            <UnstyledLink to={routes.user({ userName: value })}>{value}</UnstyledLink>
           </StyledTypography>
         );
         break;
       case 'group':
         valueComponent = (
           <StyledTypography {...props} ref={ref} className={className}>
-            <UnstyledLink to={`/group/${value}/`}>{value}</UnstyledLink>
+            <UnstyledLink to={routes.group({ groupName: value })}>{value}</UnstyledLink>
           </StyledTypography>
         );
         break;

@@ -2,12 +2,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Check from '@material-ui/icons/Check';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 
+import routes from '../../const/routes';
 import TableCell from '../ui/TableCell';
 import TableRow from '../ui/TableRowLink';
 
 export default function UserRow({ userDocument = {}, onRemove }) {
+  const to = routes.user({ userName: userDocument.userName });
   return (
-    <TableRow to={`/user/${userDocument.userName}/`} hover>
+    <TableRow to={to} hover>
       <TableCell>{userDocument.userName}</TableCell>
       <TableCell>{userDocument.realName}</TableCell>
       <TableCell>{userDocument.disabled && <Check />}</TableCell>

@@ -4,6 +4,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
+import routes from '../../const/routes';
 import withModal from '../../hoc/withModal';
 import Menu, { MenuItem } from '../ui/Menu';
 import { OfflineIcon } from '../ui/StatusIcon';
@@ -37,13 +38,13 @@ function UserTitle({
   return (
     <TitleHeader
       helpTo="/ref/user.html"
-      title={userName}
+      title={decodeURI(userName)}
       parentTitle="User"
       parentTo="/user/"
       iconList={
         <>
           <Tooltip title="Access Keys">
-            <IconButton onClick={() => history.push(`/user/${userName}/key`)}>
+            <IconButton onClick={() => history.push(routes.userAccessKey({ userName }))}>
               <VpnKeyIcon />
             </IconButton>
           </Tooltip>

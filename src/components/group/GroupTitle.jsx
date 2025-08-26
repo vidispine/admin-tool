@@ -13,7 +13,7 @@ export default function GroupTitle({
   return (
     <TitleHeader
       helpTo="/ref/group.html"
-      title={groupName}
+      title={decodeURI(groupName)}
       parentTitle="Group"
       parentTo="/group/"
       {...props}

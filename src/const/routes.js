@@ -27,4 +27,15 @@ export default {
   secret: (params) => generatePath('/secret/:alias', params),
   shapeTagList: (params) => generatePath('/shape-tag/', params),
   shapeTag: (params) => generatePath('/shape-tag/:tagName', params),
+  user: (params) =>
+    generatePath('/user/:userName/', { ...params, userName: encodeURI(params.userName) }),
+  userAccessKey: (params) =>
+    generatePath('/user/:userName/key', { ...params, userName: encodeURI(params.userName) }),
+  importAccessUser: (params) =>
+    generatePath('/import/access/:userName', {
+      ...params,
+      userName: encodeURI(params.userName),
+    }),
+  group: (params) =>
+    generatePath('/group/:groupName/', { ...params, groupName: encodeURI(params.groupName) }),
 };

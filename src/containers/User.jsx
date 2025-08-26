@@ -13,6 +13,7 @@ import UserPassword from '../components/user/UserPassword';
 import UserTitle from '../components/user/UserTitle';
 import UserToken from '../components/user/UserToken';
 import UserUserNameDialog from '../components/user/UserUserNameDialog';
+import routes from '../const/routes';
 import { withRouterProps } from '../hoc/withRouterProps';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
@@ -127,7 +128,7 @@ class User extends PureComponent {
   onUserNameSuccess(response, dispatch, props) {
     const { history } = this.props;
     const userName = props?.values?.userDocument?.userName;
-    if (userName) history.push(`/user/${userName}`);
+    if (userName) history.push(routes.user({ userName }));
     else this.onRefresh();
   }
 

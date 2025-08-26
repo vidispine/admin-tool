@@ -6,6 +6,7 @@ import UserListCard from '../components/user/UserListCard';
 import UserListParams, { USER_LIST_PARAMS_FORM } from '../components/user/UserListParams';
 import UserListTitle from '../components/user/UserListTitle';
 import UserWizard from '../components/user/UserWizard';
+import routes from '../const/routes';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 
@@ -91,7 +92,13 @@ class UserList extends PureComponent {
         )}
         <UserWizard
           dialogName={USER_CREATE_MODAL}
-          onSuccess={(response) => history.push(`/user/${response.data.userName}`)}
+          onSuccess={(response) =>
+            history.push(
+              routes.user({
+                userName: response.data.userName,
+              }),
+            )
+          }
         />
       </>
     );
