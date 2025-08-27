@@ -1,18 +1,18 @@
 import { PureComponent } from 'react';
 
-import { metadatafield as api } from '@vidispine/vdt-api';
+import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 
-import MetadataFieldAllowedValuesCard from '../../components/metadatafield/MetadataFieldAllowedValuesCard';
-import MetadataFieldAllowedValuesParams from '../../components/metadatafield/MetadataFieldAllowedValuesParams';
+import AccessControlMergedList from '../../components/access/AccessControlMergedList';
+import MetadataFieldMergedAccessParams from '../../components/metadatafield/MetadataFieldMergedAccessParams';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class MetadataFieldAllowedValues extends PureComponent {
+class MetadataFieldMergedAccess extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
     this.onFetch = this.onFetch.bind(this);
     this.state = {
-      constraintValueListDocument: undefined,
+      accessControlMergedDocument: undefined,
     };
   }
 
@@ -37,9 +37,9 @@ class MetadataFieldAllowedValues extends PureComponent {
   onFetch(fieldName) {
     const { openSnackBar } = this.props;
     try {
-      api
-        .getMetadataFieldAllowedValues({ fieldName })
-        .then((response) => this.setState({ constraintValueListDocument: response.data }));
+      MetadataFieldApi.getMetadataFieldMergedAccess({ fieldName }).then((response) =>
+        this.setState({ accessControlMergedDocument: response.data }),
+      );
     } catch (error) {
       const messageContent = 'Error Getting Metadata Field';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -48,31 +48,28 @@ class MetadataFieldAllowedValues extends PureComponent {
 
   render() {
     const { fieldName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
-    const { constraintValueListDocument } = this.state;
+    const { accessControlMergedDocument } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
-            code={constraintValueListDocument}
-            codeModal="ConstraintValueListDocument"
-            breadcrumbList={['Allowed Values']}
+            code={accessControlMergedDocument}
+            codeModal="AccessControlMergedDocument"
+            breadcrumbList={['Merged Access']}
             onRefresh={this.onRefresh}
           />
         )}
         {TabComponent && <TabComponent />}
-        <MetadataFieldAllowedValuesParams
+        <MetadataFieldMergedAccessParams
           fieldName={fieldName}
-          onSuccess={(response) => this.setState({ constraintValueListDocument: response.data })}
+          onSuccess={(response) => this.setState({ accessControlMergedDocument: response.data })}
         />
-        {constraintValueListDocument && (
-          <MetadataFieldAllowedValuesCard
-            constraintValueListDocument={constraintValueListDocument}
-            onRefresh={this.onRefresh}
-          />
+        {accessControlMergedDocument && (
+          <AccessControlMergedList accessControlMergedDocument={accessControlMergedDocument} />
         )}
       </>
     );
   }
 }
 
-export default withSnackbar(MetadataFieldAllowedValues);
+export default withSnackbar(MetadataFieldMergedAccess);

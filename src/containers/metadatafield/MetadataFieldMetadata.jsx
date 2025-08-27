@@ -1,18 +1,17 @@
 import { PureComponent } from 'react';
 
-import { metadatafield as api } from '@vidispine/vdt-api';
+import { metadatafield as MetadataFieldApi } from '@vidispine/vdt-api';
 
-import MetadataFieldAllowedValuesCard from '../../components/metadatafield/MetadataFieldAllowedValuesCard';
-import MetadataFieldAllowedValuesParams from '../../components/metadatafield/MetadataFieldAllowedValuesParams';
+import SimpleMetadataCard from '../../components/ui/SimpleMetadataCard';
 import withSnackbar from '../../hoc/withSnackbar';
 
-class MetadataFieldAllowedValues extends PureComponent {
+class MetadataFieldMetadata extends PureComponent {
   constructor(props) {
     super(props);
     this.onRefresh = this.onRefresh.bind(this);
     this.onFetch = this.onFetch.bind(this);
     this.state = {
-      constraintValueListDocument: undefined,
+      simpleMetadataDocument: undefined,
     };
   }
 
@@ -37,9 +36,9 @@ class MetadataFieldAllowedValues extends PureComponent {
   onFetch(fieldName) {
     const { openSnackBar } = this.props;
     try {
-      api
-        .getMetadataFieldAllowedValues({ fieldName })
-        .then((response) => this.setState({ constraintValueListDocument: response.data }));
+      MetadataFieldApi.getSimpleMetadata({ fieldName }).then((response) =>
+        this.setState({ simpleMetadataDocument: response.data }),
+      );
     } catch (error) {
       const messageContent = 'Error Getting Metadata Field';
       openSnackBar({ messageContent, messageColor: 'secondary' });
@@ -48,26 +47,24 @@ class MetadataFieldAllowedValues extends PureComponent {
 
   render() {
     const { fieldName, titleComponent: TitleComponent, tabComponent: TabComponent } = this.props;
-    const { constraintValueListDocument } = this.state;
+    const { simpleMetadataDocument } = this.state;
     return (
       <>
         {TitleComponent && (
           <TitleComponent
-            code={constraintValueListDocument}
-            codeModal="ConstraintValueListDocument"
-            breadcrumbList={['Allowed Values']}
+            code={simpleMetadataDocument}
+            codeModal="SimpleMetadataDocument"
+            breadcrumbList={['Metadata']}
             onRefresh={this.onRefresh}
           />
         )}
         {TabComponent && <TabComponent />}
-        <MetadataFieldAllowedValuesParams
-          fieldName={fieldName}
-          onSuccess={(response) => this.setState({ constraintValueListDocument: response.data })}
-        />
-        {constraintValueListDocument && (
-          <MetadataFieldAllowedValuesCard
-            constraintValueListDocument={constraintValueListDocument}
-            onRefresh={this.onRefresh}
+        {simpleMetadataDocument && (
+          <SimpleMetadataCard
+            simpleMetadataDocument={simpleMetadataDocument}
+            onSuccess={this.onRefresh}
+            entityType="metadata-field"
+            entityId={fieldName}
           />
         )}
       </>
@@ -75,4 +72,4 @@ class MetadataFieldAllowedValues extends PureComponent {
   }
 }
 
-export default withSnackbar(MetadataFieldAllowedValues);
+export default withSnackbar(MetadataFieldMetadata);

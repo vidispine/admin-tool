@@ -38,4 +38,8 @@ export default {
     }),
   group: (params) =>
     generatePath('/group/:groupName/', { ...params, groupName: encodeURI(params.groupName) }),
+  metadataFieldList: (params) => generatePath('/metadata-field/', params),
+  metadataField: (params) => generatePath('/metadata-field/:fieldName/', params),
+  fieldGroupList: (params) => generatePath('/field-group/', params),
+  fieldGroup: (params) => generatePath('/field-group/:groupName/', params),
 };

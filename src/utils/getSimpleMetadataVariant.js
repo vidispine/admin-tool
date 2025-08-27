@@ -71,6 +71,8 @@ export default function getSimpleMetadataVariant(key) {
       return 'xml';
     case 'imf_opl':
       return 'xml';
+    case '__values':
+      return 'xml';
     default:
       return undefined;
   }

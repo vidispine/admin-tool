@@ -332,6 +332,13 @@ const TextGridValue = forwardRef(
           </StyledTypography>
         );
         break;
+      case 'dataset':
+        valueComponent = (
+          <StyledTypography {...props} ref={ref}>
+            <UnstyledLink to={`/metadata-dataset/${value}/`}>{value}</UnstyledLink>
+          </StyledTypography>
+        );
+        break;
       case 'fileId':
         valueComponent = (
           <StyledTypography {...props} ref={ref} className={className}>
