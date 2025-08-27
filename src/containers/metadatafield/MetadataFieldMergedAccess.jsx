@@ -17,7 +17,8 @@ class MetadataFieldMergedAccess extends PureComponent {
   }
 
   componentDidMount() {
-    const { fieldName } = this.props;
+    const { fieldName, setOnRefresh } = this.props;
+    if (setOnRefresh) setOnRefresh(this.onRefresh);
     document.title = `VidiCore Admin | Metadata Field | ${fieldName}`;
     this.onRefresh();
   }

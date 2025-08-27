@@ -9,7 +9,6 @@ export default function FieldGroupPermissionRow({ metadataFieldGroupPermission }
       <TableCell>{metadataFieldGroupPermission?.fieldGroup}</TableCell>
       <TableCell>{metadataFieldGroupPermission?.field}</TableCell>
       <TableCell>{metadataFieldGroupPermission?.username}</TableCell>
-      <TableCell />
     </TableRow>
   );
 }

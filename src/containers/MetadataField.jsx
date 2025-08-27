@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
 import { compose } from 'redux';
 
+import MetadataFieldAccessControlDialog from '../components/metadatafield/MetadataFieldAccessControlDialog';
 import MetadataFieldRemove from '../components/metadatafield/MetadataFieldRemove';
 import MetadataFieldTitle from '../components/metadatafield/MetadataFieldTitle';
 import DrawerContainer from '../components/ui/DrawerContainer';
@@ -11,6 +12,7 @@ import ListItemLink from '../components/ui/ListItemLink';
 import withSnackbar from '../hoc/withSnackbar';
 
 import ExternalId from './ExternalId';
+import MetadataFieldAccess from './metadatafield/MetadataFieldAccess';
 import MetadataFieldAllowedValues from './metadatafield/MetadataFieldAllowedValues';
 import MetadataFieldMergedAccess from './metadatafield/MetadataFieldMergedAccess';
 import MetadataFieldMetadata from './metadatafield/MetadataFieldMetadata';
@@ -22,6 +24,8 @@ const METADATAFIELD_ALLOWEDVALUES_TAB = 'METADATAFIELD_VALUES_TAB';
 const METADATAFIELD_VALUES_TAB = 'METADATAFIELD_ALLOWEDVALUES_TAB';
 const METADATAFIELD_METADATA_TAB = 'METADATAFIELD_METADATA_TAB';
 const METADATAFIELD_MERGEDACCESS_TAB = 'METADATAFIELD_MERGEDACCESS_TAB';
+const METADATAFIELD_ACCESS_TAB = 'METADATAFIELD_ACCESS_TAB';
+const METADATAFIELD_ACCESS_MODAL = 'METADATAFIELD_ACCESS_MODAL';
 const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
@@ -49,6 +53,12 @@ const TAB_TITLE = [
     listText: 'Metadata',
     component: MetadataFieldMetadata,
     path: '/metadata-field/:fieldName/metadata/',
+  },
+  {
+    tab: METADATAFIELD_ACCESS_TAB,
+    listText: 'Access',
+    component: MetadataFieldAccess,
+    path: '/metadata-field/:fieldName/access/',
   },
   {
     tab: METADATAFIELD_MERGEDACCESS_TAB,
@@ -136,6 +146,17 @@ class MetadataField extends PureComponent {
         onRefresh={this.onRefresh}
         fieldName={fieldName}
         removeModal={METADATAFIELD_REMOVE_MODAL}
+        menuList={[
+          {
+            label: 'Add Access Control',
+            modalName: METADATAFIELD_ACCESS_MODAL,
+          },
+          {
+            label: 'Delete Metadata Field',
+            modalName: METADATAFIELD_REMOVE_MODAL,
+            color: 'secondary',
+          },
+        ]}
         {...props}
       />
     );
@@ -152,6 +173,11 @@ class MetadataField extends PureComponent {
           entityType="metadata-field"
         />
         <MetadataFieldRemove dialogName={METADATAFIELD_REMOVE_MODAL} fieldName={fieldName} />
+        <MetadataFieldAccessControlDialog
+          fieldName={fieldName}
+          dialogName={METADATAFIELD_ACCESS_MODAL}
+          onSuccess={this.onRefresh}
+        />
       </>
     );
   }

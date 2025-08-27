@@ -28,11 +28,21 @@ export const onGetValues = withSubmissionError((form, dispatch, props) => {
     queryParams,
   });
 });
+
 export const onGetMergedAccess = withSubmissionError((form, dispatch, props) => {
   const { queryParams } = form;
   const fieldName = props.fieldName || form.fieldName;
   return MetadataFieldApi.getMetadataFieldMergedAccess({
     fieldName,
     queryParams,
+  });
+});
+
+export const onCreateMetadataFieldAccess = withSubmissionError((form, dispatch, props) => {
+  const { metadataFieldAccessControlDocument } = form;
+  const fieldName = props.fieldName || form.fieldName;
+  return MetadataFieldApi.createMetadataFieldAccess({
+    fieldName,
+    metadataFieldAccessControlDocument,
   });
 });

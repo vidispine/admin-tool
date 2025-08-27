@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import { Route, Switch, generatePath } from 'react-router-dom';
 import { compose } from 'redux';
 
+import FieldGroupAccessControlDialog from '../components/fieldgroup/FieldGroupAccessControlDialog';
 import FieldGroupRemove from '../components/fieldgroup/FieldGroupRemove';
 import FieldGroupTitle from '../components/fieldgroup/FieldGroupTitle';
 import DrawerContainer from '../components/ui/DrawerContainer';
@@ -11,14 +12,17 @@ import ListItemLink from '../components/ui/ListItemLink';
 import withSnackbar from '../hoc/withSnackbar';
 
 import ExternalId from './ExternalId';
+import FieldGroupAccess from './fieldgroup/FieldGroupAccess';
 import FieldGroupMergedAccess from './fieldgroup/FieldGroupMergedAccess';
 import FieldGroupMetadata from './fieldgroup/FieldGroupMetadata';
 import FieldGroupOverview from './fieldgroup/FieldGroupOverview';
 
 const FIELDGROUP_REMOVE_MODAL = 'FIELDGROUP_REMOVE_MODAL';
+const FIELDGROUP_ACCESS_MODAL = 'FIELDGROUP_ACCESS_MODAL';
 const FIELDGROUP_OVERVIEW_TAB = 'METADATAFIELD_OVERVIEW_TAB';
 const FIELDGROUP_METADATA_TAB = 'METADATAFIELD_METADATA_TAB';
 const FIELDGROUP_MERGEDACCESS_TAB = 'METADATAFIELD_MERGEDACCESS_TAB';
+const FIELDGROUP_ACCESS_TAB = 'FIELDGROUP_ACCESS_TAB';
 const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
@@ -35,6 +39,13 @@ const TAB_TITLE = [
     component: FieldGroupMetadata,
     path: '/field-group/:groupName/metadata/',
   },
+  {
+    tab: FIELDGROUP_ACCESS_TAB,
+    listText: 'Access',
+    component: FieldGroupAccess,
+    path: '/field-group/:groupName/access/',
+  },
+
   {
     tab: FIELDGROUP_MERGEDACCESS_TAB,
     listText: 'Merged Access',
@@ -121,6 +132,17 @@ class FieldGroup extends PureComponent {
         onRefresh={this.onRefresh}
         groupName={groupName}
         removeModal={FIELDGROUP_REMOVE_MODAL}
+        menuList={[
+          {
+            label: 'Add Access Control',
+            modalName: FIELDGROUP_ACCESS_MODAL,
+          },
+          {
+            label: 'Delete Metadata Field Group',
+            modalName: FIELDGROUP_REMOVE_MODAL,
+            color: 'secondary',
+          },
+        ]}
         {...props}
       />
     );
@@ -137,6 +159,11 @@ class FieldGroup extends PureComponent {
           entityType="metadata-field/field-group"
         />
         <FieldGroupRemove dialogName={FIELDGROUP_REMOVE_MODAL} groupName={groupName} />
+        <FieldGroupAccessControlDialog
+          groupName={groupName}
+          dialogName={FIELDGROUP_ACCESS_MODAL}
+          onSuccess={this.onRefresh}
+        />
       </>
     );
   }

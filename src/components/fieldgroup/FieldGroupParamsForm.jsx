@@ -1,4 +1,6 @@
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm } from 'redux-form';
 
@@ -17,28 +19,22 @@ const queryParams = () => (
       label="data"
       helperText="Comma-separated list of any additional data to include. accepts wildcard characters."
     />
-    <FormControlLabel
-      control={
-        <Field
-          name="includeValues"
-          component={BoolCheckbox}
-          fullWidth
-          label="includeValues"
-          helperText="Return the value enumeration for each field"
-        />
-      }
-    />
-    <FormControlLabel
-      control={
-        <Field
-          name="traverse"
-          component={BoolCheckbox}
-          fullWidth
-          label="traverse"
-          helperText="Traverse any sub-groups in order to retrieve the entire hierarchy."
-        />
-      }
-    />
+    <FormControl fullWidth>
+      <FormControlLabel
+        control={<Field name="includeValues" component={BoolCheckbox} />}
+        label="Include Values"
+      />
+      <FormHelperText>Return the value enumeration for each field</FormHelperText>
+    </FormControl>
+    <FormControl fullWidth>
+      <FormControlLabel
+        control={<Field name="traverse" component={BoolCheckbox} />}
+        label="Traverse"
+      />
+      <FormHelperText>
+        Traverse any sub-groups in order to retrieve the entire hierarchy.
+      </FormHelperText>
+    </FormControl>
   </>
 );
 

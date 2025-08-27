@@ -7,7 +7,6 @@ export default function MetadataFieldPermissionRow({ metadataFieldPermission }) 
       <TableCell>{metadataFieldPermission?.name}</TableCell>
       <TableCell>{metadataFieldPermission?.permission}</TableCell>
       <TableCell>{metadataFieldPermission?.username}</TableCell>
-      <TableCell />
     </TableRow>
   );
 }
