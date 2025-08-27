@@ -9,6 +9,8 @@ export default function getSimpleMetadataVariant(key) {
   switch (key) {
     case 'item':
       return 'itemId';
+    case 'waitForJobId':
+      return 'job';
     case 'itemId':
       return 'itemId';
     case 'fileId':
