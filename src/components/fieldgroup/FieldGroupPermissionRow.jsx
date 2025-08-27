@@ -1,14 +1,14 @@
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-export default function MetadataFieldPermissionRow({ metadataFieldPermission }) {
+export default function FieldGroupPermissionRow({ metadataFieldGroupPermission }) {
   return (
     <TableRow hover>
-      <TableCell>{metadataFieldPermission?.name}</TableCell>
-      <TableCell>{metadataFieldPermission?.permission}</TableCell>
-      <TableCell>{metadataFieldPermission?.fieldGroup}</TableCell>
-      <TableCell>{metadataFieldPermission?.field}</TableCell>
-      <TableCell>{metadataFieldPermission?.username}</TableCell>
+      <TableCell>{metadataFieldGroupPermission?.name}</TableCell>
+      <TableCell>{metadataFieldGroupPermission?.permission}</TableCell>
+      <TableCell>{metadataFieldGroupPermission?.fieldGroup}</TableCell>
+      <TableCell>{metadataFieldGroupPermission?.field}</TableCell>
+      <TableCell>{metadataFieldGroupPermission?.username}</TableCell>
       <TableCell />
     </TableRow>
   );
