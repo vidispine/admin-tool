@@ -2,6 +2,32 @@ import { SubmissionError } from 'redux-form';
 
 import { fieldgroup as api } from '@vidispine/vdt-api';
 
+import withSubmissionError from './withSubmissionError';
+
+export const onGetFieldGroup = withSubmissionError((form, dispatch, props) => {
+  const { queryParams } = form;
+  const groupName = props.groupName || form.groupName;
+  return api.getFieldGroup({ groupName, queryParams });
+});
+
+export const onGetMergedAccess = withSubmissionError((form, dispatch, props) => {
+  const { queryParams } = form;
+  const groupName = props.groupName || form.groupName;
+  return api.getFieldGroupMergedAccess({
+    groupName,
+    queryParams,
+  });
+});
+
+export const onCreateMetadataFieldAccess = withSubmissionError((form, dispatch, props) => {
+  const { metadataFieldAccessControlDocument } = form;
+  const groupName = props.groupName || form.groupName;
+  return api.createFieldGroupAccess({
+    groupName,
+    metadataFieldAccessControlDocument,
+  });
+});
+
 export function onUpdate(form, dispatch, props) {
   const { metadataFieldGroupDocument } = form;
   const groupName = props.groupName || metadataFieldGroupDocument.name;

@@ -9,6 +9,8 @@ export default function getSimpleMetadataVariant(key) {
   switch (key) {
     case 'item':
       return 'itemId';
+    case 'waitForJobId':
+      return 'job';
     case 'itemId':
       return 'itemId';
     case 'fileId':
@@ -70,6 +72,8 @@ export default function getSimpleMetadataVariant(key) {
     case 'imf_locale':
       return 'xml';
     case 'imf_opl':
+      return 'xml';
+    case '__values':
       return 'xml';
     default:
       return undefined;

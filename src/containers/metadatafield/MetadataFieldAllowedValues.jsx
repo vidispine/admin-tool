@@ -17,7 +17,8 @@ class MetadataFieldAllowedValues extends PureComponent {
   }
 
   componentDidMount() {
-    const { fieldName } = this.props;
+    const { fieldName, setOnRefresh } = this.props;
+    if (setOnRefresh) setOnRefresh(this.onRefresh);
     document.title = `VidiCore Admin | Metadata Field | ${fieldName}`;
     this.onRefresh();
   }
@@ -55,17 +56,14 @@ class MetadataFieldAllowedValues extends PureComponent {
           <TitleComponent
             code={constraintValueListDocument}
             codeModal="ConstraintValueListDocument"
+            breadcrumbList={['Allowed Values']}
             onRefresh={this.onRefresh}
           />
         )}
         {TabComponent && <TabComponent />}
         <MetadataFieldAllowedValuesParams
           fieldName={fieldName}
-          onSuccess={(response) =>
-            this.setState({
-              constraintValueListDocument: response.constraintValueListDocument,
-            })
-          }
+          onSuccess={(response) => this.setState({ constraintValueListDocument: response.data })}
         />
         {constraintValueListDocument && (
           <MetadataFieldAllowedValuesCard

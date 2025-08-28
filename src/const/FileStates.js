@@ -1,19 +1,35 @@
+const NONE = 'NONE';
+const OPEN = 'OPEN';
+const CLOSED = 'CLOSED';
+const UNKNOWN = 'UNKNOWN';
+const MISSING = 'MISSING';
+const LOST = 'LOST';
+const TO_APPEAR = 'TO_APPEAR';
+const TO_BE_DELETED = 'TO_BE_DELETED';
+const BEING_READ = 'BEING_READ';
+const ARCHIVED = 'ARCHIVED';
+const AWAITING_SYNC = 'AWAITING_SYNC';
+
 const FileStates = [
-  'CLOSED',
-  'OPEN',
-  'NONE',
-  'LOST',
-  'TO_APPEAR',
-  'TO_BE_DELETED',
-  'BEING_READ',
-  'ARCHIVED',
-  'AWAITING_SYNC',
+  CLOSED,
+  OPEN,
+  LOST,
+  UNKNOWN,
+  MISSING,
+  NONE,
+  TO_APPEAR,
+  TO_BE_DELETED,
+  BEING_READ,
+  ARCHIVED,
+  AWAITING_SYNC,
 ];
 
-export const ONLINE_STATES = ['CLOSED', 'ARCHIVED'];
+export const ONLINE_STATES = [CLOSED, ARCHIVED];
 
-export const WARNING_STATES = ['NONE', 'OPEN', 'BEING_READ', 'AWAITING_SYNC'];
+export const WARNING_STATES = [NONE, OPEN, BEING_READ, AWAITING_SYNC, TO_APPEAR];
 
-export const DOWNLOAD_STATES = ['CLOSED', 'OPEN', 'BEING_READ'];
+export const ERROR_STATES = [MISSING, LOST, TO_BE_DELETED, UNKNOWN];
+
+export const DOWNLOAD_STATES = [CLOSED, OPEN, BEING_READ];
 
 export default FileStates;

@@ -22,6 +22,7 @@ import NavSelect from '../components/ui/NavSelect';
 import { useChangeTheme } from '../components/ui/Theme';
 import UnstyledLink from '../components/ui/UnstyledLink';
 import VidispineButton from '../components/ui/VidispineButton';
+import routes from '../const/routes';
 import getCookie from '../utils/getCookie';
 
 const styles = (theme) => ({
@@ -129,14 +130,14 @@ function TopAppBar({ toggleMainMenu, toggleHistory, classes, onLogout, userName,
         </Tooltip>
         <Menu icon={<AccountCircle />} iconProps={{ color: 'inherit' }}>
           <MenuItem disabled>
-            <Typography>{`User: ${userName}`}</Typography>
+            <Typography>{`User: ${decodeURI(userName)}`}</Typography>
           </MenuItem>
-          <UnstyledLink to={`/user/${userName}`}>
+          <UnstyledLink to={routes.user({ userName })}>
             <MenuItem>
               <Typography color="inherit">Profile</Typography>
             </MenuItem>
           </UnstyledLink>
-          <UnstyledLink to={`/import/access/${userName}`}>
+          <UnstyledLink to={routes.importAccessUser({ userName })}>
             <MenuItem>
               <Typography color="inherit">Import Access</Typography>
             </MenuItem>
