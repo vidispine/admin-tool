@@ -12,6 +12,7 @@ import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
 import { KeyValuePairType } from '../ui/FormType';
 import { StatefulAsyncSelect } from '../ui/Select';
+import { SimpleMetadataTypeForm } from '../ui/SimpleMetadataField';
 
 const queryParams = () => (
   <>
@@ -25,14 +26,14 @@ const queryParams = () => (
       fullWidth
       creatable
     />
-    <FieldTypeArray
+    {/* <FieldTypeArray
       name="jobmetadata"
       component={KeyValuePairType}
-      label="Job Metadata"
+      label="Job Metadata (Query Param)"
       withHeader={false}
       arrayHeader
       dense
-    />
+    /> */}
     <FormControl fullWidth>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Field name="priority" component={Select}>
@@ -60,6 +61,12 @@ function JobCreateForm({ error, handleSubmit }) {
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
       <FormSection name="queryParams" component={queryParams} />
+      <FormSection
+        name="simpleMetadataDocument"
+        component={SimpleMetadataTypeForm}
+        label="Job Metadata"
+      />
+
       <button type="submit" hidden />
     </form>
   );

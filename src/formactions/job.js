@@ -1,5 +1,7 @@
 import { job as JobApi } from '@vidispine/vdt-api';
 
+import { SimpleMetadataType } from '../components/ui/FormType';
+
 import withSubmissionError from './withSubmissionError';
 
 export const onJobList = withSubmissionError((form) => {
@@ -54,8 +56,9 @@ export const onAbortJob = withSubmissionError((form, dispatch, props) => {
 });
 
 export const onCreateJob = withSubmissionError((form) => {
-  const { queryParams } = form;
+  const { queryParams, simpleMetadataDocument } = form;
   return JobApi.createJob({
     queryParams,
+    simpleMetadataDocument,
   });
 });
