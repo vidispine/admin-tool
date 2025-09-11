@@ -1,19 +1,18 @@
 import { PureComponent } from 'react';
 
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import { Route, Switch, generatePath } from 'react-router-dom';
 import { compose } from 'redux';
 
 import AccessControlDialog from '../components/access/AccessControlDialog';
 import CollectionEntityAdd from '../components/collection/CollectionEntityAdd';
+import CollectionEntityRemove from '../components/collection/CollectionEntityRemove';
 import CollectionExport from '../components/collection/CollectionExport';
 import CollectionFolderMap from '../components/collection/CollectionFolderMap';
 import CollectionRemove from '../components/collection/CollectionRemove';
 import CollectionRename from '../components/collection/CollectionRename';
 import DrawerContainer from '../components/ui/DrawerContainer';
 import ListItemLink from '../components/ui/ListItemLink';
-import Menu, { MenuItem } from '../components/ui/Menu';
 import TitleHeader from '../components/ui/TitleHeader';
 import withTabs from '../hoc/withTabs';
 import withUI from '../hoc/withUI';
@@ -48,6 +47,7 @@ const COLLECTION_EXPORT_DIALOG = 'COLLECTION_EXPORT_DIALOG';
 const COLLECTION_RENAME_DIALOG = 'COLLECTION_RENAME_DIALOG';
 const COLLECTION_ENTITY_ADD_DIALOG = 'COLLECTION_ENTITY_ADD_DIALOG';
 const COLLECTION_FOLDERMAP_DIALOG = 'COLLECTION_FOLDERMAP_DIALOG';
+const REMOVE_COLLECTION_ENTITY_GENERIC_DIALOG = 'REMOVE_COLLECTION_ENTITY_GENERIC_DIALOG';
 const ACCESSGRAPH_TAB = 'ACCESSGRAPH_TAB';
 const METADATAGRAPH_TAB = 'METADATAGRAPH_TAB';
 const SEQUENCE_TAB = 'SEQUENCE_TAB';
@@ -210,7 +210,7 @@ class Collection extends PureComponent {
   }
 
   render() {
-    const { onChangeTab, tabValue, collectionId, history, onOpen } = this.props;
+    const { onChangeTab, tabValue, collectionId, history } = this.props;
     const { collectionName } = this.state;
     const titleComponent = (props) => (
       <TitleHeader
@@ -222,25 +222,41 @@ class Collection extends PureComponent {
         entityId={collectionId}
         entityType="collection"
         addAccessControl={COLLECTION_ACCESSCONTROL_ADD_DIALOG}
-        exportModal={COLLECTION_EXPORT_DIALOG}
         titleChip={collectionName}
-        actionComponent={
-          <Menu>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_ENTITY_ADD_DIALOG })}>
-              <Typography>Add Entity</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_RENAME_DIALOG })}>
-              <Typography>Rename</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_FOLDERMAP_DIALOG })}>
-              <Typography>Map To Folder</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => onOpen({ modalName: COLLECTION_REMOVE_DIALOG })}>
-              <Typography color="secondary">Delete Collection</Typography>
-            </MenuItem>
-          </Menu>
-        }
         {...props}
+        menuList={[
+          {
+            label: 'Add Entity',
+            modalName: COLLECTION_ENTITY_ADD_DIALOG,
+          },
+          {
+            label: 'Rename',
+            modalName: COLLECTION_RENAME_DIALOG,
+          },
+          {
+            label: 'Map To Folder',
+            modalName: COLLECTION_FOLDERMAP_DIALOG,
+          },
+          {
+            label: 'Add Access Control',
+            modalName: COLLECTION_ACCESSCONTROL_ADD_DIALOG,
+          },
+          {
+            label: 'Export',
+            modalName: COLLECTION_EXPORT_DIALOG,
+          },
+          ...(props?.menuList || []),
+          {
+            label: 'Remove Entity',
+            modalName: REMOVE_COLLECTION_ENTITY_GENERIC_DIALOG,
+            color: 'secondary',
+          },
+          {
+            label: 'Delete Collection',
+            modalName: COLLECTION_REMOVE_DIALOG,
+            color: 'secondary',
+          },
+        ]}
       />
     );
     return (
@@ -288,6 +304,11 @@ class Collection extends PureComponent {
         <CollectionExport
           dialogName={COLLECTION_EXPORT_DIALOG}
           onSuccess={(response) => history.push(`/job/${response.data.jobId}/`)}
+          collectionId={collectionId}
+        />
+        <CollectionEntityRemove
+          dialogName={REMOVE_COLLECTION_ENTITY_GENERIC_DIALOG}
+          onSuccess={this.onRefresh}
           collectionId={collectionId}
         />
       </>

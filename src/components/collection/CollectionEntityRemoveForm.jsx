@@ -17,15 +17,32 @@ const queryParams = () => (
       <MenuItem value="collection">Collection</MenuItem>
       <MenuItem value="library">Library</MenuItem>
     </Field>
+    <Field name="reference" label="Reference" component={TextField} fullWidth />
   </FormControl>
 );
 
-function CollectionEntityRemoveForm({ error, handleSubmit }) {
+function CollectionEntityRemoveForm({ error, collectionId, entityId, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <Typography color="error">{error}</Typography>}
-      <Field name="collectionId" label="Collection ID" component={TextField} fullWidth />
-      <Field name="entityId" label="Entity ID" component={TextField} fullWidth />
+      {!collectionId && (
+        <Field
+          name="collectionId"
+          label="Collection ID"
+          component={TextField}
+          validate={[required]}
+          fullWidth
+        />
+      )}
+      {!entityId && (
+        <Field
+          name="entityId"
+          label="Entity ID"
+          component={TextField}
+          validate={[required]}
+          fullWidth
+        />
+      )}
       <FormSection name="queryParams" component={queryParams} />
     </form>
   );
