@@ -20,6 +20,7 @@ const DS3_SCHEME = 'ds3';
 const AZURE_SCHEME = 'azure';
 const GS_SCHEME = 'gs';
 const VSA_SCHEME = 'vxa';
+const UNC_SCHEME = 'unc';
 const UNIVERSAL_SCHEME = 'universal';
 
 function S3Form({ values = {}, onChange, onQueryParamsChange }) {
@@ -79,9 +80,16 @@ function S3Form({ values = {}, onChange, onQueryParamsChange }) {
         label="Storage Class"
       >
         <MenuItem value="standard">Standard</MenuItem>
+        <MenuItem value="standard_ia">Standard-IA</MenuItem>
         <MenuItem value="infrequent">Infrequent</MenuItem>
         <MenuItem value="reduced">Reduced</MenuItem>
         <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
+        <MenuItem value="onezone_ia">One Zone-IA</MenuItem>
+        <MenuItem value="intelligent_tiering">Intelligent-Tiering</MenuItem>
+        <MenuItem value="deep_archive">Glacier Deep Archive</MenuItem>
+        <MenuItem value="glacier">Glacier Flexible Retrieval</MenuItem>
+        <MenuItem value="glacier_ir">Glacier Instant Retrieval</MenuItem>
+        <MenuItem value="outposts">Outposts</MenuItem>
       </TextField>
 
       <TextField
@@ -233,7 +241,7 @@ function GsForm({ values = {}, onChange, onQueryParamsChange }) {
   );
 }
 
-function FtpForm({ values = {}, onChange }) {
+function FtpForm({ values = {}, onChange, onQueryParamsChange }) {
   return (
     <>
       <TextField label="Host" value={values.host || ''} onChange={onChange('host')} fullWidth />
@@ -248,6 +256,18 @@ function FtpForm({ values = {}, onChange }) {
         label="Password"
         value={values.password || ''}
         onChange={onChange('password')}
+        fullWidth
+      />
+      <TextField
+        label="passive"
+        value={values.queryParams.passive || ''}
+        onChange={onQueryParamsChange('passive')}
+        fullWidth
+      />
+      <TextField
+        label="serverType"
+        value={values.queryParams.serverType || ''}
+        onChange={onQueryParamsChange('serverType')}
         fullWidth
       />
     </>
@@ -361,6 +381,26 @@ function FileForm({ values = {}, onChange }) {
   return <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />;
 }
 
+function UncForm({ values = {}, onChange }) {
+  return (
+    <>
+      <TextField label="Path" value={values.path || ''} onChange={onChange('path')} fullWidth />
+      <TextField
+        label="Username"
+        value={values.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <TextField
+        label="Password"
+        value={values.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
+
 export default class UrlForm extends PureComponent {
   static renderUrl(props) {
     const { path, protocol } = props;
@@ -451,6 +491,9 @@ export default class UrlForm extends PureComponent {
       case VSA_SCHEME:
         SchemeForm = VsaForm;
         break;
+      case UNC_SCHEME:
+        SchemeForm = UncForm;
+        break;
       default:
         SchemeForm = () => null;
         break;
@@ -479,6 +522,7 @@ export default class UrlForm extends PureComponent {
           <MenuItem value={GS_SCHEME}>Google Storage</MenuItem>
           <MenuItem value={VSA_SCHEME}>Vidispine Agent</MenuItem>
           <MenuItem value={UNIVERSAL_SCHEME}>Universal</MenuItem>
+          <MenuItem value={UNC_SCHEME}>UNC</MenuItem>
         </TextField>
         <SchemeForm
           values={this.state}
