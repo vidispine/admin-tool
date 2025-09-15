@@ -53,18 +53,18 @@ const queryParams = () => (
     <Field name="storageType" component={TextField} fullWidth />
     <Field name="scheme" component={TextField} fullWidth />
     <FieldTypeArray name="methodMetadata" label="Method Metadata" component={KeyValuePairType} />
-    <Field name="first" component={TextField} type="number" fullWidth disabled />
-    <Field name="number" component={TextField} type="number" fullWidth disabled />
-    <Field name="prefixFirst" component={TextField} type="number" fullWidth disabled />
-    <Field name="prefixNumber" component={TextField} type="number" fullWidth disabled />
-    <Field name="sort" component={ChipInput} simple fullWidth disabled />
+    <Field name="first" component={TextField} type="number" fullWidth />
+    <Field name="number" component={TextField} type="number" fullWidth />
+    <Field name="cursor" component={TextField} fullWidth />
+    <Field name="prefixFirst" component={TextField} type="number" fullWidth />
+    <Field name="prefixNumber" component={TextField} type="number" fullWidth />
+    <Field name="sort" component={ChipInput} simple fullWidth />
     <Field
       name="storage"
       component={StatefulAsyncSelect}
       loadOptions={loadStorageOptions}
       cacheOptions
       isClearable
-      required
       fullWidth
       creatable
     />
@@ -74,7 +74,6 @@ const queryParams = () => (
       loadOptions={loadStorageGroupOptions}
       cacheOptions
       isClearable
-      required
       fullWidth
       creatable
     />
