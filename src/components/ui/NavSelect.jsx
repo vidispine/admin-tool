@@ -37,13 +37,13 @@ const goToOptions = [
     siteId: true,
   },
   {
-    value: (entityId) => `/user/${entityId}`,
+    value: (entityId) => routes.user({ userName: entityId }),
     label: 'User',
     synonyms: ['user'],
     siteId: false,
   },
   {
-    value: (entityId) => `/group/${entityId}`,
+    value: (entityId) => routes.group({ groupName: entityId }),
     label: 'Group',
     synonyms: ['group'],
     siteId: false,

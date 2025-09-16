@@ -1,6 +1,5 @@
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
@@ -12,19 +11,7 @@ import BoolCheckbox from '../ui/BoolCheckbox';
 import Field from '../ui/Field';
 import FieldTypeArray from '../ui/FieldTypeArray';
 import FormSection from '../ui/FormSection';
-
-function KeyValueType() {
-  return (
-    <Grid container spacing={8}>
-      <Grid item sm={6}>
-        <Field name="key" label="key" component={TextField} fullWidth />
-      </Grid>
-      <Grid item sm={6}>
-        <Field name="value" label="value" component={TextField} fullWidth />
-      </Grid>
-    </Grid>
-  );
-}
+import { KeyValuePairType } from '../ui/FormType';
 
 const queryParams = () => (
   <>
@@ -36,6 +23,15 @@ const queryParams = () => (
         <MenuItem value="library">Library</MenuItem>
       </Field>
     </FormControl>
+    <Field name="reference" label="Reference" component={TextField} fullWidth />
+    <FormControl fullWidth>
+      <InputLabel htmlFor="mode">Mode</InputLabel>
+      <Field name="mode" component={Select}>
+        <MenuItem value="REPLACE">Replace</MenuItem>
+        <MenuItem value="ADD">Add</MenuItem>
+      </Field>
+    </FormControl>
+    <Field name="before" label="Before" component={TextField} fullWidth />
     <FormControlLabel
       control={<Field name="addItems" component={BoolCheckbox} />}
       label="Add Items"
@@ -46,7 +42,7 @@ const queryParams = () => (
       arrayHeader
       withHeader={false}
       dense
-      component={KeyValueType}
+      component={KeyValuePairType}
     />
   </>
 );

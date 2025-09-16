@@ -54,11 +54,11 @@ export function MetadataSchemaElementType({ value = {} }) {
 function MetadataFieldConstraintType({ value = {} }) {
   return (
     <>
-      <TextGrid title="dataset" value={value.dataset} />
+      <TextGrid title="dataset" value={value.dataset} variant="dataset" />
       <TextGrid title="levelProperty" value={value.levelProperty} />
       <TextGrid title="levelValue" value={value.levelValue} />
       <TextGrid title="value" value={value.value} />
-      <TextGrid title="parent" value={value.parent} />
+      <TextGrid title="parent" value={value.parent} variant="metadata-field" />
       <TextGrid title="validationGroup" value={value.validationGroup} />
     </>
   );

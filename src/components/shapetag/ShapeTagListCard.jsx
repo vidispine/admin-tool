@@ -1,15 +1,29 @@
+import { useState } from 'react';
+
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import SquareCard from '../ui/SquareCard';
+import FilterTextField from '../ui/FilterTextField';
 import UriListTable from '../ui/UriListTable';
 
 export default function ShapeTagListCard({ uriListDocument }) {
   const linkTo = (uri) => `/shape-tag/${uri}/`;
+  const options = uriListDocument?.uri || [];
+  const [filter, setFilter] = useState(options);
+  const filterUriListDocument = { ...uriListDocument, uri: filter };
   return (
-    <SquareCard>
+    <Card>
       <CardContent>
-        <UriListTable uriListDocument={uriListDocument} linkTo={linkTo} />
+        <FilterTextField
+          variant="outlined"
+          fullWidth
+          options={options}
+          onChange={setFilter}
+          minScore={0.5}
+        />
+
+        <UriListTable uriListDocument={filterUriListDocument} linkTo={linkTo} />
       </CardContent>
-    </SquareCard>
+    </Card>
   );
 }

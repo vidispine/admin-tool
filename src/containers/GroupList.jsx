@@ -6,6 +6,7 @@ import GroupListCard from '../components/group/GroupListCard';
 import GroupListParams, { GROUP_LIST_PARAMS_FORM } from '../components/group/GroupListParams';
 import GroupListTitle from '../components/group/GroupListTitle';
 import GroupWizard from '../components/group/GroupWizard';
+import routes from '../const/routes';
 import withFormActions from '../hoc/withFormActions';
 import withUI from '../hoc/withUI';
 
@@ -92,7 +93,7 @@ class GroupList extends PureComponent {
         )}
         <GroupWizard
           dialogName={GROUP_CREATE_MODAL}
-          onSuccess={({ data }) => history.push(`/group/${data.groupName}`)}
+          onSuccess={({ data }) => history.push(routes.group({ groupName: data.groupName }))}
         />
       </>
     );

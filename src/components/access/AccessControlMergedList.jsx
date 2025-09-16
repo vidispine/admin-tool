@@ -1,22 +1,56 @@
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import SquareCard from '../ui/SquareCard';
+import FieldGroupPermissionTable from '../fieldgroup/FieldGroupPermissionTable';
+import MetadataFieldPermissionTable from '../metadatafield/MetadataFieldPermissionTable';
+import CardList from '../ui/CardList';
 
 import { AccessControlMergedType } from './AccessControlMergedDisplay';
+import AccessControlMergedQueryTable from './AccessControlMergedQueryTable';
 
 export default function AccessControlMergedList({ accessControlMergedDocument = {} }) {
-  const { access: accessList = [] } = accessControlMergedDocument;
+  const {
+    access: accessList,
+    field: metadataFieldPermissionList,
+    fieldGroup: metadataFieldGroupPermissionList,
+    query: queryList,
+  } = accessControlMergedDocument;
   return (
-    <>
-      {accessList.map((access, index) => (
-        <SquareCard
-          key={index} // eslint-disable-line react/no-array-index-key
-        >
+    <CardList>
+      {Array.isArray(accessList)
+        ? accessList.map((access) => (
+            <Card key={JSON.stringify(access)}>
+              <CardContent>
+                <AccessControlMergedType access={access} />
+              </CardContent>
+            </Card>
+          ))
+        : null}
+      {Array.isArray(metadataFieldPermissionList) ? (
+        <Card>
           <CardContent>
-            <AccessControlMergedType access={access} />
+            <MetadataFieldPermissionTable
+              metadataFieldPermissionList={metadataFieldPermissionList}
+            />
           </CardContent>
-        </SquareCard>
-      ))}
-    </>
+        </Card>
+      ) : null}
+      {Array.isArray(metadataFieldGroupPermissionList) ? (
+        <Card>
+          <CardContent>
+            <FieldGroupPermissionTable
+              metadataFieldGroupPermissionList={metadataFieldGroupPermissionList}
+            />
+          </CardContent>
+        </Card>
+      ) : null}
+      {Array.isArray(queryList) ? (
+        <Card>
+          <CardContent>
+            <AccessControlMergedQueryTable queryList={queryList} />
+          </CardContent>
+        </Card>
+      ) : null}
+    </CardList>
   );
 }

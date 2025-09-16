@@ -11,3 +11,4 @@ export const GS_SCHEME = 'gs';
 export const VSA_SCHEME = 'vxa';
 export const UNIVERSAL_SCHEME = 'universal';
 export const VIDINET_SCHEME = 'vidinet';
+export const UNC_SCHEME = 'unc';

@@ -33,8 +33,12 @@ class Projection extends PureComponent {
     const { projectionId } = this.props;
     try {
       Promise.all([
-        api.getProjectionIncoming({ projectionId }).then((response) => formatXML(response.text())),
-        api.getProjectionOutgoing({ projectionId }).then((response) => formatXML(response.text())),
+        api
+          .getProjectionIncoming({ projectionId })
+          .then((response) => formatXML(response.data || '')),
+        api
+          .getProjectionOutgoing({ projectionId })
+          .then((response) => formatXML(response.data || '')),
       ])
         .then(([incomingProjectionDocument, outgoingProjectionDocument]) => {
           this.setState({

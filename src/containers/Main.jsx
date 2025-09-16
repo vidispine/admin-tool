@@ -205,7 +205,7 @@ function Main({ onOpen, unsetToken, unsetRunAs, unsetResponseInterceptor, userNa
           <Route exact path="/wizard/" component={Wizard} />
           <Route exact path="/metadata-field/" component={MetadataFieldList} />
           <Route exact path="/field-group/" component={FieldGroupList} />
-          <Route exact path="/field-group/:groupName" component={FieldGroup} />
+          <Route path="/field-group/:groupName" component={FieldGroup} />
           <Route exact path="/import/settings/" component={ImportSettingsList} />
           <Route exact path="/import/settings/:settingsId" component={ImportSettings} />
           <Route path="/import/" component={Import} />

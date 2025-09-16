@@ -42,7 +42,9 @@ function CollectionEntityRemove({
   };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={false}>
-      <DialogTitle>Remove Entity From Collection</DialogTitle>
+      <DialogTitle>
+        {`Remove Entity${entityId ? ` ${entityId}` : ''} From Collection${collectionId ? ` ${collectionId}` : ''}`}
+      </DialogTitle>
       <DialogContent>
         <CollectionEntityRemoveForm
           onSubmit={formActions.onRemoveEntity}

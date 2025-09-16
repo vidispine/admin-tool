@@ -173,9 +173,16 @@ function S3Form({
       >
         <MenuItem value="" />
         <MenuItem value="standard">Standard</MenuItem>
+        <MenuItem value="standard_ia">Standard-IA</MenuItem>
         <MenuItem value="infrequent">Infrequent</MenuItem>
         <MenuItem value="reduced">Reduced</MenuItem>
         <MenuItem value="onezone-infrequent">Onezone Infrequent</MenuItem>
+        <MenuItem value="onezone_ia">One Zone-IA</MenuItem>
+        <MenuItem value="intelligent_tiering">Intelligent-Tiering</MenuItem>
+        <MenuItem value="deep_archive">Glacier Deep Archive</MenuItem>
+        <MenuItem value="glacier">Glacier Flexible Retrieval</MenuItem>
+        <MenuItem value="glacier_ir">Glacier Instant Retrieval</MenuItem>
+        <MenuItem value="outposts">Outposts</MenuItem>
       </TextField>
       <TextField
         label="SSE Algorithm"
@@ -368,6 +375,18 @@ function FtpForm({ value = {}, onChange }) {
         onChange={onChange('password')}
         fullWidth
       />
+      <URIComponentTextField
+        label="passive"
+        value={value.queryParams.passive || ''}
+        onChange={onChange('queryParams.passive')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="serverType"
+        value={value.queryParams.serverType || ''}
+        onChange={onChange('queryParams.serverType')}
+        fullWidth
+      />
     </>
   );
 }
@@ -494,6 +513,32 @@ function FileForm({ value = {}, onChange }) {
   );
 }
 
+function UncForm({ value = {}, onChange }) {
+  return (
+    <>
+      <TextField
+        label="Path"
+        value={value.path || '/'}
+        onChange={onChange('path')}
+        onBlur={onPathBlur('path', onChange('path'))}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Username"
+        value={value.username || ''}
+        onChange={onChange('username')}
+        fullWidth
+      />
+      <URIComponentTextField
+        label="Password"
+        value={value.password || ''}
+        onChange={onChange('password')}
+        fullWidth
+      />
+    </>
+  );
+}
+
 function VsaForm({ value = {}, onChange }) {
   return (
     <>
@@ -541,6 +586,7 @@ export default function UrlField(props) {
           [scheme.AZURE_SCHEME]: AzureForm,
           [scheme.GS_SCHEME]: GsForm,
           [scheme.VSA_SCHEME]: VsaForm,
+          [scheme.UNC_SCHEME]: UncForm,
           [scheme.VIDINET_SCHEME]: VidinetForm,
         }}
         value={{ ...decodedUrl, path: path || '/' }}
@@ -559,6 +605,7 @@ export default function UrlField(props) {
         <MenuItem value={scheme.GS_SCHEME}>Google Storage</MenuItem>
         <MenuItem value={scheme.VSA_SCHEME}>Vidispine Agent</MenuItem>
         <MenuItem value={scheme.UNIVERSAL_SCHEME}>Universal</MenuItem>
+        <MenuItem value={scheme.UNC_SCHEME}>UNC</MenuItem>
         <MenuItem value={scheme.VIDINET_SCHEME}>Vidinet</MenuItem>
       </DynamicSelect>
     </>

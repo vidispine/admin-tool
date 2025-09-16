@@ -63,13 +63,7 @@ export function ItemSearchValueType() {
 export function ItemSearchRangeType() {
   return (
     <>
-      <FormSection
-        name="value[0]"
-        component={ItemSearchValueType}
-        label="Start"
-        button
-        initialDisplay={false}
-      />
+      <FormSection name="value[0]" component={ItemSearchValueType} label="Start" />
       <FormSection name="value[1]" component={ItemSearchValueType} label="End" />
       <FormControlLabel
         control={<Field name="exclusiveMinimum" component={BoolCheckbox} />}

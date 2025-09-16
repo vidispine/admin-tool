@@ -28,6 +28,7 @@ import Menu, { MenuItem } from './Menu';
 function CopyCodeIcon({ code }) {
   const [isCopied, setIsCopied] = useState(false);
   const onClick = () => {
+    if (code === undefined) return;
     navigator.clipboard.writeText(typeof code === 'object' ? JSON.stringify(code, null, 2) : code);
     setIsCopied(true);
   };
@@ -230,10 +231,7 @@ function TitleHeader({
       </Tooltip>
     );
   }
-  let copyCodeComponent;
-  if (code) {
-    copyCodeComponent = <CopyCodeIcon code={code} />;
-  }
+  const copyCodeComponent = <CopyCodeIcon code={code} />;
   const autoRefreshSwitch = onChangeAutoRefresh && (
     <FormControlLabel
       control={<Switch checked={autoRefresh} onChange={onChangeAutoRefresh} />}

@@ -4,6 +4,7 @@ import { user as api } from '@vidispine/vdt-api';
 
 import UserKeyCard from '../../components/user/UserKeyCard';
 import UserKeyDialog from '../../components/user/UserKeyDialog';
+import routes from '../../const/routes';
 import withUI from '../../hoc/withUI';
 
 const USERKEY_CREATE_MODAL = 'USERKEY_CREATE_MODAL';
@@ -71,7 +72,7 @@ class UserKey extends PureComponent {
             grandParentTitle="User"
             grandParentTo="/user/"
             parentTitle={userName}
-            parentTo={`/user/${userName}`}
+            parentTo={routes.user({ userName })}
             onRefresh={this.onRefresh}
             code={accessKeyListDocument}
             codeModal="AccessKeyListDocument"
