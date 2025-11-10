@@ -1,9 +1,13 @@
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { reduxForm, Field, FormSection } from 'redux-form';
 
+import JobPriority from '../../const/JobPriority';
 import { required } from '../../utils/FieldValidation';
-import { TextField } from '../form';
+import { TextField, Select } from '../form';
 import { MetadataType } from '../metadata/MetadataForm';
 import { loadShapeTagOptions } from '../shapetag/ShapeTagSelect';
 import { loadStorageOptions } from '../storage/StorageSelect';
@@ -30,6 +34,16 @@ function AutoImportRuleTypeForm() {
         control={<Field name="enabled" component={BoolCheckbox} />}
         label="Enabled"
       />
+      <FormControl fullWidth>
+        <InputLabel htmlFor="priority">Priority</InputLabel>
+        <Field name="priority" component={Select}>
+          {JobPriority.map((priority) => (
+            <MenuItem key={priority} value={priority}>
+              {priority}
+            </MenuItem>
+          ))}
+        </Field>
+      </FormControl>
       <FormControlLabel
         control={<Field name="fileNameAsTitle" component={BoolCheckbox} />}
         label="File Name As Title"
