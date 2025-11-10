@@ -312,3 +312,14 @@ export const onSearchItemMetadataGroup = withSubmissionError((form) => {
     ...response,
   }));
 });
+
+export const onCreateItemSubclip = withSubmissionError((form, dispatch, props) => {
+  const { queryParams } = form;
+  const itemId = props.itemId || form.itemId;
+  const path = `/API/item/${itemId}/subclip`;
+  return ItemApi.createTranscode({
+    itemId,
+    queryParams,
+    path,
+  });
+});

@@ -14,6 +14,7 @@ import ItemImpImport from '../components/item/ItemImpImport';
 import ItemRelationDialog from '../components/item/ItemRelation';
 import ItemSequenceCreate from '../components/item/ItemSequenceCreate';
 import ItemShapeCreate from '../components/item/ItemShapeCreate';
+import ItemSubclipCreate from '../components/item/ItemSubclipCreate';
 import ItemThumbnailDialog from '../components/item/ItemThumbnail';
 import ItemTitle from '../components/item/ItemTitle';
 import ItemTranscode from '../components/item/ItemTranscode';
@@ -90,6 +91,7 @@ const ITEM_REMOVEALLSHAPES_DIALOG = 'ITEM_REMOVEALLSHAPES_DIALOG';
 const ITEM_IMPIMPORT_DIALOG = 'ITEM_IMPIMPORT_DIALOG';
 const ITEM_ANALYZE_DIALOG = 'ITEM_ANALYZE_DIALOG';
 const ITEM_SEQUENCE_CREATE_DIALOG = 'ITEM_SEQUENCE_CREATE_DIALOG';
+const ITEM_SUBCLIP_CREATE_DIALOG = 'ITEM_SUBCLIP_CREATE_DIALOG';
 const EXTERNALID_TAB = 'EXTERNALID_TAB';
 
 const TAB_TITLE = [
@@ -334,6 +336,7 @@ class Item extends PureComponent {
         createShapeModal={ITEM_SHAPE_CREATE_DIALOG}
         analyzeModal={ITEM_ANALYZE_DIALOG}
         createSequenceModal={ITEM_SEQUENCE_CREATE_DIALOG}
+        createSubclipModal={ITEM_SUBCLIP_CREATE_DIALOG}
         {...props}
       />
     );
@@ -417,6 +420,11 @@ class Item extends PureComponent {
               }),
             )
           }
+          itemId={itemId}
+        />
+        <ItemSubclipCreate
+          dialogName={ITEM_SUBCLIP_CREATE_DIALOG}
+          onSuccess={(response) => history.push(routes.job({ jobId: response.data.jobId }))}
           itemId={itemId}
         />
         <CollectionEntityAdd

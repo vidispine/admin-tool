@@ -42,4 +42,5 @@ export default {
   metadataField: (params) => generatePath('/metadata-field/:fieldName/', params),
   fieldGroupList: (params) => generatePath('/field-group/', params),
   fieldGroup: (params) => generatePath('/field-group/:groupName/', params),
+  job: (params) => generatePath('/job/:jobId', params),
 };
