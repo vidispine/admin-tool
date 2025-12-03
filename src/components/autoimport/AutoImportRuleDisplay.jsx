@@ -19,6 +19,7 @@ export function AutoImportRuleType({ rule }) {
     <>
       <TextGrid title="Storage ID" variant="storageId" value={rule.storage} hover />
       <TextGrid title="Enabled" variant="boolean" value={rule.enabled} hover />
+      <TextGrid title="Priority" value={rule.priority} hover />
       <TextGrid title="File Name As Title" variant="boolean" value={rule.fileNameAsTitle} hover />
       <TextGrid
         title="Ignore Sidecar Import"

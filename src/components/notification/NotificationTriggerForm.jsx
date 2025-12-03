@@ -11,6 +11,17 @@ import StatefulSelect from '../ui/StatefulSelect';
 
 import { getTriggerEntity, getJobAction } from './NotificationTrigger';
 
+function NotificationTriggerMetadataModifyType() {
+  return (
+    <>
+      <Field name="field" component={TextField} label="Field" fullWidth />
+      <Field name="language" component={TextField} label="Language" fullWidth />
+      <Field name="track" component={TextField} label="Track" fullWidth />
+      <Field name="interval" component={TextField} label="Interval" fullWidth />
+    </>
+  );
+}
+
 function NotificationTriggerItemType(props) {
   const { initialValues = {}, valueSelector, dirty } = props;
   const name = props?.id || 'notificationDocument.trigger.item';
@@ -62,13 +73,13 @@ function NotificationTriggerStorageType(props) {
   const name = props?.id || 'notificationDocument.trigger.storage';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const storage = valueSelector(name);
+    initialvalue = storage && Object.keys(storage)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { storage } = trigger;
+    initialvalue = storage && Object.keys(storage)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -96,10 +107,12 @@ function NotificationTriggerStorageType(props) {
       >
         <MenuItem value="create">Create</MenuItem>
         <MenuItem value="delete">Delete</MenuItem>
+        <MenuItem value="modify">Modify</MenuItem>
         <MenuItem value="filename">Filename</MenuItem>
       </StatefulSelect>
       <Field name="create" type="hidden" component="input" />
       <Field name="delete" type="hidden" component="input" />
+      <Field name="modify" type="hidden" component="input" />
       <Field name="filename" type="hidden" component="input" />
     </>
   );
@@ -110,13 +123,13 @@ function NotificationTriggerFileType(props) {
   const name = props?.id || 'notificationDocument.trigger.file';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const file = valueSelector(name);
+    initialvalue = file && Object.keys(file)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { file } = trigger;
+    initialvalue = file && Object.keys(file)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -147,12 +160,14 @@ function NotificationTriggerFileType(props) {
         <MenuItem value="hash">Hash</MenuItem>
         <MenuItem value="close">Close</MenuItem>
         <MenuItem value="delete">Delete</MenuItem>
+        <MenuItem value="lost">Lost</MenuItem>
       </StatefulSelect>
       <Field name="new" type="hidden" component="input" />
       <Field name="change" type="hidden" component="input" />
       <Field name="hash" type="hidden" component="input" />
       <Field name="close" type="hidden" component="input" />
       <Field name="delete" type="hidden" component="input" />
+      <Field name="lost" type="hidden" component="input" />
     </>
   );
 }
@@ -162,13 +177,13 @@ function NotificationTriggerGroupType(props) {
   const name = props?.id || 'notificationDocument.trigger.group';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const group = valueSelector(name);
+    initialvalue = group && Object.keys(group)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { group } = trigger;
+    initialvalue = group && Object.keys(group)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -210,13 +225,13 @@ function NotificationTriggerShapeType(props) {
   const name = props?.id || 'notificationDocument.trigger.shape';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const shape = valueSelector(name);
+    initialvalue = shape && Object.keys(shape)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { shape } = trigger;
+    initialvalue = shape && Object.keys(shape)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -258,13 +273,13 @@ function NotificationTriggerAccessType(props) {
   const name = props?.id || 'notificationDocument.trigger.access';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const access = valueSelector(name);
+    initialvalue = access && Object.keys(access)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { access } = trigger;
+    initialvalue = access && Object.keys(access)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -306,13 +321,13 @@ function NotificationTriggerQuotaType(props) {
   const name = props?.id || 'notificationDocument.trigger.quota';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const quota = valueSelector(name);
+    initialvalue = quota && Object.keys(quota)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { quota } = trigger;
+    initialvalue = quota && Object.keys(quota)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -354,17 +369,17 @@ function NotificationTriggerDocumentType(props) {
   const name = props?.id || 'notificationDocument.trigger.document';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const document = valueSelector(name);
+    initialvalue = document && Object.keys(document)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { document } = trigger;
+    initialvalue = document && Object.keys(document)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
-    const setValue = '';
+    const setValue = newValue === 'modify' ? {} : '';
     if (prevState) {
       const newState = update(prevState, {
         [newValue]: {
@@ -377,6 +392,23 @@ function NotificationTriggerDocumentType(props) {
       props?.change(name, { [newValue]: setValue });
     }
   };
+  // TODO Refactor as standalone component
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function ValueComponent(value) {
+    switch (value) {
+      case 'modify':
+        return (
+          <FormSection
+            name="modify"
+            component={NotificationTriggerMetadataModifyType}
+            id={`${name}.modify`}
+            {...props}
+          />
+        );
+      default:
+        return null;
+    }
+  }
   return (
     <>
       <StatefulSelect
@@ -385,12 +417,16 @@ function NotificationTriggerDocumentType(props) {
         fullWidth
         onChange={onChange}
         name={name}
+        // eslint-disable-next-line react/jsx-no-bind
+        ValueComponent={ValueComponent}
       >
         <MenuItem value="create">Create</MenuItem>
         <MenuItem value="delete">Delete</MenuItem>
+        <MenuItem value="modify">Modify</MenuItem>
       </StatefulSelect>
       <Field name="create" type="hidden" component="input" />
       <Field name="delete" type="hidden" component="input" />
+      <Field name="modify" type="hidden" component="input" />
     </>
   );
 }
@@ -400,13 +436,13 @@ function NotificationTriggerDeletionLockType(props) {
   const name = props?.id || 'notificationDocument.trigger.deletionLock';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const deletionLock = valueSelector(name);
+    initialvalue = deletionLock && Object.keys(deletionLock)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
-    const { item } = trigger;
-    initialvalue = item && Object.keys(item)[0];
+    const { deletionLock } = trigger;
+    initialvalue = deletionLock && Object.keys(deletionLock)[0];
   }
   const onChange = (event, newValue, previousValue) => {
     const prevState = valueSelector(name);
@@ -443,17 +479,6 @@ function NotificationTriggerDeletionLockType(props) {
       <Field name="modify" type="hidden" component="input" />
       <Field name="effective" type="hidden" component="input" />
       <Field name="expire" type="hidden" component="input" />
-    </>
-  );
-}
-
-function NotificationTriggerMetadataModifyType() {
-  return (
-    <>
-      <Field name="field" component={TextField} label="Field" fullWidth />
-      <Field name="language" component={TextField} label="Language" fullWidth />
-      <Field name="track" component={TextField} label="Track" fullWidth />
-      <Field name="interval" component={TextField} label="Interval" fullWidth />
     </>
   );
 }
@@ -536,8 +561,8 @@ function NotificationTriggerCollectionType(props) {
   const name = props?.id || 'notificationDocument.trigger.collection';
   let initialvalue;
   if (dirty) {
-    const item = valueSelector(name);
-    initialvalue = item && Object.keys(item)[0];
+    const collection = valueSelector(name);
+    initialvalue = collection && Object.keys(collection)[0];
   } else {
     const { notificationDocument = {} } = initialValues;
     const { trigger = {} } = notificationDocument;
@@ -667,7 +692,7 @@ function NotificationJobTriggerType(props) {
         <MenuItem value="update">Update</MenuItem>
         <MenuItem value="create">Create</MenuItem>
         <MenuItem value="stop">Stop</MenuItem>
-        <MenuItem value="finish">Finish</MenuItem>
+        <MenuItem value="finished">Finished</MenuItem>
         <MenuItem value="fail">Fail</MenuItem>
       </StatefulSelect>
       <FormSection name="filter" component={NotificationJobTriggerFilterType} />

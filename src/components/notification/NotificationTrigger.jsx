@@ -153,6 +153,8 @@ function StorageTriggerType({ trigger: { storage } }) {
     triggerAction = 'create';
   } else if ('delete' in storage) {
     triggerAction = 'delete';
+  } else if ('modify' in storage) {
+    triggerAction = 'modify';
   }
   return <TextGrid title="Trigger Action" value={triggerAction} />;
 }
@@ -169,6 +171,8 @@ function FileTriggerType({ trigger: { file } }) {
     triggerAction = 'close';
   } else if ('delete' in file) {
     triggerAction = 'delete';
+  } else if ('lost' in file) {
+    triggerAction = 'lost';
   }
   return <TextGrid title="Trigger Action" value={triggerAction} />;
 }
@@ -227,8 +231,22 @@ function DocumentTriggerType({ trigger: { document } }) {
     triggerAction = 'create';
   } else if ('delete' in document) {
     triggerAction = 'delete';
+  } else if ('modify' in document) {
+    triggerAction = 'modify';
   }
-  return <TextGrid title="Trigger Action" value={triggerAction} />;
+  return (
+    <>
+      <TextGrid title="Trigger Action" value={triggerAction} />
+      {triggerAction === 'modify' && (
+        <>
+          <TextGrid title="Field" value={document?.modify?.field} />
+          <TextGrid title="Language" value={document?.modify?.language} />
+          <TextGrid title="Track" value={document?.modify?.track} />
+          <TextGrid title="Interval" value={document?.modify?.interval} />
+        </>
+      )}
+    </>
+  );
 }
 
 function DeletionLockTriggerType({ trigger: { deletionLock } }) {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -38,16 +38,14 @@ function FilterTextField({
     const filterOptions = fuzzySearch(newValue, options, minScore, optionsKey);
     onChangeOptions(filterOptions);
   }, DEBOUNCE_WAIT);
-  const onChange = (event) => {
-    setValue(event.target.value);
-    const newValue = event?.target?.value;
-    onFilter(newValue);
-  };
+  const onChange = (event) => setValue(event.target.value);
   const onReset = () => {
     setValue('');
     onFilter('');
   };
-
+  useEffect(() => {
+    onFilter(value);
+  }, [onFilter, value, options]);
   return (
     <TextField
       placeholder="Search"

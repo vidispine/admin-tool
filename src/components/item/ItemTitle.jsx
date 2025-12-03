@@ -59,6 +59,7 @@ function ItemTitle({
   breadcrumbList,
   createShapeModal,
   createSequenceModal,
+  createSubclipModal,
   analyzeModal,
   ...props
 }) {
@@ -149,6 +150,9 @@ function ItemTitle({
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: createSequenceModal })}>
               <Typography>Create Sequence</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => onOpen({ modalName: createSubclipModal })}>
+              <Typography>Create Subclip</Typography>
             </MenuItem>
             <MenuItem onClick={() => onOpen({ modalName: exportModal })}>
               <Typography>Export</Typography>
