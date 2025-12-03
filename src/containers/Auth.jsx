@@ -173,7 +173,8 @@ class Auth extends Component {
     const baseURL = propsBaseURL.replace(/\/+$/, '');
     const { cookies } = this.props;
     cookies.set(AUTH_VIDISPINE_SERVER_URL, baseURL, { path: APP_BASENAME });
-    if (this.windowVidispineUrl !== baseURL) this.useDevProxy = false;
+    if (this.windowVidispineUrl !== undefined && this.windowVidispineUrl !== baseURL)
+      this.useDevProxy = false;
     if (this.useContainerProxy) {
       api.defaultClient.defaults.headers[PROXY_HEADER] = baseURL;
       api.defaultClient.defaults.baseURL = window.location.origin;

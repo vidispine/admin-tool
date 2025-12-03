@@ -96,11 +96,19 @@ export function onGetUserToken(form, dispatch, props) {
   if (bearer) {
     headerProps.authorization = bearer.startsWith('Bearer ') ? bearer : `'Bearer ${bearer}`;
   }
-  if (token) {
-    return onWhoAmI(form, dispatch, props);
-  }
   const baseURL = formBaseURL.replace(/\/+$/, '');
   const proxyURL = useContainerProxy || useDevProxy ? undefined : baseURL;
+
+  if (token) {
+    return onWhoAmI(form, dispatch, props).then(({ userName }) => ({
+      data: token,
+      userName,
+      runAs,
+      baseURL,
+      token,
+    }));
+  }
+
   const userName = props.userName || form.userName || headers.username;
   return UserApi.getUserToken({
     username: userName,
